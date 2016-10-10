@@ -1,0 +1,16 @@
+E:\马驰骋\XcpNet\XcpClient.Update\bin\Debug\update.exe.config
+E:\马驰骋\XcpNet\XcpClient.Update\bin\Debug\update.exe
+E:\马驰骋\XcpNet\XcpClient.Update\bin\Debug\update.pdb
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Debug\XcpClient.Update.Properties.Resources.resources
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Debug\XcpClient.Update.csproj.GenerateResource.Cache
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Debug\update.exe
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Debug\update.pdb
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Debug\XcpClient.Update.csprojResolveAssemblyReference.cache
+E:\Project\XcpNet\XcpClient.Update\bin\Debug\update.exe.config
+E:\Project\XcpNet\XcpClient.Update\bin\Debug\update.exe
+E:\Project\XcpNet\XcpClient.Update\bin\Debug\update.pdb
+E:\Project\XcpNet\XcpClient.Update\obj\Debug\XcpClient.Update.csprojResolveAssemblyReference.cache
+E:\Project\XcpNet\XcpClient.Update\obj\Debug\XcpClient.Update.Properties.Resources.resources
+E:\Project\XcpNet\XcpClient.Update\obj\Debug\XcpClient.Update.csproj.GenerateResource.Cache
+E:\Project\XcpNet\XcpClient.Update\obj\Debug\update.exe
+E:\Project\XcpNet\XcpClient.Update\obj\Debug\update.pdb

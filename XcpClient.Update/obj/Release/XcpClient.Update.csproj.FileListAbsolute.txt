@@ -1,0 +1,8 @@
+E:\马驰骋\XcpNet\XcpClient.Update\bin\Release\update.exe.config
+E:\马驰骋\XcpNet\XcpClient.Update\bin\Release\update.exe
+E:\马驰骋\XcpNet\XcpClient.Update\bin\Release\update.pdb
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Release\XcpClient.Update.csprojResolveAssemblyReference.cache
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Release\XcpClient.Update.Properties.Resources.resources
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Release\XcpClient.Update.csproj.GenerateResource.Cache
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Release\update.exe
+E:\马驰骋\XcpNet\XcpClient.Update\obj\Release\update.pdb

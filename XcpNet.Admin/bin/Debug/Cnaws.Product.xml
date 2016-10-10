@@ -1,0 +1,1899 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cnaws.Product</name>
+    </assembly>
+    <members>
+        <member name="T:Cnaws.Product.Controllers.Bought">
+            <summary>
+            买到的宝贝
+            </summary>
+        </member>
+        <member name="T:Cnaws.Product.Logistics.ExpressQuery">
+            <summary>
+            快递查询
+            </summary>
+        </member>
+        <member name="M:Cnaws.Product.Logistics.ExpressQuery.QueryReturnJson(System.String,System.String)">
+            <summary>
+            查询
+            </summary>
+            <param name="com">快递公司代码</param>
+            <param name="nu">快递单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Logistics.ExpressQuery.Query(System.String,System.String)">
+            <summary>
+            查询
+            </summary>
+            <param name="com">快递公司代码</param>
+            <param name="nu">快递单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Logistics.ExpressQuery.Query(Cnaws.Data.DataSource,System.String,Cnaws.Product.Modules.ProductLogistics@)">
+            <summary>
+            查询
+            </summary>
+            <param name="ds"></param>
+            <param name="orderId">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="T:Cnaws.Product.Logistics.ExpressInfo">
+            <summary>
+            快递信息
+            </summary>
+        </member>
+        <member name="P:Cnaws.Product.Logistics.ExpressInfo.com">
+            <summary>
+            物流公司编号
+            </summary>
+        </member>
+        <member name="P:Cnaws.Product.Logistics.ExpressInfo.nu">
+            <summary>
+            物流单号
+            </summary>
+        </member>
+        <member name="P:Cnaws.Product.Logistics.ExpressInfo.state">
+            <summary>
+            快递单当前的状态 ：　 
+            0：在途，即货物处于运输过程中
+            1：揽件，货物已由快递公司揽收并且产生了第一条跟踪信息
+            2：疑难，货物寄送过程出了问题
+            3：签收，收件人已签收
+            4：退签，即货物由于用户拒签、超区等原因退回，而且发件人已经签收
+            5：派件，即快递正在进行同城派件
+            6：退回，货物正处于退回发件人的途中
+            </summary>
+        </member>
+        <member name="P:Cnaws.Product.Logistics.ExpressInfo.status">
+            <summary>
+            查询结果状态： 
+            0：物流单暂无结果 
+            1：查询成功
+            2：接口出现异常
+            </summary>
+        </member>
+        <member name="P:Cnaws.Product.Logistics.ExpressInfo.data">
+            <summary>
+            快递信息明细
+            </summary>
+        </member>
+        <member name="T:Cnaws.Product.Logistics.ExpressInfoDetailed">
+            <summary>
+            快递信息明细
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Logistics.ExpressInfoDetailed.time">
+            <summary>
+            每条跟踪信息的时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Logistics.ExpressInfoDetailed.context">
+            <summary>
+            每条跟综信息的描述
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.EProductType.Routine">
+            <summary>
+            常规
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.EProductType.GroupBuy">
+            <summary>
+            团购
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.EProductType.PanicBuying">
+            <summary>
+            抢购
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.EProductType.Wholesale">
+            <summary>
+            批发
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.EProductType.Purchase">
+            <summary>
+            进货
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.OrderId">
+            <summary>
+            订单编号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.ProductId">
+            <summary>
+            产品编号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.ProductType">
+            <summary>
+            产品所属类型
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.CostPrice">
+            <summary>
+            当类型为固定价格时的结算价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.CountyId">
+            <summary>
+            省级加盟商Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.CountyPrice">
+            <summary>
+            县级加盟商应结算的钱
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.ParentId">
+            <summary>
+            上级介绍人Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.ParentPrice">
+            <summary>
+            上级介绍人应结算的钱
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.DotId">
+            <summary>
+            销售人的Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DifferenceSettlement.DotPrice">
+            <summary>
+            销售人应结算的钱
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DistributorState.NotApproved">
+            <summary>
+            未审核
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DistributorState.Approved">
+            <summary>
+            已审核
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DistributorState.ApprovedFailure">
+            <summary>
+            审核失败
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DistributorState.Deleted">
+            <summary>
+            已删除
+            </summary>
+        </member>
+        <member name="T:Cnaws.Product.Modules.Distributor">
+            <summary>
+            加盟商
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Consignee">
+            <summary>
+            收货人
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Mobile">
+            <summary>
+            收货人手机号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Level">
+            <summary>
+            等级
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Company">
+            <summary>
+            公司名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Images">
+            <summary>
+            证件图片，用“|”分隔
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Signatories">
+            <summary>
+            签约人
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.SignatoriesPhone">
+            <summary>
+            签约人联系电话
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Contact">
+            <summary>
+            负责人
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.ContactPhone">
+            <summary>
+            负责人联系电话
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Address">
+            <summary>
+            公司地址
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Longitude">
+            <summary>
+            经度
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.Latitude">
+            <summary>
+            纬度
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Distributor.CreationDate">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Distributor.GetAddressStr">
+            <summary>
+            实例方法，在前台可以直接调用，查询地址信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Distributor.GetContactByParent(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            根据父id获得当前子级的联系人
+            </summary>
+            <param name="ds"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Distributor.GetLevelByUserId(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            根据当前登录用户的ID查询他的加盟商级别
+            </summary>
+            <param name="ds"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Distributor.GetUserIdByParent(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            根据父id获得子id
+            </summary>
+            <param name="ds"></param>
+            <param name="parent"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightMapping.TemplateId">
+            <summary>
+            模板Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightMapping.Number">
+            <summary>
+            数量(重量和体积都*100)
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightMapping.Money">
+            <summary>
+            价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightMapping.StepNumber">
+            <summary>
+            增加数量(重量和体积都*100)
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightMapping.StepMoney">
+            <summary>
+            增加价格
+            </summary>
+        </member>
+        <member name="T:Cnaws.Product.Modules.FreightTemplate.ValuationType">
+            <summary>
+            计价方式
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.ValuationType.ThePrece">
+            <summary>
+            按件计价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.ValuationType.Weight">
+            <summary>
+            按重量计价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.ValuationType.Volume">
+            <summary>
+            按体积计价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.SellerId">
+            <summary>
+            卖家Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.Name">
+            <summary>
+            模板名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.Province">
+            <summary>
+            发货省
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.City">
+            <summary>
+            发货市
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.County">
+            <summary>
+            发货区
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.Type">
+            <summary>
+            计价方式
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.LogisticsCompany">
+            <summary>
+            快递公司
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.Number">
+            <summary>
+            默认数量(重量和体积都*100)
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.Money">
+            <summary>
+            默认价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.StepNumber">
+            <summary>
+            默认增加数量(重量和体积都*100)
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.StepMoney">
+            <summary>
+            默认增加价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightTemplate.EditTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.CategoryId">
+            <summary>
+            分类Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.Image">
+            <summary>
+            图片，以“|”分割
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.Content">
+            <summary>
+            正文
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.Keywords">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.Count">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProduct.Approved">
+            <summary>
+            是否审核
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.ProductId">
+            <summary>
+            商品Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.LuckNum">
+            <summary>
+            幸运号码
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.Address">
+            <summary>
+            收货地址
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.CreationDate">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.DeliveryDate">
+            <summary>
+            发货时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductNumber.ReceiptDate">
+            <summary>
+            成交时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.ProductId">
+            <summary>
+            商品Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.ProductNum">
+            <summary>
+            期数
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.OrderNum">
+            <summary>
+            订单号码
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.Address">
+            <summary>
+            收货地址
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.Ip">
+            <summary>
+            Ip地址
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.IpAddress">
+            <summary>
+            Ip地址
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OneProductOrder.CreationDate">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.ProductId">
+            <summary>
+            产品Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.Province">
+            <summary>
+            省Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.City">
+            <summary>
+            市Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.County">
+            <summary>
+            区/县Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.CostPrice">
+            <summary>
+            成本价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.CountyPrice">
+            <summary>
+            县级成本价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.DotPrice">
+            <summary>
+            网点成本价//(进货宝)网点进货价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.Price">
+            <summary>
+            零售价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAreaMapping.Saled">
+            <summary>
+            是否销售中
+            </summary>
+        </member>
+        <member name="T:Cnaws.Product.Modules.ProductBrand">
+            <summary>
+            品牌
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.Name">
+            <summary>
+            品牌名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.FirstChar">
+            <summary>
+            首字母
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.CategoryId">
+            <summary>
+            分类Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.Logo">
+            <summary>
+            品牌LOGO
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.Recommend">
+            <summary>
+            是否推荐
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.Screen">
+            <summary>
+            是否为筛选项
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.SortNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductBrand.Approved">
+            <summary>
+            是否审核
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightType.Fix">
+            <summary>
+            固定价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.FreightType.Template">
+            <summary>
+            运费模板
+            </summary>
+        </member>
+        <member name="T:Cnaws.Product.Modules.ProductState">
+            <summary>
+            产品状态
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductState.Saved">
+            <summary>
+            仓库中
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductState.Sale">
+            <summary>
+            出售中
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductState.BeforeSale">
+            <summary>
+            准备上架
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductState.BeforeSaved">
+            <summary>
+            准备下架
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductState.Deleted">
+            <summary>
+            已删除
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DiscountState.None">
+            <summary>
+            无优惠
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DiscountState.Approval">
+            <summary>
+            审核中
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.DiscountState.Activated">
+            <summary>
+            已激活
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderBy.SaleDesc">
+            <summary>
+            销量
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderBy.ViewDesc">
+            <summary>
+            人气
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderBy.PriceAsc">
+            <summary>
+            价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.SupplierId">
+            <summary>
+            卖家Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.ParentId">
+            <summary>
+            系列Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.CategoryId">
+            <summary>
+            分类Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.BrandId">
+            <summary>
+            品牌Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Image">
+            <summary>
+            图片，以“|”分割
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Content">
+            <summary>
+            正文
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Keywords">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Description">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.BarCode">
+            <summary>
+            条形码
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Inventory">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.InventoryAlert">
+            <summary>
+            库存预警
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.CostPrice">
+            <summary>
+            成本价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.CountyPrice">
+            <summary>
+            县级成本价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.DotPrice">
+            <summary>
+            网点成本价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Price">
+            <summary>
+            单价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.MarketPrice">
+            <summary>
+            市场价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.DiscountState">
+            <summary>
+            优惠状态
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.DiscountPrice">
+            <summary>
+            优惠价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Discount">
+            <summary>
+            折扣,自动生成
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.DiscountBeginTime">
+            <summary>
+            优惠开始时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.DiscountEndTime">
+            <summary>
+            优惠结束时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Wholesale">
+            <summary>
+            能否批发
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.WholesalePrice">
+            <summary>
+            批发价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.WholesaleCount">
+            <summary>
+            起批数量
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.WholesaleDiscount">
+            <summary>
+            折扣,自动生成
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.FreightType">
+            <summary>
+            运费类型
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.FreightMoney">
+            <summary>
+            固定运费价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.FreightTemplate">
+            <summary>
+            运费模板Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.HasReceipt">
+            <summary>
+            是否开增值税发票
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.State">
+            <summary>
+            发布类型
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.SaleTime">
+            <summary>
+            上架时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Recommend">
+            <summary>
+            推荐
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.CategoryBest">
+            <summary>
+            分类精选
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.CreationDate">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.StoreCategoryId">
+            <summary>
+            店铺分类Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.StoreSortNum">
+            <summary>
+            店铺内产品排序
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.StoreRecommend">
+            <summary>
+            店铺内产品推荐
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.StoreCategoryBest">
+            <summary>
+            店铺内产品分类推荐
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Settlement">
+            <summary>
+            结算方式
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.RoyaltyRate">
+            <summary>
+            当类型为提成时的提成率/100
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Norms">
+            <summary>
+            缓存产品规格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.ProductSupplier">
+            <summary>
+            产品供应商
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Weight">
+            <summary>
+            重量 
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.Volume">
+            <summary>
+            体积
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Product.SupplierType">
+            <summary>
+            供应类型1为本地供应,0为全国优选
+            </summary>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetSaleArea(Cnaws.Data.DataSource)">
+            <summary>
+            返回产品的销售地
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetStateWhereQueue">
+            <summary>
+            销售状态条件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetStateWhereQueue``1">
+            <summary>
+            销售状态条件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetAreaMappingWhereQueue(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            地区条件
+            </summary>
+            <param name="province"></param>
+            <param name="city"></param>
+            <param name="county"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetParentWhereQueue">
+            <summary>
+            父级为0的条件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetParentWhereQueue``1">
+            <summary>
+            父级为0的条件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetSerie(Cnaws.Data.DataSource)">
+            <summary>
+            获取产品属性名称
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetMapping(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            获取产品属性值
+            </summary>
+            <param name="ds"></param>
+            <param name="serieId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetChildren(Cnaws.Data.DataSource)">
+            <summary>
+            获取当前产品所有没有删除的子产品
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.RemoveToRecycleBin(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            删除产品到回收站
+            </summary>
+            <param name="ds"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.CreateCopy(Cnaws.Data.DataSource,System.Int64,System.Int64@)">
+            <summary>
+            增加子产品
+            </summary>
+            <param name="ds"></param>
+            <param name="parentId">主产品Id</param>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.DeleteChild(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            删除产品
+            </summary>
+            <param name="ds"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetSaleProduct(Cnaws.Data.DataSource,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            根据省市区和Id获取销售的产品
+            </summary>
+            <param name="ds"></param>
+            <param name="id"></param>
+            <param name="province"></param>
+            <param name="city"></param>
+            <param name="county"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetManufactorOrBrandGroupBy(Cnaws.Data.DataSource,System.Int32,System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            获取厂家或品牌团购
+            </summary>
+            <param name="ds"></param>
+            <param name="count"></param>
+            <param name="isBrade">是否是品牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetProductSalesCount(Cnaws.Data.DataSource)">
+            <summary>
+            获取商品销量总数
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetProductCommentCount(Cnaws.Data.DataSource)">
+            <summary>
+            获取商品评论总数
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetProductByProductId(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            通过产品Id查询产品信息
+            </summary>
+            <param name="ds"></param>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetProductListByXDGCategoryId(Cnaws.Data.DataSource,System.Int32,System.Int32,System.Int64,System.Int32,System.Int32)">
+            <summary>
+            通过乡道馆分类Id查询产品信息集合
+            </summary>
+            <param name="ds"></param>
+            <param name="XDGCategoryId"></param>
+            <param name="index"></param>
+            <param name="size"></param>
+            <param name="show"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetProduct(Cnaws.Data.DataSource,System.Int64,System.Int32)">
+            <summary>
+            通过乡道馆信息Id查询乡道馆首页推荐商品
+            </summary>
+            <param name="ds"></param>
+            <param name="userId">乡道馆Id</param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.Product.GetProductCount(Cnaws.Data.DataSource,System.Int32)">
+            <summary>
+            通过分类Id查询分类下面的商品总数
+            </summary>
+            <param name="ds"></param>
+            <param name="storeCategoryId">分类Id</param>
+            <returns></returns>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAttribute.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAttribute.CategoryId">
+            <summary>
+            分类Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAttribute.Screen">
+            <summary>
+            是否为筛选项
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductAttribute.SortNum">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductCart.GetPageByUser(Cnaws.Data.DataSource,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            根据用户以及省市区获取购物车列表
+            </summary>
+            <param name="ds"></param>
+            <param name="userId"></param>
+            <param name="province"></param>
+            <param name="city"></param>
+            <param name="county"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductCategory.ShowLogo">
+            <summary>
+            显示品牌Logo还是文章
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductLogistics.OrderId">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductLogistics.ProviderKey">
+            <summary>
+            快递名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductLogistics.ProviderName">
+            <summary>
+            快递名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductLogistics.BillNo">
+            <summary>
+            快递单号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductLogistics.ProviderDetailed">
+            <summary>
+            快递明细
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Invalid">
+            <summary>
+            交易关闭
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Perfect">
+            <summary>
+            等待完善
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Payment">
+            <summary>
+            等待付款
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Delivery">
+            <summary>
+            等待发货
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Receipt">
+            <summary>
+            等待收货
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.OutWarehouse">
+            <summary>
+            出库中
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Finished">
+            <summary>
+            交易完成
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.PreRefund">
+            <summary>
+            申请退款
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.PreReturn">
+            <summary>
+            等待退货发货
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Return">
+            <summary>
+            退货已发货
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.OrderState.Refund">
+            <summary>
+            退款成功
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.RefundType.Refund">
+            <summary>
+            仅退款
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.RefundType.Return">
+            <summary>
+            退货
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.Id">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.SupplierId">
+            <summary>
+            供应商Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.ParentId">
+            <summary>
+            主订单Id号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.ShopId">
+            <summary>
+            分销商Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.Province">
+            <summary>
+            省
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.City">
+            <summary>
+            市
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.County">
+            <summary>
+            区
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.State">
+            <summary>
+            订单状态
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.Payment">
+            <summary>
+            支付方式
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.FreightMoney">
+            <summary>
+            运费
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.TotalMoney">
+            <summary>
+            总金额
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.Address">
+            <summary>
+            收货地址
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.Message">
+            <summary>
+            买家留言
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.CreationDate">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.PaymentDate">
+            <summary>
+            付款时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.DeliveryDate">
+            <summary>
+            发货时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.ReceiptDate">
+            <summary>
+            成交时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.RefundType">
+            <summary>
+            退款类型
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.RefundId">
+            <summary>
+            退款原因
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.RefundMoney">
+            <summary>
+            退款金额
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.RefundSummary">
+            <summary>
+            退款说明
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.RefundImage">
+            <summary>
+            退款图片
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.PreRefundDate">
+            <summary>
+            退款时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.ReturnDate">
+            <summary>
+            退货发货时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.RefundDate">
+            <summary>
+            退货成功时间（结算时间-有售后情况下会延长）
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrder.Channel">
+            <summary>
+            1为普通订单、2为乡道馆
+            </summary>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductOrder.GetFreight(Cnaws.Data.DataSource,System.Int32,System.Int32)">
+            <summary>
+            查询运费
+            </summary>
+            <param name="ds"></param>
+            <param name="orderId"></param>
+            <param name="provice"></param>
+            <param name="city"></param>
+            <param name="total"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductOrder.AutomaticReceipt(Cnaws.Data.DataSource)">
+            <summary>
+            自动确认收货
+            </summary>
+            <param name="ds"></param>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductOrder.GetStateText(Cnaws.Product.Modules.OrderState)">
+            <summary>
+            获取订单状态字符
+            </summary>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductOrder.UpdateParentId(Cnaws.Data.DataSource,System.String,System.String)">
+            <summary>
+            修改订单的父订单号
+            </summary>
+            <param name="ds"></param>
+            <param name="orderid"></param>
+            <param name="neworderid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductOrder.GetAjaxPageByUserAndStateApi2(Cnaws.Data.DataSource,System.Int64,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            2.0版本根据用户获取订单列表(包含产品)
+            </summary>
+            <param name="ds"></param>
+            <param name="userId"></param>
+            <param name="state"></param>
+            <param name="index"></param>
+            <param name="size"></param>
+            <param name="show"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductOrder.SearchOrder(Cnaws.Data.DataSource,System.Int64,System.String,System.Int64,System.Int32,System.Int32,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            根据订单号，商品名称，下单时间以及状态搜索
+            </summary>
+            <param name="ds"></param>
+            <param name="userId"></param>
+            <param name="state"></param>
+            <param name="index"></param>
+            <param name="size"></param>
+            <param name="show"></param>
+            <param name="queryText"></param>
+            <param name="startDate"></param>
+            <param name="endDate"></param>
+            <param name="channel"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.Province">
+            <summary>
+            省
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.City">
+            <summary>
+            市
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.County">
+            <summary>
+            区
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.Price">
+            <summary>
+            单价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.Count">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.TotalMoney">
+            <summary>
+            总金额
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.Evaluation">
+            <summary>
+            是否评价
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.ProductTitle">
+            <summary>
+            产品标题
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.ProductInfo">
+            <summary>
+            产品信息
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.IsService">
+            <summary>
+            是否申请售后
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderMapping.AfterSalesOrderId">
+            <summary>
+            售后订单号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.EProductType.Routine">
+            <summary>
+            常规
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.EProductType.GroupBuy">
+            <summary>
+            团购
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.EProductType.PanicBuying">
+            <summary>
+            抢购
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.EProductType.Wholesale">
+            <summary>
+            批发
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.EProductType.Purchase">
+            <summary>
+            进货
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.OrderId">
+            <summary>
+            订单编号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.ProductId">
+            <summary>
+            产品编号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.ProductType">
+            <summary>
+            产品所属类型
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.Settlement">
+            <summary>
+            结算方式
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.RoyaltyRate">
+            <summary>
+            当类型为提成时的提成率/100
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.CostPrice">
+            <summary>
+            当类型为固定价格时的结算价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.ProvinceUserId">
+            <summary>
+            省级加盟商Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.ProvinceRoyaltyRate">
+            <summary>
+            省级加盟商提成率/100
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.CountyUserId">
+            <summary>
+            县级加盟商Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.CountyRoyaltyRate">
+            <summary>
+            县级加盟商提成率/100
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.ParentId">
+            <summary>
+            上级介绍人Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.ParentRoyaltyRate">
+            <summary>
+            上级介绍人提成率/100
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.SaleId">
+            <summary>
+            销售人的Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductOrderSettlement.SaleRoyaltyRate">
+            <summary>
+            销售人的提成率/100
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductSalesArea.ProductId">
+            <summary>
+            产品Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductSalesArea.Province">
+            <summary>
+            省Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductSalesArea.City">
+            <summary>
+            市Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductSalesArea.County">
+            <summary>
+            区/县Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.ProductSerie.ProductId">
+            <summary>
+            产品Id
+            </summary>
+        </member>
+        <member name="M:Cnaws.Product.Modules.ProductSerie.Exists(Cnaws.Data.DataSource,System.Int64,System.String)">
+            <summary>
+            是否存在相同属性
+            </summary>
+            <param name="ds"></param>
+            <param name="productId"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cnaws.Product.Modules.Serie">
+            <summary>
+            系列
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreAttribute.SerieId">
+            <summary>
+            系列Id
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreAttribute.SerieName">
+            <summary>
+            规格名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreAttribute.AttributorValue">
+            <summary>
+            规格对应的值用'|'隔开
+            </summary>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.GetXDGCategoryByCategoryId(Cnaws.Data.DataSource,System.Int32)">
+            <summary>
+            通过分类Id查询乡道馆分类
+            </summary>
+            <param name="ds"></param>
+            <param name="categoryId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.GetXDGCategoryOne(Cnaws.Data.DataSource,System.Int64)">
+            <summary>
+            通过用户Id查询乡道馆一级分类集合
+            </summary>
+            <param name="ds"></param>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.GetXDGCategory(Cnaws.Data.DataSource,System.Int64,System.Int64)">
+            <summary>
+            通过用户Id查询乡道馆一级分类集合
+            </summary>
+            <param name="ds"></param>
+            <param name="userId"></param>
+            <param name="parentid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.GetXDGCategoryTwo(Cnaws.Data.DataSource)">
+            <summary>
+            通过分类Id查询乡道馆二级分类集合
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.GetParentCategory(Cnaws.Data.DataSource)">
+            <summary>
+            通过父分类Id查询一级分类
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.GetProductCount(Cnaws.Data.DataSource)">
+            <summary>
+            通过分类Id查询分类下面的商品总数
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.GetProduct(Cnaws.Data.DataSource,System.Int32,System.Int32)">
+            <summary>
+            通过分类Id查询分类下面的商品集合
+            </summary>
+            <param name="ds"></param>
+            <param name="pageIndex"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.Delete(Cnaws.Data.DataSource)">
+            <summary>
+            删除分类
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Cnaws.Product.Modules.StoreCategory.Update(Cnaws.Data.DataSource)">
+            <summary>
+            修改分类
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreInfo.StoreName">
+            <summary>
+            店铺、乡道馆名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreInfo.StoreLogo">
+            <summary>
+            店铺、乡道馆Logo
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreInfo.StoreSlogan">
+            <summary>
+            店铺、乡道馆口号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreInfo.StoreNotice">
+            <summary>
+            店铺、乡道馆公告内容
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreInfo.StoreExplain">
+            <summary>
+            店铺、乡道馆简介
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreInfo.StoreBusinessLicense">
+            <summary>
+            店铺、乡道馆营业执照
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreSerie.UserId">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreSerie.Name">
+            <summary>
+            系列名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreSerie.IsDefault">
+            <summary>
+            是否默认
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.StoreSerie.CreationDate">
+            <summary>
+            创健时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SupplierState.NotPaid">
+            <summary>
+            未支付
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SupplierState.Incomplete">
+            <summary>
+            未完善
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SupplierState.NotApproved">
+            <summary>
+            未审核
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SupplierState.ApprovedFailure">
+            <summary>
+            审核失败
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SupplierState.Expired">
+            <summary>
+            已过期
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SupplierState.Approved">
+            <summary>
+            已审核
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SupplierState.Deleted">
+            <summary>
+            已删除
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SettlementType.Fixed">
+            <summary>
+            固定价格
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.SettlementType.Royalty">
+            <summary>
+            提成
+            </summary>
+        </member>
+        <member name="T:Cnaws.Product.Modules.Supplier">
+            <summary>
+            供应商
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Subjection">
+            <summary>
+            隶属加盟商
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Level">
+            <summary>
+            等级
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.SupplierType">
+            <summary>
+            供应商类型1为本地供应商,0为全国供应商
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Company">
+            <summary>
+            公司名称
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Images">
+            <summary>
+            证件图片，用“|”分隔
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Signatories">
+            <summary>
+            签约人
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.SignatoriesPhone">
+            <summary>
+            签约人联系电话
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Contact">
+            <summary>
+            负责人
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.ContactPhone">
+            <summary>
+            负责人联系电话
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Address">
+            <summary>
+            公司地址
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Categories">
+            <summary>
+            行业，用“,”分隔
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.IsActivityFree">
+            <summary>
+            是否开启邮费活动
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.ActivityCondition">
+            <summary>
+            活动条件（满足条件则开启邮费活动）
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.ActivityFree">
+            <summary>
+            满足条件后的活动邮费
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Products">
+            <summary>
+            主营产品
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Money">
+            <summary>
+            保证金
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.CreationDate">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Year">
+            <summary>
+            签约年限
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Settlement">
+            <summary>
+            结算方式
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.RoyaltyRate">
+            <summary>
+            提成率
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.Message">
+            <summary>
+            消息提示
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="F:Cnaws.Product.Modules.Supplier.MinOrderPrice">
+            <summary>
+            店铺最小订单金额（仅使用进货宝,满足条件才能下单）
+            </summary>
+        </member>
+    </members>
+</doc>
