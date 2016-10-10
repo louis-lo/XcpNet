@@ -1,0 +1,53 @@
+<link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cph.pc.nav.min.css')">
+$if(this.Application.Action.StartsWith("category."))
+$set(Channel=CategoryList[0].Id)
+$elseif(this.Application.Action.StartsWith("discount."))
+$set(Channel=-2)
+$else
+$set(Channel=-1)
+$end
+<div class="centerNav_left  fl">
+    <ul class="centerNav_leftUl">
+        $foreach(root in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+        <li class="centerList_one centerList_li">
+            <div>
+                <a class="centerList_a" href="$url('/category/list/',root.Id)">$root.Name</a>
+                <span></span>
+            </div>
+            <div class="secondLevel_classify undis">
+                $foreach(parent in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,root.Id))
+                <div class="secondLevel_classifyUl clearFix">
+                    <div class="secondLevel_li fl">
+                        <a class="fb" href="$url('/category/list/',parent.Id)">$parent.Name</a>
+                    </div>
+                    <div class="secondLevel_link fl">
+                        <ul class="clearFix">
+                            $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,parent.Id))
+                            <li><a href="$url('/category/list/',child.Id)">$child.Name</a></li>
+                            $end
+                        </ul>
+                    </div>
+                </div>
+                $end
+            </div>
+        </li>
+        $end
+    </ul>
+</div>
+<script>
+    $if(this.Application.ControllerName.ToLower()!="index")
+    var cateContainer = $('#cateContainer'), cates = cateContainer.find('div.centerNav_left');
+
+    cates.hide();
+
+    cateContainer.mouseover(function () {
+        cates.show();
+    }).mouseleave(function () {
+        cates.hide();
+    });
+
+    cates.mouseover(function () {
+        cates.show();
+    });
+    $end;
+</script>

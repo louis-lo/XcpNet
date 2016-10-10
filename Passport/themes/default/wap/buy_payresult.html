@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/wechat_payment.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <style>
+
+    </style>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar_nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    $if(State==0)
+                    支付失败
+                    $else
+                    支付成功
+                    $end
+                </div>
+            </div>
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <div class="Paymentsuccess_content">
+                    <div class="Paymentsuccess_icon">
+                        <span class="$if(State!!0)Payment_failIcon${else}Payment_successIcon$end"></span>
+                    </div>
+                    <h3>
+                        $if(State!!0)
+                        订单支付失败！$Msg
+                        $else
+                        订单支付成功！
+                        $end
+                    </h3>
+                    <!--<h3 style="margin-bottom:1rem;">待支付：<span class="col_e01928">￥240.00</span></h3>-->
+                    <a class="Paymentfailure col_fff" style="background:#c7c7c7;margin-right:.5rem" href="$Site.SupplierUrl$url('/shop/order')">取消</a>
+                    $if(Result!=null)
+                    $if(OrderType==1)
+                    <a href="$url('/buy/status/',OrderId)" class="Paymentfailure col_fff">查看订单详情</a>
+                    $elseif(OrderType==5)
+                    <a href="$Site.SupplierUrl$url('/shop/status/',OrderId)" class="Paymentfailure col_fff">查看订单详情</a>
+                    $else
+                    <a href="$Site.SupplierUrl$url('/shop/order')" class="Paymentfailure col_fff">查看我的订单</a>
+                    $end
+                    $else
+                    <a href="$Site.SupplierUrl$url('/shop/order')" class="Paymentfailure col_fff">查看我的订单</a>
+                    $end
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<title>城品 - $Site.Title</title>
+    <meta name="keywords" content="城品,工业品,$Site.Keywords">
+    <meta name="description" content="城品频道,工业品频道,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css/base_02.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/index_02.css')">
+    <style type="text/css">
+	/* BEGIN main */
+	.main {
+		margin-top: 10px;
+	}
+
+	.main-goods .panel-header {
+		position: relative;
+	}
+	/* BEGIN main-goods sort */
+	.main-goods .sort{
+		position: absolute;
+		top: 5px;
+		left: 8px;
+		width: 202px;
+		height: 31px;
+		line-height: 31px;
+		border: 2px solid #D0CCC7;
+		border-left: 0;
+	}
+	.main-goods .sort a {
+		display: block;
+		float: left;
+		padding-left: 10px;
+		padding-right: 10px;
+		background:#FFF;
+		border-left: 2px solid #D0CCC7;
+	}
+	.main-goods .sort a.active {
+		color: #FFF;
+		background-color: #FC2529;
+	}
+
+	.main-goods .address {
+		position: absolute;
+		left: 300px;
+		width: 250px;
+	}
+	.main-goods .address select {
+		width: 60px;
+		height: 30px;
+		line-height: 30px;
+		background-color: #FFF;
+	}
+	/* END main-goods sort */
+
+	/* BEGIN main-goods */
+	.main-goods {
+		width: 996px;
+		border: 1px solid #ECEBE9;
+	}
+	.main-goods .panel-header {
+		height: 46px;
+		line-height: 46px;
+		background-color: #F2F1EF;
+		border-bottom: 1px solid #EAE4E5;
+	}
+	.main-goods .panel-body {
+		padding-bottom: 35px;
+	}
+	.main-goods .panel-body li {
+		width: 229px;
+		margin-top: 35px;
+		padding-left: 10px;
+		padding-right: 10px;
+		float: left;
+	}
+	.main-goods .panel-body li img {
+		width: 229px;
+		height: 229px;
+	}
+	.main-goods .panel-body li p,
+	.main-goods .panel-body li h3 {
+		margin-top: 15px;
+	}
+	.main-goods .panel-body li p {
+		font-size: 14px;
+		color: #FC2529;
+		font-weight: bold;
+	}
+	.main-goods .panel-body li h3 {
+		height: 36px;
+		line-height: 1.5;
+		font-weight: normal;
+	}
+    .main-goods .panel-body li h3.supplier{
+        background: url($res('img/supplier.png')) top left no-repeat;
+        padding-left: 24px;
+    }
+
+	/* BEGIN panel-footer */
+	.panel-footer {
+		padding-right: 15px;
+		padding-bottom: 35px;
+	}
+	.pagination {
+		float: right;
+	}
+	.pagination li {
+		float: left;
+		margin-left: 5px;
+	}
+	.pagination a {
+		display: block;
+		width: auto;
+		height: 30px;
+		padding-left: 5px;
+		padding-right: 5px;
+		line-height: 30px;
+		min-width: 20px;
+		text-align: center;
+		background-color: #FAFAF9;
+		border: 1px solid #DBD8D3;
+	}
+	.pagination a.active {
+		color: #FF0000;
+		font-weight: bold;
+		background-color: #FFF;
+	}
+	/* END panel-footer */
+	/* END main-goods */
+	
+	/* BEGIN aside-goods */
+	.aside-goods {
+		width: 148px;
+		padding-left: 20px;
+		padding-right: 20px;
+		border: 1px solid #ECEBE9;
+	}
+	.aside-goods img {
+		display: block;
+		width: 148px;
+	}
+	.aside-goods .panel-header {
+		height: 35px;
+		line-height: 35px;
+	}
+	.aside-goods .panel-header h2 {
+		font-size: 14px;
+	}
+	.aside-goods .panel-body {
+		padding-bottom: 25px;
+	}
+	.aside-goods .panel-body img,
+	.aside-goods .panel-body p,
+	.aside-goods .panel-body h3 {
+		margin-top: 10px;
+	}
+	.aside-goods .panel-body h3 {
+		font-weight: normal;
+		line-height: 1.3;
+	}
+	.aside-goods .panel-body .price {
+		font-size: 14px;
+		color: #FC2529;
+	}
+	.aside-goods .panel-body .comment span {
+		color: #005BA1;
+	}
+	/* END aside-goods */
+
+	/* END main */
+
+	/* BEGIN hot-brand */
+	.hot-brand {
+		margin-top: 20px;
+		border: 1px solid #EEEDEB;
+	}
+	.hot-brand .panel-header {
+		height: 35px;
+		line-height: 35px;
+	}
+	.hot-brand .panel-header h2 {
+		text-indent: 10px;
+		font-size: 14px;
+		font-weight: normal;
+	}
+	.hot-brand .panel-body {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.hot-brand .panel-body li {
+		float: left;
+		width: 226px;
+		padding-left: 37px;
+		padding-right: 37px;
+		text-align: center;
+	}
+	.hot-brand .panel-body li img {
+		display: block;
+		width: 226px;
+		height: 288px;
+	}
+	.hot-brand .panel-body li div,
+	.hot-brand .panel-body li p {
+		margin-top: 15px;
+	}
+	.hot-brand .panel-body li h3 {
+		display: inline-block;
+		width: 125px;
+		height: 12px;
+		font-weight: normal;
+		color: #333;
+		overflow: hidden;
+	}
+	.hot-brand .panel-body li p {
+		display: inline-block;
+		width: 130px;
+		height: 25px;
+		line-height: 25px;
+		text-align: center;
+		color: #F5D471;
+		border: 1px solid #F5D471;
+	}
+	/* END hot-brand */
+	</style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            $('#banner').jqxScrollView({ width: 738, height: 471, buttonsOffset: [0, 0], slideShow: true, slideDuration: 5000 });
+            $(".load-img").scaling(228, 228, errPic);
+            $(".load-img2").scaling(148, 148, errPic);
+            $(".load-img3").scaling(226, 226, errPic);
+        });
+    </script>
+</head>
+<body>
+    $load("../inc/top2.html")
+    $load("../inc/header2.html")
+    $set(filter=clr.Cnaws.Product.FilterParameters.Create(this.DataSource,0))
+    $set(filter=filter.LoadArguments(Arguments))
+    $set(data=clr.Cnaws.Product.Modules.Product.GetPageByParameters(this.DataSource,filter,20,11))
+    $set(ProductList=data.Data)
+	<!-- BEGIN main -->
+	<div class="container clearfix main">
+		<!-- BEGIN main-goods -->
+		<div class="f-right main-goods">
+			<div class="panel">
+				<div class="clearfix panel-header">
+					<div class="clearfix sort">
+						<a $if(filter.OrderBy==0)class="active"$end href="$url('/channel/mall',filter.CopyByOrderBy(0).ToString())">默认</a>
+                        $if(filter.OrderBy==1)
+                        <a class="active" href="$url('/channel/mall',filter.CopyByOrderBy(2).ToString())">销量↓</a>
+                        $elseif(filter.OrderBy==2)
+                        <a class="active" href="$url('/channel/mall',filter.CopyByOrderBy(1).ToString())">销量↑</a>
+                        $else
+                        <a href="$url('/channel/mall',filter.CopyByOrderBy(1).ToString())">销量↓</a>
+                        $end
+                        $if(filter.OrderBy==3)
+                        <a class="active" href="$url('/channel/mall',filter.CopyByOrderBy(4).ToString())">人气↓</a>
+                        $elseif(filter.OrderBy==4)
+                        <a class="active" href="$url('/channel/mall',filter.CopyByOrderBy(3).ToString())">人气↑</a>
+                        $else
+                        <a href="$url('/channel/mall',filter.CopyByOrderBy(3).ToString())">人气↓</a>
+                        $end
+                        $if(filter.OrderBy==5)
+                        <a class="active" href="$url('/channel/mall',filter.CopyByOrderBy(6).ToString())">价格↑</a>
+                        $elseif(filter.OrderBy==6)
+                        <a class="active" href="$url('/channel/mall',filter.CopyByOrderBy(5).ToString())">价格↓</a>
+                        $else
+                        <a href="$url('/channel/mall',filter.CopyByOrderBy(5).ToString())">价格↑</a>
+                        $end
+					</div>
+				</div>
+				<div class="panel-body">
+					<ul class="clearfix">
+						$foreach(product in ProductList)
+						<li>
+							<a href="$url('/product/info/',product.A.Id)" target="_blank">
+								<img class="img load-img" data-original="$product.A.GetImage()">
+								<p class="price">$product.A.GetSalePrice().ToString("C2")</p>
+								<h3 class="title ${if(product.Level>0)}supplier${end}">$product.A.Title</h3>
+							</a>
+						</li>
+						$end
+					</ul>
+				</div>
+				<div class="clearfix panel-footer">
+					<ul class="pagination">
+                        $if(ProductList.BeginPage>1)
+                        <li class="no"><a href="$url('/channel/mall',filter.CopyByPage(ProductList.PageIndex-1).ToString())">&lt;上一页</a></li>
+                        <li><a href="$url('/channel/mall',filter.CopyByPage(1).ToString())">1</a></li>
+                        <li>...</li>
+                        $end
+                        $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+                        $if(i==ProductList.PageIndex)
+                        <li><a href="javascript:void(0)" class="active">$i</a></li>
+                        $else
+                        <li><a href="$url('/channel/mall',filter.CopyByPage(i).ToString())">$i</a></li>
+                        $end
+                        $end
+                        $if(ProductList.PagesCount>ProductList.EndPage)
+                        <li>...</li>
+                        <li><a href="$url('/channel/mall',filter.CopyByPage(ProductList.PagesCount).ToString())">$ProductList.PagesCount</a></li>
+                        <li class="no"><a href="$url('/channel/mall',filter.CopyByPage(ProductList.PageIndex+1).ToString())">下一页&gt;</a></li>
+                        $end
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- END main-goods -->
+
+		<!-- BEGIN aside-goods  -->
+		<div class="f-left aside-goods">
+			<div class="panel">
+				<div class="clearfix panel-header">
+					<h2 class="f-left">热卖推荐</h2>
+				</div>
+				<div class="panel-body">
+                    $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopRecommend(this.DataSource,8))
+                    <a href="$url('/product/info/',product.Id)" target="_blank">
+                        <img class="img load-img2" data-original="$product.GetImage()">
+                        <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                        <h3 class="title">$product.Title</h3>
+                        <p class="comment"><!--已有<span>0</span>人评价--></p>
+                    </a>
+					$end
+				</div>
+			</div>
+		</div>
+		<!-- BEGIN aside-goods  -->
+	</div>
+	<!-- END main -->
+
+	<div class="container panel hot-brand">
+		<div class="panel-header"><h2>热卖品牌</h2></div>
+		<div class="panel-body">
+			<ul class="clearfix">
+                $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopHotByMonth(this.DataSource,4))
+				<li>
+					<a href="$url('/product/info/',product.Id)" target="_blank">
+						<img class="img load-img3" data-original="$product.GetImage()">
+						<div><h3 class="title">$product.Title</h3><span>$product.GetDiscount()</span>折起</div>
+						<p>立即抢购></p>
+					</a>
+				</li>
+                $end
+			</ul>
+		</div>
+	</div>
+
+    $load("../inc/footer2.html")
+</body>
+</html>

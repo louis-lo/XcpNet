@@ -1,0 +1,223 @@
+.main .panel {
+	padding: 28px;
+	border: 1px solid #E1E1E1;
+}
+.main .panel-body {
+	padding: 0;
+	background-color: #FAFAFA;
+	border: 1px solid #DDD;
+}
+
+/* BEGIN section-01 */
+.section-01 {
+	margin-top: 35px;
+	margin-left: 35px;
+	margin-right: 35px;
+}
+.section-01 span {
+	font-size: 24px;
+	color: #f47912;
+	font-weight: bold;
+	font-family: Arial;
+}
+.section-01 p {
+	margin-top: 15px;
+}
+.section-01 .f-left p {
+	padding-left: 35px;
+}
+.section-01 p.first {
+	height: 24px;
+	line-height: 24px;
+	font-size: 14px;
+	background: url(img/user/section_01.png) no-repeat left top;
+}
+.section-01 label {
+	color: #999;
+}
+/* END section-01 */
+
+/* BEGIN section-02 */
+.section-02 {
+	margin-top: 50px;
+	background-color: #FFF;
+	border-top: 1px solid #DDD;
+}
+.section-02 dt,
+.section-02 dd {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.section-02 dt {
+	padding-top: 22px;
+	padding-bottom: 22px;
+	padding-left: 60px;
+	font-size: 18px;
+	font-family: '\5FAE\8F6F\96C5\9ED1';
+	border-bottom: 1px dotted #DDD;
+	background-image: url(img/user/check.png);
+	background-repeat: no-repeat;
+	background-position: 25px 28px;
+	cursor:  pointer;
+}
+.section-02 dl.active {
+	outline:2px solid #FFC416;
+}
+.section-02 dl.active dt {
+	background-image: url(img/user/checked.png);
+}
+.section-02 dt span,
+.section-02 dt a {
+	font-size: 12px;
+}
+.section-02 span.price {
+	font-size: 24px;
+}
+.section-02 dt .price {
+	color: #f47912;
+}
+.section-02 dt a {
+	color: #f47912;
+}
+.section-02 dd {
+	display: none;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	height: 40px;
+	line-height: 40px;
+}
+.section-02 dd input {
+	width: 220px;
+	border-color: #F5BC17;
+}
+.section-02 dd strong {
+	font-weight: bold;
+	font-size: 18px;
+	color: #f47912;
+	font-family: arial;
+}
+.section-02 .btn-post {
+	float: right;
+	color: #FFF;
+	font-size: 24px;
+	width: 138px;
+	height: 38px;
+	line-height: 38px;
+	padding: 0;
+	margin-left: 25px;
+	text-decoration: none;
+}
+.section-02 dd a {
+	color: #ff6600;
+	text-decoration: underline;
+}
+/* END section-02 */
+
+/* BEGIN 弹出层 */
+.reveal-modal-bg { 
+	position: fixed; 
+	height: 100%;
+	width: 100%;
+	background: #000;
+	background: rgba(0,0,0,.8);
+	z-index: 100;
+	display: none;
+	top: 0;
+	left: 0; 
+}
+
+.reveal-modal {
+	visibility: hidden;
+	top: 100px; 
+	left: 50%;
+	margin-left: -300px;
+	width: 520px;
+	background: #eee no-repeat -200px -80px;
+	position: absolute;
+	z-index: 101;
+	padding: 30px 40px 34px;
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+	-box-shadow: 0 0 10px rgba(0,0,0,.4);
+}
+	
+.reveal-modal.small 		{ width: 200px; margin-left: -140px;}
+.reveal-modal.medium 		{ width: 400px; margin-left: -240px;}
+.reveal-modal.large 		{ width: 600px; margin-left: -340px;}
+.reveal-modal.xlarge 		{ width: 800px; margin-left: -440px;}
+
+.reveal-modal .close-reveal-modal {
+	font-size: 22px;
+	line-height: .5;
+	position: absolute;
+	top: 8px;
+	right: 11px;
+	color: #aaa;
+	text-shadow: 0 -1px 1px rbga(0,0,0,.6);
+	font-weight: bold;
+	cursor: pointer;
+} 
+
+
+/* 自定义 */
+.reveal-modal {
+	padding-top: 0;
+	border: 9px solid #E5E5E5;
+	border-radius: 2px;
+	padding-bottom: 100px;
+}
+.reveal-modal h2 {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 50px;
+	font-size: 14px;
+	text-align: center;
+	color: #333;
+	border-bottom: 1px dotted #E4DCD0; 
+}
+.reveal-modal .close-reveal-modal {
+	top: 30px;
+}
+.reveal-modal .modal-content {
+	width:300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.reveal-modal .modal-content p {
+	padding-left: 38px;
+}
+.modal-content-first {
+	margin-bottom: 15px;
+	font-size: 24px;
+	font-family: '\5FAE\8F6F\96C5\9ED1';
+	height: 28px;
+	line-height: 28px;
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+.modal-content-middle {
+	margin-bottom: 40px;
+}
+.modal-content-middle span {
+	font-size: 24px;
+	font-weight: bold;
+	font-family: Arial;
+}
+.modal-content a {
+	color: #f47912;
+	margin-left: 20px;
+}
+.reveal-modal .success {
+	background-image: url(img/user/success.png);
+}
+.reveal-modal .fail {
+	background-image: url(img/user/fail.png);
+}
+.close-reveal-modal {
+	width: 26px;
+	height: 26px;
+	text-indent: -9999px;
+	background: url(img/user/close.png) no-repeat left top;
+}
+/* END 弹出层 */

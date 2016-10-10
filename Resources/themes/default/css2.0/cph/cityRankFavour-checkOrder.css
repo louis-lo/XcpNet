@@ -1,0 +1,120 @@
+/* 右边 开始 */
+/* 中间 右边 开始*/
+.center_wrapRight{width: 995px;}
+.center_wrapRight h2{font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;padding:8px;}
+
+/* 交易提醒 */
+.myTransactionWarn{padding:8px 20px;border: 1px solid #f9dfb2;font-size: 14px;color: #666;margin-top: 10px;background: #ffffdd;}
+.myTransactionWarn ul li{float: left;padding: 0 15px;font-family: "宋体";font-size: 13px;}
+.myTransactionWarn ul li a{color:#666;}
+.myTransactionWarn .pitch a{color:#e31939;}
+.status li span{color:#e31939;}
+
+/* 状态 开始 */
+.orderstatusWrap{}
+/*  未付款 开始 */
+.obligationBox{margin-top: 20px;}
+.obligationWrap{padding: 5px 0;background: #eee;border:1px solid #e2e2e2;border-bottom:none;}
+.obligationWrap ul li{float: left;text-align: center;}
+.obligationWrap_heart{width: 317px;}
+.obligationWrap_nature{width: 100px;}
+.td_input_button{padding: 2px 5px 2px 5px;border: 1px solid #e31939;border-radius: 3px;color: #e31939;}
+.td_input_button_margin{margin-top:5px;}
+.obligationWrap_price{width: 90px;}
+.obligationWrap_number{width: 115px;}
+.obligationWrap_hj{width: 140px;}
+.obligationWrap_state{width: 131px;}
+.obligation_orderBh{background: #f5f5f5;padding-left: 5px;}
+.obligation_orderBh span{color:#e31939;padding-right: 20px;}
+.obligation_goodsWrap{background: #fff;padding: 0;}
+.obligation_goodsWrap ul li{border-right: 1px solid #e2e2e2;height: 70px;padding: 20px 0 0 0;}
+.obligation_goodsWrap ul li:last-child{border-right: none;}
+.obligation_goodsWrap ul .goods_heart a{display: block;}
+.orderGoods_print{border:1px solid #e2e2e2;margin-left: 6px;width: 50px;height: 55px;}
+.orderGoods_print img{width: 50px;height: 55px;}
+.orderGoods_ms{width: 240px;overflow: hidden;height: 40px;text-align: left;margin-top: -5px;margin-left: 10px; }
+.goods_nature p{text-align: left;margin-left: 20px;}
+.obligation_goodsWrap .goods_price{line-height: 55px;}
+.goods_price span{color:#e31939;font-size: 14px;}
+.goods_state a{color:#e31939;}
+.obligation_bottom{padding: 10px 30px;border:1px solid #e2e2e2;}
+.obligation_bottomRight{text-align: right;font-size: 13px;}
+.obligation_bottomRight i{font-style: normal;color: #e31939;}
+.obligation_bottomRight span{margin-left: 30px;padding-right: 40px;}
+.obligation_bottomRightOn span{padding-right: 0px;}
+.obligation_bottomRight span i{color: #e31939;font-size:22px;}
+.obligation_bottomRight a{background: #ccc;color: #fff;padding: 5px 10px;font-family: "simsun";}
+.obligation_bottomRight .oncePay{background:#e31939;margin-left: 10px; }
+/*  未付款 结束 */
+
+/*  完成 开始 */
+.shipments_order{margin-top: 20px;}
+.shipmentsGoods_ms{height: 60px;}
+.order_dataList td{text-align: center;border:1px solid #e2e2e2;}
+.shipments_heart a{display: block;height: 55px;padding: 20px 0;}
+.order_dataList .shipments_heart{}
+.order_dataList .shipmentsGoods_state{}
+.obligation_bottomNone{border:none;}
+.obligation_bottomRight .alert{margin-left: 85px;}
+.obligation_Right{margin-right: 160px;}
+/* 状态 结束 */
+/*搜索条件查询开始*/
+.ob_search{margin-top:20px;border:1px solid #e2e2e2;padding:10px;background-color: #fff;}
+.ob_search .search_header input{float:left;border: 1px solid #DBDBDB;font-size: 12px;padding: 3.5px;width: 250px;}
+.ob_search .search_header button:hover{cursor: pointer;}
+.ob_search .search_header .search_button_order{width: 80px;height: 25px;background: #F5F5F5;border: 1px solid #BFBFBF;border-left: 0px;}
+.ob_search .search_header .search_button_condition{height: 25px;background-color: #ffffff;border: 0px;border-left: 0px;}
+.ob_search .search_header .search_button_condition:hover{color:#e31939;}
+.ob_search .search_header .search_button_condition img{float: right;margin: 6px 6px;}
+.ob_search .search_header .search_button_condition span{font-size: 12px;}
+.ob_search .search_condition{display: none;}
+.ob_search .search_condition .search_condition_row{width: 100%;margin-top: 20px;}
+.ob_search .search_condition .search_condition_row .condition_row_box span,select{font-size: 13px;}
+.ob_search .search_condition .search_condition_row .condition_row_box input,select{border: 1px solid #e2e2e2;padding: 5px;}
+.ob_search .search_condition .search_condition_row .condition_row_box3{padding-left: 50px;}
+.ob_search .search_condition .search_condition_row .condition_row_box3 select{border:1px solid #e2e2e2;padding-right: 50px;}
+.ob_search .search_condition .search_condition_row .condition_row_box3 select option{padding:3px 10px 3px 10px;text-align: center;}
+.ob_search .search_condition .search_condition_row .condition_row_box3 select option:hover{background: #ff6632;}
+.sousuo_div input{background-color: #e31939;color: #fff;padding: 6px 12px;font-size: 13px;border-radius:3px;margin-left: 50px;}
+/*搜索条件查询结束*/
+
+/* 商品分页 开始 */
+.center_pageWrap{margin: 30px 0 70px;}
+.center_pageBox{overflow: hidden;}
+.center_pageBox ul li{float: left;background: #fff;}
+.center_pageBox ul li a{font-size: 14px;}
+.page_prev{border:1px solid #e2e2e2;width: 75px;height: 30px;line-height: 30px;text-align: center;margin-left: 10px;}
+.page_prev span{background: url("../../img2.0/cph/TB1Z4WGMpXXXXbyaXXX6sGuHVXX-458-458.png")no-repeat;width: 6px;height: 12px;display: inline-block;vertical-align: middle;}
+/* 上一页 两种状态 灰色*/
+.pageprev_img .unicon{background-position: -158px -422px;}
+.pageprev_unprint{vertical-align: middle;display: table-cell;display: block;color: #999;}
+/* 上一页 两种状态 可以点击*/
+.pageprev_img .icon{background-position: -126px -422px;}
+.pageprev_print{vertical-align: middle;display: table-cell;display: block;color: #333;}
+
+/* 下一页 两种状态 可以点击*/
+.pagenext_img .icon{background-position: -174px -422px;}
+.pageprev_next {color:#333;}
+/* 下一页 两种状态 灰色*/
+.pagenext_img .unicon{background-position: -206px -422px;}
+.pageprev_unnext {color:#999;}
+.page_numer a{height: 30px;line-height: 30px;width: 35px;border:1px solid #e2e2e2;margin-left: -1px;display: block;text-align: center;}
+.itme{margin-left: 10px;}
+.center_pageBox .dot{width: 35px;height: 30px;text-align: center;line-height: 40px;background: none;}
+.pagetext{margin-left: 10px; line-height: 37px; color: #999;}
+.m-page .input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.pagebtn, .input{margin-top: 7px;} .input, .pagetext{color: #999;}
+.pagebtn, .input, .pagetext{margin-left: 5px;}
+.pagebtn{background-clip: padding-box;border: 1px solid #ededed;border-radius: 2px;cursor: pointer;height: 21px;line-height: 21px;text-align: center;width: 43px;display: block;background: #fff;}
+.center_pageBox .page_numer a:hover{background: #e31939 none repeat scroll 0 0; border-color: #e31939; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_pageBox .itme a{background: #e31939 none repeat scroll 0 0; border-color: #e31939; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_mergepay button{border:1px solid #e2e2e2;padding:4px 10px;margin-left: 5px;}
+.center_mergepay input{margin-top: 2px;}
+
+/*.centerTsWrap{margin-top: 35px;height: 75px;background: url("../../img2.0/cph/ts.png") 117px 0px no-repeat;line-height: 150px;}
+.centerButtonWrap{text-align: center;margin-top: 22px;}
+.tswz{text-align: center;font-size: 14px;font-family: "simsun";}*/
+/* 商品分页 结束 */
+/* 右边 结束 */
+

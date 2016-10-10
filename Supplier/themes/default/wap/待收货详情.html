@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title></title>
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/swiper.min.css">
+<script src="../js/zepto.min.js"></script>
+<style>
+.content-block ul li:last-child{border-bottom: 1px solid #f3f3f3;}
+.bar-nav~.content{bottom:2.5rem;top:2.2rem;}
+</style>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="wayshow_nav bar bar-nav clearfix">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="#">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				订单详情
+			</div>
+		</div>
+	
+		<div class="content native-scroll">
+			<div class="receipt_detaTop pad_lr"><div class="order_Txt col_333"><span class="fr col_e01928">待收货</span>订单号：14641449182431</div></div>
+			<div class="receipt_detaContacts">
+				<h3>收货人：Jerry　18617160265</h3>
+				<div class="receipt_detainfo">
+					<div class="receipt_detaCon_main fl col_999">广东省深圳市龙华新区三组头龙华地税</div>
+					<div class="receipt_detaCon_Le fl"><span class="purchasemy_icon choicedesc_icon"></span></div>
+				</div>
+			</div>
+			<div class="way_line"></div>
+			
+			<div class="order_shopTitle pad_lr">
+				<a href="#">
+					<span class="purchasemy_icon order_shopIcon"></span>
+					<span class="col_333">李四阳光店铺</span>
+					<span class="purchasemy_icon order_shopNextIcon"></span>
+				</a>
+			</div>
+			
+			<div class="order_all">
+				<ul>
+					<li><div class="order_Txt">下单时间：2016-05-06 15:30</div></li>
+					<!-- for goods list  -->
+	        		<li class="purchaseall_Test">
+	        			<div class="purchaseall_Le">
+	        				<img src="../img/purchasemy_topImg.png" />
+	        			</div>
+	        			<div class="purchaseall_Con">
+	        				<h3 class="txt_hide2L col_333">乡城品优品 夏季条纹休闲连衣裙瘦半身裙子</h3>
+	        				<p class="txt_hide2L Coninfo col_999">颜色：白象牙见识拍  规格：XL</p>
+	        			</div>
+	        			<div class="purchaseall_Re">
+	        				<p class="col_999">￥120.00</p>
+	        				<p class="col_999">X1</p>
+	        			</div>
+	        		</li>
+	        		<!-- end for goods list  -->
+	        		
+	        		<!-- for goods list  -->
+	        		<li class="purchaseall_Test">
+	        			<div class="purchaseall_Le">
+	        				<img src="../img/purchasemy_topImg.png" />
+	        			</div>
+	        			<div class="purchaseall_Con">
+	        				<h3 class="txt_hide2L col_333">乡城品优品 夏季条纹休闲连衣裙瘦半身裙子</h3>
+	        				<p class="txt_hide2L Coninfo col_999">颜色：白象牙见识拍  规格：XL</p>
+	        			</div>
+	        			<div class="purchaseall_Re">
+	        				<p class="col_999">￥120.00</p>
+	        				<p class="col_999">X1</p>
+	        			</div>
+	        		</li>
+	        		<!-- end for goods list  -->
+
+				</ul>
+			</div>
+			<div class="purchase_ReceiptTest">
+				<h3 class="col_333">价格信息</h3>
+				<div>
+					<ul>
+						<li class="col_666">订单总金额：<span class="col_e01928">￥ <b>240.00</b></span></li>
+						<li class="col_666">邮费：<span class="col_e01928">￥ <b>8.00</b></span></li>
+					</ul>
+				</div>
+			</div>
+			<div class="way_line"></div>
+		</div>
+		
+		<div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+			<div class="purchaseall_Sub"><a href="#" class="col_e01928" style="border-color:#e01928">查看物流</a><a href="#" class="payment_submit col_fff">确认收货</a></div>
+		</div>
+		
+	</div>
+</div>
+<script src="../js/sm.min.js"></script>
+<script>
+$(function(){
+	$(".payment_submitSee").click(function(){
+		var this_click = $(this);
+		payment_submit.payment(this_click)
+	})
+	$(".paymentback_icon").click(function(){
+		$(".purchaseall_payment").css("bottom","100%")
+	})
+	$(".purchaseall_paymentDesc ul li").click(function(){
+		var this_click = $(this);
+		payment_submit.purchaseall_paymentDesc(this_click)
+	})
+
+})
+var payment_submit = function(){
+	this.click = function(){
+		var this_click = $(this);
+	}
+	this.payment = function(this_click){
+		var this_Price = this_click.parent(".purchaseall_Sub").prev(".purchaseall_Txt").children('.col_ff7').children(".this_Price").text();
+		$(".purchaseall_Price").text(this_Price);
+		$(".purchaseall_payment").css("bottom","0");
+	}
+	this.purchaseall_paymentDesc = function(this_click){
+		$(".purchaseall_paymentDesc ul li").removeClass();
+		this_click.addClass("on")
+	}
+}
+var payment_submit = new payment_submit();
+</script>
+</body>
+</html>

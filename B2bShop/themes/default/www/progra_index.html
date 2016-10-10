@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Site.Name - 进货方案</title>
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.public.min.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.progra_index.min.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <div class="headerHr w100"></div>
+    <!-- 头部 结束 -->
+    <!-- 商品 开始 -->
+    <div class="goods_box w1000">
+        <!-- 商品 筛选 开始 -->
+        <div class="cneterScreen w1000">
+            <div class="cneterScreenTop">
+                <span>进货方案</span> - 全部方案
+            </div>
+            <!-- 分类 开始 -->
+            <div class="screenBrand clearFix">
+                <div class="Brand fl"><b>分类：</b></div>
+                <div class="brandClassify fl">
+                    <ul class="clearFix">
+                        <li>
+                            <a $if(Ptype==-1) class="pitchA" $end href="$ProUrl(-1)">
+                                <span>全部方案</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a $if(Ptype==0) class="pitchA" $end href="$ProUrl(0)">
+                                <span>新开店方案</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a $if(Ptype==1) class="pitchA" $end href="$ProUrl(1)">
+                                <span>改造点方案</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a $if(Ptype==2) class="pitchA" $end href="$ProUrl(2)">
+                                <span>综合方案</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 分类 结束 -->
+            <!-- 行业 开始 -->
+            <div class="screenList screenBrand clearFix">
+                <div class="Brand fl"><b>行业：</b></div>
+                <div class="brandClassify brandClassifyT fl">
+                    <ul class="clearFix">
+                        <li><a $if(IndutryCategoryId!!0) class="pitchA" $end href="$url('/programme/index/1/',0,'/',Ptype)">全部</a><em> /</em></li>
+                        $foreach(cate in IndutryCategoryList)
+                        <li><a $if(cate.Id!!IndutryCategoryId) class="pitchA" $end href="$url('/programme/index/1/',cate.Id,'/',Ptype)">$cate.Name</a><em> /</em></li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- 行业 结束 -->
+        </div>
+        <!-- 商品 筛选 结束 -->
+        <div class="goods_boxCenter">
+            <ul class="clearFix">
+                $foreach(pro in ProgrammeList)
+                <li class="clearFix">
+                    <div class="goods_print fl">
+                        <img src="$pro.Image">
+                    </div>
+                    <div class="goods_msNorms fl">
+                        <div class="goods_msWrap clearFix">
+                            <div class="fl">
+                                <span class="goods_ms">$pro.Title</span>
+                            </div>
+                            <!--<div class="goods_emBack fl">全国优选</div>-->
+                        </div>
+                        <div class="stockProjectW clearFix">
+                            <div class="fl">
+                                <span>方案：<i>$pro.GetTypeString()</i></span>
+                                <span>行业：<i>$pro.GetCategoryString(this.DataSource)</i></span>
+                            </div>
+                            <div class="numberPric fl">
+                                <span>数量：<i>$pro.Count</i>款</span>
+                                <!--<span>金额：<i>8965</i>元</span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="goods_button fr">
+                        <a href="javascript:;" class="goods_stock btnCart" data-prograid="$pro.Id">一键进货</a>
+                        <a href="$DetailUrl(pro.Id)">查看详情</a>
+                    </div>
+                </li>
+                $end
+            </ul>
+        </div>
+    </div>
+    <!-- 商品 结束 -->
+    <!-- 分页 开始 -->
+    $if(ProgrammeList.PagesCount>0)
+    <div class="center_pageWrap w1000">
+        <div class="center_pageBox fr clearFix">
+            <ul class="clearFix fl">
+                $if(ProgrammeList.PageIndex>1)
+                <li class="page_prev">
+                    <a href="$PageUrl(ProgrammeList.PageIndex-1)" class="pageprev_img">&lt;上一页</a>
+                </li>
+                $end
+                $for(i=ProgrammeList.BeginPage;i<=ProgrammeList.EndPage-1;i++)
+
+                $if(i==ProgrammeList.PageIndex)
+                <li class="page_numer itme"><a href="javascript:;">$i</a></li>
+                $else
+                <li class="page_numer"><a href="$PageUrl(i)">$i</a></li>
+                $end
+                $if(i==ProgrammeList.BeginPage )
+                <li class="dot">...</li>
+                $end
+                $end
+                $if(ProgrammeList.EndPage>ProgrammeList.PageIndex)
+                <li class="dot">...</li>
+                <li class="page_numer"><a href="$PageUrl(ProgrammeList.PagesCount)">$ProgrammeList.PagesCount</a></li>
+                <li class="page_next page_prev"><a class="pageprev_next pagenext_img" href="$PageUrl(ProgrammeList.PageIndex+1)">下一页&gt;</a></li>
+                $end
+            </ul>
+            <div class="total fl"> 共 $ProgrammeList.PagesCount 页/$ProgrammeList.TotalCount条，</div>
+            <div class="form fl">
+                <span class="text">跳到</span>
+                <input id="txtPageNumber" class="input J_Input" type="number" aria-label="页码输入框" max="$ProgrammeList.PagesCount" min="1" value="2">
+                <span class="text">页</span>
+                <span class="pagebtn J_Submit fr" tabindex="0" role="button" id="btnRedirect">跳转</span>
+            </div>
+        </div>
+    </div>
+    $end
+    <!--<div class="center_pageWrap w1000">
+        <div class="center_pageBox fr clearFix">
+            <ul class="clearFix fl">
+                <li class="page_prev">
+                    <a href="#" class="pageprev_unprint pageprev_img">
+                        <span class="unicon"></span>
+                        上一页
+                    </a>
+                </li>
+                <li class="page_numer itme"><a href="#">1</a></li>
+                <li class="page_numer"><a href="#">2</a></li>
+                <li class="page_numer"><a href="#">3</a></li>
+                <li class="page_numer"><a href="#">4</a></li>
+                <li class="page_numer"><a href="#">5</a></li>
+                <li class="dot">...</li>
+                <li class="page_next page_prev">
+                    <a href="#" class="pageprev_next pageprev_print pagenext_img">
+                        下一页
+                        <span class="icon"></span>
+                    </a>
+                </li>
+            </ul>
+            <div class="form fl">
+                <span class="pagetext">跳到</span>
+                <input class="input J_Input" type="number" aria-label="页码输入框" max="100" min="1" value="2">
+                <span class="pagetext">页</span>
+                <span class="pagebtn J_Submit fr" tabindex="0" role="button">跳转</span>
+            </div>
+        </div>
+    </div>-->
+    $load("inc/toolbar.html")
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('plugins/shoppingcart/shoppingCart-1.0.0.js')"></script>
+    <script>
+        $(function () {
+            $('#btnRedirect').click(function () {
+                var page = $("#txtPageNumber").val();
+                window.location.href = "$PageUrl(9999)".replace('9999', page);
+            });
+            var t = new Toolbar({
+                isFly: false,
+                cartInstance: new Cnaws.Cart(),
+                onAddComplete: function (shopCart) {
+                    setTimeout(function () {
+                        shopCart.flowDrop.show();
+                    }, 1000);
+                    setTimeout(function () {
+                        shopCart.flowDrop.hide();
+                    }, 3000)
+                },
+                onBeforeAdd: function (callback) {
+                    var a = document.querySelector('a.btnCart');
+                    var pid = a.getAttribute('data-prograid');
+                    $.get(Cnaws.getUrl('/programme/getProductIdsAndCounts/' + pid), function (result) {
+                        if (result.code === -200) {
+                            a.setAttribute('data-productid', result.data.id);
+                            a.setAttribute('data-count', result.data.count);
+                            callback();
+                        }
+                        else {
+                            ShowBox.showErrorByCode(result.code);
+                        }
+                    }, 'json');
+                }
+            })
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+.w-60 {
+	width: 60px !important;
+}
+.state .panel-body {
+	margin-top: 35px;
+}
+
+/* BEGIN section-01 */
+.section-01 .state {
+	border-bottom: 0;
+}
+.section-01 .state ul {
+	width: 100%;
+}
+.section-01 .state li {
+	width: 240px;
+}
+/* END section-01 */
+
+/* BEGIN section-02 */
+.section-02 .order-01 {
+	width: 100%;
+	margin-top: 40px;
+}
+.section-02 .order-01 label {
+	display: inline-block;
+	width: 120px;
+	text-align: right;
+}
+.section-02 .order-01 td {
+	width: 50%;
+}
+
+.section-02 .order-02 th,
+.section-02 .order-02 td {
+	text-align: center;
+}
+.section-02 .order-02 th {
+	padding-top: 20px;
+	padding-bottom: 8px;
+	font-weight: bold;
+}
+.section-02 .order-02 tbody,
+.section-02 .order-02 tfoot {
+	background-color: #FFF0E4;
+	border-left: 1px solid #FDE4CF;
+	border-right: 1px solid #FDE4CF;
+}
+.section-02 .order-02 tbody {
+	border-top: 1px solid #FDE4CF;
+}
+.section-02 .order-02 tbody td {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.section-02 .order-02 tfoot {
+	height: 75px;
+	line-height: 75px;
+	border-top: 1px solid #FDE4CF;
+	border-bottom: 1px solid #FDE4CF;
+}
+.section-02 .order-02 tfoot .f-left {
+	width:60%;
+}
+.section-02 .order-02 tfoot .f-right{
+	width:39%;
+	border-left:1px solid #FDE4CF;
+	font-size:18px;
+	font-weight:bold;
+	color:#ff6600;
+}
+.section-02 .order-02 tfoot .f-right strong {
+	font-size:24px;
+}
+/* END section-02 */

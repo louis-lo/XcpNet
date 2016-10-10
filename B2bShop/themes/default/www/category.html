@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>$Site.Name - $Site.Title</title>
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.public.min.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.category.min.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <div class="headerHr w100"></div>
+    <div class="content">
+        <div class="mainBar">
+            <div class="main_con clearFix">
+                <div class="main_con_left fl">
+                    <div class="mall_recommend">
+                        <div class="mall_recommend_tit">商城推荐</div>
+                        $foreach(product in clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetTopRecommendByArea(this.DataSource,6,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                        <dl>
+                            <a href="$url('/product/info/',product.A.Id)" target="_blank">
+                                <dt><img class="jsProductImg" data-original="$product.A.GetImage()" /></dt>
+                                <dd>
+                                    <p class="goods_describ">$product.A.Title</p>
+                                    <div class="centerHome_goodsprice">
+                                        <span class="centerHomep"><i class="fb">$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i></span>
+                                        <span>/$product.A.Unit（<i class="fb">$product.A.WholesaleCount</i>$product.A.Unit 起定）</span>
+                                    </div>
+                                </dd>
+                            </a>
+                        </dl>
+                        $end
+                    </div>
+                </div>
+                <div class="main_con_right fr">
+                    <div class="center_targetWrap w1000">
+                        <a href="$url('/index')">首页</a> <i>></i>
+                        $if(Filter.KeyWord==null || Filter.KeyWord=="")
+                        $foreach(item in CategoryList)
+                        <a href="$url('/category/list/',item.Id)"> $item.Name </a> <i></i>
+                        $end
+                        $else
+                        <a href="javascript:;">搜索“$Filter.KeyWord”的结果 </a>
+                        $end
+                    </div>
+                    <div class="sort">
+                        <div class="sort_top">
+                            <span>排序：</span>
+                            <ul class="sort_type clearFix">
+                                $if(Filter.OrderBy==2)
+                                <li class="change"><a href="$OrderUrl(1)">销量</a></li>
+                                $else
+                                <li><a href="$OrderUrl(2)">销量</a></li>
+                                $end
+                                $if(Filter.OrderBy==6)
+                                <li class="change"><a href="$OrderUrl(5)">价格</a></li>
+                                $else
+                                <li><a href="$OrderUrl(6)">价格</a></li>
+                                $end
+                                $if(Filter.OrderBy==4)
+                                <li class="change"><a href="$OrderUrl(3)">人气</a></li>
+                                $else
+                                <li><a href="$OrderUrl(4)">人气</a></li>
+                                $end
+                            </ul>
+                            <ul class="sort_top_right">
+                                <li class="one"><i>$ProductList.PageIndex</i>/$ProductList.PagesCount </li>
+                                $if(ProductList.PageIndex>1)
+                                <li>
+                                    <a href="$PageUrl(ProductList.PageIndex-1)" title="上一页"><</a>
+                                    $else
+                                <li><a href="javascript:;" title="没有上一页了" style="color:#bdb8b8"> < </a></li>
+                                $end
+
+                                $if(ProductList.PagesCount>ProductList.PageIndex)
+                                <li><a href="$PageUrl(ProductList.PageIndex+1)" title="下一页"> > </a></li>
+                                $else
+                                <li><a href="javascript:;" title="没有下一页了" style="color:#bdb8b8"> > </a></li>
+                                $end
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="show_pic clearFix">
+                        $foreach(item in ProductList)
+                        $set(product=clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetById(this.DataSource,item.DistributorProduct_Id))
+                        <dl class="show_pic_a">
+                            <a href="$url('/product/info/',item.DistributorProduct_Id)" class="show_picHover" target="_blank">
+                                <dt>
+                                    <img class="jsProductImg1" data-original="$product.GetImage()" />
+                                    <!--<div class="goods_bz goods_bz">
+                                        <span>全国优选</span>
+                                    </div>-->
+                                </dt>
+                                <dd>
+                                    <p class="goodsHover">$item.DistributorProduct_Title</p>
+                                    <div class="centerHome_goodsprice">
+                                        <span class="centerHomep"><i class="fb">$item.DistributorProduct_Price.ToString("c2")</i></span>
+                                        <span>/$item.DistributorProduct_Uint（<i class="fb">$item.DistributorProduct_WholesaleCount</i>$item.DistributorProduct_Uint 起定）</span>
+                                    </div>
+                                </dd>
+                                <div class="goodsMsHover clearfix">
+                                    <div class="goodsMsHoverLT goodsMsHoverL fl">
+                                        <span>包<i class="leftSpan">装：</i> </span>
+                                        <span>建议零售：</span>
+                                        <span class="pifaleft"><i>批</i><i>发</i><i>价：</i></span>
+                                    </div>
+                                    
+                                    <div class="goodsMsHoverR goodsMsHoverL fl">
+                                        <span>${item.DistributorProduct_Norms}(${product.WholesaleCount}${product.Unit}起定)</span>
+                                        <span><i>$item.DistributorProduct_Price.ToString("c2")</i>元/${product.RetailUnit}</span>
+                                        <span><i>$product.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i>元.${product.Unit}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </dl>
+                       $end
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分页 开始 -->
+    <div class="center_pageWrap w1000">
+        <div class="center_pageBox fr clearFix">
+            <ul class="clearFix fl">
+                $if(ProductList.PageIndex>1)
+                <li class="page_prev">
+                    <a href="$PageUrl(ProductList.PageIndex-1)" class="pageprev_img">&lt;上一页</a>
+                </li>
+                $end
+                $for(i=ProductList.BeginPage;i<=ProductList.EndPage-1;i++)
+
+                $if(i==ProductList.PageIndex)
+                <li class="page_numer itme"><a href="javascript:;">$i</a></li>
+                $else
+                <li class="page_numer"><a href="$PageUrl(i)">$i</a></li>
+                $end
+                $if(i==ProductList.BeginPage )
+                <li class="dot">...</li>
+                $end
+                $end
+                $if(ProductList.EndPage>ProductList.PageIndex)
+                <li class="dot">...</li>
+                <li class="page_numer"><a href="$PageUrl(ProductList.PagesCount)">$ProductList.PagesCount</a></li>
+                <li class="page_next page_prev"><a class="pageprev_next pagenext_img" href="$PageUrl(ProductList.PageIndex+1)">下一页&gt;</a></li>
+                $end
+            </ul>
+            <div class="total fl"> 共 $ProductList.PagesCount 页/$ProductList.TotalCount条，</div>
+            <div class="form fl">
+                <span class="text">跳到</span>
+                <input id="txtPageNumber" class="input J_Input" type="number" aria-label="页码输入框" max="$ProductList.PagesCount" min="1" value="2">
+                <span class="text">页</span>
+                <span class="pagebtn J_Submit fr" tabindex="0" role="button" id="btnRedirect">跳转</span>
+            </div>
+        </div>
+    </div>
+    $load("inc/toolbar.html")
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script>
+        $(function () {
+            $("img.jsProductImg").scaling(150, 150, '$res("img2.0/index/load_image.png")');
+            $("img.jsProductImg1").scaling(200, 200, '$res("img2.0/index/load_image.png")');
+            $("img[data-original]").lazyload();
+            $('#btnRedirect').click(function () {
+                var page = $("#txtPageNumber").val();
+                window.location.href = "$PageUrl(9999)".replace('9999', page);
+            });
+
+            var t = new Toolbar();
+        })
+    </script>
+</body>
+</html>

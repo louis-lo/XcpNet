@@ -1,0 +1,8 @@
+.Paymentsuccess_content{margin:5rem 0 2.5rem;text-align: center;}
+.Payment_successIcon,.Payment_failIcon{display:inline-block;width:3.5rem;height:3.5rem;}
+.Paymentsuccess_return{display:inline-block;background:#ff7300;padding:.25rem 2rem;border-radius:.15rem;font-size:.75rem;}
+.Paymentsuccess_icon{margin-bottom:1rem;}
+.Paymentsuccess_content h3{font-weight:600;line-height:1.5rem;font-size:.75rem;}
+.Payment_successIcon{background:url(../../img2.0/Payment_successIcon.png) no-repeat;background-size:100% 100%;}
+.Paymentfailure{display:inline-block;background:#e01928;width:5.2rem;height:1.8rem;line-height:1.8rem;border-radius:.15rem;font-size:.75rem;}
+.Payment_failIcon{background:url(../../img2.0/Payment_failureIcon.png) no-repeat;background-size:100% 100%;}

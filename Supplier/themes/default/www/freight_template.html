@@ -1,0 +1,130 @@
+﻿$if(this.IsAjax)
+$foreach(item in Templates)
+$if(item.Type==0)
+$set(Unit="件")
+$elseif(item.Type==1)
+$set(Unit="重")
+$elseif(item.Type==2)
+$set(Unit="体积")
+$end
+<option value="$item.Id" $if(item.Id!!templateId)selected="selected"$end>${item.Name}(按$Unit计算)</option>
+$end
+$else
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商后台-运费模板管理</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.freightone.css')">
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+</head>
+<body>
+    $load("inc/x_top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/x_side.html")
+        <!-- 中间 开始 -->
+        <div class="center_wrapRight fr">
+            <div>
+                <a href="$url('/freight/edit')" class="freightTop"><span>新增运费模板</span></a>
+            </div>
+            <!-- 运费模板一 开始 -->
+            $foreach(item in Templates)
+            $if(item.Type==0)
+            $set(Unit="件")
+            $set(UnitValue="件")
+            $elseif(item.Type==1)
+            $set(Unit="重")
+            $set(UnitValue="千克")
+            $elseif(item.Type==2)
+            $set(Unit="体积")
+            $set(UnitValue="立方米")
+            $end
+            <table align="center" border="0" width="100%" class="freightTable freightTableT">
+                <tr>
+                    <th class="titleTh" colspan="5">
+                        <div class="clearFix">
+                            <div class="fl">${item.Name}(按${Unit}计算)</div>
+                            <div class="tableTop fr">最后编辑时间：$item.EditTime.ToString("yy-MM-dd HH:mm:ss")<!--<a href="#">复制模板</a>--><a href="$url('/freight/edit/',item.Id)">修改</a><a href="javascript:;" data-id="$item.Id" class="delTemplate">删除</a></div>
+                        </div>
+                    </th>
+                </tr>
+                <tr class="freightHeader">
+                    <td class="thwidth">运到</td>
+                    <td class="thwidthRest">首$Unit（$UnitValue）</td>
+                    <td class="thwidthRest">首费（元）</td>
+                    <td class="thwidthRest">续$Unit（$UnitValue）</td>
+                    <td class="thwidthRest">续费（元）</td>
+                </tr>
+                <tr class="freightBody">
+                    <td>全国</td>
+                    <td>$if(item.Type!=0)${clr.System.Convert.ToDouble(item.Number)/100}$else$item.Number$end</td>
+                    <td>$item.Money.ToString("C2")</td>
+                    <td>
+                        $if(item.Type!=0)${clr.System.Convert.ToDouble(item.StepNumber)/100}$else$item.StepNumber$end
+                    </td>
+                    <td>$item.StepMoney.ToString("C2")</td>
+                </tr>
+                $foreach(freightmapping in item.GetMapping(this.DataSource))
+                <tr class="freightBody">
+                    <td>
+                        $foreach(areamapping in freightmapping.GetMapping(this.DataSource))
+                        ${GetArea(areamapping.ProvinceId,areamapping.CityId)},
+                        $end
+                    </td>
+                    <td>$if(item.Type!=0)${clr.System.Convert.ToDouble(freightmapping.Number)/100}$else$freightmapping.Number$end</td>
+                    <td>$freightmapping.Money.ToString("C2")</td>
+                    <td>$if(item.Type!=0)${clr.System.Convert.ToDouble(freightmapping.StepNumber)/100}$else$freightmapping.StepNumber$end</td>
+                    <td>$freightmapping.StepMoney.ToString("C2")</td>
+                </tr>
+                $end
+            </table>
+            $end
+            <!-- 运费模板一 结束 -->
+        </div>
+        <!-- 弹出层模板-->
+        <script type="text/html" id="tmpl-xalert">
+            <div class="center_addAddressTitle">删除模板</div>
+            <div class="new_addressWrap clearFix">
+                <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                    <div class="new_addressWrap clearFix" style="padding:20px 20px">
+                        是否删除此运费模板?
+                    </div>
+                </form>
+            </div>
+        </script>
+        <!-- 中间 结束 -->
+    </div>
+    $load("inc/bottom.html")
+    $load("inc/xalert.html")
+    <script>
+        $(function () {
+            $('.delTemplate').xalert({
+                tmpl: '#tmpl-xalert',
+                height: '170px',
+                left: '40%',
+                top: '20%',
+                width: '300px',
+                callback: function (xalert) {
+                    $.ajax({
+                        type: "Post",
+                        dataType: "Json",
+                        url: Cnaws.getUrl('$url("/freight/deltemplate/")' + $(xalert.target).data("id")),
+                        success: function (data) {
+                            if (data.code == -200) {
+                                Cnaws.showSuccess("删除成功.");
+                                setInterval(function () { location.reload() },1500);
+                            }
+                            else { Cnaws.showErrow("抱歉,删除失败,请检查数据.");}
+                        }
+                    })
+                    xalert.close();
+                }
+            })
+        })
+        /**/
+    </script>
+</body>
+</html>
+$end

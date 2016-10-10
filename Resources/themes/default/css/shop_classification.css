@@ -1,0 +1,42 @@
+@charset "utf-8";
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select,span{margin:0;padding:0}
+body{font:12px"微软雅黑","宋体","Arial Narrow",HELVETICA;background:#fff;color:#333;-webkit-text-size-adjust:100%;line-height:22px;}
+a{color:#2d374b;text-decoration:none}span{margin:0;padding:0;}
+a:hover{color:#F40;}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;}
+table{border-collapse:collapse;border-spacing:0}
+p{word-wrap:break-word}.fl,.f-left{float:left;}.fr,.f-right{float:right;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.w100{width:100%;}.w1200,.container{width:1200px;margin:0 auto;}.mt30{margin-top:30px;}.mt10{margin-top:10px;}.mt18{margin-top: 18px;}
+
+.classification_body{margin:0 auto;width: 828px;border:1px solid #e3e3e3;padding:15px 10px;box-sizing: border-box;}
+.classification_title{font-size:14px;color:#666;line-height:13px;border-left:2px solid #ed6c44;padding-left:10px;}
+.classification_content{border:1px solid #e3e3e3;}
+.classifi_infoTitle{background:#f3f3f3;line-height:32px;text-align:center;font-weight:bold;}
+.classifi_infoNum{display:inline-block;width:39px;}
+.classifi_infoName{display:inline-block;width:215px;}
+.classifi_infoImg{display:inline-block;width:224px;}
+.classifi_infoSort{display:inline-block;width:106px;}
+.classifi_infoOpera{display:inline-block;width:190px;}
+
+.classifi_infoList{}
+.classifi_infoList span{box-sizing: border-box;}
+.classifi_infoList li{height:62px;line-height:62px;overflow:hidden;border-bottom:1px dotted #bcbcbc;}
+.classifi_infoList li:last-child{border:none;}
+.classifi_infoList li .classifi_infoNum{text-align:center;border-right:1px dotted #bcbcbc;}
+.classifi_infoList li .classifi_infoName{padding-left:23px;}
+.classifi_infoList li .classifi_infoName input{width:164px;height:24px;line-height:24px;padding:0 5px;box-sizing: border-box;}
+.classifi_infoList li .classifi_infoImg{text-align:center;padding-top:10px;line-height:32px;}
+.classifi_infoList li .classifi_infoImg img{margin-right:8px;border:1px solid #ccc;max-height:42px;max-width:42px;}
+.classifi_infoList li .classifi_not_img img{vertical-align: middle;border:none;}
+.classifi_infoList li .classifi_infoSort{text-align:center;} 
+.classifi_infoList li .classifi_infoSort img:first-child{margin-right:10px;}
+.classifi_infoList li .classifi_infoOpera{text-align:center;}
+.classifi_infoList li .classifi_infoOpera a:first-child{margin-right:15px;}
+.classifi_infoList .classifi_not_data a{display:inline-block;width:68px;height:25px;line-height:25px;text-align: center;border:1px solid #feba8d;color:#ed6c44;}
+
+.classifi_info_prompt{line-height:38px;color:#ff6633;}
+.classifi_info_prompt span:first-child{margin:3px 10px 0;}
+.classification_sub{color:#ed6c44;display:inline-block;border:1px solid #feba8d;padding:4px 10px;position:absolute;right:2px;top:0px;}

@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+<title>评价详情</title>
+<link rel="stylesheet" href="$res('wap/css/sm.min.css')" />
+<link rel="stylesheet" href="$res('wap/css/wayevaluate.css')" />
+<script src="$res('wap/js/zepto.min.js')"></script>
+<style>
+#mynav{ width:100%; height:40px;background:#fff; border-bottom:1px solid #fff; position:relative; z-index:99; color:#fff; line-height:40px;}
+</style>
+</head>
+<body>
+<div class="wrap content" style="padding-bottom:5rem;">
+	<div class="wayshow_nav clearfix">
+		<div class="wayshow_navPosi">
+			<div class="wayshow_navLe fl">
+				<a href="javascript:history.go(-1);">
+					<span class="icon_Firststep fl"></span>
+					<span class="fl">返回</span>
+				</a>
+			</div>
+			评价详情
+		</div>
+	</div>
+	<!-- / nav -->
+	<!-- content -->
+	<div class="wayshow_parameter">
+		<div class="content-block">
+	        <div class="buttons-row pad_lr">
+	            <a href="#tab1-1" class="tab-link button active">
+	            	全部评价
+	            	<span>$allCommentCount</span>
+	            </a>
+
+	            <a href="#tab1-2" class="tab-link button">
+	            	好评
+	            	<span>$goodCommentCount</span>
+	            </a>
+	            <a href="#tab1-3" class="tab-link button">
+	            	中评
+	            	<span>$mediumCommentCount</span>
+	            </a>
+	            <a href="#tab1-4" class="tab-link button">
+	            	差评
+	            	<span>$differenceCommentCount</span>
+	            </a>
+	            <a href="#tab1-5" class="tab-link button">
+	            	晒图
+	            	<span>$commentImgCount</span>
+	            </a>
+	        </div>
+	        <div class="tabs">
+	            <div class="tab active" id="tab1-1">
+	            </div>
+	            <!-- 好评 -->
+	            <div class="tab" id="tab1-2">
+	            </div>
+	            <!-- end 好评 -->
+	            
+	            <!-- 中评 -->
+	            <div class="tab" id="tab1-3">
+	            </div>
+	            <!-- end 中评 -->
+	            
+	            <!-- 差评 -->
+	            <div class="tab" id="tab1-4">
+	            </div>
+	            <!-- end 差评 -->
+	            
+	            <!-- 晒图 -->
+	            <div class="tab" id="tab1-5">
+	            </div>
+	            <!-- end 晒图 -->
+	            
+	        </div>
+	    </div>
+	</div>
+	<!-- end content -->
+	<!-- nav_bottom -->
+	<div class="nav_bottom">
+		<ul class="clearfix">
+			<li>
+				<a href="#">
+					<div class="shopcart_posi"><img src="$res('wap/img/icon_ShopCart.png')" /><span class="shopcart_num"></span></div>
+					<div>购物车</div>
+				</a>
+			</li>
+			<li class="on"><a href="javascript:;" id="add_shopcart">加入购物车</a></li>
+			<li><a href="#">立即购买</a></li>
+		</ul>
+	</div>
+	<div class="shopcart_addnum">+1</div>
+</div>
+<script src="$res('wap/js/sm.min.js')"></script>
+<script>
+$(function(){
+	$("#add_shopcart").click(function(){
+		var shopcart_number = $(".shopcart_num").text();
+		$(".shopcart_num").text(++shopcart_number);
+		$(".shopcart_addnum").text("+"+shopcart_number);
+		$(".shopcart_addnum").addClass("shopcart_addnum_on");
+		setTimeout(function(){
+			$(".shopcart_addnum").removeClass("shopcart_addnum_on")
+		},1000)
+	})
+	
+	GetComment($ProductId, 0, 1);
+	GetComment($ProductId, 1, 1);
+	GetComment($ProductId, 2, 1);
+	GetComment($ProductId, 3, 1);
+	GetComment($ProductId, 4, 1);
+})
+function GetComment(productId, commentType, pageIndex) {
+    $.ajax({
+        type: "GET",
+        url: "$url('/xdginfo/comment/', '" + productId + "', '/', '" + commentType + "', '/', '" + pageIndex + "')",
+        dataType: "html",
+        success: function (data) {
+            if (commentType == 0) {
+                $("#tab1-1").html(data);
+            }
+            else if (commentType == 1) {
+                $("#tab1-5").html(data);
+            }
+            else if (commentType == 2) {
+                $("#tab1-2").html(data);
+            }
+            else if (commentType == 3) {
+                $("#tab1-3").html(data);
+            }
+            else if (commentType == 4) {
+                $("#tab1-4").html(data);
+            }
+        }
+    })
+}
+</script>
+</body>
+</html>

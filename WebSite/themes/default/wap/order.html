@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>确认订单</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+	
+	<!-- BEGIN order-nav -->
+	<style type="text/css">
+	.order-nav li {
+		width: 50%;
+		padding: 0;
+		height: 84px;
+		line-height: 84px;
+	}
+	</style>
+	<div class="nav order-nav">
+		<ul>
+			<li style="background-color:#FFF;">应付款:<span style="color:#ff3300;">￥199.6</span></li>
+			<li style="background-color:#FFC718;color:#FFF;">提交订单</li>
+		</ul>
+	</div>
+	<!-- END order-nav -->
+
+	<div class="page">
+		<div class="header">
+			<a href="" class="back">返回</a>
+			确认订单
+		</div>
+		<div class="content">
+			<!-- BEGIN address-list -->
+			<style type="text/css">
+			.address-list {
+				margin-top: 10px;
+				background-color: #FFF;
+				border-top: 1px solid #E5E5E5;
+			}
+			.address-list li {
+				padding-top: 22px;
+				padding-bottom: 22px;
+				padding-left: 100px;
+				background: url(css/img/check.png) no-repeat 39px 64px;
+				border-bottom: 1px solid #E5E5E5;
+				cursor: pointer;
+			}
+			.address-list li.active {
+				background: url(css/img/checked.png) no-repeat 39px 64px;
+			}
+			.address-list h2 {
+				color: #333;
+				font-weight: normal;
+			}
+			.address-list p {
+				margin-top: 12px;
+				font-size: 18px;
+			}
+			</style>
+			<input type="hidden" class="address-id" value="0">
+			<ul class="address-list">
+				<li class="active">
+					<h2>乡城品-硝铵镇共和村店</h2>
+					<p>地址：湖南省长沙市宁乡县硝铵镇共和村6组 乡城品店</p>
+					<p>联系：联系人</p>
+					<p>电话：13658966678</p>
+				</li>
+			</ul>
+			<!-- END address-list -->
+
+			<!-- BEGIN media -->
+			<style type="text/css">
+			.media {
+				padding-top: 35px; /* update */
+				padding-bottom: 26px;
+				background-color: #FFF;
+				border-top: 1px solid #EAEAEA; /* add */
+			}
+			.media-left,
+			.media-body {
+				float: left;
+			}
+			.media-left,
+			.media-object {
+				width: 126px;
+			}
+			.media-left,
+			.media-object,
+			.media-body {
+				height: 126px;
+			}
+			.media-left {
+				margin-left: 26px;
+				margin-right: 18px;
+			}
+			.media-body {
+				position: relative;
+				width: 320px; /* update */
+				padding-right: 150px; /* add */
+			}
+			.media h2 {
+				font-weight: normal;
+				color: #333;
+				font-size: 18px; /* add */
+				height: 52px; /* add */
+				line-height:1.5; /* add */
+				overflow: hidden; /* add */
+			}
+			.media-body-footer {
+				position: absolute;
+				bottom: 0;
+				/*font-size: 37px;
+				color: #ff3300;
+				font-weight: bold;*/
+				font-size: 18px;
+				line-height: 1.5;
+			}
+			/* add */
+			.media-body div {
+				position: absolute;
+				top: 0;
+				right: 25px;
+				width: 150px;
+				text-align: right;
+			}
+			.media-body div p {
+				line-height: 1.2;
+			}
+			</style>
+			<div class="clearfix media" style="margin-top:15px;">
+				<div class="media-left">
+					<img class="media-object" src="img/product_slider.png" alt="">
+				</div>
+				<div class="media-body">
+					<h2>乐培家用电烤箱，专业制造，烘焙甜心
+见倾心入门级烤见倾心入门级烤箱</h2>
+					<p class="media-body-footer">
+						产品规格：3L<br />
+						购买颜色：红色
+					</p>
+					<div>
+						<p style="color:#333;">￥199.6</p>
+						<p>X 1</p>
+					</div>
+				</div>
+			</div>
+			<!-- END media -->
+
+			<!-- BEGIN num-action -->
+			<style type="text/css">
+				.num-action {
+					position: relative;
+					width: 175px;
+					height: 52px;
+					line-height: 52px;
+					border: 1px solid #E5E5E5;
+					border-radius: 4px;
+				}
+				.num-action span {
+					display: block;
+					position: absolute;
+					width: 200px;
+					left: 200px;
+				}
+				.num-action a,
+				.num-action input {
+					float: left;
+					display: block;
+					border: 0;
+					padding: 0;
+				}
+				.num-action a {
+					height: 52px;
+					line-height: 52px;
+					text-indent: -9999px;
+				}
+				.num-action .remove {
+					width: 53px;
+					background: url(css/img/remove.png) no-repeat left top;
+				}
+				.num-action input,
+				.num-action .add {
+					border-left: 1px solid #EBEBEB;
+				}
+				.num-action input {
+					width: 42px;
+					height: 32px;
+					padding: 10px;
+					line-height: 32px;
+					text-align: center;
+				}
+				.num-action .add {
+					width: 58px;
+					background: url(css/img/add.png) no-repeat left top;
+				}
+				</style>
+			<!-- END num-action -->
+
+			<!-- BEGIN total -->
+			<style type="text/css">
+			.total {
+				position: relative;
+				height: 54px;
+				padding-top: 26px;
+				padding-bottom: 26px;
+				padding-left: 30px;
+				line-height: 54px;
+				color: #333;
+				background: #FFF;
+				border-top: 1px solid #E5E5E5;
+				border-bottom: 1px solid #E5E5E5;
+			}
+			.total .num-action {
+				position: absolute;
+				top: 26px;
+				left: 140px;
+			}
+			.total .total-price {
+				display: block;
+				position: absolute;
+				top: 26px;
+				right: 30px;
+				color: #999;
+			}
+			</style>
+			<div class="total">
+				购买数量 
+				<div class="num-action">  
+					<a href="" class="remove">-</a>
+					<input type="text">
+					<a href="" class="add">+</a>
+				</div>
+				<span class="total-price">总计：￥199.6</span>
+			</div>
+			<!-- END total -->
+
+			<!-- BEGIN message -->
+			<style type="text/css">
+			.message {
+				padding-top: 40px;
+				padding-bottom: 40px;
+				background-color: #FFF;
+			}
+			.message p {
+				width: 605px;
+				height: 58px;
+				margin-left: auto;
+				margin-right: auto;
+				line-height: 58px;
+				text-indent: 10px;
+				background-color: #FCFCFC;
+				border: 1px solid #EEE;
+				border-radius: 4px;
+			}
+			</style>
+			<div class="message">
+				<p>给卖家留言</p>
+			</div>
+			<!-- END message -->
+			
+			<style type="text/css">
+			.list-block.common li {
+				padding-left: 30px;
+			}
+			.list-block.common li a {
+				color: #333;
+			}
+			</style>
+			<ul class="list-block common" style="margin-top:15px;">
+				<li class="item-content">支付方式<a href="">在线支付</a></li>
+				<li class="item-content">配送方式<a href="">门店自提</a></li>
+			</ul>
+
+		</div>
+	</div>
+	
+</body>
+</html>

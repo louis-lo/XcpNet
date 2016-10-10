@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv = "X-UA-Compatible" content = "chrome=1" />
+    <title>$Site.Name - $Site.Title</title>
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    $load('inc/comm.html')
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/purchase.css')" />
+    <style>
+        .swiper-container {
+            line-height: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+   
+	<div class="page page-current">
+		<!-- nav -->
+		<header class="bar bar-nav">
+			<div class="nav_main">
+				<div class="bar_navre">
+		        	<label class="icon_search"></label>
+		        	<input type="search" id="search" onclick="search()" placeholder="搜索商品名称" />
+				</div>
+				<div class="bar_navle">
+					<span class="purchase_icon purchase_address_icon"></span>
+                    ${this.Location.CountyTxt}
+				</div>
+				<div class="way_shopcart">
+					<a href="$url('/cart')">
+						<div><img src="$res('wap/img2.0/jhb/icon_ShopCart2.png')"><span class="shopcart_num jsCount">0</span></div>
+						<div>进货车</div>
+					</a>
+				</div>
+			</div>
+		</header>
+		<!-- / nav -->
+		<!-- start nav -->
+        $load('inc/nav.html')
+		<!-- end nav  -->
+		<!-- content -->
+        $set(banners=clr.XcpNet.Ad.Modules.Advertisement.GetByLabel(this.DataSource,25))
+		<div class="content native-scroll order_content">
+			<!-- banner -->
+			<div class="ban_img ban_Left">
+	            <div id="slideBox" class="slideBox">
+					<div class="bd">
+						<div class="tempWrap" style="overflow:hidden; position:relative;">
+							<ul>
+                                $foreach(banner in banners)
+								<li><a class="pic" href="$banner.Url"><img src="$banner.ImgUrl"></a></li>
+								$end
+							</ul>
+						</div>
+					</div>
+					<div class="hd">
+						<ul>
+                            $for(i=1;i<=banners.Count;i++)
+                            <li $if(i!!1)class="on"$end>$i</li>
+                            $end
+                        </ul>
+					</div>
+				</div>
+			</div>
+            $set(CategoryList=clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetAll(this.DataSource, 0))
+			<!-- banner -->
+			<div class="purchase_class">
+				<ul class="clearfix">
+                    $foreach(category in CategoryList)
+					<li>
+						<a href="$url('/category/list/',category.Id)" class="external">
+							<div class="purchase_classImg" style="background:url($category.Image);background-size:100% 100%;"></div>
+							<div class="purchase_className">$category.Name</div>
+						</a>
+					</li>
+                    $end
+					<li>
+						<a href="$url('/programme')" class="external">
+							<div class="purchase_classImg" style="background:url($res('wap/img2.0/jhb/purchase_class_img6.png'));background-size:100% 100%;"></div>
+							<div class="purchase_className">进货方案</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- end class -->
+			<div class="way_line"></div>
+			<div class="selected_activity">
+				<h3 class="sele_actiTitle pad_lr" style="border-bottom:none">天天互通</h3>
+				<div class="sele_actiTreetline clearfix">
+					<ul>
+                        $foreach(product in clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetTopRecommendByArea(this.DataSource,4,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+						<li>
+							<a href="$url('/product/info/',product.A.Id)" class="external">
+								<div class="city_recoImg"><img src="$product.A.GetImage()" class="city_recommend_img"></div>
+                                <div class="city_recoTxt">
+                                    <div class="txt_hide col_333">$product.A.Title</div>
+                                    <div class="txt_hide" style="font-size:.65rem">
+                                        批发价：<span class="col_ff7">$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")/$product.A.Unit</span></p>
+                                        <p class="txt_hide col_999">建议售价：$product.A.GetPrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i>元/${product.A.RetailUnit}</p>
+                                        <p class="txt_hide col_999">${product.A.Norms}(${product.A.WholesaleCount}${product.A.Unit}起定)</p>
+                                    </div>
+                                </div>
+							</a>
+						</li>
+                        $end
+					</ul>
+				</div>
+			</div>
+			<!-- Recommend end  -->
+           
+            $foreach(category in CategoryList)
+			<!-- class goods -->
+			<div class="classification_list">
+				<div class="classification_title">
+					<h3>$category.Name</h3>
+					<a href="$url('/category/list/',category.Id)">更多></a>
+				</div>
+				<div class="sele_actiImg">
+                  $set(adList=clr.XcpNet.Ad.Modules.Advertisement.GetByLabelAndCategory(this.DataSource, 24, category.Id))  
+                    $foreach(ad in adList)
+                    <img src="$ad.ImgUrl" />
+                    $end
+                </div>
+                $set(products=clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetTopBestByCategoryByArea(this.DataSource,6,category.Id,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+				<div class="sele_actiTreetline clearfix">
+					<ul>
+                        $foreach(product in products)
+						<li>
+							<a href="$url('/product/info/',product.A.Id)" class="external">
+								<div class="city_recoImg"><img src="$product.A.GetImage()" class="city_recommend_img"></div>
+								<div class="city_recoTxt">
+									<div class="txt_hide col_333">$product.A.Title</div>
+									<div class="txt_hide" style="font-size:.65rem">批发价：<span class="col_ff7">$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")/$product.A.Unit</span></p>
+									<p class="txt_hide col_999">建议售价：$product.A.GetPrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i>元/${product.A.RetailUnit}</p>
+									<p class="txt_hide col_999">${product.A.Norms}(${product.A.WholesaleCount}${product.A.Unit}起定)</p>
+                                    </div>
+								</div>
+							</a>
+						</li>
+                        $end
+					</ul>
+				</div>
+			</div>
+			<!-- end class goods -->
+            $end
+		</div>
+		<!-- end content -->
+	</div>
+</div>
+<!-- search -->
+$load('inc/search.html')
+<script type="text/javascript" src="$res('wap/js2.0/jhb/TouchSlide.1.1.js')" ></script>
+<script type="text/javascript">
+TouchSlide({
+	slideCell:"#slideBox",
+	titCell:".hd ul",
+	mainCell:".bd ul", 
+	effect:"leftLoop", 
+	autoPage:true,
+	autoPlay:true
+});
+$(function(){
+	var recommend_img = $(".city_recoImg").eq(0).width();
+	$(".city_recommend_img").css({"height":recommend_img,"width":recommend_img})
+})
+</script>
+
+</body>
+</html>

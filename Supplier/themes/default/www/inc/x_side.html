@@ -1,0 +1,119 @@
+﻿<style>
+/* 城品惠产品管理 */
+.Countylevel_JoinImg{background:url($res('img2.0/Countylevel_JoinImg.png')) no-repeat; vertical-align:middle; margin-top:-3px;}
+.County_JoinLe{width:197px;border-top:2px solid #ff500a;font-family:"宋体";}
+.County_JoinLe_nav{border:1px solid #e5e5e5;border-bottom:none;}
+.County_JoinLe_nav h3{height:43px;line-height:43px;font-weight:normal;font-size:14px;text-indent:40px;color:#335b64;position:relative;background:url($res('img2.0/Countylevel_JoinImg.png')) 0px -17px #e6e6e6 no-repeat;cursor:pointer;}
+.County_JoinLe_nav h3 .JoinLe_openIcon{position:absolute;right:14px;top:16px;width:8px;height:8px;background-position:-127px -3px;}
+.County_JoinLe_nav h3.on .JoinLe_openIcon{background-position:-148px -3px;}
+
+.County_JoinLe_nav ul{display:none;}
+.County_JoinLe_nav h3.on~ul{display:block;}
+.County_JoinLe_nav ul li{height:32px;line-height:32px;text-indent:55px;background:url($res('img2.0/Countylevel_JoinImg.png')) 0px -28px #f5f5f5 no-repeat;}
+.County_JoinLe_nav ul li a{font-size:12px;color:#335b64;display:block;}
+.County_JoinLe_nav ul li a:hover,.County_JoinLe_nav ul li a.on{color:#ff500a;}
+.JoinLe_navIcon{display:inline-block;width:14px;height:14px;margin-right:5px;}
+/* 城品惠产品管理结束 */
+
+/* 进货宝产品管理 */
+.Countylevel_JoinImg02{background-position:-18px 0;}
+/* 进货宝产品管理结束 */
+
+/* 供应商管理 */
+.Countylevel_JoinImg03{background-position:-37px 0;}
+/* 供应商管理结束 */
+
+/* 加盟管理 */
+.Countylevel_JoinImg04{background-position:-58px 0;}
+/* 加盟管理 结束*/
+
+/* 财务中心 */
+.Countylevel_JoinImg05{background-position:-79px 0;}
+/* 财务中心 结束*/
+
+/* 账号管理 */
+.Countylevel_JoinImg06{background-position:-103px 0;}
+/* 账号管理 结束*/
+
+/* 中间 左边导航栏 结束*/
+</style>
+<style>
+    .headerBottom_wrap {
+        padding: 0 0 !important;
+    }
+
+    .header_bottom span {
+        padding: 0 0 !important;
+    }
+
+    .header_bottom .img {
+        height: 50px;
+        margin-top: 8px;
+        width: 141px;
+    }
+
+    .header_bottom span {
+        color: #f5f5f5;
+        font-size: 18px;
+        padding-left: 20px !important;
+        text-align: center;
+    }
+</style>
+
+<!-- 左边导航 -->
+<div class="County_JoinLe fl">
+    <!--宝贝管理-->
+    <div class="County_JoinLe_nav">
+        <h3 class="on"><span class="Countylevel_JoinImg JoinLe_navIcon"></span>宝贝管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/product')">发布宝贝</a></li>
+            <li><a href="$url('/product/list/saved')">仓库中的宝贝</a></li>
+            <li><a href="$url('/product/list/sale')">已上架的宝贝</a></li>
+        </ul>
+    </div>
+    <!--宝贝管理结束-->
+    <!--乡道馆-->
+    <div class="County_JoinLe_nav">
+        <h3 class="on"><span class="Countylevel_JoinImg Countylevel_JoinImg02 JoinLe_navIcon"></span>乡道馆信息<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/xdginfo')">乡道馆信息</a></li>
+            <li><a href="$url('/xdginfo/category')">乡道馆分类</a></li>
+            <li><a href="$url('/storeinfo/serie')">规格模板</a></li>
+            <li><a href="$url('/freight/template')">运费模板</a></li>
+        </ul>
+    </div>
+    <!--乡道馆结束-->
+    <!--广告管理-->
+    <div class="County_JoinLe_nav">
+        <h3 class="on"><span class="Countylevel_JoinImg Countylevel_JoinImg03 JoinLe_navIcon"></span>广告管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/advertisement/list')">广告管理</a></li>
+        </ul>
+    </div>
+    <!--广告管理结束-->
+    <!--交易管理-->
+    <div class="County_JoinLe_nav">
+        <h3 class="on"><span class="Countylevel_JoinImg Countylevel_JoinImg04 JoinLe_navIcon"></span>交易管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/order/list/payment')">待付款的宝贝</a></li>
+            <li><a href="$url('/order/list/delivery')">待发货的宝贝</a></li>
+            <li><a href="$url('/order/list/all')">交易中的宝贝</a></li>
+            <li><a href="$url('/order/list/finished')">已卖出的宝贝</a></li>
+            <li><a href="$url('/aftersales/list')">售后管理</a></li>
+        </ul>
+    </div>
+    <!--交易管理结束-->
+    <script>
+    $(function () {
+        $(".County_JoinLe_nav h3").click(function () {
+            if ($(this).hasClass("on")) {
+                $(this).removeClass()
+            } else {
+                $(this).addClass("on")
+            }
+        });
+    });
+    </script>
+</div>
+<!-- 左边导航 结束-->
+

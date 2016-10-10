@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>$Category.Name - $Site.Title</title>
+    <meta name="keywords" content="$Category.Name,$Site.Keywords">
+    <meta name="description" content="${Category.Name}分类,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cph.pc.category.parent.min.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <div class="content_">
+        <div class="swiper-container">
+            <a class="arrow-left" href="javascript:;"><</a>
+            <a class="arrow-right" href="javascript:;">></a>
+            <div class="swiper-wrapper">
+                $foreach(ad in AdList)
+                <div class="swiper-slide ">
+                    <a href="$ad.Url">
+                        <img alt="" src="$ad.ImgUrl" width="$ad.Width" height="$ad.Height" style="border: none;" />
+                    </a>
+                </div>
+                $end
+            </div>
+            <div class="pagination"></div>
+        </div>
+    </div>
+    <div class="nav_a">
+        <div class="center_targetWrap w1000">
+            <a href="$Site.Url">首页</a> <i></i>
+            <span>$Category.Name</span> <i></i>
+        </div>
+    </div>
+    $foreach(cate in Categories)
+    <div class="one_F">
+        <p class="fruit_top">
+            ${foreachindex}F $cate.Name
+            <span class="more"><a href="$url('/category/list/',cate.Id)">更多 ></a></span>
+        </p>
+        $set(products=clr.Cnaws.Product.Modules.Product.GetTopBestByCategoryByArea(this.DataSource,10,cate.Id,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+       $foreach(product in products)
+        <div class="fruit">
+            <a href="$url('/product/info/',product.A.Id)">
+                <dl class="dl_">
+                    <dt><img class="jsProductImg" data-original="$product.A.GetImage()"></dt>
+                    <dd class="wz">$product.A.Title</dd>
+                    <dd class="sz">$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")
+                    <!--<del>$product.A.MarketPrice.ToString("c2")</del>--></dd>
+                </dl>
+            </a>
+        </div>
+        $end
+        <div class="clear">
+        </div>
+    </div>
+    $end
+    $load("inc/toolbar.html")
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript" src="$res('js2.0/lib/idangerous.swiper.min.js')"></script>
+    <script type="text/javascript">
+        $(function () {
+            //主页轮播
+            var mySwiper = new Swiper('.swiper-container', {
+                pagination: '.pagination',
+                paginationClickable: true,
+                moveStartThreshold: 100,
+                autoplay: 2000,
+                loop: true,
+                speed: 600,
+            }),
+            arrawLeft = $('a.arrow-left'),
+            arrawRight = $('.arrow-right');
+
+            arrawLeft.click(function (e) {
+                e.preventDefault();
+                mySwiper.swipePrev();
+            }).css("display", "none");
+
+            arrawRight.click(function (e) {
+                e.preventDefault();
+                mySwiper.swipeNext();
+            }).css("display", "none");
+
+            //轮播鼠标悬停
+            $("div.swiper-container").hover(function () {
+                    mySwiper.stopAutoplay();
+                    arrawRight.css({ "display": "block", "color": "#fff" });
+                    arrawLeft.css({ "display": "block", "color": "#fff" });
+
+                }, function () {
+                    mySwiper.startAutoplay();
+                    arrawLeft.css("display", "none");
+                    arrawRight.css("display", "none");
+                });
+
+            $("img.jsProductImg").scaling(150, 150, '$res("img2.0/index/load_image.png")');
+                $("img[data-original]").lazyload();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title></title>
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/citygoods.css" />
+<link rel="stylesheet" href="../css/citygoods_admin.css" />
+<script src="../js/zepto.min.js"></script>
+<style>
+.bar.nav_bottom{height: 2.5rem;}
+.withdrawals{text-align: center;box-sizing:border-box;line-height:1.2rem;}
+.withdrawals_Le{width:40%;transform: translate(0,100%);}
+.withdrawals_Con,.withdrawals_Re{width:30%;border-left:1px solid #f3f3f3;}
+.withdrawals_ConBom,.withdrawals_ConTop{padding:.5rem 0;}
+.withdrawals_ConTop{border-bottom:1px solid #f3f3f3;}
+.apply_withdrawals{font-size:;box-sizing:border-box;}
+.withdrawals a{font-size:.65rem}
+</style>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="bar nav_bottom bar-footer">
+			<ul class="clearfix">
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_city.png"></div>
+						<div>城品惠</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_village.png"></div>
+						<div>乡道馆</div>
+					</a>
+				</li>
+				<li class="on">
+					<a href="#">
+						<div><img src="../img/xpc_purchaseOn.png"></div>
+						<div>进货宝</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_activity.png"></div>
+						<div>活动区</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_my.png"></div>
+						<div>我的</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="content native-scroll" style="top:0">
+			<div class="purchasemy_Jointop col_fff bg_fff">
+				<div class="pad_lr clearfix">
+					<div class="purchasemy_topLe fl">
+						<div class="purchasemy_portrait" style="background:url(../img/purchasemy_portrait.png) no-repeat;background-size:cover;"></div>
+					</div>
+					<div class="purchasemy_topCon fl">
+						<div>昵称：JERRY</div>
+						<div>余额：¥850</div>
+						<div>加盟商后台</div>
+					</div>
+					<div class="purchasemy_switch"><a href="#" class="col_fff">切换到用户中心后台</a></div>
+				</div>
+			</div>
+			
+			<div class="purchasemy_order bg_fff">
+				<div class="purchasemy_orderTop pad_lr clearfix col_333">
+					<span class="purchasemy_icon purchasemy_order_icon"></span>
+					全部订单
+					<a href="#" class="fr">
+						<span class="col_666">查看全部订单</span>
+						<span class="purchasemy_icon purchasemy_orderMore"></span>
+					</a>
+				</div>
+				<div class="purchasemy_orderCon">
+					<ul class="clearfix">
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon payment_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">代付款</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon getlibrary_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">出库中</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon deliver_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">待出库</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon receipt_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">待收货</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon evaluate_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">待评价</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon customer_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">售后</div>
+							</a>
+							<span class="customer_arrow_icon"></span>
+						</li>
+					</ul>
+				</div>
+				<div class="way_line"></div>
+				<div class="my_assets  clearfix">
+					<h3 class="pad_lr borbom_f3">
+						<a href="#">
+							<span class="purchasemy_shopcartNum2">我的收益</span>
+						</a>
+					</h3>
+					<div class="withdrawals clearfix">
+						<div class="fl withdrawals_Le">
+							<a href="#">
+								<div class="col_333">￥800</div>
+								<div class="col_333">累计提现</div>
+							</a>
+						</div>
+						<div class="fl withdrawals_Con">
+							<div class="withdrawals_ConTop">
+								<a href="#">
+									<div class="col_333">￥800</div>
+									<div class="col_333">未到账收益</div>
+								</a>
+							</div>
+							<div class="withdrawals_ConBom">
+								<a href="#">
+									<div class="col_333">￥800</div>
+									<div class="col_333">提现审核中</div>
+								</a>
+							</div>
+						</div>
+						<div class="fl withdrawals_Re">
+							<div class="withdrawals_ConTop withdrawals_ConTopLine">
+								<a href="#">
+									<div class="col_333">￥800</div>
+									<div class="col_333">已到帐收益</div>
+								</a>
+								<a href="#" class="apply_withdrawals col_fff bg_fff" style="background:#e01928;">申请提现</a>
+							</div>
+							<div class="withdrawals_ConBom">
+								<a href="#">
+									<div class="col_333">￥800</div>
+									<div class="col_333">转账中</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!--<div class="my_profit">
+						<ul class="clearfix">
+							<li>
+								<a href="#">
+									<div class="col_e01928">￥35.00</div>
+									<div class="col_333">未到账收益</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="col_e01928">￥35.00</div>
+									<div class="col_333">已到账收益</div>
+								</a>
+								<a href="#" class="apply_withdrawals col_fff">申请提现</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="col_e01928">￥35.00</div>
+									<div class="col_333">提现审核中</div>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<div class="col_e01928">￥8000.00</div>
+									<div class="col_333">累计提现</div>
+								</a>
+							</li>
+						</ul>
+					</div>-->
+				</div>
+				<div class="way_line"></div>
+				<div class="purchasemy_shopcartNum pad_lr clearfix">
+					<a href="#">
+						<span class="purchasemy_icon purchase_cart_icon"></span>
+						<span class="purchasemy_shopcartNum2">进货车</span>
+						<span class="fr">
+							<span class="purchasemy_shopcartNum3 col_fff">580</span>
+							<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</span>
+					</a>
+				</div>
+				<div class="way_line"></div>
+			</div>
+			<div class="my_assets bg_fff">
+				<h3 class="pad_lr col_333">加盟管理</h3>
+				<div class="purchasemy_shopcartNum pad_lr borbom_f3">
+					<a href="#">
+						<span class="purchasemy_icon open_account_icon"></span>
+						<span class="purchasemy_shopcartNum2">开通账户</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+					</a>
+				</div>
+				<div class="purchasemy_shopcartNum pad_lr clearfix">
+					<a href="#">
+						<span class="purchasemy_icon subordinate_icon"></span>
+						<span class="purchasemy_shopcartNum2">我的下级</span>
+						<span class="fr">
+							<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</span>
+					</a>
+				</div>
+			</div>
+			<div class="way_line"></div>
+			<div class="purchasemy_account bg_fff">
+				<h3 class="pad_lr col_333">账户管理</h3>
+				<ul class="col_333">
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon nickname_icon"></span>
+						<span>昵称</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon gender_icon"></span>
+						<span>性别</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon password_icon"></span>
+						<span>登录密码</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon address_icon"></span>
+						<span>地址管理</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="purchasemy_sign pad_lr">
+				<a href="#" class="col_fff">退出登录</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+$(function(){
+	$(".withdrawals_ConTop").css("height",$(".withdrawals_ConTopLine").height())
+	
+})
+</script>
+</body>
+</html>

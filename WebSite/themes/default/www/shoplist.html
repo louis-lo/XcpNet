@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="$res('css/shop.css')" />
+    <link rel="stylesheet" href="$res('css/base_02.css')">
+    <link rel="stylesheet" href="$res('css/index_02.css')">
+    <link rel="stylesheet" href="$res('css/goods.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/list_02.css')">
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxrating.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+</head>
+<body>
+    $load("inc/top3.html")
+    <div class="shop_list shoplist w1200 clearfix">
+        <ul>
+            $foreach(item in ProductList)
+                <li>
+                    <a href="$url('/product/info/',item.Id)" target="_blank">
+                        <div class="shop_listImg"><img src="$item.GetImage()" width="290" height="352" /></div>
+                        <div class="shop_listTxt clearfix" style="margin-top:10px;">
+                            <div class="fl" style="overflow:hidden;height:28px;">$item.Title</div>
+                            <div class="fr" style="width:76px;">
+                                $item.Price.ToString("C2")
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            $end
+        </ul>
+    </div>
+    <div class="clearfix pagination" style="width:1200px;margin:10px auto;">
+        <ul>
+            $if(ProductList.BeginPage>1)
+            <li class="no"><a href="$PageUrl(ProductList.PageIndex-1)">&lt;上一页</a></li>
+            <li><a href="$PageUrl(1)">1</a></li>
+            <li>...</li>
+            $end
+            $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+            $if(i==ProductList.PageIndex)
+            <li><a href="javascript:void(0)" class="active">$i</a></li>
+            $else
+            <li><a href="$PageUrl(i)">$i</a></li>
+            $end
+            $end
+            $if(ProductList.PagesCount>ProductList.EndPage)
+            <li>...</li>
+            <li><a href="$PageUrl(ProductList.PagesCount)">$ProductList.PagesCount</a></li>
+            <li class="no"><a href="$PageUrl(ProductList.PageIndex+1)">下一页&gt;</a></li>
+            $end
+        </ul>
+    </div>
+    $load("inc/footer2.html")
+</body>
+</html>

@@ -1,0 +1,196 @@
+/* END order-body */
+.order {
+	margin-top: 15px;
+	background-color: #FFF;
+}
+.order-header {
+	position: relative;
+	height: 72px;
+	line-height: 72px;
+	padding-left: 35px;
+	color: #333;
+	border-top: 1px solid #EAEAEA;
+	border-bottom: 1px solid #E5E5E5;
+}
+.order-header span {
+	position: absolute;
+	right: 35px;
+	color: #ff3300;
+}
+.order-body {
+	padding-left: 10px;
+	padding-right: 10px;
+	border-top: 1px solid #E5E5E5;
+}
+.order-footer {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 30px;
+	padding-right: 30px;
+	text-align: right;
+	border-top: 1px solid #E5E5E5;
+	border-bottom: 1px solid #E5E5E5;
+}
+.order-footer a {
+	display: inline-block;
+	height: 50px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: 8px;
+	line-height: 50px;
+	color: #999;
+	border: 1px solid #D3D3D3;
+	border-radius: 4px;
+}
+.order-footer a.reset,
+.order-footer a.pay {
+	color: #FFF;
+}
+.order-footer a.reset {
+	padding-left: 50px;
+	padding-right: 50px;
+	background-color: #AEAAAD;
+	border-color: #E2E1E2;
+}
+.order-footer a.pay {
+	padding-left: 55px;
+	padding-right: 55px;
+	background-color: #FFBF15;
+	border-color: #FFD463;
+}
+/* BEGIN media */
+.media {
+	padding-top: 25px; /* update */
+	padding-bottom: 30px;
+	background-color: #FFF;
+	border-bottom: 1px dashed #D5D5D5; /* add */
+}
+.media-left,
+.media-body {
+	float: left;
+}
+.media-left,
+.media-object {
+	width: 105px;
+}
+.media-left,
+.media-object,
+.media-body {
+	height: 105px;
+}
+.media-left {
+	margin-left: 26px;
+	margin-right: 18px;
+}
+.media-body {
+	position: relative;
+	width: 320px; /* update */
+	padding-right: 150px; /* add */
+}
+.media h2 {
+	font-weight: normal;
+	color: #333;
+	font-size: 18px; /* add */
+	height: 52px; /* add */
+	line-height:1.5; /* add */
+	overflow: hidden; /* add */
+}
+.media h2 a {
+	color: #333;
+}
+.media-body-footer {
+	position: absolute;
+	bottom: 0;
+	/*font-size: 37px;
+	color: #ff3300;
+	font-weight: bold;*/
+	font-size: 18px;
+	line-height: 1.5;
+}
+.media-body-footer span {
+	margin-left: 30px;
+}
+/* add */
+.media-body div {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	width: 150px;
+	text-align: right;
+}
+.media-body div p {
+	line-height: 1.2;
+}
+/* END media */
+
+/* BEGIN total */
+.total {
+	position: relative;
+	height: 54px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 30px;
+	line-height: 54px;
+	color: #999;
+	background: #FFF;
+	border-bottom: 1px solid #E5E5E5;
+}
+.total .num-action {
+	position: absolute;
+	top: 26px;
+	left: 140px;
+}
+.total .total-price {
+	display: block;
+	position: absolute;
+	top: 26px;
+	right: 30px;
+	color: #333;
+}
+.total .total-price span {
+	color: #ff3300;
+}
+/* END total */
+
+/* BEGIN filter */
+.filter ul {
+	width: 640px;
+	height: 80px;
+	color: #333;
+	text-align: center;
+	background-color: #FFF;
+	border-top: 1px solid #E8E8E8;
+	border-bottom: 1px solid #E8E8E8;
+}
+.filter li {
+	float: left;
+	width: 25%;
+	text-align: center;
+}
+.filter li a {
+	display: inline-block;
+	height: 74px;
+	line-height: 74px;
+	color: #333;
+	border-bottom: 6px solid #fff;
+}
+.filter li.active a {
+	color: #febf17;
+	border-bottom-color: #febf17;
+}
+.filter div {
+	margin-top: 14px;
+}
+.filter div a {
+	float: left;
+	display: inline-block;
+	width: 142px;
+	height: 74px;
+	margin-bottom: 14px;
+	line-height: 74px;
+	color: #333;
+	margin-left: 14px;
+	text-align: center;
+	background-color: #FFF;
+}
+/* END filter */

@@ -1,0 +1,247 @@
+.slider {
+	height: auto;
+}
+.slider-aside-left dd {
+	display: none;
+}
+
+/* BEGIN breadcrumb */
+.breadcrumb {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.breadcrumb li {
+	float: left;
+}
+.breadcrumb a {
+	color: #000;
+}
+/* END breadcrumb */
+
+.content-aside,
+.content-main {
+	float: left;
+}
+
+/* BEGIN content-aside  */
+.content-aside {
+	width: 208px;
+}
+.content-aside .panel-header {
+	padding-top: 12px;
+	padding-bottom: 8px;
+}
+.content-aside .panel-header h2 {
+	font-size: 16px;
+}
+.content-aside .panel-body {
+	padding-bottom: 15px;
+	border: 1px solid #CFCFCF;
+}
+.content-aside .panel-body a {
+	display: block;
+	width: 180px;
+	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.content-aside .panel-body img {
+	width: 180px;
+	height: 180px;
+	display: block;
+}
+.content-aside .panel-body h3,
+.content-aside .panel-body p {
+	margin-top: 12px;
+}
+.content-aside .panel-body h3 {
+	height: 36px;
+	line-height: 1.5;
+	font-weight: normal;
+	color: #000;
+	overflow: hidden;
+}
+.content-aside .panel-body p {
+	color: #C00;
+}
+/* END content-aside  */
+
+/* BEGIN content-main */
+.content-main {
+	width: 992px;
+	float: right;
+}
+.content-main li {
+	float: left;
+}
+
+.content-main>ul>li {
+	position: relative;
+	width: 228px;
+	height: 325px;
+	margin-left: 18px;
+	margin-bottom: 18px;
+	border: 1px solid #EFEFEF;
+}
+.content-main .item {
+	position: absolute;
+	width: 220px;
+	top: 0;
+	left: 0;
+	padding: 4px;
+	padding-bottom: 0;
+	height: 318px;
+	overflow: hidden;
+	background-color: #FFF;
+}
+
+.content-main .goods-info {
+	position: relative;
+	width: 228px;
+	left: 1px;
+	background-color: #FFF;
+}
+
+.content-main>ul>li:hover {
+	border-color: #ED0C15;
+	border-bottom-color: #FFF;
+}
+.content-main>ul>li:hover .item {
+	height: auto;
+	outline: 5px solid #ED0C15;
+	z-index: 9999;
+}
+
+.content-main a,
+.content-main img {
+	display: block;
+}
+.content-main a {
+	text-align: center;
+}
+.content-main ul,
+.content-main a.goods-name,
+.content-main p {
+	margin-top: 5px;
+}
+.content-main a.goods-name {
+	height: 36px;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: left;
+	line-height: 36px;
+	color: #000;
+    overflow: hidden;
+}
+.content-main a.supplier {
+    text-indent: 22px;
+    background:url(../img/supplier.png) center left no-repeat;
+}
+
+.content-main li li,
+.content-main li li img {
+	width: 28px;
+	height: 28px;
+}
+.content-main li li {
+	border: 1px solid #EDEDED;
+}
+
+
+.goods-info ins {
+	color: #C00;
+	font-weight:bold;
+	font-size:16px;
+}
+.goods-info des {
+	margin-left: 5px; 
+	color: #999;
+}
+.goods-info ul.first-child li {
+	margin-left:5px;
+}
+.goods-info ul.first-child li:hover {
+	border-color: red;
+}
+.goods-info ul.last-child {
+	width:216px;
+}
+.goods-info ul.last-child li {
+	width:70px;
+	padding-top:10px;
+	padding-bottom:10px;
+	text-align: center;
+}
+
+
+.dp,
+.add-cart {
+	width:228px;
+	height:36px;
+	margin-left:-5px;
+	line-height: 36px;
+	font-size:14px;
+}
+.dp {
+	color:#000;
+	background-color: #F5F5F5;
+}
+.add-cart {
+	background-color: #ED0C15;
+	color: #FFF;
+}
+/* END content-main */
+
+/* BEGIN filter*/
+.filter {
+	height: 36px;
+	line-height: 36px;
+	margin-left: 18px;
+	margin-bottom: 18px;
+	background-color: #F7F7F7;
+	border: 1px solid #D0D0D0;
+}
+.filter ul {
+	margin-top: 0;
+	margin-right: 30px;
+}
+.filter li {
+	padding-left: 6px;
+	padding-right: 6px;
+}
+.filter ul.first-child li {
+	padding-left: 18px;
+	padding-right: 18px;
+	border-right: 1px solid #D0D0D0;
+}
+/* END filter */
+
+/* BEGIN pagination */
+.pagination {
+	margin-top: 30px;
+	text-align: right;
+}
+.pagination ul {
+	float: right;
+}
+.pagination li {
+	float: left;
+	height: 38px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: 5px;
+	line-height: 38px;
+	background-color: #FAFAFA;
+	border: 1px solid #F2F2F2;
+}
+.pagination li.active {
+	background-color: #FF8C64;
+}
+.pagination li.active a {
+	color: #FFF;
+}
+.pagination li.no {
+	border: 0;
+	background-color: #FAF8F8;
+}
+/* BEGIN pagination */

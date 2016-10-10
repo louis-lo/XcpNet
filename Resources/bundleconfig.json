@@ -1,0 +1,278 @@
+[
+  {
+    "outputFileName": "themes/default/plugins/xalert/xalert.min.js",
+    "inputFiles": [
+      "themes/default/plugins/xalert/xalert.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/plusminusbtn/plusminusbtn.min.js",
+    "inputFiles": [
+      "themes/default/plugins/plusminusbtn/plusminusbtn.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/xcp.cph.pc.cart.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/xcp.cph.pc.cart.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/xcp.cph.pc.buy.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/xcp.cph.pc.buy.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/lib/parabola.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/lib/parabola.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.buy.address.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.buy.address.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.payment.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.payment.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/toolbar/pc.toolbar.min.css",
+    "inputFiles": [
+      "themes/default/plugins/toolbar/pc.toolbar.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/toolbar/pc.toolbar.min.js",
+    "inputFiles": [
+      "themes/default/plugins/toolbar/pc.toolbar.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/xalert/xalert.min.css",
+    "inputFiles": [
+      "themes/default/plugins/xalert/xalert.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/plusminusbtn/plusminusbtn-1.0.0.min.js",
+    "inputFiles": [
+      "themes/default/plugins/plusminusbtn/plusminusbtn-1.0.0.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/xalert/xalert-1.0.0.min.js",
+    "inputFiles": [
+      "themes/default/plugins/xalert/xalert-1.0.0.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/toolbar/toolbar.pc.min.js",
+    "inputFiles": [
+      "themes/default/plugins/toolbar/toolbar.pc.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/toolbar/toolbar.pc-1.0.0.min.js",
+    "inputFiles": [
+      "themes/default/plugins/toolbar/toolbar.pc-1.0.0.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/toolbar/toolbar-1.0.0.min.js",
+    "inputFiles": [
+      "themes/default/plugins/toolbar/toolbar-1.0.0.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.index.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.index.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.bottom.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.bottom.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.nav.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.nav.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/lib/idangerous.swiper.min.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/lib/idangerous.swiper.min.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/lib/AreaChange.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/lib/AreaChange.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/areaChange.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/areaChange.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/areachange/areaChange.min.css",
+    "inputFiles": [
+      "themes/default/plugins/areachange/areaChange.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/areachange/areaChange.min.js",
+    "inputFiles": [
+      "themes/default/plugins/areachange/areaChange.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.product.info.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.product.info.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/lib/navfix.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/lib/navfix.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/lib/jquery.jqzoom.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/lib/jquery.jqzoom.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.top.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.top.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/xcp.cph.pc.product.info.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/xcp.cph.pc.product.info.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/xcp.cph.pc.index.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/xcp.cph.pc.index.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.category.parent.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.category.parent.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.cart.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.cart.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/shoppingcart/shoppingCart-1.0.0.min.js",
+    "inputFiles": [
+      "themes/default/plugins/shoppingcart/shoppingCart-1.0.0.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/plugins/xalert/xalert-1.0.1.min.js",
+    "inputFiles": [
+      "themes/default/plugins/xalert/xalert-1.0.1.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.category.sub.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.category.sub.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.buy_pay.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.buy_pay.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cph.pc.product.info.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cph.pc.product.info.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cdb.pc.public.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cdb.pc.public.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cdb.pc.index.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cdb.pc.index.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/lib/tab.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/lib/tab.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/xcp.cdb.pc.index.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/xcp.cdb.pc.index.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cdb.pc.progra_index.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cdb.pc.progra_index.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cdb.pc.progra_detail.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cdb.pc.progra_detail.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cdb.pc.cart.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cdb.pc.cart.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/js2.0/xcp.cdb.pc.cart.min.js",
+    "inputFiles": [
+      "themes/default/js2.0/xcp.cdb.pc.cart.js"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cdb.pc.category.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cdb.pc.category.css"
+    ]
+  },
+  {
+    "outputFileName": "themes/default/css2.0/xcp.cdb.pc.product.min.css",
+    "inputFiles": [
+      "themes/default/css2.0/xcp.cdb.pc.product.css"
+    ]
+  }
+]

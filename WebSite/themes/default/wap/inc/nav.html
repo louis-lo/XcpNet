@@ -1,0 +1,98 @@
+<style type="text/css">
+    /* BEGIN nav */
+    .page {
+        padding-bottom: 84px;
+    }
+    .nav {
+	    position: fixed;
+	    bottom: 0;
+	    left: 0;
+	    z-index: 9999;
+	    width: 100%;
+    }
+    .nav ul {
+	    width: 640px;
+	    height: 83px;
+	    margin-left: auto;
+	    margin-right: auto;
+	    background-color: #F9F9F9;
+	    border-top: 1px solid #D4D4D4;
+    }
+    .nav li {
+	    float: left;
+	    width: 126px;
+	    padding-top: 10px;
+	    text-align: center;
+    }
+    .nav li a {
+	    display: block;
+	    height: 19px;
+	    padding-top: 42px;
+	    color: #787878;
+	    background-repeat: no-repeat;
+	    background-position: center top;
+        background-size: 36px 36px;
+    }
+    /*.nav li.home a {
+	    background-image: url($res('wap/css/img/home.png'));
+    }
+    .nav li.xp a {
+	    background-image: url($res('wap/css/img/xp.png'));
+    }
+    .nav li.cp a {
+	    background-image: url($res('wap/css/img/cp.png'));
+    }
+    .nav li.yp a {
+	    background-image: url($res('wap/css/img/yp.png'));
+    }
+    .nav li.my a {
+	    background-image: url($res('wap/css/img/my.png'));
+    }*/
+
+    .nav li.home a {
+	background-image: url($res('wap/css/img/nav_img_01.png'));
+}
+.nav li.qiang a {
+	background-image: url($res('wap/css/img/nav_img_02.png'));
+}
+.nav li.wh a {
+	background-image: url($res('wap/css/img/nav_img_03.png'));
+}
+.nav li.car a {
+	background-image: url($res('wap/css/img/nav_img_04.png'));
+}
+.nav li.my a {
+	background-image: url($res('wap/css/img/my.png'));
+}
+
+    .nav li.home.active a {
+	    background-image: url($res('wap/css/img/nav_img_01_active.png'));
+        color: #f00;
+    }
+    .nav li.qiang.active a {
+	    background-image: url($res('wap/css/img/nav_img_02_active.png'));
+        color: #f00;
+    }
+    .nav li.wh.active a {
+	    background-image: url($res('wap/css/img/nav_img_03_active.png'));
+        color: #f00;
+    }
+    .nav li.car.active a {
+	    background-image: url($res('wap/css/img/nav_img_04_active.png'));
+        color: #f00;
+    }
+    .nav li.my.active a {
+	    background-image: url($res('wap/css/img/my_active.png'));
+        color: #f00;
+    }
+    /* END nav */
+</style>
+<div class="nav">
+    <ul class="clearfix">
+        <li class="home ${if(this.Application.Action.Equals('index.index'))}active${end}"><a href="$url('/')">城品惠</a></li>
+        <li class="qiang ${if(this.Application.Action.Equals('channel.way'))}active${end}"><a href="$url('/xdginfo/xdghomePage')">乡道馆</a></li>
+        <li class="wh ${if(this.Application.Action.Equals('channel.goods'))}active${end}"><a href="$url('/channel/goods')">进货宝</a></li>
+        <li class="car ${if(this.Application.Action.Equals('channel.activities'))}active${end}"><a href="$url('/channel/activities')">活动区</a></li>
+        <li class="my"><a href="$passport('/ucenter')">我的</a></li>
+    </ul>
+</div>

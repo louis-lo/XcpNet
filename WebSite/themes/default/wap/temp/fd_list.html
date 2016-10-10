@@ -1,0 +1,14 @@
+﻿<div class="vote_succImg clearfix">
+    <div class="fl">
+        <div class="vote_succLiImg" style="background:url($register.HeadImgUrl);background-size:100% 100%;"></div>
+    </div>
+    <div class="vote_succReTxt fr">
+        <p>姓名：$register.Name</p>
+        <p>报名编号：$register.Id.ToString("D5")</p>
+        <div class="vote_succReP">
+            <div>最想对爸爸说的一句话：</div>
+            <div class="txt_hide">$register.Content</div>
+        </div>
+        <p class="vote_button"><a href="vote.html?id=$register.Id"><img src="$res('wap/img/vote_signup4.png')" /></a></p>
+    </div>
+</div>

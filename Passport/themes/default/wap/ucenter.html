@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>我的账户</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/citygoods.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/citygoods_admin.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="purchasemy_top col_fff bg_fff">
+            <div class="pad_lr">
+                <div class="purchasemy_topLe">
+                    <div class="purchasemy_portrait" style="background:url($Member.GetImage(res('css/img/user/default_face.png'))) no-repeat;background-size:cover;"></div>
+                </div>
+                <div class="purchasemy_topCon">
+                    <div>昵称：$Member.GetName()</div>
+                    <div>余额：$Member.Money.ToString("C2")</div>
+                    <!--<div>加盟商后台</div>-->
+                </div>
+                <!--<div class="purchasemy_switch"><a href="#" class="col_fff">切换到加盟商后台</a></div>-->
+            </div>
+        </div>
+
+        <div class="purchasemy_order bg_fff">
+            <div class="purchasemy_orderTop pad_lr clearfix col_333">
+                <span class="purchasemy_icon purchasemy_order_icon"></span>
+                全部订单
+                <a href="$url('/bought/list/','_')" class="fr">
+                    <span class="col_666">查看全部订单</span>
+                    <span class="purchasemy_icon purchasemy_orderMore"></span>
+                </a>
+            </div>
+            <div class="purchasemy_orderCon">
+                <ul class="clearfix">
+                    <li>
+                        <a href="$url('/bought/list/','Payment')">
+                            <div class="purchasemy_icon payment_icon"></div>
+                            <div class="payment_titleTest">代付款</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','Delivery')">
+                            <div class="purchasemy_icon deliver_icon"></div>
+                            <div class="payment_titleTest">待出库</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','OutWarehouse')">
+                            <div class="purchasemy_icon getlibrary_icon"></div>
+                            <div class="payment_titleTest">出库中</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','Receipt')">
+                            <div class="purchasemy_icon receipt_icon"></div>
+                            <div class="payment_titleTest">待收货</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','Finished')">
+                            <div class="purchasemy_icon evaluate_icon"></div>
+                            <div class="payment_titleTest">已完成</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/service/servicelist')">
+                            <div class="purchasemy_icon customer_icon"></div>
+                            <div class="payment_titleTest">售后</div>
+                        </a>
+                        <span class="customer_arrow_icon"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="way_line"></div>
+
+            <div class="purchasemy_shopcartNum pad_lr clearfix">
+                <a href="#">
+                    <span class="purchasemy_icon purchasemy_shopcartNum1"></span>
+                    <span class="purchasemy_shopcartNum2">购物车</span>
+                    <span class="fr">
+                        <span class="purchasemy_shopcartNum3 col_fff">580</span>
+                        <span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+                    </span>
+                </a>
+            </div>
+            <div class="way_line"></div>
+        </div>
+
+        <div class="my_assets bg_fff">
+            <h3 class="pad_lr col_333">资产中心</h3>
+            <div class="purchasemy_shopcartNum pad_lr clearfix">
+                <a href="$url('/recharge')">
+                    <span class="purchasemy_icon myRecharge_icon"></span>
+                    <span class="purchasemy_shopcartNum2">充值</span>
+                    <span class="fr">
+                        <span class="purchasemy_shopcartNum3" style="background:none">
+                            账户余额
+                            <span style="color:#e01928"><b>$Member.Money.ToString("C2")</b></span>
+                        </span>
+                        <span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+                    </span>
+                </a>
+            </div>
+            <div class="purchasemy_shopcartNum pad_lr clearfix">
+                <a href="$url('/billlist')">
+                    <span class="purchasemy_icon mybill_icon"></span>
+                    <span class="purchasemy_shopcartNum2">我的账单</span>
+                    <span class="fr">
+                        <span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+                    </span>
+                </a>
+            </div>
+            <div class="way_line"></div>
+        </div>
+
+        <div class="purchasemy_account bg_fff">
+            <h3 class="pad_lr col_333">账户管理</h3>
+            <ul class="clearfix col_333">
+                <li>
+                    <a href="$url('/security/setuname')">
+                        <span class="purchasemy_icon nickname_icon"></span>
+                        <span>昵称</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="$url('/security/setgender')">
+                        <span class="purchasemy_icon gender_icon"></span>
+                        <span>性别</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="$url('/security/password')">
+                        <span class="purchasemy_icon password_icon"></span>
+                        <span>登录密码</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="$url('/shippingaddress')">
+                        <span class="purchasemy_icon address_icon"></span>
+                        <span>地址管理</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="purchasemy_sign">
+            <a href="$url('logout')" class="col_fff">退出登录</a>
+        </div>
+        
+        $load("inc/bottom.html")
+    </div>
+</body>
+</html>

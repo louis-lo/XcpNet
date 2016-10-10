@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>网货节-$Site.Name</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/swiper.min.css')">
+    <style type="text/css">
+        /* BEGIN slide */
+        .page {
+            background-color: #F2F2F2;
+        }
+
+        .swiper-container,
+        .swiper-slide {
+            width: 640px !important;
+            height: 230px !important;
+        }
+
+        .swiper-slide {
+            text-indent: -9999px;
+        }
+         
+        .swiper-pagination-bullet {
+            width: 11px;
+            height: 11px;
+            background-color: #FFF;
+            opacity: 10;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #A8531D;
+        }
+        /* END slide */
+
+        /* BEGIN header */
+        #header {
+            top: 0px;
+            z-index: 2;
+            position: fixed;
+            width: 640px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #FFF;
+        }
+
+            #header .logo {
+                width: 142px;
+                padding-top: 5px;
+                margin-left: 18px;
+            }
+
+            #header input {
+                width: 318px;
+                height: 24px;
+                line-height: 24px;
+                margin-left: 18px;
+                border: 0;
+                padding: 0;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 56px;
+                padding-right: 10px;
+                margin-top: 6px;
+                font-size: 24px;
+                border-radius: 30px;
+                background: #FFF url($res('wap/css/img/search_01.jpg')) no-repeat 16px center;
+                border: 1px solid #BDBDBD;
+            }
+
+            #header .login {
+                width: 76px;
+                height: 54px;
+                line-height: 54px;
+                text-align: center;
+                color: #999;
+            }
+        /* END header */
+
+        /* BEGIN index-nav */
+        .index-nav {
+            padding-top: 39px;
+            padding-bottom: 22px;
+            background-color: #FFF;
+            border-top: 1px solid #E3E3E3;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+            .index-nav li {
+                float: left;
+                width: 160px;
+                height: 106px;
+            }
+
+                .index-nav li a {
+                    display: block;
+                    width: 100%;
+                    /*height: 72px;*/
+                    height: 14px;
+                    padding-top: 88px;
+                    font-size: 18px;
+                    color: #333;
+                    text-align: center;
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                }
+
+                .index-nav li.index-nav-01 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_01.jpg'));
+                }
+
+                .index-nav li.index-nav-02 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_02.jpg'));
+                }
+
+                .index-nav li.index-nav-03 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_03.jpg'));
+                }
+
+                .index-nav li.index-nav-04 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_04.jpg'));
+                }
+        /* END index-nav */
+
+        /* BEGIN ad */
+
+        /* END ad */
+
+        /* BEGIN wh */
+        .wh {
+            padding-left: 1px;
+            padding-bottom: 8px;
+        }
+
+            .wh li {
+                float: left;
+                width: 203px;
+                padding-bottom: 15px;
+                margin-top: 7px;
+                margin-left: 7px;
+                background-color: #FFF;
+            }
+
+                .wh li a {
+                    color: #999;
+                }
+
+                    .wh li a:hover p.action {
+                        color: #e11817;
+                        background-color: #F2E09F;
+                    }
+
+                .wh li .des {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+
+                .wh li .title,
+                .wh li p {
+                    margin-top: 10px;
+                }
+
+                .wh li .des p {
+                    text-align: center;
+                }
+
+                .wh li .title {
+                    height: 62px;
+                    line-height: 1.3;
+                    overflow: hidden;
+                }
+
+                .wh li .price {
+                    color: #e11817;
+                }
+
+                .wh li .action {
+                    padding-top: 5px;
+                    padding-bottom: 5px;
+                    border: 1px solid #F2E09F;
+                }
+
+            .wh img {
+                width: 203px;
+                height: 203px;
+            }
+        /* END wh */
+
+
+        /* BEGIN click */
+        .click {
+            height: 46px;
+            font-size: 20px;
+            line-height: 46px;
+            color: #333;
+            text-align: center;
+            background-color: #F3F5F7;
+            border-top: 1px solid #D7D8DA;
+            border-bottom: 1px solid #D7D8DA;
+        }
+        /* END click */
+
+        /* BEGIN  footer-nav */
+        .footer-nav {
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            background-color: #F8F8F8;
+            border-top: 10px solid #FFF;
+            border-bottom: 2px solid #FFF;
+        }
+
+            .footer-nav a {
+                display: inline-block;
+                margin-left: 25px;
+                margin-right: 25px;
+                color: #666;
+            }
+        /* END footer-nav */
+
+        /* BEGIN copyright */
+        .copyright {
+            height: 60px;
+            line-height: 60px;
+            font-size: 20px;
+            text-align: center;
+            background-color: #F8F8F8;
+            border-top: 2px solid #FFF;
+        }
+        /* END copyright */
+
+        /* BEGIN site-nav */
+        .site-nav {
+            padding: 20px;
+            background-color: #F6F6F6;
+            border-top: 2px solid #DCDCDC;
+            border-bottom: 2px solid #DCDCDC;
+        }
+
+            .site-nav li {
+                width: 33%;
+                text-align: center;
+                float: left;
+            }
+
+                .site-nav li img {
+                    display: block;
+                    margin-bottom: 5px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .site-nav li a {
+                    color: #666;
+                }
+        /* END site-nav */
+    </style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var curPage = 1;
+        var endPage = false;
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            //$('#banner').jqxScrollView({ width: 640, height: 230, buttonsOffset: [0, 0], slideShow: false });
+            window.setInterval(function () {
+                var banner = $('#banner');
+                var max = $('.jqx-scrollview-page').length;
+                if (max > 1) {
+                    if (banner.jqxScrollView('currentPage') < (max - 1)) {
+                        banner.jqxScrollView('forward');
+                    }
+                    else {
+                        banner.jqxScrollView('changePage', 0);
+                    }
+                }
+            }, 5000);
+            $(".load-img").scaling(202, 202, errPic);
+        });
+    </script>
+</head>
+<body>
+    <div class="page">
+        <div class="clearfix" id="header">
+            <form id="form" action="$url('/search')" method="get" onsubmit="return onSearch()">
+                <a class="logo f-left" href="$Site.Url"><img style="display:block;" src="$res('wap/css/img/logo_03.png')" height="54" width="142"></a>
+                <input class="f-left" type="text" id="q" name="q" placeholder="乡品进城 城品下乡">
+                <a href="javascript:void(0)" onclick="$('#form').submit()" class="f-right login">搜索</a>
+            </form>
+        </div>
+
+        $load("../inc/nav.html")
+
+        <!-- BEGIN slider -->
+        <!--<div class="swiper-container" style="margin-top:79px;">
+            <div id="banner">
+                <div><div class="swiper-slide" style="background-image:url($res('wap/img/wh_slider.png'));"></div></div>
+            </div>
+        </div>-->
+        <!-- END slider -->
+        <!-- BEGIN ad -->
+        <a style="display:block;margin-top:8px;margin-top:79px;"><img src="$res('wap/img/wh_ad.jpg')" height="96" width="640" style="display:block;"></a>
+        <!-- END ad -->
+        <!-- BEGIN wh -->
+        <ul class="wh clearfix">
+            $foreach(product in clr.Cnaws.Product.Modules.Product.GetBySupplierStateOrStateParent(this.DataSource,746,1,3,1,99,11))
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img" data-original="$product.GetImage()">
+                    <div class="des">
+                        <div class="title">$product.Title</div>
+                        <p class="price">$product.GetSalePrice().ToString("C2") 元</p>
+                        <p class="action">立即抢购</p>
+                    </div>
+                </a>
+            </li>
+            $end
+        </ul>
+        <!-- END wh -->
+    </div>
+    
+    $load("../inc/footer.html")
+</body>
+</html>   

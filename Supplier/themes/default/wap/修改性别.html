@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/citygoods_list.css" />
+<script src="../js/zepto.min.js"></script>
+<style>
+.purchasemy_icon{background: url(../img/admin_img.png) no-repeat;}
+</style>
+</head>
+<body bgcolor="#f6f6f6">
+<div class="page-group">
+	<div class="page page-current">
+		<div class="clearfix bar bar-nav col_333 bg_fff">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="#">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				修改性别
+				<input class="Determine_modification" type="submit" value="确定" />
+			</div>
+		</div>
+		
+		<div class="content native-scroll">
+			<div class="returngoods_option bg_fff">
+				<ul class="returngoods_optionLi">
+					<li class="clearfix pad_lr on">
+						<span>男</span>
+						<span class="fr purchasemy_icon"></span>
+					</li>
+					<li class="clearfix pad_lr">
+						<span>女</span>
+						<span class="fr purchasemy_icon"></span>
+					</li>
+					<li class="clearfix pad_lr">
+						<span>保密</span>
+						<span class="fr purchasemy_icon"></span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- / content -->
+	</div>
+</div>
+<script>
+$(function(){
+	$(".returngoods_optionLi li").click(function(){
+		$(".returngoods_optionLi li").removeClass("on");
+		$(this).addClass("on");
+	})
+})
+</script>
+<script src="../js/sm.min.js"></script>
+</body>
+</html>

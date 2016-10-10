@@ -1,0 +1,28 @@
+.main .panel {
+	min-height: 570px;
+}
+.main .panel-body {
+	padding: 20px;
+}
+.balance {
+	height:60px;
+	line-height:60px;
+	font-size:18px;
+	font-family:'\5FAE\8F6F\96C5\9ED1';
+}
+.balance span {
+	color:#f60;
+}
+.payment-mode-title .title {
+	position:relative;
+}
+.payment-mode-title .title input {
+	position:absolute;
+	left:-15px;
+}
+.payment-mode-body {
+	margin-top:20px;
+}
+.payment-mode-body img {
+	border:1px solid #CCC;
+}

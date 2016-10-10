@@ -1,0 +1,77 @@
+body{background:#f9f9f9;}.bg_fff{background:#fff;}
+.purchasemy_top{width:100%;background:url(../../img2.0/cph/purchasemy_topImg.png) no-repeat;background-size:cover;padding:.75rem 0;text-align:center;position:relative;}
+.purchasemy_topLe{width:4rem;margin:0 auto;}
+.purchasemy_icon{background: url(../../img2.0/cph/admin_img.png) no-repeat;}
+.purchasemy_portrait{width:100%;position:relative;padding-bottom:100%;border:2px solid rgba(255,255,255,.3);border-radius:50%;}
+.purchasemy_topCon{color:#fff;margin:.4rem 0 0 .5rem;text-shadow:rgba(0,0,0,0.2) 0 2px 0;}
+.purchasemy_switch{position:absolute;left:.3rem;top:1rem;font-size:.6rem;background:#ff7300;padding:.15rem .35rem;border-radius:13px;}
+
+.purchasemy_orderTop{line-height:1.75rem;border-bottom:1px solid #e5e5e5;position:relative;font-size:.9rem;}
+.purchasemy_orderTop span,.purchasemy_shopcartNum span,.purchasemy_account ul li span{display:inline-block;}
+.purchasemy_order_icon{width:22px;height:26px;vertical-align:middle;background-size:450px 260px;}
+.purchasemy_orderTop .col_666{font-size:.7rem;padding-right:.75rem;}
+.purchasemy_orderMore,.purchasemy_shopcartNum4{width:15px;height:15px;background-size:310px 192px;
+background-position:-195px -5px;vertical-align:middle;position:absolute;right:.5rem;top:.55rem;}
+.purchasemy_orderCon ul li{float:left;text-align:center;width:16.5%;padding:.75rem .3rem .38rem;box-sizing:border-box;font-size:.65rem;}
+.purchasemy_orderCon ul li:last-child{border-left:1px solid #e5e5e5;position:relative;}
+.customer_arrow_icon{position:absolute;left:-2px;top:50%;margin-top:-.4rem;width:.8rem;height:.8rem;background:url(../../img2.0/cph/purchasemy_orderMorearrow.png) no-repeat;
+background-size:100% 100%;border-left:1px solid #fff;}
+.purchasemy_orderCon ul li div:first-child{display:inline-block;width:28px;height:24px;background-size:470px 250px;background-position:-36px 0;}
+.purchasemy_orderCon ul li div.getlibrary_icon{width:30px;background-position:-76px 0;background-size:475px 250px;}
+.purchasemy_orderCon ul li div.deliver_icon{background-size:470px 250px;background-position:-113px 0;}
+.purchasemy_orderCon ul li div.receipt_icon{background-size:443px 250px;background-position:-143px -2px;}
+.purchasemy_orderCon ul li div.evaluate_icon{background-size:415px 232px;background-position:-169px -1px;}
+.purchasemy_orderCon ul li div.customer_icon{background-size:443px 250px;background-position:-216px -2px;}
+.payment_titleTest{font-size:.65rem;}
+.purchasemy_shopcartNum{line-height:1.75rem;position:relative;}
+.purchasemy_shopcartNum1{width:22px;height:26px;vertical-align:middle;background-size:355px 206px;background-position:-196px 0;margin-top:-0.15rem;}
+.purchasemy_shopcartNum3{margin-right:1rem;padding:0 .3rem;background:#f44344;border-radius:.75rem;line-height:1.4;}
+.my_assets .purchasemy_shopcartNum{line-height:2rem;}
+.my_assets h3{line-height:1.75rem;border-bottom:1px solid #e5e5e5;font-weight:600;}
+.myRecharge_icon{width:22px;height:26px;vertical-align:middle;background-size:415px 240px;background-position:-286px -5px;}
+.mybill_icon{width:22px;height:26px;vertical-align:middle;background-size:415px 240px;background-position:-241px -82px;}
+.purchasemy_account h3{line-height:1.75rem;border-bottom:1px solid #e5e5e5;}
+.purchasemy_account ul li{width:50%;box-sizing:border-box;line-height:2.5rem;font-size:.8rem;border-bottom:1px solid #e5e5e5;float:left;}
+.purchasemy_account ul li:nth-child(2n){border-left:1px solid #e5e5e5;}
+.purchasemy_account ul li span:first-child{margin:-0.15rem .2rem 0 10%;width:24px;height:24px;vertical-align:middle;background-size:376px 223px;}
+.purchasemy_account ul li span.nickname_icon{background-position:-350px -3px}
+.purchasemy_account ul li span.gender_icon{background-position:-291px -3px}
+.purchasemy_account ul li span.password_icon{background-position:-0 -34px;}
+.purchasemy_account ul li span.address_icon{background-position:-319px -3px}
+.purchasemy_sign{height:auto;overflow:hidden;margin-bottom:3rem;}
+.purchasemy_sign a{background:#e01928;display:block;width:90%;height:43px;line-height:43px;text-align:center;margin:1.5rem auto;font-size:1rem;border-radius:.15rem;}
+
+.col_ff7{color:#color:#ff7300;}.purchaseall_icon{background: url(../../img2.0/cph/purchaseallImg.png) no-repeat;}
+.wayshow_nav{position:fixed;top:0;height:2.2rem;line-height:2.2rem;width:100%;background:#fff;text-align:center;z-index:999;font-size:.95rem;color:#333;border-bottom:1px solid #f3f3f3;}
+.wayshow_navPosi{position:relative;}
+.wayshow_navLe{position:absolute;top:0.5rem;left:0.3rem;}
+.icon_Firststep{display:inline-block;width:18px;height:18px;background:url(../../img2.0/icon_Firststep.png);background-size:100%;}
+/* end nav*/
+
+/**/
+.purchaseall_apply{margin-top:2.5rem;}
+.purchaseall_apply h3{line-height:2rem;}
+.purchaseall_reason textarea{resize:none;width:100%;border:none;padding:2%;height:5rem;}
+.purchaseall_applySub{position:fixed;bottom:1rem;left:2.5%;width:95%;background:#ff7300;line-height:2.3rem;text-align:center;border-radius:.15rem;font-size:.9rem;}
+.purchaseall_reasonTxt{opacity:0;transition:opacity 3s;-webkit-animation:shopcart_addnum 3s infinite linear;}
+.purchaseall_reasonTxt.on{opacity:1;}
+.purchaseall_contact{color:#ff7300;margin-top:2rem;text-align:center;line-height:1.5rem;}
+.purchaseall_contact .choice_icon{background-position:-73px 0px;vertical-align:middle;}
+.purchaseall_reasContent{padding:.75rem;}
+
+.purchaseall_logiLe{width:9%;}.purchaseall_logiRe{width:91%;}.purchaseall_logiRe h3{line-height:1.5;}
+.purchaseall_logistics .choice_icon{background-position:-126px -3px;}
+.purchaseall_logistics ul li{background:url(../../img2.0/cph/route_descIconBg.jpg) .45rem 0 repeat-y;padding-bottom:.5rem;}
+.purchaseall_logistics ul li:last-child{background:none;}
+.purchaseall_logistics ul li:last-child .choice_icon{background-position:-103px 0px;}
+.purchaseall_logistics ul li:last-child h3{color:#333}
+
+.receipt_detaTop{border-bottom:1px solid #e5e5e5;line-height:2rem;}
+.receipt_detaContacts{padding:.5rem .75rem;}
+.receipt_detaContacts h3{line-height:1.5rem;color:#555}
+.receipt_detaContacts .choice_icon{background-position:-22px 0;margin-right:.3rem;}
+.receipt_detainfo{zoom: 1;overflow: hidden;padding-left:1.2rem;}
+.receipt_detaCon_main{width: 100%;}
+.receipt_detaCon_Le{width: 200px;margin-left: -100%;position: relative;left: -1.2rem;}
+.purchase_ReceiptBottom{position:fixed;bottom:0;background:#fff;height:2.5rem;width:100%;line-height:2.5rem;box-sizing: border-box;}
+.purchase_ReceiptTest{padding:.5rem .75rem;}

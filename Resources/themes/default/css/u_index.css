@@ -1,0 +1,59 @@
+/* BEGIN info */
+.info {
+	height: 156px;
+}
+.info .media-left {
+	width: 164px;
+	height: 100%;
+	border-right: 1px solid #E1E1E1;
+}
+.info .media-object {
+	display: block;
+	margin-top: 16px;
+	margin-left: auto;
+	margin-right: auto;
+    width: 98px;
+    height: 98px;
+    border: 0;
+}
+.info .media-left p {
+	margin-top: 16px;
+	text-align: center;
+}
+.info .media-body {
+	height: 100%;
+}
+/* END info */
+
+/* BEGIN state */
+.state {
+	margin-top: 12px;
+}
+/* END state */
+
+/* BEGIN list-header */
+.list-header li.cols-05,
+.list-header li.cols-06 {
+	border-left: #F9F9F9;
+}
+/* END list-header */
+
+/* BEGIN list-body */
+.list-body .panel-header li {
+	float: left;
+	width: 200px;
+}
+.list-body .panel-header a {
+	float: right;
+	position: relative;
+	top: 15px;
+}
+.list-body td.w-110 {
+	width:109px;
+	border-left: 1px solid #EEE;
+}
+.list-body td.w-131 {
+	width:130px;
+	border-left: 1px solid #EEE;
+}
+/* END list-body */

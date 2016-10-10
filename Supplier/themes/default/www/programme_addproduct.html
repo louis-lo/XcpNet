@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>进货宝方案管理</title>
+    $load("inc/s_comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.supplierlist.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.programme.css')">
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <link rel="stylesheet" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <style>
+        #jqxNotificationDefaultContainer-top-right {
+        z-index:99999999!important;
+        }
+
+    </style>
+    <script type="text/javascript">
+        /*使用jqzoom*/
+        $(function() {
+            $("input[type='text']").focus(function(){
+                $(this).css("border-color","#ff5820")
+            });
+            $("input[type='text']").blur(function(){
+                $(this).css("border-color","#ccc")
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/s_top.html")
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/s_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="fr">
+            <h3 class="ProductShelves">添加产品</h3>
+
+            <!--添加产品开始-->
+            <div class="programme_top">
+                <div class="top clearFix">
+                    <span class="fl">进货宝所有商品：</span>
+                    <select class="fl">
+                        <option value="0" onclick="location.href='$url("/programme/addproduct/",ProgrammeId,"/","0")'">所有商品</option>
+                        $foreach(category in CategoryList)
+                        <option value="$category.Id" onclick="location.href='$url("/programme/addproduct/",ProgrammeId,"/",category.Id)'" $if(category.Id==CategoryId)selected ="selected" $end>$category.Name</option>
+                        $end
+                    </select>
+                    <div class="query fl">
+                        精确查询
+                        <span></span>
+                    </div>
+                </div>
+                <div class="down">
+                    关键字：
+                    <input class="down_query" id="KeyWord" type="text" placeholder="请输入关键字" value="$KeyWord" />
+                    <input class="sub" type="submit" value="查询" onclick="location.href='$url('/programme/addproduct/',ProgrammeId,'/',CategoryId)?KeyWord='+document.getElementById('KeyWord').value+''" />
+                </div>
+            </div>
+
+            <!--方案内容开始-->
+            <ul class="add_product">
+                <li class="first clearFix">
+                    <div class="one fl ">ID</div>
+                    <div class="two fl">供应商</div>
+                    <div class="three fl">产品名称</div>
+                    <div class="four fl">图片</div>
+                    <div class="five fl">分类</div>
+                    <div class="six fl">单位</div>
+                    <div class="seven fl">操作</div>
+                </li>
+                $foreach(item in ProductList.Data)
+                <li class="last clearFix">
+                    <div class="one fl ">$item.DistributorProduct_Id</div>
+                    <div class="two fl">
+                        $item.Member_Name
+                    </div>
+                    <div class="three fl">$item.DistributorProduct_Title</div>
+                    <div class="four fl">
+                        <a href="javascript:;">
+                            <img src="$GetImage(item.DistributorProduct_Image)" />
+                        </a>
+                    </div>
+                    <div class="five fl">$item.DistributorCategory_Name</div>
+                    <div class="six fl">$if(item.DistributorProduct_Unit!="")$item.DistributorProduct_Unit$else件$end</div>
+                    <div class="seven fl">
+                        <a href="$Site.B2bShopUrl$url('/product/view/',item.DistributorProduct_Id)" class="left">预览</a>
+                        $if(ExistsProgramme(item.DistributorProduct_Id)==false)
+                        <a href="javascript:;" data-id="$item.DistributorProduct_Id" class="addprogramme">加入方案</a>
+                        $else
+                        <a href="javascript:;" data-id="$item.DistributorProduct_Id" class="on addprogramme">已加入方案</a>
+                        $end
+                    </div>
+                </li>
+                $end
+            </ul>
+
+            <!--商品分页开始-->
+            <div class="center_pageBox clearFix" style="margin-left:150px;">
+                <ul class="clearFix fl">
+                    $if(ProductList.PageIndex==ProductList.BeginPage)
+                    <li class="page_prev">
+                        <a href="#" class="pageprev_unprint pageprev_img">
+                            <span class="unicon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_prev">
+                        <a href="$url('/programme/addproduct/',ProgrammeId,'/',CategoryId,'/',ProductList.PageIndex-1)?KeyWord=" $KeyWord" class="pageprev_print pageprev_img">
+                            <span class="icon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $end
+                    $if(ProductList.BeginPage>1)
+                    $end
+                    $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+                    $if(i==ProductList.PageIndex)
+                    <li class="page_numer itme"><a href="javascript:;">$i</a></li>
+                    $else
+                    <li class="page_numer"><a href="$url('/programme/addproduct/',ProgrammeId,'/',CategoryId,'/',i)?KeyWord=" $KeyWord">$i</a></li>
+                    $end
+                    $end
+                    $if(ProductList.PagesCount>ProductList.EndPage)
+                    <li class="page_numer"><a href="$url('/programme/addproduct/',ProgrammeId,'/',CategoryId,'/',ProductList.PageIndex+1)?KeyWord=" $KeyWord">...</a></li>
+                    <li class="page_numer"><a href="$url('/programme/addproduct/',ProgrammeId,'/',CategoryId,'/',ProductList.PagesCount)?KeyWord=" $KeyWord">$ProductList.PagesCount</a></li>
+                    $end
+                    $if(ProductList.PagesCount<=0||ProductList.PageIndex==ProductList.PagesCount)
+                    <li class="page_next page_prev">
+                        <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                            下一页
+                            <span class="unicon"></span>
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_next page_prev">
+                        <a href="$url('/programme/addproduct/',ProgrammeId,'/',CategoryId,'/',ProductList.PageIndex+1)?KeyWord=" $KeyWord" class="pageprev_next pageprev_print pagenext_img">
+                            下一页
+                            <span class="icon"></span>
+                        </a>
+                    </li>
+                    $end
+                </ul>
+                <div class="total fl"> 共 $ProductList.PagesCount 页/$ProductList.TotalCount条，</div>
+                <div class="form fl">
+                    <span class="text">到第</span>
+                    <input class="input J_Input" type="number" id="PageInput" aria-label="页码输入框" max="$ProductList.PagesCount" min="1" value="1">
+                    <span class="text">页</span>
+                    <span class="btn J_Submit fr" tabindex="0" onclick="window.location.href = '$url('/programme/addproduct/',ProgrammeId,'/',CategoryId,'/'," ' + Math.min(parseInt(document.getElementById(' PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value)) + '")?KeyWord=$KeyWord' " role=" button">确定</span>
+                </div>
+            </div>
+            <!--商品分页结束-->
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    $load("inc/xalert.html")
+    <script type="text/html" id="tmpl-address">
+        <div class="new_addressWrap clearFix">
+            <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                <div class="classificationOfPop">
+                    <div class="top">请选择产品分类</div>
+                    <div class="mid" style="padding-left:0">
+                        <ul>
+                            <li class="clearFix firstClass" id="ProdctList">
+                                <div class="specifications add_class fl" style="width:280px;padding-left:20px">产品参数</div>                                
+                                <div class="price fl">价格</div>
+                                <div class="stock fl">库存</div>
+                                <div class="number fl">数量</div>
+                                <div class="material add_class fl">是否存在</div>
+                                <div class="operation fl">操作</div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div class="down">
+                        <!--<span></span>
+                        继续添加-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+    <script>
+        $(function(){
+            $('.addprogramme').xalert({
+                tmpl: '#tmpl-address',
+                width:'727px',
+                height: 'auto',
+                top:'18%',
+                enableCancel: false,
+                enableOk: false,
+                onShow: function (xalert){
+                    xalert.content.on("focus","input[type='text']",function(){
+                        $(this).css("border-color","#ff5820")
+                    });
+                    xalert.content.on("blur","input[type='text']",function(){
+                        $(this).css("border-color","#ccc")
+                    });
+                    $.ajax({
+                        type:"Post",
+                        dataType:"Html",
+                        url:Cnaws.getUrl("$url('/programme/productinfo/',ProgrammeId,'/')"+$(xalert.target).data('id')),
+                        success:function(data){
+                            xalert.content.find("#ProdctList").after(data);
+                        }
+                    });
+                    
+                    xalert.content.on("click",".delScheme",function(){
+                        var input=this;
+                        //if(confirm("是否从该方案中删除该产品?")){
+                            $.ajax({
+                                type:"Post",
+                                dataType:"Json",
+                                url:'$url("/programme/delproduct/",ProgrammeId)',
+                                data:"ProductId="+$(this).data("id"),
+                                async:false,
+                                success:function(data){
+                                    if (data.code == -200) {
+                                        Cnaws.showSuccess("删除成功");
+                                        $(input).parent().html('<a class="saveScheme" data-id="'+$(input).data("id")+'" href="javascript:;">添加</a>');
+                                        xalert.content.find("#Exists_"+$(input).data("id")).html('<span style="color:red">不存在</span>');
+                                    }
+                                    else
+                                        Cnaws.showError("抱歉,删除失败！请检查数据");
+                                }
+                            });
+                        //}
+                    });
+                    
+                    xalert.content.on("click",".saveScheme",function(){
+                        var input=this;
+                        //if(confirm("确定将产品添加至该方案中?")){
+                            $.ajax({
+                                type:"Post",
+                                dataType:"Json",
+                                url:'$url("/programme/addproducttoprogramme/",ProgrammeId)',
+                                data:"ProductId="+$(this).data("id")+"&Count="+xalert.content.find("#Count_"+$(this).data("id")).val(),
+                                async:false,
+                                success:function(data){
+                                    if (data.code == -200) {
+                                        Cnaws.showSuccess("添加成功");
+                                        $(input).parent().html('<a class="delScheme" data-id="'+$(input).data("id")+'" href="javascript:;">删除</a>');
+                                        xalert.content.find("#Exists_"+$(input).data("id")).html('<span style="color:green">已存在</span>');
+                                    }
+                                    else
+                                        Cnaws.showError("抱歉,添加失败！请检查数据");
+                                }
+                            });
+
+                            
+                        //}
+                    });
+                },
+                onClose:function(xalert){
+                    location.reload();
+                }
+            })
+        })
+    </script>
+</body>
+</html>

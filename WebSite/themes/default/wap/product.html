@@ -1,0 +1,955 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$Product.Title-$Site.Name</title>
+    <meta name="keywords" content="$Product.Title,$Product.Keywords">
+    <meta name="description" content="$Product.Title,$Product.Description">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/common.css')">
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxrating.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var initc = false;
+        var curstate = 0;
+        var curstar1 = 0;
+        var curstar2 = 0;
+        var full = new Array();//$foreach(map in Mappings)
+        full.push({ 'p': '$map.ProductId', 's': '$map.SerieId', 'v': '$map.Value' });//$end
+        var mappings = new Array();//$foreach(item in Series)
+        mappings['$item.Id'] = new Array();//$foreach(map in Mappings)$if(map.SerieId==item.Id)
+        if (mappings['$item.Id']['$map.Value'] == undefined) {
+            mappings['$item.Id']['$map.Value'] = new Array();
+        }
+        mappings['$item.Id']['$map.Value'].push('$map.ProductId');//$end//$end//$end
+        var series = new Array();// $foreach(item in Series)
+        series['$item.Id'] = null;//$end
+        function hasValue(s, v, map) {
+            if (map != undefined) {
+                var arr = mappings[s][v];
+                if (arr != undefined) {
+                    for (var i = 0; i < map.length; ++i) {
+                        for (var j = 0; j < arr.length; ++j) {
+                            if (map[i] == arr[j]) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        function initElements(s, v) {
+            var map = mappings[s][v];
+            for (var key in series) {
+                if (key != s) {
+                    $('#s-' + key).find('a').each(function (index, value) {
+                        if (hasValue(key, $(value).attr("v-data"), map)) {
+                            $(value).removeClass('disabled');
+                        }
+                        else {
+                            $(value).removeClass('active');
+                            $(value).addClass('disabled');
+                        }
+                    });
+                }
+            }
+        }
+        function activeElement(e) {
+            var s = $(e).attr("s-data");
+            var v = $(e).attr("v-data");
+            $('#s-' + s).find('a').each(function (index, value) {
+                if (value != e) {
+                    $(value).removeClass('active');
+                }
+                else {
+                    $(value).addClass('active');
+                }
+            });
+            initElements(s, v);
+        }
+        function initSeries() {
+            for (var key in series) {
+                series[key] = null;
+            }
+            for (var key in series) {
+                $('#s-' + key).find('a').each(function (index, value) {
+                    if (!$(value).hasClass('disabled') && $(value).hasClass('active')) {
+                        series[$(value).attr('s-data')] = $(value).attr('v-data');
+                    }
+                });
+            }
+        }
+        function initMaps() {
+            for (var key in series) {
+                $('#s-' + key).find('a').each(function (index, value) {
+                    $(value).removeClass('disabled');
+                });
+            }
+            for (var key in series) {
+                if (series[key] != null) {
+                    initElements(key, series[key]);
+                }
+            }
+        }
+        function selectSeries(e) {
+            var el = $(e);
+            if (!el.hasClass('disabled')) {
+                if (!el.hasClass('active')) {
+                    activeElement(e);
+                    initSeries();
+                    var p;
+                    var tmp;
+                    var ok = true;
+                    var arr = new Array();
+                    for (var key in series) {
+                        if (series[key] == null) {
+                            ok = false;
+                            break;
+                        }
+                        tmp = mappings[key][series[key]];
+                        if (tmp == undefined) {
+                            ok = false;
+                            break;
+                        }
+                        for (var i = 0; i < tmp.length; ++i) {
+                            p = tmp[i];
+                            if (arr[p] == undefined) {
+                                arr[p] = 1;
+                            }
+                            else {
+                                arr[p] = arr[p] + 1;
+                            }
+                        }
+                    }
+                    if (ok) {
+                        p = null;
+                        for (var k in arr) {
+                            if (arr[k] == $Series.Count) {
+                                p = k;
+                                break;
+                            }
+                        }
+                        if (p != null) {
+                            window.location.href = Cnaws.getUrl('$url("/product/",this.Application.ActionName,"/")' + p);
+                        }
+                    }
+                }
+                else {
+                    el.removeClass('active')
+                    initSeries();
+                    initMaps();
+                }
+            }
+        }
+
+        function loadCommentPage(state, star1, star2, page) {
+            curstate = state;
+            curstar1 = star1;
+            curstar2 = star2;
+            $.ajax({
+                type: "GET",
+                url: Cnaws.getUrl('$url("/comment/list/1/")' + ${if(Product.ParentId==0)}${Product.Id}${else}${Product.ParentId}${end} + '/' + state + '/' + star1 + '/' + star2 + '/' + page),
+                dataType: 'html',
+                success: function (data) {
+                $('#c-content').html(data);
+                $('.star').each(function (index, value) {
+                    $(value).jqxRating({ width: 350, height: 35, disabled: true, value: parseInt($(value).attr('star-data')) });
+                });
+            }
+        });
+        }
+        function loadCP(p) {
+            loadCommentPage(curstate, curstar1, curstar2, p);
+        }
+        function loadComment(state, star1, star2, page) {
+            if (!initc) {
+                initc = true;
+                loadCommentPage(state, star1, star2, page);
+                Cnaws.getAjax(Cnaws.getUrl('$url("/comment/Statistics/1/")' + ${if(Product.ParentId==0)}${Product.Id}${else}${Product.ParentId}${end}), function (data, args) {
+                    if (data.code == -200) {
+                        $('.star1').html(data.data.star1);
+                        $('.star2').html(data.data.star2);
+                        $('.star3').html(data.data.star3);
+                        $('.star4').html(data.data.star4);
+                        $('.rate').html(data.data.rate3);
+                        $('.rate1').css('width', data.data.rate1 + '%');
+                        $('.rate2').css('width', data.data.rate2 + '%');
+                        $('.rate3').css('width', data.data.rate3 + '%');
+                    }
+                }, null);
+            Cnaws.getAjax(Cnaws.getUrl('$url("/comment/keywords/1/")' + ${if(Product.ParentId==0)}${Product.Id}${else}${Product.ParentId}${end}), function (data, args) {
+                if (data.code == -200) {
+                    var html = '';
+                    for (var i = 0; i < data.data.length; ++i) {
+                        html += '<label>' + data.data[i].Keyword + '(' + data.data[i].Id + ')</label>';
+                    }
+                    $('#keywords').append($(html));
+                }
+            }, null);
+        }
+        }
+        function loadFreight(a, b, c, d) {
+            $.ajax({
+                type: "GET",
+                url: Cnaws.getUrl('$url("/freight/show/")' + a + '/' + b + '/' + c + '/' + d),
+                dataType: 'html',
+                success: function (data) {
+                    $('#freight').html(data);
+                }
+            });
+        }
+        $(function () {
+            $('#banner').jqxScrollView({ width: 640, height: 640, buttonsOffset: [0, 0], slideShow: false, moveThreshold: 0.1 });
+            initSeries();
+            initMaps();
+            $("#content img").each(function () {
+                $(this).attr('data-original', $(this).attr('src'));
+                $(this).attr('src', '');
+            });
+            $("#content img").lazyload({ threshold: 200 });//$if(Product.FreightType==0)
+            $('#freight').html('全国&nbsp;$Product.GetFreightString(this.DataSource,0,0)');//$else
+            loadFreight($Product.FreightTemplate, $Product.Id, 0, 0);
+            //$end
+            Cnaws.getAjax(Cnaws.getUrl('$url("/comment/count/1/")'+ ${if(Product.ParentId==0)}${Product.Id}${else}${Product.ParentId}${end}), function (data, args) {
+                if (data.code == -200) {
+                    $('.c-count').html(data.data);
+                }
+            }, null);
+
+        (function(doc){
+            var get=function(id){
+                return  document.getElementById(id);
+            },
+                form=get('form');
+
+            get('btnSubmit').addEventListener('click',function(){
+                var id=get('Id'),
+              count=get('buycount').value;
+                id.value=$Product.Id;
+                //id.value=id.value+'|'+count;
+
+                $if(this.IsLogin)
+                if( parseInt($('#buycount').val()) > 0){
+                    form.submit();
+                }
+                $else
+                window.location.href = '$passport("/login")';
+                $end
+            });
+        })(document);
+
+        });
+    </script>
+    <style type="text/css">
+        .buy-nav li.item-03, .buy-nav li.item-04 {
+            /*width: 212px;*/
+            width: 176px;
+        }
+        /* BEGIN num-action  */
+        .num-action {
+            position: relative;
+            /*width: 175px;*/
+            /*width: 211px;*/
+            /*height: 52px;*/
+            height: 88px;
+            line-height: 52px;
+            /*border: 1px solid #E5E5E5;*/
+            border-radius: 4px;
+        }
+
+            .num-action span {
+                display: block;
+                position: absolute;
+                width: 200px;
+                left: 200px;
+            }
+
+            .num-action a,
+            .num-action input {
+                float: left;
+                display: block;
+                border: 0;
+                padding: 0;
+            }
+
+            .num-action a {
+                width: 88px !important;
+                height: 88px !important; /*52*/
+                padding-top: 0 !important;
+                line-height: 88px !important;
+                text-indent: -9999px;
+                background-position: 16px 16px !important;
+            }
+
+            .num-action .remove {
+                width: 53px;
+                background: url($res('wap/css/img/remove.png')) no-repeat left top;
+            }
+
+            .num-action input,
+            .num-action .add {
+                border-left: 1px solid #EBEBEB;
+            }
+
+            .num-action input {
+                /*width: 42px;*/
+                width: 88px;
+                height: 32px;
+                padding: 28px 10px;
+                line-height: 32px;
+                text-align: center;
+            }
+
+            .num-action .add {
+                width: 58px;
+                background: url($res('wap/css/img/add.png')) no-repeat left top;
+            }
+
+        dl.list-block {
+            border: 0;
+        }
+
+            dl.list-block dt, dl.list-block dd, dl.list-block dd a {
+                float: left;
+                display: inline;
+            }
+
+            dl.list-block dd {
+                margin-left: 20px;
+            }
+
+                dl.list-block dd a {
+                    border: solid 1px #CCC;
+                    padding: 4px 10px 8px 10px;
+                }
+
+                    dl.list-block dd a.active {
+                        border-color: #F00;
+                    }
+
+                    dl.list-block dd a.disabled {
+                        border-color: #CCC;
+                        color: #CCC;
+                    }
+        /* END num-action */
+        #banner .b-item {
+            width: 640px;
+            height: 640px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 640px 640px;
+        }
+        .col_999{color:#999;}img{max-width:100%;}
+        .shop_title{zoom:1;overflow:hidden;padding:0 30px 8px 110px;margin:10px 14px;}
+        .shop_titleMain{float:left;width:100%;margin-top:10px;color:#333;font-size:24px;}
+        .shop_titleMain p:first-child{font-size:28px;}
+        .shop_titleLeft{float:left;width:100px;margin-left:-100%;position:relative;left:-110px;}
+        .shop_titleRight{float:left;width:10px;margin-left:-30px;position:relative;right:-44px;top:24px;}
+        .shop_goodsHref{margin-bottom:70px;line-height:30px;font-size:14px;font-size:28px}
+        .shop_goodsHref div{float:left;width:33.3%;text-align:center;}
+        .shop_goodsHref div:nth-child(2) span{display:inline-block;padding:0 8px;background:#eaeaea;border-radius:12px;}
+        .shop_goodsHref div:last-child a{color:#febd22;border:1px solid #febd22;display:inline-block;padding:3px 10px;border-radius:4px;}
+    </style>
+</head>
+<body>
+    <div class="nav buy-nav">
+        <form id="form" action="$passport('/buy')" method="post" onsubmit="return buyProduct()">
+            <ul class="clearfix">
+                <li class="item-03" style="border-left: 0;"><a onclick="addCart($Product.Id)" href="javascript:void(0)">加入购物车</a>
+                <li class="item-02" style="width:286px;">
+                    <div class="num-action">
+                        <a href="javascript:void(0)" class="remove">-</a>
+                        <input type="text" id="buycount" name="Count" value="${if(Product.Wholesale==true)}$Product.WholesaleCount${else}1${end}">
+                        <a href="javascript:void(0)" class="add">+</a>
+                    </div>
+                </li>
+                <li class="item-04"><a id="btnSubmit" href="javascript:void(0)">立即购买</a></li>
+            </ul>
+            <input type="hidden" id="Id" name="Id" value="$Product.Id">
+
+            <!--
+                add *  新版的底部导航
+                <style type="text/css">
+                .buy-nav li {
+                    box-sizing:border-box;
+                }
+                .buy-nav li.btn {
+                    width:192px;
+                }
+                    .buy-nav li.btn a {
+                        padding-top:0!important;
+                        height:88px!important;
+                        line-height:88px!important;
+                        color:#fff;
+                    }
+            </style>
+            <ul class="clearfix">
+                <li class="collect">
+                    <a href="/">咨询</a>
+                </li>
+                <li class="consult">
+                    <a href="/">收藏</a>
+                </li>
+                <li class="btn" style="background:#fdd443;">
+                    <a onclick="addCart($Product.Id)" href="javascript:void(0)">加入购物车</a>
+                </li>
+                <li class="btn" style="background:#f00;">
+                    <a onclick="$('#form').submit()" href="javascript:void(0)">立即抢购</a>
+                </li>
+            </ul>-->
+        </form>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <a href="javascript:history.go(-1)" class="back">返回</a>
+            商品详情
+        </div>
+        <div class="content">
+            <div id="banner">
+                $foreach(img in Product.GetImages())
+                <div><div class="b-item" style="background-image:url($img)"></div></div>
+                $end
+            </div>
+            <style type="text/css">
+                .product-base {
+                    padding-left: 22px;
+                    padding-right: 22px;
+                    padding-top: 22px;
+                    padding-bottom: 14px;
+                    background-color: #FFF;
+                }
+
+                    .product-base ins {
+                        font-size: 37px;
+                        color: #ff3300;
+                        font-weight: bold;
+                    }
+
+                    .product-base des {
+                        text-decoration: line-through;
+                    }
+
+                    .product-base .price-wrap {
+                        position: relative;
+                        padding-bottom: 23px;
+                        border-bottom: 1px dotted #D8D8D8;
+                    }
+
+                    .product-base .sold-total {
+                        position: absolute;
+                        right: 0;
+                    }
+
+                    .product-base h2 {
+                        margin-top: 23px;
+                    }
+
+                        .product-base h2 a {
+                            color: #333;
+                            font-weight: normal;
+                        }
+
+                    .product-base .ensure {
+                        margin-top: 22px;
+                    }
+
+                        .product-base .ensure span {
+                            display: block;
+                            float: left;
+                            height: 22px;
+                            line-height: 22px;
+                            padding-left: 27px;
+                            margin-right: 20px;
+                            font-size: 18px;
+                            background-repeat: no-repeat;
+                        }
+
+                    .product-base .ensure-01 {
+                        background-image: url($res('wap/css/img/ensure_01.png'));
+                    }
+
+                    .product-base .ensure-02 {
+                        background-image: url($res('wap/css/img/ensure_02.png'));
+                    }
+
+
+                .list-block.common,
+                .tab {
+                    margin-top: 12px;
+                }
+            </style>
+            <div class="product-base">
+                <p class="price-wrap">
+                    <ins>$Product.GetSalePrice().ToString("C2")</ins>
+                    <des>$Product.Price.ToString("C2")</des>
+                    <span class="sold-total">库存<span>$Product.Inventory</span>$Product.Unit</span>
+                </p>
+                <h2>$Product.Title</h2>
+                <p class="clearfix ensure">
+                    $if(Supplier.Level>0)<span class="ensure-01">优质供应商</span>$end
+                    <span class="ensure-02">品质保障</span>
+                </p>
+            </div>
+            <div class="product-base clearfix freight">
+                <label class="f-left">运费</label>
+                <p class="f-left" style="margin-left:20px" id="freight"></p>
+            </div>
+            <style>
+                .product-base dt {
+                    width: 56px;
+                    display: inline-block;
+                    height: 34px;
+                    line-height: 34px;
+                }
+
+                dl.list-block dd {
+                    margin-left: 0;
+                    vertical-align: top;
+                    width: 540px;
+                    display: inline-block;
+                }
+
+                    dl.list-block dd a {
+                        padding: 5px 10px;
+                    }
+
+                .product-base dd a {
+                    display: block;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                }
+            </style>
+            <div class="product-base clearfix" style="padding-top:0">
+                $foreach(item in Series)
+                $set(index=foreachIndex-1)
+                <dl id="s-$item.Id" class="list-block common clearfix">
+                    <dt>$item.Name</dt>
+                    <dd>
+                        $foreach(map in item.GetMappings(this.DataSource))
+                        $set(active=false)
+                        $foreach(tmp in Mapping)
+                        $if(item.Id==tmp.SerieId&&map.Value==tmp.Value)
+                        $set(active=true)
+                        $end
+                        $end
+                        $if(active)
+                        <a class="active" href="javascript:void(0)" s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">$map.Value</a>
+                        $else
+                        <a href="javascript:void(0)" s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">$map.Value</a>
+                        $end
+                        $end
+                    </dd>
+                </dl>
+                $end
+                <!--
+                    add * 改版之后的数量选择
+                    <style type="text/css">
+                    .product-base .num-action {
+                        border: 1px solid #EBEBEB;
+                        border-radius: 2px;
+                        display: inline-block;
+                        height: 52px;
+                        overflow: hidden;
+                        margin-top: -7px;
+                    }
+
+                        .product-base .num-action a {
+                            height: 52px !important;
+                            width: 53px !important;
+                            margin: 0 !important;
+                            background-position: 0 !important;
+                            line-height: 52px;
+                            padding: 0 !important;
+                            border: 0;
+                        }
+
+                        .product-base .num-action input {
+                            padding: 10px;
+                            border-right: 1px solid #EBEBEB;
+                        }
+                </style>
+                <dl class="list-block common clearfix">
+                    <dt>
+                        数量
+                    </dt>
+                    <dd>
+                        <div class="num-action">
+                            <a href="javascript:void(0)" class="remove">-</a>
+                            <input type="text" id="buycount" name="Count" value="1">
+                            <a href="javascript:void(0)" class="add">+</a>
+                        </div>
+                    </dd>
+                </dl>-->
+            </div>
+            <style type="text/css">
+                .tab-header {
+                    width: 640px;
+                    height: 80px;
+                    background-color: #FFF;
+                    border-bottom: 1px solid #DADADA;
+                }
+
+                    .tab-header li {
+                        float: left;
+                        width: 213.33px;
+                        text-align: center;
+                    }
+
+                        .tab-header li a {
+                            display: inline-block;
+                            height: 74px;
+                            line-height: 74px;
+                            color: #333;
+                            border-bottom: 6px solid #FFF;
+                        }
+
+                        .tab-header li.active a {
+                            color: #fabc17;
+                            border-bottom-color: #fabc17;
+                        }
+
+                .tab-content {
+                    background-color: #FFF;
+                }
+            </style>
+            <!-- BEGIN tab -->
+            <div class="tab">
+                <ul class="clearfix tab-header">
+                    <li class="active"><a href="javascript:void(0)">商品详情</a></li>
+                    <li><a href="javascript:void(0)">商品规格</a></li>
+                    <li id="c-li"><a href="javascript:void(0)">评价(<span class="c-count">0</span>)</a></li>
+                </ul>
+                <!-- BEGIN-content -->
+                <div class="tab-content">
+                    <style>
+                        .tab-content-01 * {
+                            max-width: 610px !important;
+                        }
+                        .tab-content-01 table,.tab-content-01 img {
+                            width: auto !important;
+                            max-width: 100% !important;
+                            height: auto !important;
+                            display: block !important;
+                        }
+                    </style>
+                    <!-- BEGIN content-01 -->
+                    <div id="content" class="tab-content-01" style="display:block;padding:16px; max-width:610px !important">
+                        $Product.Content
+                    </div>
+                    <!-- END content-01 -->
+
+                    <style type="text/css">
+                        .list-block.common li.dropdown-header {
+                            padding-left: 16px;
+                            padding-right: 16px;
+                        }
+
+                        .dropdown-body {
+                            color: #999;
+                            line-height: 1.5;
+                            padding-bottom: 20px;
+                        }
+
+                            .dropdown-body table {
+                                width: 100%;
+                            }
+
+                            .dropdown-body th {
+                                width: 215px;
+                            }
+                    </style>
+                    <!-- BEGIN tab-content-02 -->
+                    <div class="tab-content-02" style="display:none;">
+                        <ul class="list-block common" style="margin-top:0;border-top:0;">
+                            <li class="item-content dropdown-header" style="height:auto;">
+                                <div class="dropdown-body">
+                                    <table>
+                                        $foreach(item in Attributes)
+                                        <tr>
+                                            <th>$item.A.Name</th>
+                                            <td>$item.B.Value</td>
+                                        </tr>
+                                        $end
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END tab-content-02 -->
+                    <!-- BEGIN content-03 -->
+                    <style type="text/css">
+                        .comment-filter {
+                            border: 1px solid #FFD4A4;
+                        }
+
+                            .comment-filter li {
+                                float: left;
+                                width: 20%;
+                                text-align: center;
+                                height: 62px;
+                                padding-top: 15px;
+                                font-size: 18px;
+                                line-height: 1.5;
+                                cursor: pointer;
+                            }
+
+                                .comment-filter li.active {
+                                    color: #FFF;
+                                    background-color: #FFDBB2;
+                                }
+                        /* BEGIN comment-total */
+                        .comment-total {
+                            line-height: 1.6;
+                        }
+
+                            .comment-total .col-01 {
+                                width: 300px;
+                                text-align: center;
+                            }
+
+                            .comment-total .col-02 {
+                            }
+
+                            .comment-total strong {
+                                display: block;
+                                font-size: 26px;
+                                color: red;
+                            }
+
+                                .comment-total strong span {
+                                    font-size: 40px;
+                                }
+
+                            .comment-total label {
+                                display: inline-block;
+                                margin-right: 5px;
+                                margin-bottom: 5px;
+                                padding: 2px 5px;
+                                background-color: #EEF1FF;
+                            }
+
+                            .comment-total .col-03 {
+                                padding-top: 10px;
+                                padding-bottom: 20px;
+                            }
+
+                            .comment-total .col-02 span {
+                                display: block;
+                                float: left;
+                            }
+
+                            .comment-total .col-02 .progress {
+                                float: right;
+                                width: 200px;
+                                height: 10px;
+                                margin-top: 15px;
+                                margin-left: 10px;
+                                background-color: #EFEFEF;
+                            }
+
+                                .comment-total .col-02 .progress div {
+                                    height: 10px;
+                                    background-color: red;
+                                }
+                        /* END comment-total */
+                    </style>
+                    <div class="tab-content-03" style="padding:16px; display:none; ">
+                        <table class="comment-total">
+                            <tr>
+                                <td class="col-01"><strong><span class="rate">0</span>%</strong>好评度</td>
+                                <td class="col-02">
+                                    <ul>
+                                        <li class="clearfix">
+                                            <span>好评(<font class="star3">0</font>)</span>
+                                            <div class="progress"><div class="rate3" style="width:0%;"></div></div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <span>中评(<font class="star2">0</font>)</span>
+                                            <div class="progress"><div class="rate2" style="width:0%;"></div></div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <span>差评(<font class="star1">0</font>)</span>
+                                            <div class="progress"><div class="rate1" style="width:0%;"></div></div>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" id="keywords" class="col-03">买家印象：</td>
+                            </tr>
+                        </table>
+                        <ul class="clearfix comment-filter">
+                            <li class="active" state-data="0" star1-data="0" star2-data="0">全部评价<br /><span class="c-count">0</span></li>
+                            <li state-data="2" star1-data="0" star2-data="0">晒图<br /><span class="star4">0</span></li>
+                            <li state-data="1" star1-data="4" star2-data="6">好评<br /><span class="star3">0</span></li>
+                            <li state-data="1" star1-data="2" star2-data="4">中评<br /><span class="star2">0</span></li>
+                            <li state-data="1" star1-data="0" star2-data="2">差评<br /><span class="star1">0</span></li>
+                        </ul>
+                        <style type="text/css">
+                            .comment-list .media {
+                                padding-top: 40px;
+                                padding-bottom: 40px;
+                                font-size: 18px;
+                                border-bottom: 1px solid #E5E5E5;
+                            }
+
+                            .comment-list .media-left,
+                            .comment-list .media-body {
+                                float: left;
+                            }
+
+                            .comment-list .media-left,
+                            .comment-list .media-object {
+                                width: 119px;
+                                height: 119px;
+                                border-radius: 50%;
+                            }
+
+                            .comment-list .media-body {
+                                width: 477px;
+                                margin-left: 12px;
+                            }
+
+                                .comment-list .media-body p {
+                                    position: relative;
+                                    margin-top: 22px;
+                                }
+
+                                    .comment-list .media-body p label {
+                                        margin-right: 5px;
+                                        padding: 2px 5px;
+                                        background-color: #EEF1FF;
+                                    }
+
+                                .comment-list .media-body div.star {
+                                    position: absolute;
+                                    right: 120px;
+                                    margin-top: 20px;
+                                }
+
+                                .comment-list .media-body p span {
+                                    position: absolute;
+                                    right: 10px;
+                                }
+
+                            .comment-list .media-body-top {
+                                color: #fabc17;
+                            }
+
+                            .comment-list .media-body-middle {
+                                color: #333;
+                                line-height: 1.5;
+                            }
+                            /* BEGIN pagination */
+                            .pagination {
+                                margin-top: 30px;
+                                text-align: right;
+                            }
+
+                                .pagination ul {
+                                    float: right;
+                                }
+
+                                .pagination li {
+                                    float: left;
+                                    height: 38px;
+                                    padding-left: 15px;
+                                    padding-right: 15px;
+                                    margin-right: 5px;
+                                    line-height: 38px;
+                                    background-color: #FAFAFA;
+                                    border: 1px solid #F2F2F2;
+                                }
+
+                                    .pagination li.active {
+                                        background-color: #FF8C64;
+                                    }
+
+                                        .pagination li.active a {
+                                            color: #FFF;
+                                        }
+
+                                    .pagination li.no {
+                                        border: 0;
+                                        background-color: #FAF8F8;
+                                    }
+                            /* BEGIN pagination */
+                        </style>
+                        <div id="c-content" class="comment-list"></div>
+                    </div>
+                    <!-- END content-03 -->
+                </div>
+                <!-- BEGIN content -->
+            </div>
+            <!-- END tab -->
+            $if(StoreInfo != null && Supplier != null)
+            <div class="shop_goodsInfo">
+                <div class="shop_title">
+                    <div class="shop_titleMain">
+                        <p class="txt_hide"><a href="$url('/product/shopdetails/', StoreInfo.UserId)">$StoreInfo.StoreName</a></p>
+                        <p class="txt_hide col_999">$StoreInfo.StoreSlogan</p>
+                    </div>
+                    <div class="shop_titleLeft">
+                        <a href="$url('/product/shopdetails/', StoreInfo.UserId)"><img src="$StoreInfo.StoreLogo" /></a>
+                    </div>
+                </div>
+                <div class="shop_goodsHref clearfix">
+                    <div>全部商品($ProductCount)</div>
+                    <div><span>$if(Supplier.Level > 0)优质供应商$else普通供应商$end</span></div>
+                    <div><a href="$url('/product/shop/', StoreInfo.UserId)">进入店铺</a></div>
+                </div>
+            </div>
+            $end
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('.tab .tab-header li').click(function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            $($(this).parents('.tab').find('.tab-content-0' + ($(this).index() + 1))).show().siblings().hide();
+            if (this.id == 'c-li') {
+                loadComment(0, 0, 0, 1);
+            };
+            $("body,html").animate({ scrollTop: $(".tab").offset().top-80 }, 500);
+            return false;
+        });
+        $('.tab .tab-content .comment-filter li').click(function () {
+            $(this).parent().find('.active').removeClass('active');
+            $(this).addClass('active');
+            loadCommentPage(parseInt($(this).attr('state-data')), parseInt($(this).attr('star1-data')), parseInt($(this).attr('star2-data')), 1);
+        });
+        $('.add').click(function () {
+            var num = $('#buycount');
+            num.val(parseInt(num.val()) + 1);
+            return false;
+        });
+        $('.remove').click(function () {
+            var num = $('#buycount');
+            if (parseInt(num.val()) > ${if(Product.Wholesale==true)}$Product.WholesaleCount${else}1${end}) {
+                num.val(parseInt(num.val()) - 1);
+        }
+            return false;
+        });
+        $("#buycount").blur(function(){
+            var val = $.trim($(this).val());
+            if(isNaN(val)||val == ""||val<"1"){
+                $(this).val("1");
+            }else{
+                $(this).val(parseInt(val));
+            }
+        });
+    </script>
+
+    $load("inc/footer.html")
+</body>
+</html>

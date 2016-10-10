@@ -1,0 +1,486 @@
+﻿<link rel="stylesheet" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+<style>
+    .view {
+        border: 1px solid #e1e1e1;
+        display: none;
+        height: 400px;
+        position: absolute;
+        width: 400px;
+        z-index: 999;
+    }
+
+        .view img {
+            width: 400px;
+            height: 400px;
+        }
+
+    #upload input[type="text"] {
+        border: 1px solid #ddd;
+        height: 24px;
+        line-height: 24px;
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 150px;
+    }
+
+    textarea {
+        border: 1px solid #ddd;
+    }
+
+    td.keyword * {
+        display: inline;
+        float: left;
+    }
+
+    td.keyword div {
+        border: 1px solid #e4e4e4;
+        border-radius: 3px;
+        margin-right: 10px;
+        padding: 7px 20px 10px 10px;
+    }
+
+        td.keyword div a.del-img {
+            height: 15px;
+            margin: -8px 0 0 4px;
+            padding-top: 1px;
+            position: absolute;
+        }
+
+        td.keyword div#keywordbtn a {
+            line-height: 28px;
+            color: #999;
+            font-family: Verdana;
+            font-size: 28px;
+            padding: 0 6px 4px;
+        }
+
+    .upload li {
+        float: left;
+        height: auto;
+        line-height: 1;
+        margin-right: 5px;
+    }
+
+
+        .upload li img {
+            border: 1px solid #e4e4e4;
+            height: 96px;
+            padding: 2px;
+            width: 96px;
+        }
+
+    .upload div.del-img {
+        background: #ccc none repeat scroll 0 0;
+        border-radius: 2px;
+        color: red;
+        font-family: Verdana;
+        font-size: 14px;
+        height: 16px;
+        margin: 0 0 0 83px;
+        position: absolute;
+        text-align: center;
+        width: 16px;
+        cursor: pointer;
+    }
+
+    .jqx-window-content {
+        overflow: visible;
+    }
+</style>
+<div id="grid"></div>
+<div id="refuse" style="display:none">
+    <div><span>审核失败</span></div>
+    <div>
+        <form id="refuseForm" method="post">
+            <input type="hidden" id="OrderId" name="OrderId" />
+            <table style="margin: 20px;">
+                <tbody>
+                    <tr>
+                        <th><label>驳回理由：</label></th>
+                        <td>
+                            <textarea type="text" row="3" style="width:250px;height:30px" name="RefusalReasons" id="RefusalReasons" placeholder="请输入驳回理由"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix" style="padding:10px;">
+                <input type="submit" id="btnOk" value="确定" class="submit winbtn" />
+                <input type="button" id="btnCancel" value="取消" class="submit winbtn" />
+            </div>
+        </form>
+    </div>
+</div>
+<div id="upload" style="display:none">
+    <div><span>转账完成</span></div>
+    <div>
+        <form method="post" id="imgForm">
+            <input type="hidden" id="CredentialImage" name="CredentialImage" />
+            <table style="margin-top:18px;">
+                <tr class="first">
+                    <th>转账单号：</th>
+                    <td><input style="width:250px;" placeholder="请输入转账单号" type="text" id="TransactionNumber" name="TransactionNumber" /></td>
+                </tr>
+                <tr class="first">
+                    <th>上传凭证：</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <ul class="clearfix upload" id="imageList">
+                            <li class="upload">
+                                <img id="addImgBtn" style="border:1px solid #CCC;cursor: pointer" src="$res('/themes/default/css/img/upload_btn.png')" alt="">
+                                <span style="color:#F60;">0/3</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            <div class="clearfix" style="padding:10px">
+                <input type="submit" id="btnUploadOk" value="确定" class="submit winbtn" />
+                <input type="button" id="btnUploadCancel" value="取消" class="submit winbtn" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+<script type="text/javascript">
+    (function (doc) {
+        "use strict";
+        //根据id获取对象
+        var get = function (id) {
+            return doc.getElementById(id);
+        },
+        //获取数据源地址
+        dataUrl = '$url("presentAudit/GetDrawOrders")',
+        //操作请求地址
+        actionUrl = '$url("presentAudit/Action")',
+         //操作列的post请求
+        post = function (data, callback) {
+            postAjax(actionUrl, data, function (data, args) {
+                if (data.code == -200) {
+                    showNotify('success', '操作成功！');
+                    callback && callback();
+                    PresentAudit().init();
+                }
+                else
+                    showNotify('error', '操作失败！');
+            }, null);
+        },
+         //阻止事件冒泡
+        stop = function (e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        },
+        //审核操作模块
+        PresentAudit = function () {
+            var _self = this;
+            //数据源
+            this.source = {
+                type: "POST",
+                datatype: "json",
+                datafields: [
+                    { name: 'OrderId', type: 'string' },
+                    { name: 'UserName', type: 'string' },
+                    { name: 'Mobile', type: 'string' },
+                    { name: 'AccountName', type: 'string' },
+                    { name: 'BankCard', type: 'string' },
+                    { name: 'BankName', type: 'string' },
+                    { name: 'DrawMoney', type: 'string' },
+                    { name: 'OrderStateText', type: 'string' },
+                    { name: 'CreateTime', type: 'string' },
+                    { name: 'Action', type: 'string' },
+                ],
+                url: dataUrl,
+                downloadComplete: function (data) {
+                    _self.source.totalrecords = data.data.total;
+                    return data.data.data;
+                }
+            };
+            //表格参数
+            this.gridOptions = {
+                width: '100%',
+                pageable: true,
+                pagermode: 'simple',
+                rendergridrows: _self.renderGridRows,
+                autoheight: true,
+                columnsresize: true,
+                altrows: true,
+                pageable: true,
+                virtualmode: true,
+                columnsresize: true,
+                columns: [
+                    { text: '流水号', datafield: 'OrderId', width: 120 },
+                    { text: '用户名', datafield: 'UserName', width: 100 },
+                    { text: '电话', datafield: 'Mobile', width: 110 },
+                    { text: '开户名', datafield: 'AccountName', width: 70 },
+                    { text: '提现账号', datafield: 'BankCard', width: 140 },
+                    { text: '银行名称', datafield: 'BankName', width: 120 },
+                    { text: '金额', datafield: 'DrawMoney', width: 70 },
+                    { text: '申请时间', datafield: 'CreateTime', width: 150 },
+                    { text: '状态', datafield: 'OrderStateText', width: 80 },
+                    { text: '操作', datafield: 'Action', minwidth: 180, cellsrenderer: _self.actionRenderer }
+                ]
+            }
+            //界面元素
+            this.ui = {
+                grid: $('#grid'),
+                refuse: $('#refuse'),
+                refuseForm: $('#refuseForm'),
+                btnOk: get('btnOk'),
+                btnCancel: get('btnCancel'),
+                refusalReasons: get('RefusalReasons'),
+                orderId: get('OrderId')
+            };
+
+            this.init();
+        },
+        //图片上传模块,使用前请先初始化
+        UploadImg = function () {
+            this.editor = KindEditor.editor({
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true
+            });
+            this.imageCount = 0;
+            this.ui = {
+                upload: $('#upload'),
+                imgForm: get('imgForm'),
+                imageList: get('imageList'),
+                imgItems:doc.querySelector('.js-imageItem'),
+                addImgBtn: get('addImgBtn'),
+                CredentialImage: get('CredentialImage'),
+                btnUploadOk: get('btnUploadOk'),
+                btnUploadCancel: get('btnUploadCancel'),
+                transactionNumber: get('TransactionNumber')
+            };
+        },
+         //提现模块对象
+        _prePlugin,
+        //图片上传模块对象
+        _imgPlugin;
+
+        PresentAudit.prototype = {
+            init: function () {
+                this.ui.refuse.jqxWindow({
+                    width: '400px',
+                    height: '200px',
+                    autoOpen: false,
+                    resizable: false,
+                    draggable: false,
+                    isModal: true,
+                    modalOpacity: 0.3,
+                    cancelButton: this.ui.btnCancel,
+                    initContent: function () {
+                        _prePlugin.ui.btnOk.focus();
+                    }
+                });
+                this.ui.refuseForm.jqxValidator({
+                    rules: [{ input: '#RefusalReasons', message: '请输入驳回原因！', action: 'blur,keyup', rule: 'required' }]
+                });
+                this.ui.btnOk.addEventListener('click', function (e) {
+                    stop(e);
+
+                    if (_prePlugin.ui.refuseForm.jqxValidator('validate')) {
+                        post({
+                            OrderId: _prePlugin.ui.orderId.value,
+                            OrderState: 'AuditFailure',
+                            RefusalReasons: _prePlugin.ui.refusalReasons.value
+                        }, function () {
+                            _prePlugin.ui.refuse.jqxWindow('close');
+                            _prePlugin.reload();
+                        });
+                    }
+                }, false);
+                this.bindData();
+            },
+            bindData: function () {
+                this.gridOptions.source = new $.jqx.dataAdapter(this.source);
+                this.ui.grid.jqxGrid(this.gridOptions);
+            },
+            renderGridRows: function (args) {
+                return args.data;
+            },
+            reload: function () {
+                this.ui.grid.jqxGrid('updatebounddata');
+            },
+            actionRenderer: function (row, column, value, defaultHtml) {
+                var html, valstr = JSON.stringify(value);
+                switch (value.OrderState) {
+                    case 'PendingAudit':
+                        html = '<a style="color:red" onclick="actionClick(this)" data-val=\'' + valstr + '\'>驳回</a>&nbsp;<a style="color:green" onclick="actionClick(this)" data-val=\'' + valstr + '\'>通过</a>';
+                        break;
+                    case 'InTreatment':
+                        html = '<a style="color:red" onclick="actionClick(this)" data-val=\'' + valstr + '\'>上传凭证</a>';
+                        break;
+                    case 'TradeSuccess':
+                        html = '<a onclick="actionClick(this)" data-val=\'' + valstr + '\'>查看详情</a>';
+                        break;
+                    default:
+                        html = '失败原因:' + value.RefusalReasons || '';//处理成功的显示转账单号
+                        break;
+                }
+                return html;
+            },
+            actionClick: function (element) {
+                var val = JSON.parse(element.getAttribute('data-val'));
+                _prePlugin.ui.orderId.value = val.OrderId;
+                switch (element.text) {
+                    case '驳回':
+                        _prePlugin.ui.refuse.jqxWindow('open');
+                        break;
+                    case '通过':
+                        post({ OrderId: val.OrderId, OrderState: 'InTreatment' }, _prePlugin.reload());
+                        break;
+                    case '上传凭证':
+                        _imgPlugin.init();
+                        _imgPlugin.ui.upload.jqxWindow('open');
+                        break;
+                    default:
+                        _imgPlugin.init(val);
+                        _imgPlugin.ui.upload.jqxWindow('open');
+                        break;
+                }
+            }
+        };
+
+        UploadImg.prototype = {
+            init: function (v) {
+                if (v) {
+                    var imgs = v.CredentialImage === null ? [] : v.CredentialImage.split('|');
+                    this.clear();
+                    this.ui.CredentialImage.value = v.CredentialImage;
+                    this.ui.transactionNumber.value = v.TransactionNumber;
+                    this.setImageIndex();
+                    imgs.forEach(function (img) {
+                        _imgPlugin.previewImage(img);
+                    });
+                    this.showAddBtn();
+                }
+                else {
+                    this.imageCount = 0;
+                }
+                this.ui.upload.jqxWindow({
+                    width: '500px',
+                    height: '300px',
+                    autoOpen: false,
+                    resizable: false,
+                    draggable: false,
+                    isModal: true,
+                    modalOpacity: 0.3,
+                    cancelButton: this.ui.btnUploadCancel,
+                    initContent: function () {
+                        _imgPlugin.ui.btnUploadOk.focus();
+                    }
+                });
+                this.ui.upload.jqxValidator({
+                    rules: [{ input: '#TransactionNumber', message: '请输入转账单号！', action: 'blur,keyup', rule: 'required' }]
+                });
+                this.ui.addImgBtn.addEventListener('click', function () {
+                    if (_imgPlugin.editor.dialogs.length <= 0) {
+                        _imgPlugin.editor.loadPlugin('image', function () {
+                            _imgPlugin.editor.plugin.imageDialog({
+                                imageUrl: '',
+                                clickFn: function (url, title) {
+                                    _imgPlugin.previewImage(url);
+                                    _imgPlugin.editor.hideDialog();
+                                }
+                            });
+                        });
+                    }
+                }, false);
+                this.ui.btnUploadOk.addEventListener('click', function (e) {
+                    stop(e);
+                    if (_imgPlugin.ui.CredentialImage.value === '') {
+                        showNotify('error', '请上传图片！');
+                    }
+                    else if (!_imgPlugin.ui.upload.jqxValidator('validate')) {
+                        showNotify('error', '请输入转账单号！');
+                    }
+                    else {
+                        post({
+                            OrderId: _prePlugin.ui.orderId.value,
+                            OrderState: 'TradeSuccess',
+                            CredentialImage: _imgPlugin.ui.CredentialImage.value,
+                            TransactionNumber: _imgPlugin.ui.transactionNumber.value
+                        }, function () {
+                            _imgPlugin.clear();
+                            _imgPlugin.ui.upload.jqxWindow('close');
+                            _prePlugin.reload();
+                        });
+                    }
+                }, false);
+            },
+            getImageArray: function () {
+                return [].slice.call(this.ui.imageList.querySelectorAll('img.up-img'));
+            },
+            setImageValue: function () {
+                var imgArray = this.getImageArray(), urlArray = [];
+                imgArray.forEach(function (img) {
+                    if (img.src != '') {
+                        urlArray.push(img.getAttribute('src'));
+                    }
+                });
+                this.ui.CredentialImage.value = urlArray.join('|');
+            },
+            previewImage: function (url) {
+                var li = doc.createElement('li'),
+                      img = doc.createElement('img'),
+                      closeBtn = doc.createElement('div');
+                li.setAttribute('class', 'js-imageItem');
+                img.setAttribute('class', 'up-img');
+                img.setAttribute('src', url);
+                closeBtn.setAttribute('class', 'del-img');
+                closeBtn.setAttribute('title', '删除图片');
+                closeBtn.innerHTML = 'X';
+                this.imageCount++;
+                closeBtn.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    event.cancelBubble = true;
+
+                    _imgPlugin.ui.imageList.removeChild(li);
+                    _imgPlugin.imageCount--;
+                    _imgPlugin.setImageValue();
+                    _imgPlugin.setImageIndex();
+                    _imgPlugin.showAddBtn();
+                    return false;
+                }, false);
+
+                li.appendChild(closeBtn);
+                li.appendChild(img);
+                _imgPlugin.ui.imageList.insertBefore(li, _imgPlugin.ui.imageList.firstChild);
+
+                if (this.imageCount == 3)
+                    _imgPlugin.ui.addImgBtn.parentNode.style = 'display:none';
+                _imgPlugin.setImageIndex();
+                _imgPlugin.setImageValue();
+            },
+            setImageIndex: function () {
+                this.ui.imageList.querySelector('span').innerText = this.imageCount + '/3';
+            },
+            showAddBtn: function () {
+                var val = _imgPlugin.imageCount == 3 ? 'none' : 'block';
+                _imgPlugin.ui.addImgBtn.parentNode.style = 'display:' + val;
+            },
+            clear: function () {
+                this.imageCount = 0;
+                this.getImageArray().forEach(function (img) {
+                    _imgPlugin.ui.imageList.removeChild(img.parentElement);
+                });
+                this.setImageIndex();
+                this.ui.transactionNumber.value = '';
+            }
+        };
+
+        $(function () {
+            _prePlugin = new PresentAudit(),
+            _imgPlugin = new UploadImg();
+            actionClick = _prePlugin.actionClick;
+        });
+    })(document);
+    var actionClick;
+</script>

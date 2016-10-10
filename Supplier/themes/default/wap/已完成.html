@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/swiper.min.css">
+<script src="../js/zepto.min.js"></script>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="clearfix bar bar-nav col_333 bg_fff">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="#">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				已完成订单
+			</div>
+		</div>
+
+		<div class="bar bar-nav bg_fff" style="top:2.2rem">
+			<div class="order_nav clearfix">
+				<!-- Swiper -->
+			    <div class="swiper-container fl">
+			        <div class="swiper-wrapper">
+			            <div class="swiper-slide"><a href="#">全部</a></div>
+			            <div class="swiper-slide"><a href="#">待付款</a></div>
+			            <div class="swiper-slide"><a href="#">出库中</a></div>
+						<div class="swiper-slide"><a href="#">待发货</a></div>
+						<div class="swiper-slide"><a href="#">待收货</a></div>
+						<div class="swiper-slide on"><a href="#">已完成</a></div>
+						<div class="swiper-slide"><a href="#">售后</a></div>
+			        </div>
+			        <!-- Add Pagination -->
+			        <!--<div class="swiper-pagination"></div>-->
+			    </div>
+			    <div class="fr purchasemy_icon ordermore_icon"></div>
+			</div>
+		</div>
+		
+		<!-- order more nav -->
+		<div class="bar bar-nav bg_fff ordermore_nav" style="top:2.2rem;border:none;z-index: 999999;">
+			<div class="ordermore_navTop clearfix">
+				<div class=" fl col_666">选择状态</div>
+				<div class="fr purchasemy_icon ordermore_icon ordermore_iconS"></div>
+			</div>
+			<div class="ordermore_navList">
+				<ul class="clearfix">
+					<li><a href="#">全部订单</a></li>
+					<li><a href="#">待付款</a></li>
+					<li><a href="#">出库中</a></li>
+					<li><a href="#">待发货</a></li>
+					<li><a href="#">待收货</a></li>
+					<li class="on"><a href="#">已完成</a></li>
+					<li><a href="#">售后</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- / order more nav -->
+		<!-- content -->
+		<div class="content native-scroll">
+			<div class="order_all">
+				<!-- order for -->
+	        	<ul>
+	        		<li><div class="order_Txt"><span class="fr col_e01928">已完成</span>订单号：14641449182431</div></li>
+	        		<!-- M for -->
+	        		<li class="purchaseall_Test">
+	        			<div class="purchaseall_Le">
+	        				<img src="../img/purchasemy_topImg.png">
+	        			</div>
+	        			<div class="purchaseall_Con">
+	        				<h3 class="txt_hide2L col_333">乡城品优品 夏季条纹休闲连衣裙瘦半身裙子</h3>
+	        				<p class="txt_hide2L Coninfo col_999">颜色：白象牙见识拍  规格：XL</p>
+	        			</div>
+	        			<div class="purchaseall_Re">
+	        				<p class="col_999">￥120.00</p>
+	        				<p class="col_999">X1</p>
+	        			</div>
+	        		</li>
+	        		<li class="purchaseall_Sub purchase_complete" style="line-height: 2.2rem;">
+	        			<a href="#" class="payment_submit col_666">申请售后</a>
+	        			<a href="#" class="payment_submit">立即评价</a>
+	        		</li>
+	        		<!-- end M for -->
+	        		
+	        		<!-- M for -->
+	        		<li class="purchaseall_Test">
+	        			<div class="purchaseall_Le">
+	        				<img src="../img/purchasemy_topImg.png">
+	        			</div>
+	        			<div class="purchaseall_Con">
+	        				<h3 class="txt_hide2L col_333">乡城品优品 夏季条纹休闲连衣裙瘦半身裙子</h3>
+	        				<p class="txt_hide2L Coninfo col_999">颜色：白象牙见识拍  规格：XL</p>
+	        			</div>
+	        			<div class="purchaseall_Re">
+	        				<p class="col_999">￥120.00</p>
+	        				<p class="col_999">X1</p>
+	        			</div>
+	        		</li>
+	        		<li class="purchaseall_Sub purchase_complete" style="line-height: 2.2rem;">
+	        			<a href="#" class="payment_submit col_666">申请售后</a>
+	        			<a href="#" class="payment_submit">立即评价</a>
+	        		</li>
+	        		<!-- end M for -->
+	        		
+	        		<li class="purchaseall_Txt">
+	        			<span class="col_666">共1款商品</span>
+	        			<span class="col_e01928">实付：￥<b class="this_Price">240.00</b></span>
+	        		</li>
+
+	        	</ul>
+	        	<!-- end order for -->
+
+			</div>
+		</div>
+		<!-- / content -->
+	</div>
+</div>
+<!-- Swiper JS -->
+<script src="../js/swiper.min.js"></script>
+<!-- Initialize Swiper -->
+<script>
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    //从第几个开始
+    initialSlide :4,
+    slidesPerView: 4.5,
+    spaceBetween: 10,
+    breakpoints: {
+        1024: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        },
+        768: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        },
+        640: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        },
+        320: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        }
+    }
+});
+$(function(){
+	$(".ordermore_icon").click(function(){
+		if($(".ordermore_nav").hasClass("ordermore_navS")){
+			$(".ordermore_nav").removeClass("ordermore_navS")
+		}else{
+			$(".ordermore_nav").addClass("ordermore_navS")
+		}
+		
+	})
+})
+</script>
+<script src="../js/sm.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>团购</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body style="padding-bottom:0;">
+
+	<div class="page">
+		<div class="header">
+			<a href="" class="back">返回</a>
+			团购
+		</div>
+		<div class="content">
+			<img style="display:block;" src="img/tuan_slider.png" alt="">
+			<style type="text/css">
+			.filter {
+				height: 80px;
+				padding-right: 88px;
+				color: #333;
+				text-align: center;
+				background-color: #FFF;
+				border-top: 1px solid #E8E8E8;
+				border-bottom: 1px solid #E8E8E8;
+			}
+			.filter li {
+				float: left;
+				width: 33.33333%;
+			}
+			.filter li a {
+				display: inline-block;
+				height: 74px;
+				line-height: 74px;
+				color: #333;
+				border-bottom: 6px solid #fff;
+			}
+			.filter li.active a {
+				color: #febf17;
+				border-bottom-color: #febf17;
+			}
+			</style>
+			<ul class="clearfix filter">
+				<li class="active"><a href="" title="最新上线">最新上线</a></li>
+				<li><a href="" title="最后疯抢">最后疯抢</a></li>
+				<li><a href="" title="开售预告">开售预告</a></li>
+			</ul>
+
+		<style type="text/css">
+				.list {
+					margin-top: 15px;
+					border-top: 1px solid #E6E6E6;
+				}
+				.media {
+					padding: 25px 20px;
+					background: #FFF;
+					border-bottom: 1px solid #E6E6E6;
+				}
+				.media-left,
+				.media-object,
+				.media-object {
+					height: 170px;
+				}
+				.media-left,
+				.media-body {
+					float: left;
+				}
+
+				.media-object {
+					width: 256px;
+				}	
+				.media-body {
+					width: 322px;
+					margin-left: 22px;
+				}
+				.media-body h2 {
+					height: 55px;
+					line-height: 1.2;
+					color: #333;
+					font-weight: normal;
+					overflow: hidden;
+
+				}
+				.media-body-middle {
+					position: relative;
+					height: 50px;
+					margin-top: 20px;
+					line-height: 50px;
+				}
+				.media-body ins {
+					font-size: 30px;
+					color: #ff3300;
+				}
+				.media-body a {
+					position: absolute;
+					top: 0;
+					right: 0;
+					display: block;
+					width: 110px;
+					height: 40px;
+					padding-right: 3px;
+					line-height: 40px;
+					font-size: 16px;
+					text-align: right;
+					color: #FFF;
+					background-image: url(css/img/tuan_media_middle_o1.png);
+				}
+				.media-body-footer {
+					height: 30px;
+					line-height: 30px;
+					margin-top: 15px;
+					font-size: 18px;
+					color: #7f401d;
+				}
+				</style>
+			<ul class="list">
+				<!-- BEGIN list -->
+                $foreach(item in ProductList)
+				<li class="clearfix media">
+                    <a href="$url('/product/info/',item.A.Id)"  style="display:block;">
+                        <div class="media-left">
+                            <img src="$item.A.GetImage()" alt="$item.A.Title" class="media-object">
+                        </div>
+                        <div class="media-body">
+                            <h2>$item.A.Title</h2>
+                            <p class="media-body-middle">
+                                <ins>￥$item.A.GetSalePrice().ToString("C2")</ins>
+                                <a href="$url('/product/info/',item.A.Id)">马上开抢</a>
+                            </p>
+                            <p class="media-body-footer"><des>¥$item.A.MarketPrice.ToString("C2")</des>&nbsp;|&nbsp;$item.B.Count人已团</p>
+                        </div>
+                    </a>
+				</li>
+                $end
+				<!-- END list -->
+			</ul>
+		</div>
+	</div>
+	
+</body>
+</html>

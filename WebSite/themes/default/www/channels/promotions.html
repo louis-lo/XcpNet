@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>网货节 - $Site.Title</title>
+    <meta name="keywords" content="网货节,$Site.Keywords">
+    <meta name="description" content="网货节,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css/base_02.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/index_02.css')">
+    $set(root=clr.XcpNet.Website.Modules.PromotionChannel.GetById(this.DataSource,1))
+    <style type="text/css">
+        /* BEGIN slider */
+        .slider {
+            height: 0;
+        }
+        /* END slider */
+
+        /* BEGIN slider-aside-left dd  */
+        .slider-aside-left dd {
+            display: none;
+        }
+        /* END slider-aside-left dd  */
+
+        .full-slide-ad {
+            background-size: 100% auto;
+            width: 100%;
+            height: auto;
+            margin-top: 17px;
+        }
+
+            .full-slide-ad img {
+                width: 100%;
+                display: block;
+            }
+        /*section*/
+        .content-main-wrap {
+            background: #fed447;
+            min-width: 1200px;
+            padding-bottom: 130px;
+            padding-top: 40px;
+        }
+
+        .section-channel {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-wrap {
+            background-repeat: repeat-x;
+            background-position: left bottom;
+            height: 136px;
+            overflow: hidden;
+            padding-top: 29px;
+            padding-left: 85px;
+        }
+        /*特卖*/
+        .section-product {
+            position: relative;
+            overflow: hidden;
+        }
+            .section-product img {
+                display:block;
+            }
+        /*footer*/
+        #footer {
+            margin-top: 0;
+        }
+        /*footer*/
+        /*三栏*/
+        .colum {
+            padding: 10px;
+        }
+
+            .colum ul li {
+                border: 3px solid #dcdcdc;
+                float: left;
+                margin-right: 29px;
+                width: 368px;
+                height: 570px;
+                overflow: hidden;
+                margin-bottom: 10px;
+            }
+
+                .colum ul li.last-child {
+                    margin-right: 0;
+                }
+
+            .colum li img {
+                width: 368px;
+                height: 368px;
+                display: block;
+            }
+
+        .colum-body {
+            border-top: 3px solid #dcdcdc;
+            padding: 11px;
+        }
+
+            .colum-body a.title {
+                background: #a9a9a9;
+                color: #fff;
+                display: block;
+                font-size: 18px;
+                height: 37px;
+                overflow: hidden;
+                line-height: 37px;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+        .price-old {
+            color: #a9a9a9;
+            font-size: 18px;
+        }
+
+        .price-wrap {
+            color: #ffb900;
+            font-size: 28px;
+            position: relative;
+            margin-top: 15px;
+            z-index: 2;
+        }
+
+            .price-wrap span {
+                text-align: right;
+                font-size: 48px;
+                font-weight: bold;
+                display: inline-block;
+                vertical-align: -3px;
+                position: relative;
+                z-index: 2;
+            }
+
+        .colum-body a.btn {
+            background: #ffb900;
+            color: #fff;
+            display: inline-block;
+            font-size: 18px;
+            height: 32px;
+            line-height: 32px;
+            width: 346px;
+            text-align: center;
+            margin-top: 13px;
+        }
+        /*aside*/
+        .aside-right {
+            position: absolute;
+            right: 38px;
+            top: 50%;
+            height: 265px;
+            width: 121px;
+            z-index: 10;
+            padding-top: 136px;
+            padding-left: 10px;
+            background: url($root.Image) no-repeat 0 0;
+        }
+
+            .aside-right a {
+                display: block;
+                height: 53px;
+                width: 112px;
+                overflow: hidden;
+                text-indent: -99999px;
+            }
+    </style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            $(".load-img").scaling(368, 368, errPic);
+        });
+    </script>
+</head>
+<body>
+    $load("../inc/top2.html")
+
+    <!-- BEGIN slider -->
+    <link rel="stylesheet" type="text/css" href="$res('css/slider.css')" />
+    $set(cates=clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+    <div class="clearfix container slider">
+        <dl class="slider-aside-left">
+            <dt><a href="javascript:void(0)">所有商品分类</a></dt>
+            $foreach(cate in cates)
+            <dd>
+                <a href="$url('/category/list/',cate.Id)">$cate.Name<span>></span></a>
+                <div class="slider-aside-left-item">
+                    <!-- BEGIN 新增 -->
+                    $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,cate.Id))
+                    <dl class="clearfix">
+                        <dt><a href="$url('/category/list/',child.Id)">$child.Name</a><span>></span></dt>
+                        <dd>
+                            $foreach(three in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,child.Id))
+                            <a href="$url('/category/list/',three.Id)">$three.Name</a>
+                            $end
+                        </dd>
+                    </dl>
+                    $end
+                    <!-- END 新增 -->
+                </div>
+            </dd>
+            $end
+        </dl>
+        <!--<div class="flexslider">
+            <div id="banner" class="slides">
+                <div class="slides"><a href="javascript:void(0)" target="_blank" title=""><div style="width:1200px;height:333px;background:url($res('img/wh_slider.jpg')) no-repeat center top;"></div></a></div>
+            </div>
+        </div>-->
+    </div>
+    <!-- END slider -->
+    $set(channels=clr.XcpNet.Website.Modules.PromotionChannel.GetAll(this.DataSource,1,1))
+    <!--aside right-->
+    <div class="aside-right">
+        $foreach(channel in channels)
+        <a href="javascript:;">$channel.Name</a>
+        $end
+        <a href="$url('/channel/discount')">七货来了</a>
+        <a href="$Site.Url">返回首页</a>
+    </div>
+    <!--aside right end-->
+    <!--slide img-->
+    <div class="full-slide-ad">
+        <img src="$root.BackImage" />
+    </div>
+    <!--slide img end-->
+    <!--content-->
+    <div class="content-main-wrap">
+        $foreach(channel in channels)
+        <div class="section-channel">
+            <div class="header-wrap" style="background-image: url($channel.BackImage);">
+                <img src="$channel.Image" alt="$channel.Name" />
+            </div>
+            $foreach(product in clr.XcpNet.Website.Modules.PromotionProduct.GetAll(this.DataSource,channel.Id))
+            <div class="section-product">
+                <a href="$url('/product/info/',product.ProductId)" target="_blank">
+                    <img src="$product.ProductImage" />
+                </a>
+            </div>
+            $end
+            <div class="colum clearfix" style="background:#fff; padding-top:13px;padding-bottom:13px;margin-bottom:57px;">
+                <ul>
+                    $foreach(product in clr.XcpNet.Website.Modules.PromotionProduct.GetAllEx(this.DataSource,channel.Id))
+                    <li ${if(foreachIndex%3==0)}class="last-child"${end}>
+                        <a href="$url('/product/info/',product.Id)" target="_blank">
+                            <img src="" alt="" class="load-img" data-original="$product.GetImage()" />
+                        </a>
+                        <div class="colum-body">
+                            <a href="" class="title">$product.Title</a>
+                            <div class="price-wrap">
+                                <del class="price-old clearfix">专柜价：$product.Price.ToString("C2")</del>
+                                活动价：<span>$product.GetSalePrice().ToString("C2")</span>
+                            </div>
+                            <a href="$url('/product/info/',product.Id)" target="_blank" class="btn">立即抢购</a>
+                        </div>
+                    </li>
+                    $end
+                </ul>
+            </div>
+        </div>
+        $end
+    </div>
+    <!--content end-->
+    $load("../inc/footer2.html")
+
+    <script type="text/javascript">
+        $(function () {
+            $('.slider-aside-left').hover(function () {
+                $(this).find('dd').stop().slideDown();
+            }, function () {
+                $(this).find('dd').stop().slideUp();
+            });
+            //右侧导航
+            var height = $(window).height();//获取当前屏幕高度
+            var mainHeight = $('.aside-right').height() + 136;//获取定位模块高度
+            var fixedTop = (height - mainHeight) / 2;
+            $('.aside-right').css({ top: fixedTop + 'px' });//居中定位
+            //点击跳转事件
+            $('.aside-right a').click(function () {
+                var topVal = $('.section-channel:eq(' + $(this).index() + ')').offset().top;
+                $('body,html').animate({ scrollTop: topVal }, 1000);
+            });
+            $(window).scroll(scrolls);
+            scrolls();
+            function scrolls() {
+                var sTop = $(window).scrollTop();//获取滚动条到顶部位置
+                var topPx = sTop + fixedTop;
+                $('div.aside-right').stop().animate({ top: topPx });//定位到当前屏幕的中间位置
+            };
+        });
+    </script>
+</body>
+</html>

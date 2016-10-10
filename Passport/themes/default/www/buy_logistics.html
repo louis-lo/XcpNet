@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>城品惠-查看物流</title>
+    $load("inc/comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-publicStyle.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-lookLogistics.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/rightSidebar.css')">
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/leftaside.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr clearFix">
+            <h2>查看物流</h2>
+            <!-- 你的包裹已被签收 开始 -->
+            <div class="packageSign_title">
+                以下是您的包裹详情
+            </div>
+            <div class="packageSign_wrap">
+                <div class="package-status">
+                    <div class="status-box" id="status_list">
+                        <ul id="J_listtext2" class="status-list">
+                            $if(isset("ExpressInfo") && ExpressInfo.message == "ok")
+                            $set(expTime="")
+                            $foreach(item in ExpressInfo.data)
+                            <li>
+                                $set(bgtime=GetDay(expTime))
+                                $set(endtime=GetDay(item.time))
+                                $if(bgtime!=endtime)
+                                <span class="date">
+                                    $GetDay(item.time)
+                                </span>
+                                <span class="week">
+                                    $GetWeek(item.time)
+                                </span>
+                                $else
+                                <span class="date"></span><span class="week"></span>
+                                $end
+                                $set(expTime=item.time)
+                                <span>
+                                    $GetTime(item.time)
+                                </span>
+                                <span>$item.context</span></li>
+                            $end
+                            $else
+                            抱歉！暂时未找到相关信息
+                            $end
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 你的包裹已被签收 结束 -->
+            <div class="orderAddress_border">
+                $set(addr=json(Order.Address))
+                <div class="orderAddress_wrap">
+                    运单编号：<span class="orderLeft fb">$Logistics.BillNo</span>
+                    物流公司：<span class="orderLeft fb">$Logistics.ProviderName</span>
+                    <!--客服电话：<span class="orderLeft fb">95546</span>-->
+                </div>
+                <div class="Address_wrap clearFix">
+                    <div class="addressLeft fl">
+                        <span>收货地址：</span>
+                        <span>收件人：</span>
+                        <span>联系电话：</span>
+                    </div>
+                    <div class="addressRight fl">
+                        <span>$addr.Province$addr.City$addr.County$addr.Address  <i class="orderLeft fb">$addr.PostId</i></span>
+                        <span class="fb"> $addr.Consignee</span>
+                        <span class="fb"> $addr.Mobile</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 宝贝信息 开始 -->
+           
+            <div class="orderAddress_information orderAddress_border">
+                <span>宝贝信息：</span>
+                <div class="informationPrintWrap  clearFix">
+                    $set(maps=Order.GetMapping(this.DataSource))
+                    $foreach(map in maps)
+                    $set(info=json(map.ProductInfo))
+                    <div class="informationPrint">
+                        <img src="$map.GetImage(info.Image)">
+                        <p>$map.Price.ToString("c2") X $map.Count</p>
+                    </div>
+                    $end
+                    <!--<div class="informationPrint">
+                        <img src="../img/informationPrint.png">
+                        <p>77.50 X 1</p>
+                    </div>-->
+                </div>
+            </div>
+            <!-- 宝贝信息 结束 -->
+        </div>
+        <!-- 右边 结束 -->
+    </div>
+    <!-- 右侧边栏 开始 -->
+    <script type="text/javascript">
+function fun1(){
+  $("#right_login").children(".dropdown").show();
+  var id=1;
+}
+function onmouseroutfun(){
+  $("#right_login").children(".dropdown").hide();
+}
+function collectResponses(result){
+  document.getElementsByName('back_act').value = result.message;
+  if(result.error>0){
+    document.getElementById('o-authcode').style.display='block';
+  }
+  else{
+  document.getElementById('o-authcode').style.display='none';
+  }
+}
+    </script>
+    $load("inc/toolbar.html")
+    <script type="text/javascript">
+$(".J-stie-68").mouseover(function(){
+    $(this).children(".dropdown").show();
+ })
+ $(".J-stie-68").mouseout(function(){
+    $(this).children(".dropdown").hide();
+ })
+$(".J-stie-68").mouseleave(function(){
+    $(this).children(".dropdown").hide();
+ })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var headHeight2 = 200;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
+            var top = $(".top");       //要悬浮的容器的id
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > headHeight2) {
+                    top.removeClass("disabled");
+                }
+                else {
+                    top.addClass("disabled");
+                }
+            })
+        })
+        $(".top").click(function () {
+            $('body,html').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+        $("#mod-fold").click(function () {
+            $('.sidebar-nav').hasClass('fold') ? $('.sidebar-nav').removeClass('fold') : $('.sidebar-nav').addClass('fold');
+        });
+    </script>
+    <!-- 右侧边栏 结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+</body>
+<script>
+    $(function () {
+        $(".header_bottom_left").mouseover(function () {
+            $(".centerBox").show();
+        });
+        $(".header_bottom_left").mouseout(function () {
+            $(".centerBox").hide();
+        });
+    })
+    $(function () {
+        $(".header_search .header_search_ul li a").click(function () {
+            $(this).addClass("on").parent().siblings().children().removeClass();
+        })
+    });
+</script>
+</html>

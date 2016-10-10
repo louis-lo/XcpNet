@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商后台-交易中订单</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.freightedit.css')">
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+</head>
+<body>
+    $load("inc/x_top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/x_side.html")
+        <!-- 中间 开始 -->
+        <div class="center_wrapRight fr">
+            <div class="addFreighTitle">
+                <span>新增运费模板</span>
+            </div>
+            <form action="$url('/freight/submit/',Template.Id)" id="FreightForm" method="post" onsubmit="return false">
+                <div class="templatecontent">
+                    <div class="contentBox">
+                        <span class="FreighName">模板名称：</span>
+                        <input class="templateName inputColor" name="Name" id="Name" value="$Template.Name" type="text" />
+                    </div>
+                    <div class="contentBox">
+                        <span class="FreighName">发货地址：</span>
+                        <label id="area" class="area" style="padding:10px"></label>
+                    </div>
+                    <div class="contentBox clearFix">
+                        <div class="fl">
+                            <span class="FreighName">计价方式：</span>
+                        </div>
+                        <div class="switchingWrap fl">
+                            <span data-id="ThePrece"><em class="$if(Template.Type==0)switching${else}noswitching$end"></em>按件数</span>
+                            <span data-id="Weight"><em class="$if(Template.Type==1)switching${else}noswitching$end"></em>按重量(Kg)</span>
+                            <span data-id="Volume"><em class="$if(Template.Type==2)switching${else}noswitching$end"></em>按体积(M³)</span>
+                            <input type="hidden" name="Type" id="Type" value="$Template.Type" />
+                        </div>
+                    </div>
+                    <div class="contentBox">
+                        <div class="clearFix">
+                            <div class="fl" style="height: 36px;line-height: 36px;">
+                                <span class="FreighName">运费（全国）：</span>
+                            </div>
+                            <div class="fl">
+                                <div class="contentBoxT">
+                                    <span>快递公司：</span>
+                                    <input class="express" type="text" value="$Template.LogisticsCompany" id="LogisticsCompany" name="LogisticsCompany" style="text-align:left" placeholder="请输入快递公司是名称" />
+                                    <span class="expressTs">除指定地区外，其余地区的运费采用“默认运费”</span>
+                                </div>
+                                <div class="defaultFreight contentBoxT">
+                                    <span>默认运费：</span>
+                                    <span class="spanColor"><input class="inputColor" onkeyup="value=value.replace(/[^\d\.]/g,'')" value="$if(Template.Type!=0)${clr.System.Convert.ToDouble(Template.Number)/100}$else$Template.Number$end" id="Number" name="Number" type="text" />单位内，</span>
+                                    <span class="spanColor"><input class="inputColor" onkeyup="value=value.replace(/[^\d\.]/g,'')" value="$Template.Money" id="Money" name="Money" type="text" />元，</span>
+                                    <span class="spanColor">每增加<input class="inputColor" onkeyup="value=value.replace(/[^\d\.]/g,'')" value="$if(Template.Type!=0)${clr.System.Convert.ToDouble(Template.StepNumber)/100}$else$Template.StepNumber$end" id="StepNumber" name="StepNumber" type="text" />单位，</span>
+                                    <span class="spanColor">增加运费<input class="inputColor" onkeyup="value=value.replace(/[^\d\.]/g,'')" value="$Template.StepMoney" id="StepMoney" name="StepMoney" type="text" />元</span>
+                                </div>
+                                <div class="tableBox">
+                                    $set(freightmappings=Template.GetMapping(this.DataSource))
+                                    $if(freightmappings.Count>0)
+                                    <table align="center" border="0" width="100%" class="freightTable">
+                                        <tr>
+                                            <th class="freightTop">运送到</th>
+                                            <th class="freightcon">首单位</th>
+                                            <th class="freightcon">首费（元）</th>
+                                            <th class="freightcon">续单位</th>
+                                            <th class="freightcon">续费（元）</th>
+                                            <th class="freightcon">操作</th>
+                                        </tr>
+                                        $foreach(freightmapping in freightmappings)
+                                        <tr class="freightcontent">
+                                            <td>
+                                                <div class="clearFix">
+                                                    <div class="noAddArea AreaText fl">
+                                                        $foreach(areamapping in freightmapping.GetMapping(this.DataSource))
+                                                        ${GetArea(areamapping.ProvinceId,areamapping.CityId)},
+                                                        $end
+                                                    </div>
+                                                    <div class="compile fr">
+                                                        <input type="hidden" autocomplete="off" class="areaid" name="Area_$freightmapping.Id" value="$foreach(areamapping in freightmapping.GetMapping(this.DataSource))${GetAreaId(areamapping.ProvinceId,areamapping.CityId)},$end" />
+                                                        <a href="javascript:void(0)" class="delTemplate">编辑</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><input type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" name="Number_$freightmapping.Id" value="$if(Template.Type!=0)${clr.System.Convert.ToDouble(freightmapping.Number)/100}$else$freightmapping.Number$end" /></td>
+                                            <td><input type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" name="Money_$freightmapping.Id" value="$freightmapping.Money" /></td>
+                                            <td><input type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" name="StepNumber_$freightmapping.Id" value="$if(Template.Type!=0)${clr.System.Convert.ToDouble(freightmapping.StepNumber)/100}$else$freightmapping.StepNumber$end" /></td>
+                                            <td><input type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" name="StepMoney_$freightmapping.Id" value="$freightmapping.StepMoney" /></td>
+                                            <td>
+                                                <a href="javascript:;" data-id="$freightmapping.Id" class="delcompile">删除</a>
+                                            </td>
+                                        </tr>
+                                        $end
+                                    </table>
+                                    $end
+                                </div>
+                                <div class="addcontent">
+                                    <a href="javascript:void(0)" class="add_newli">为指定地区设置运费</a>
+                                    <p class="addcontentColor">
+                                        *首件请输入1-9999的整数
+                                        <span class="addcontentColor">*首件请输入1-9999的整数</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="contentBox">
+                        <div class="clearFix">
+                            <div class="fl" style="height: 36px;line-height: 36px;">
+                                <span class="FreighName">运费（本地）：</span>
+                            </div>
+                            <div class="fl">
+                                <div class="contentBoxT">
+                                    <span>快递公司：</span>
+                                    <input class="express" type="text" placeholder="请输入快递公司是名称" />
+                                </div>
+                                <div class="defaultFreight contentBox">
+                                    <span>默认运费：</span>
+                                    <span class="spanColor"><input class="inputColor" type="text" />件内，</span>
+                                    <span class="spanColor"><input class="inputColor" type="text" />元，</span>
+                                    <span class="spanColor">每增加<input class="inputColor" type="text" />内，</span>
+                                    <span class="spanColor">增加运费<input class="inputColor" type="text" />元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="saveCancel">
+                        <input type="hidden" id="Id" name="Id" value="$Template.Id">
+                        <a href="javascript:;" class="save" id="SaveForm">保存并返回</a>
+                        <a href="$url('/freight/template')" class="cancel">取消</a>
+                    </div>
+                </div>
+            </form>
+            <!-- 中间 结束 -->
+        </div>
+        </div>
+        $load("inc/bottom.html")
+        $load("inc/xalert.html")
+        <!-- 弹出层模板-->
+        <script type="text/html" id="tmpl-address">
+            <div class="center_addAddressTitle"> 选择地区 </div>
+            <div class="new_addressWrap clearFix">
+                <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                    <div class="eastChina clearFix">
+                        <div class="eastChinaLeft fl"><input type="checkbox" id="checkAll" />全选</div>
+                        <div class="eastChinaRight fl">
+                            <ul class="clearFix province">
+                                $set(Provinces=GetProvinces())
+                                $foreach(province in Provinces)
+                                <li class="fl provinceLi provinceLiBorder">
+                                    $set(Citys=GetCities(province.Id))
+                                    <div class="cityClick cityClickW"><input type="checkbox" name="Province" value="$province.Id" data-name="$province.ShortName" class="sonCheckAll" />$province.ShortName<i>(0)</i><span></span></div>
+                                    <ul class="slidedown slidedownT clearFix">
+                                        $foreach(city in Citys)
+                                        <li class="fl">
+                                            <input type="checkbox" data-parent="$province.Id" value="$city.Id" data-name="$city.ShortName" name="City" class="dxuan" />$city.ShortName
+                                        </li>
+                                        $end
+                                        <div class="closebtn"><a href="javascript:void(0)">关闭</a></div>
+                                    </ul>
+                                </li>
+                                $end
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </script>
+        <script type="text/html" id="tmpl-xalert">
+            <div class="center_addAddressTitle">删除区域</div>
+            <div class="new_addressWrap clearFix">
+                <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                    <div class="new_addressWrap clearFix" style="padding:20px 20px">
+                        删除后不可还原，是否删除该区域?
+                    </div>
+                </form>
+            </div>
+        </script>
+        <!-- 弹出层结束-->
+        <script>
+            $(function () {
+                Cnaws.Area.Init('area', '$url("/country/")', $Template.County);
+                $('#FreightForm').jqxValidator({
+                    rules: [
+                        { input: '#Name', message: '模板名称不能为空', action: 'keyup, blur', rule: 'required' },
+                        { input: '#LogisticsCompany', message: '快递公司不能为空', action: 'keyup, blur', rule: 'required' },                        
+                        { input: '#Number', message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                        { input: '#Money', message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                        { input: '#StepNumber', message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                        { input: '#StepMoney', message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                    ]
+                });
+                //添加
+                $(document).on('click', '.add_newli', function () {
+                    var content = $(this).parent().prev().html();
+                    var contentlength = -$(this).parent().prev().find(".freightcontent").length - 1;
+                    var template = $('<table align="center"  border="0" width="100%" class="freightTable">' +
+                        '<tr><th class="freightTop">运送到</th><th class="freightcon">首单位</th><th class="freightcon">首费（元）</th>' +
+                        '<th class="freightcon">续单位</th><th class="freightcon">续费（元）</th><th class="freightcon">操作</th></tr>' +
+                        '<tr class="freightcontent"><td><div class="clearFix"><div class="noAddArea AreaText fl">' +
+                        '未添加区域</div><div class="compile fr">' +
+                        '<input type="hidden" class="areaid" autocomplete="off" name="Area_' + contentlength + '" value="" /><a href="javascript:void(0)" class="delTemplate">编辑</a></div></div></td><td><input type="text" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" id="Number_' + contentlength + '" name="Number_' + contentlength + '" /></td>' +
+                        '<td><input type="text" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" id="Money_' + contentlength + '" name="Money_' + contentlength + '" /></td><td><input type="text" id="StepNumber_' + contentlength + '" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" name="StepNumber_' + contentlength + '" /></td><td><input type="text" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" id="StepMoney_' + contentlength + '"  name="StepMoney_' + contentlength + '" /></td><td>' +
+                        '<a href="javascript:;"  data-id="' + contentlength + '" class="delcompile">删除</a></td></tr></table>');
+                    if ($.trim(content).length == 0) {
+                        $(".tableBox").append(template);
+                    } else {
+                        var line = $('<tr class="freightcontent"><td><div class="clearFix"><div class="noAddArea AreaText fl">' +
+                        '未添加区域</div><div class="compile fr">' +
+                        '<input type="hidden" class="areaid" autocomplete="off" name="Area_' + contentlength + '" value="" /><a href="javascript:void(0)" class="delTemplate">编辑</a></div></div></td><td><input type="text" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" id="Number_' + contentlength + '" name="Number_' + contentlength + '" /></td>' +
+                        '<td><input type="text" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" id="Money_' + contentlength + '" name="Money_' + contentlength + '" /></td><td><input type="text" id="StepNumber_' + contentlength + '" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" name="StepNumber_' + contentlength + '" /></td><td><input type="text" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" id="StepMoney_' + contentlength + '"  name="StepMoney_' + contentlength + '" /></td><td>' +
+                        '<a href="javascript:;" data-id= "' + contentlength + '"class="delcompile">删除</a></td></tr>');
+                        $(".tableBox").children().append(line);
+
+                    }
+                    $('#FreightForm').jqxValidator({
+                        rules: [
+                            { input: '#Number_' + contentlength, message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                            { input: '#Money_' + contentlength, message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                            { input: '#StepNumber_' + contentlength, message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                            { input: '#StepMoney_' + contentlength, message: '默认运费不能为空', action: 'keyup, blur', rule: 'required' },
+                        ]
+                    });
+                    $(this).text("添加");
+                })
+                //delete
+                $(document).on('click', '.delcompile', function () {
+                    var xalert_del = new Xalert(this, {
+                        tmpl: '#tmpl-xalert',
+                        height: '170px',
+                        left: '40%',
+                        top: '20%',
+                        width: '300px',
+                        callback: function (e) {
+                            if (parseInt($(e.target).data("id")) > 0) {
+                                var input = e.target;
+                                $.ajax({
+                                    type: "POST",
+                                    dataType: "Json",
+                                    url: Cnaws.getUrl("$url('/freight/delareamapping/')" + $(e.target).data("id")),
+                                    success: function (data) {
+                                        if (data.code == -200) {
+                                            var len = $(input).parent().parent().parent().children().size();
+                                            if (len == 2) {
+                                                $(input).parent().parent().parent().parent().remove();
+                                            } else {
+                                                $(input).parent().parent().remove();
+                                            }
+                                        }
+                                        else {
+                                            Cnaws.showError("抱歉,删除失败,请检查数据");
+                                        }
+                                    }
+                                })
+                            }
+                            else {
+                                var len = $(e.target).parent().parent().parent().children().size();
+                                if (len == 2) {
+                                    $(e.target).parent().parent().parent().parent().remove();
+                                } else {
+                                    $(e.target).parent().parent().remove();
+                                }
+                            }
+
+                            e.close();
+                        }
+                    })
+                    xalert_del.show();
+                })
+                //end 添加
+                $(document).on("click", ".delTemplate", function () {
+                    var xalert = new Xalert(this, {
+                        tmpl: '#tmpl-address',
+                        width: '730px',
+                        height: '410px',
+                        top: "10%",
+                        left: '24%',
+                        onShow: function (xalert) {
+                            $(".cityClick span").on('click', function () {
+                                var citynb = $(this).parent().siblings().css("display");
+                                if (citynb == "none") {
+                                    $(this).parent().siblings().removeClass("slidedownT").parent().addClass("provinceLiT").children().addClass("cityClickT").removeClass("cityClickW");
+                                    $(this).parent().parent().siblings().removeClass("provinceLiT").children().removeClass("cityClickT").addClass("cityClickW").next().addClass("slidedownT");
+                                } else {
+                                    $(this).parent().siblings().addClass("slidedownT").parent().removeClass("provinceLiT").children().removeClass("cityClickT").addClass("cityClickW");
+                                }
+                            })
+
+                            //关闭下拉框
+                            $(".closebtn a").on('click', function () {
+                                $(this).parent().parent().addClass("slidedownT").parent().removeClass("provinceLiT").children().removeClass("cityClickT");
+                            })
+                            $("#addForm").on('click', "#checkAll", function () {
+                                $('input[name="Province"]').each(function () {
+                                    $(this).prop("checked", $("#checkAll").is(":checked"));
+                                    $(this).parent().find(".sonCheckAll").each(function () {
+                                        var size = $(this).parent().siblings('ul').find('input[name="City"]').size();
+                                        $(this).parent().siblings('ul').find('input[name="City"]').prop("checked", $("#checkAll").is(":checked"));
+                                        if ($("#checkAll").is(":checked")) {
+                                            $(this).parent().find('i').html("(" + size + ")");
+                                        } else {
+                                            $(this).parent().find('i').html("(0)");
+                                        }
+                                    });
+                                });
+                            })
+
+                            $(".sonCheckAll").each(function () {
+                                $(this).on('click', function () {
+                                    var ProvinceSize = $(this).parent().parent().parent().find('input[name="Province"]:checked').size();
+                                    var ProvinceSize2 = $(this).parent().parent().parent().find('input[name="Province"]').size();
+                                    $(this).parent().parent().find('.dxuan').prop('checked', $(this).is(":checked"));
+                                    var size = $(this).parent().parent().find('.dxuan:checked').size();
+                                    $(this).parent().find('i').html("(" + size + ")");
+                                    if (ProvinceSize == ProvinceSize2) {
+                                        $("#checkAll").prop('checked', true);
+                                    } else {
+                                        $("#checkAll").prop('checked', false);
+                                    }
+                                });
+                            });
+
+                            $('input[name="City"]').each(function () {
+                                $(this).on('click', function () {
+                                    if ($(this).attr('class') == 'dxuan') {
+                                        var sonSize = $(this).parent().parent().find('input[name="City"]:checked').size();
+                                        var sonSize2 = $(this).parent().parent().find('input[name="City"]').size();
+                                        if (sonSize != 0) {
+                                            $(this).parent().parent().parent().find("i").html("(" + sonSize + ")");
+                                        } else {
+                                            $(this).parent().parent().parent().find("i").html("");
+                                        }
+
+                                        if (sonSize2 == sonSize) {
+                                            $(this).parent().parent().parent().find('.sonCheckAll').prop('checked', true);
+                                        } else {
+                                            $(this).parent().parent().parent().find('.sonCheckAll').prop('checked', false);
+                                        }
+                                    }
+                                    //得到所用被选中的单选框
+                                    var size = $('input[name="City"]:checked').size();
+                                    //在得到所有单选的总数
+                                    var size2 = $('input[name="City"]').size();
+                                    if (size == size2)
+                                        $("#checkAll").prop("checked", true);
+                                    else
+                                        $("#checkAll").prop("checked", false);
+                                });
+                            })
+
+                            var arr = $(xalert.target).parent().find(".areaid").val().trim(',').split(',');
+                            $('input[name="Province"]').each(function () {
+                                if ($.inArray($(this).val(), arr) != -1)
+                                    $(this).click();
+                            });
+                            $('input[name="City"]').each(function () {
+                                if ($.inArray($(this).val(), arr) != -1)
+                                    $(this).click();
+                            });
+
+                        },
+                        callback: function (xalert) {
+                            var arrId = new Array();
+                            var arrName = new Array();
+                            $("input[name='Province']").each(function () {
+                                if ($(this).is(":checked")) {
+                                    arrId.push(parseInt($(this).val()));
+                                    arrName.push($(this).data("name"));
+                                }
+                            });
+                            $("input[name='City']").each(function () {
+                                if ($(this).is(":checked") && $.inArray(parseInt($(this).data("parent")), arrId) == -1) {
+                                    arrId.push($(this).val());
+                                    arrName.push($(this).data("name"));
+                                }
+                            });
+                            $(xalert.target).parent().parent().find(".AreaText").html(arrName.join(","));
+                            $(xalert.target).parent().find(".areaid").val(arrId.join(","));
+                            xalert.close();
+                        }
+                    })
+                    xalert.show();
+                });
+
+                $(".switchingWrap span").click(function () {
+                    $("#Type").val($(this).data("id"));
+                    var switchingEm = $(this).children();
+                    $(switchingEm).addClass("switching").removeClass("noswitching");
+                    $(switchingEm).parent().siblings().children().removeClass("switching").addClass("noswitching");
+                })
+
+
+
+
+
+
+                $("#SaveForm").click(function () {
+                    var from = $("#FreightForm")
+                    if (from.jqxValidator('validate')) {
+                        $.ajax({
+                            type: "POST",
+                            dataType: "Json",
+                            url: from.attr("action"),
+                            data: from.serialize(),
+                            success: function (data) {
+                                if (data.code == -200) {
+                                    Cnaws.showSuccess("保存成功");
+                                    setTimeout(function () { location.href = '$url("/freight/template")' }, 1000);
+                                }
+                                else {
+                                    Cnaws.showError("抱歉,保存失败,请检查数据");
+                                }
+                            }
+                        })
+                    }
+                    return false;
+                });
+
+            })
+        </script>
+</body>
+</html>

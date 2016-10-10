@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/return_goods.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <style type="text/css">
+        .list-block ul li {
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="clearfix bar bar-nav col_333 bg_fff">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    申请退换货
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="content native-scroll pad_lr">
+                <h3>申请类型</h3>
+                <form id="form" action="$passport('/service/submit/',Order.Id,'/',Product.ProductId)" method="post">
+                    <div class="returngoods_option">
+                        <ul class="returngoods_optionLi">
+                            <li class="clearfix" data-val="3">
+                                <span>我要退款</span>
+                                <span class="fr"><img class="returngoods_optionIcon" src="$res('wap/img/mobile/order_option_off.png')" /></span>
+                            </li>
+                            $if(Order.State>3)
+                            <li class="clearfix" data-val="1">
+                                <span>我要退货</span>
+                                <span class="fr"><img class="returngoods_optionIcon" src="$res('wap/img/mobile/order_option_off.png')" /></span>
+                            </li>
+                            <li class="exchange clearfix" data-val="2">
+                                <span>我要换货</span>
+                                <span class="fr"><img class="returngoods_optionIcon" src="$res('wap/img/mobile/order_option_off.png')" /></span>
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+
+                    <div class="list-block">
+                        <ul>
+                            <!-- Text inputs -->
+                            <li>
+                                <div class="item-content" style="position:relative;">
+                                    <div class="item-inner">
+                                        <div class="item-title label"><span class="col_ff3">*</span> 申请原因</div>
+                                        <div class="item-input"><input required="required" type="text" placeholder="申请原因" id="picker" readonly=""></div>
+                                    </div>
+                                    <img class="return_dropdownImg" src="$res('wap/img2.0/cph/return_dropdownImg.png')">
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="list-block list-block-money" id="divRefundMoney">
+                        <ul>
+                            <!-- Text inputs -->
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner exchange_num">
+                                        <div class="item-title label"><span class="col_ff3">*</span> 退款金额</div>
+                                        <div class="item-input" id="goods_money"><input type="number" name="RefundMoney" value="$Product.TotalMoney.ToString('0.00')" onkeyup="value=value.replace(/[^\d\.]/g,'')" id="RefundMoney" min="1" placeholder="请输入金额"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="returngoods_prompt">具体金额可与客服商量后填写</div>
+                    </div>
+
+                    
+                    <div class="list-block list-block-money" id="divFreight">
+                        <ul>
+                            <!-- Text inputs -->
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner exchange_num">
+                                        <div class="item-title label"><span class="col_ff3">*</span> 是否退邮费</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clearfix postage_opction">
+                                ${if(IsRetreatFreightAmount)}
+                                <div class="fl on"><input type="radio" name="IsRetreatFreightAmount" checked="checked" value="on" style="display:none;"/><span class="purchasemy_icon choice_icon"></span>是</div>
+                                <div class="fl"><input type="radio" name="IsRetreatFreightAmount" value="0" style="display:none;"/><span class="purchasemy_icon choice_icon"></span>否</div>
+                                ${else}
+                                <div class="fl"><input type="radio" name="IsRetreatFreightAmount" value="1" style="display:none;" /><span class="purchasemy_icon choice_icon"></span>是</div>
+                                <div class="fl on"><input type="radio" name="IsRetreatFreightAmount" checked="checked" value="0" style="display:none;" /><span class="purchasemy_icon choice_icon"></span>否</div>
+                                ${end}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="list-block" id="divRefundCount" style="display:none">
+                        <ul>
+                            <!-- Text inputs -->
+                            <li>
+                                <div class="item-content" style="position:relative;">
+                                    <div class="item-inner">
+                                        <div class="item-title label"><span class="col_ff3">*</span> 申请数量</div>
+                                        <div class="item-input" id="goods_number"><input type="number" name="RefundCount" value="$Product.Count" onkeyup="value=value.replace(/[^\d\.]/g,'')" id="RefundCount" min="1" placeholder="请输入数量"></div>
+                                    </div>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="list-block">
+                        <ul>
+                            <!-- Text inputs -->
+                            <li class="align-top">
+                                <div class="item-content">
+                                    <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">退款说明</div>
+                                        <div class="item-input">
+                                            <textarea name="Message" style="margin-left:-0.5rem;" placeholder="最多200字"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" id="ServiceType" name="ServiceType" />
+                    <input type="hidden" id="Reason" name="Reason" />
+                    <input type="hidden" id="Image" name="Image" />
+                    <div class="returngoods_button"><input onclick="return goods_input()" type="submit" value="提交申请"></div>
+                </form>
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+    <script>
+var this_click = 0;
+var this_state = false;
+
+function goods_input() {
+    if (this_click == 0) {
+        $.alert('请选择申请类型');
+        return false;
+    } else if ($("#picker").val() == "" || $("#picker").val() == null) {
+        $.alert('申请原因不能为空');
+        return false;
+    } else if ($("#ServiceType").val() == 1 && ($("#RefundMoney").val().length <= 0 || $("#RefundCount").val().length <= 0)) {
+        $.alert('金额和数量不能为空');
+        return false;
+    } else if ($("#ServiceType").val() == 2 && ($("#RefundMoney").val().length <= 0 || $("#RefundCount").val().length <= 0)) {
+        $.alert('金额和数量不能为空');
+        return false;
+    } else if ($("#ServiceType").val() == 3 && $("#RefundMoney").val().length <= 0) {
+        $.alert('金额不能为空');
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+
+//function goods_input(){
+//	var goods_number = $("#goods_number input");
+//		var goods_money = $("#goods_money input");
+//	if($(".exchange").hasClass('on')){
+//		goods_verification.refund(goods_number)
+//	}else{
+//		goods_verification.exchange_goods(goods_number,goods_money)
+//	}
+//	if(this_state == false){
+//		return false
+//	}
+//}
+
+//var goods_verification = function(){
+//	this.exchange_goods = function(goods_number,goods_money){
+//		if(this_click == 0){
+//			//$.alert('请选择申请类型');
+//			console.log('请选择申请类型');
+//		}else if($("#picker").val() == "" || $("#picker").val() == null){
+//	//		$.alert('申请原因不能为空');
+//			console.log('申请原因不能为空');
+//		}else if(goods_money.val() == "" || goods_money.val() == null){
+//	//		$.alert('金额不能为空');
+//			console.log('金额不能为空');
+//		}else if(goods_number.val() == "" || goods_number.val() == null){
+//			console.log('数量不能为空');
+//		}else{
+//			this_state = true
+//		}
+//	},
+//	this.refund = function(goods_number){
+//		var goods_number = $("#goods_number input");
+//		if(this_click == 0){
+//			//$.alert('请选择申请类型');
+//			console.log('请选择申请类型');
+//		}else if($("#picker").val() == "" || $("#picker").val() == null){
+//	//		$.alert('申请原因不能为空');
+//			console.log('申请原因不能为空');
+//		}else if(goods_number.val() == "" || goods_number.val() == null){
+//			console.log('数量不能为空');
+//		}else{
+//			this_state = true
+//		}
+//	}
+//}
+//var goods_verification = new goods_verification();
+
+$(function(){
+	$(".postage_opction div").click(function(){
+	    $(".postage_opction div").removeClass("on");
+	    $("input[name='IsRetreatFreightAmount']").attr("checked",false);
+		var ipt = $(this).children()[0];
+		$(ipt).attr("checked", true);
+		$(this).addClass("on")
+	})
+	//$(".returngoods_optionLi li").on("click",function(){
+	//	if($(this).is(".exchange")){
+	//		this_click++;
+	//		$(".returngoods_optionLi li").removeClass("on");
+	//		$(".list-block-money").addClass("none");
+
+	//		$(this).addClass("on")
+	//	}else{
+	//		this_click++;
+	//		$(".list-block-money").removeClass("none");
+	//		$(".returngoods_optionLi li").removeClass("on");
+	//		$(this).addClass("on")
+	//	}
+	//});
+	//
+	$(document).on("pageInit", function() {
+		$("#picker").picker({
+			toolbarTemplate: '<header class="bar bar-nav" style="background:#f7f7f8">\
+				<button class="button button-link pull-right close-picker">确定</button>\
+				<h1 class="title">请填写原因</h1>\
+			</header>',
+			cols: [
+				{
+				    textAlign: 'center',
+				    displayValues: ['7天无理由退换货', '商品瑕疵', '质量问题', '颜色/尺寸/参数不符', '少件/漏发', '收到商品时有划痕或破损', '假冒品牌', '未按约定时间发货', '发票问题'],
+	        		values: ['7天无理由退换货', '商品瑕疵', '质量问题', '颜色/尺寸/参数不符', '少件/漏发', '收到商品时有划痕或破损', '假冒品牌', '未按约定时间发货', '发票问题']
+				}
+			], formatValue: function (picker, value, displayValue) {
+			    $("#Reason").val(displayValue);
+			    return displayValue;
+			}
+
+		});
+
+	});
+	$.init();
+	$(".returngoods_optionLi li").click(function () {
+	    $(".returngoods_optionLi li").removeClass("on");
+	    $(".returngoods_optionIcon").attr('src', '$res("wap/img/mobile/order_option_off.png")');
+	    $(this).addClass("on").children(".fr").children("img").attr('src', '$res("wap/img2.0/cph/order_option_on.png")');//
+	    $("#ServiceType").val($(this).attr("data-val"));
+	    this_click = 1;
+	    if ($(this).attr("data-val") == 1) {
+	        $("#divRefundMoney").show();
+	        $("#divRefundCount").show();
+	        $("#divFreight").show();
+	    }
+	    else if ($(this).attr("data-val") == 2) {
+	        $("#divRefundMoney").hide();
+	        $("#divRefundCount").show();
+	        $("#divFreight").hide();
+	    }
+	    else if ($(this).attr("data-val") == 3) {
+	        $("#divRefundMoney").show();
+	        $("#divRefundCount").show();
+	        $("#divFreight").show();
+	    }
+	});
+
+	$("#form").submit(function () {
+	    $.ajax({
+	        type: "POST",
+	        dataType: "Json",
+	        url: $("#form").attr("action"),
+	        data: $("#form").serialize(),
+	        success: function (data) {
+	            var data = JSON.parse(data);
+	            if (data.code == -200) {
+	                $.alert('已成功申请售后,请等待商家审核！');
+	                setTimeout(function () {
+	                    window.location.href = "$url('/service/servicelist')"
+	                }, 1200);
+	            }
+	            else if (data.code = -1046) {
+	                $.alert('申请售后失败,退款价格不能高于商品价格！');
+	            }
+	            else if (data.code = -1047) {
+	                $.alert('申请售后失败,换货数量不能购买时的数量！');
+	            }
+	            else {
+	                $.alert('申请售后失败,请核对后重试！');
+	            }
+	        }
+	    })
+	    return false;
+	});
+
+
+	//load
+	function star_load(){
+		$.showPreloader();
+	    setTimeout(function () {
+	        $.hidePreloader();
+	    }, 5000);
+	}
+	function end_load(){
+		$.hidePreloader();
+	}
+});
+    </script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+body{background:#f9f9f9;}.bg_fff{background:#fff;}.borbom_f3{border-bottom:1px solid #f3f3f3;}
+.purchasemy_top,.purchasemy_Jointop{width:100%;background:url(../img/purchasemy_topImg.png) no-repeat;background-size:cover;padding:.75rem 0;text-align:center;position:relative;}
+.purchasemy_Jointop{background:url(../img/user_centerBg.png) no-repeat;background-size:100% 100%}
+.purchasemy_topLe{width:4rem;margin:0 auto;}
+.purchasemy_icon{background: url(../img/admin_img.png) no-repeat;}
+.purchasemy_portrait{width:100%;box-sizing: content-box;position:relative;padding-bottom:100%;border:2px solid rgba(255,255,255,.3);border-radius:50%;}
+.purchasemy_topCon{color:#fff;margin:.4rem 0 0 .5rem;text-shadow:rgba(0,0,0,0.2) 0 1px 0;font-size:.65rem;text-align:left;line-height:1.2rem;}
+.purchasemy_switch{position:absolute;right:.3rem;top:1rem;font-size:.6rem;background:rgba(0,0,0,0.5);padding:.15rem .35rem;border-radius:13px;}
+.purchasemy_switch a{font-size:.6rem}
+.purchasemy_orderTop{line-height:2rem;border-bottom:1px solid #f3f3f3;position:relative;font-size:.7rem;}
+.purchasemy_orderTop span,.purchasemy_shopcartNum span,.purchasemy_account ul li span{display:inline-block;}
+.purchasemy_order_icon{width:18px;height:22px;vertical-align:middle;background-size:360px 210px;}
+.purchasemy_orderTop .col_666{font-size:.65rem;padding-right:.75rem;}
+.purchasemy_orderMore,.purchasemy_shopcartNum4{width:15px;height:15px;background-size:310px 192px;
+background-position:-195px -5px;vertical-align:middle;position:absolute;right:.5rem;top:.6rem;}
+.purchasemy_orderCon ul li{float:left;text-align:center;width:16.5%;padding:.75rem .3rem .38rem;box-sizing:border-box;font-size:.65rem;}
+.purchasemy_orderCon ul li:last-child{border-left:1px solid #f3f3f3;position:relative;}
+.customer_arrow_icon{position:absolute;left:-2px;top:50%;margin-top:-.4rem;width:.8rem;height:.8rem;background:url(../img/purchasemy_orderMorearrow.png) no-repeat;
+background-size:100% 100%;border-left:1px solid #fff;}
+.purchasemy_orderCon ul li div:first-child{display:inline-block;width:28px;height:24px;background-size:392px 240px;background-position:-27px -2px;position:relative;}
+.admin_thisNumber{position:absolute;top:-.2rem;right:-0.3rem;display:inline-block;padding:0 0.2rem;background:#f44336;color:#fff;line-height:10px;font-size:.4rem;border-radius:.4rem;border: 1px solid #fff;}
+.purchasemy_orderCon ul li div.getlibrary_icon{width:30px;background-position:-60px 0;background-size:392px 220px;}
+.purchasemy_orderCon ul li div.deliver_icon{background-size:392px 227px;background-position:-91px -1px;}
+.purchasemy_orderCon ul li div.receipt_icon{background-size:390px 230px;background-position:-124px -2px;}
+.purchasemy_orderCon ul li div.evaluate_icon{background-size:380px 212px;background-position:-154px -1px;}
+.purchasemy_orderCon ul li div.customer_icon{background-size:392px 227px;background-position:-189px -2px;}
+.payment_titleTest{font-size:.6rem;}
+.purchasemy_shopcartNum{position:relative;line-height:2rem;}.purchasemy_shopcartNum a{font-size:.65rem}
+.purchasemy_shopcartNum1{width:22px;height:26px;vertical-align:middle;background-size:315px 176px;background-position:-173px 0;margin-top:-0.15rem;}
+.purchasemy_shopcartNum3{margin-right:1rem;padding:0 .3rem;background:#f44344;border-radius:.75rem;line-height:1.4;}
+.my_assets .purchasemy_shopcartNum{line-height:2rem;}
+.my_assets h3{line-height:2rem;border-bottom:1px solid #f3f3f3;font-weight:600;font-size:.7rem;}
+.myRecharge_icon{width:22px;height:26px;vertical-align:middle;background-size:355px 210px;background-position:-244px -4px;}
+.mybill_icon{width:22px;height:26px;vertical-align:middle;background-size:385px 220px;background-position:-223px -75px;}
+.purchasemy_account h3{line-height:2rem;border-bottom:1px solid #f3f3f3;font-size:.7rem;font-weight:600;}
+.purchasemy_account ul li{box-sizing:border-box;line-height:2rem;border-bottom:1px solid #f3f3f3;position:relative;}
+.purchasemy_account ul li span:first-child{margin:-0.15rem .2rem 0 0.75rem;width:24px;height:24px;vertical-align:middle;background-size:326px 203px;}
+.purchasemy_account ul li span.nickname_icon{background-position:-302px -3px}
+.purchasemy_account ul li span.gender_icon{background-position:-252px -3px}
+.purchasemy_account ul li span.password_icon{background-position:0 -32px;background-size:326px 198px;}
+.purchasemy_account ul li span.address_icon{background-position:-276px -3px}
+.purchasemy_account a{font-size:.65rem}
+.purchasemy_sign{height:auto;overflow:hidden;}
+.purchasemy_sign a{background:#e01928;display:block;width:100%;height:44px;line-height:44px;text-align:center;margin:1.5rem auto;font-size:.8rem;border-radius:.15rem;}
+
+.col_ff7{color:#color:#ff7300;}.purchaseall_icon{background: url(../img/purchaseallImg.png) no-repeat;}
+.wayshow_nav{position:fixed;top:0;height:2.2rem;line-height:2.2rem;width:100%;background:#fff;text-align:center;z-index:999;font-size:.95rem;color:#333;border-bottom:1px solid #f3f3f3;}
+.wayshow_navPosi{position:relative;}
+.wayshow_navLe{position:absolute;top:0.5rem;left:0.3rem;}
+.icon_Firststep{display:inline-block;width:18px;height:18px;background:url(../img/icon_Firststep.png);background-size:100%;}
+/* end nav*/
+
+/**/
+.purchaseall_apply{margin-top:2.5rem;}
+.purchaseall_apply h3{line-height:2rem;}
+.purchaseall_reason textarea{resize:none;width:100%;border:none;padding:2%;height:5rem;}
+.purchaseall_applySub{position:fixed;bottom:1rem;left:2.5%;width:95%;background:#ff7300;line-height:2.3rem;text-align:center;border-radius:.15rem;font-size:.9rem;}
+.purchaseall_reasonTxt{opacity:0;transition:opacity 3s;-webkit-animation:shopcart_addnum 3s infinite linear;}
+.purchaseall_reasonTxt.on{opacity:1;}
+.purchaseall_contact{color:#ff7300;margin-top:2rem;text-align:center;line-height:1.5rem;}
+.purchaseall_contact .choice_icon{background-position:-73px 0px;vertical-align:middle;}
+.purchaseall_reasContent{padding:.75rem;}
+
+.purchaseall_logiLe{width:9%;}.purchaseall_logiRe{width:91%;}.purchaseall_logiRe h3{line-height:1.5;}
+.purchaseall_logistics .choice_icon{background-position:-126px -3px;}
+.purchaseall_logistics ul li{background:url(../img/route_descIconBg.jpg) .45rem 0 repeat-y;padding-bottom:.5rem;}
+.purchaseall_logistics ul li:last-child{background:none;}
+.purchaseall_logistics ul li:last-child .choice_icon{background-position:-103px 0px;}
+.purchaseall_logistics ul li:last-child h3{color:#333}
+
+.receipt_detaTop{border-bottom:1px solid #e5e5e5;line-height:2rem;}
+.receipt_detaContacts{padding:.5rem .75rem;}
+.receipt_detaContacts h3{line-height:1.5rem;color:#555}
+.receipt_detaContacts .choice_icon{background-position:-22px 0;margin-right:.3rem;}
+.receipt_detainfo{zoom: 1;overflow: hidden;padding-left:1.2rem;}
+.receipt_detaCon_main{width: 100%;}
+.receipt_detaCon_Le{width: 200px;margin-left: -100%;position: relative;left: -1.2rem;}
+.purchase_ReceiptBottom{position:fixed;bottom:0;background:#fff;height:2.5rem;width:100%;line-height:2.5rem;box-sizing: border-box;}
+.purchase_ReceiptTest{padding:.5rem .75rem;}
+
+.purchase_cart_icon{width:22px;height:22px;vertical-align:middle;background-size:288px 176px;background-position:0px -57px;margin-top:-0.15rem;}
+.open_account_icon{width:22px;height:22px;vertical-align:middle;background-size:348px 202px;background-position:-35px -67px;margin-top:-2px;}
+.subordinate_icon{width:22px;height:22px;vertical-align:middle;background-size:340px 200px;background-position:-65px -67px;}
+.my_profit ul li{width:25%;text-align:center;float:left;line-height:1.2rem;border-right:1px solid #f3f3f3;overflow:hidden;padding:5px 0;height:90px}
+.my_profit ul li:last-child{border-right:none}
+.apply_withdrawals{padding:.15rem .3rem;background:#f44344;border-radius:.15rem;line-height:1.4;}

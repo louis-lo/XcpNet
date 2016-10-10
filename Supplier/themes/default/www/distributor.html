@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>基本信息</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/basicInformation.css')">
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxbuttons.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxwindow.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/passport.js')"></script>
+    <meta charset="utf-8" />
+    <style>
+        .headerBottom_wrap {
+            padding: 0 0 !important;
+        }
+
+        .header_bottom span {
+            padding: 0 0 !important;
+        }
+
+        .header_bottom .img {
+            height: 50px;
+            margin-top: 8px;
+            width: 141px;
+        }
+
+        .header_bottom span {
+            color: #f5f5f5;
+            font-size: 18px;
+            padding-left: 20px !important;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    $load("inc/d_top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/d_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr ">
+            <div class="dredgeId_top clearFix">
+                <span class="fl">基本信息</span>
+            </div>
+            <form id="form" action="$url('/distributor/submit')" method="post" onsubmit="return false">
+                <div class="dredgeId_informationWrap clearFix">
+                    <div class="dredgeId_informationLeft fl">
+                        <span class="firmName">公司名称：</span>
+                        <span class="print">上传照片：</span>
+                        <span class="partiesToAContrect print">签约人：</span>
+                        <span class="principal password">负责人：</span>
+                        <span class="address name">详细地址：</span>
+                        <span class="firmAddress firmName">公司地址：</span>
+                        <span class="encoding name">邮政编码：</span>
+                    </div>
+                    <div class="dredgeId_informationRight fl">
+                        <div class="dredgeId_firmName dredgeId_name dredgeId_leagueRank">
+                            <input type="text" placeholder="请输入公司名称" value="$this.Distributor.Company" id="Company" name="Company">
+                        </div>
+                        <div class="dredgeId_print dredgeId_leagueRank" style="width:780px;height:72px;">
+                            <!--<img src="$res('img2.0/print.jpg')">-->
+                            $if(this.Distributor.Images!="")
+                            $Set(Images=this.Distributor.GetImages())
+                            $for(i=0;i<Images.Length;i++)
+                                <div style="float:left; height:69px;"><a onclick="uploadImage(this)" href="javascript:void(0)">
+                                    <img src="$Images[i]" class="up-img">
+                                    </a><a onclick="deleteImage(this)" href="javascript:void(0)" class="del-img">X</a></div>
+                                $end
+                                $end
+                            <div id="imgbtn" style="float:left;">
+
+                                <a href="javascript:void(0)" style="" onclick="uploadImage()">
+                                    <img src="$res('img2.0/print.jpg')">
+                                </a>
+                                <input id="Images" name="Images" type="text" value="$this.Distributor.Images" style="visibility:hidden;position:absolute;width:1px;margin:38px 0 0 -14px;" />
+                            </div>
+                        </div>
+                        <div class="dredgeId_partiesToAContrect dredgeId_name dredgeId_leagueRank clearFix">
+                            <input class="fl" type="text" placeholder="请输入签约人姓名" value="$this.Distributor.Signatories" id="Signatories" name="Signatories">
+                            <div class="dredgeId_partiesTell dredgeId_name  fl">
+                                <span>联系电话：</span>
+                                <input type="text" placeholder="请输入签约人联系电话 " value="$this.Distributor.SignatoriesPhone" id="SignatoriesPhone" name="SignatoriesPhone">
+                            </div>
+                        </div>
+                        <div class=" dredgeId_name dredgeId_leagueRank clearFix">
+                            <input class="fl" type="text" placeholder="请输入负责人姓名" value="$this.Distributor.Contact" id="Header" name="Contact">
+                            <div class="dredgeId_partiesTell dredgeId_name  fl">
+                                <span>联系电话：</span>
+                                <input type="text" placeholder="请输入负责人联系电话 " value="$this.Distributor.ContactPhone" id="HeaderPhone" name="ContactPhone">
+                            </div>
+                        </div>
+                        <div class="dredgeId_address dredgeId_leagueRank">
+                            <!--<select>
+                                <option>广东省</option>
+                            </select>
+                            <select>
+                                <option>深圳市</option>
+                            </select>
+                            <select>
+                                <option>请选择</option>
+                            </select>-->
+                            <div id="area"></div>
+                        </div>
+                        <div class="dredgeId_firmName dredgeId_name dredgeId_leagueRank">
+                            <input type="text" placeholder="请输入公司地址" id="Address" value="$this.Distributor.Address" name="Address">
+                        </div>
+                        <div class="dredgeId_name dredgeId_leagueRank">
+                            <input type="text" placeholder="请输入邮编" id="PostId" value="$this.Distributor.PostId" name="PostId">
+                        </div>
+                    </div>
+                    <button type="submit" value="提交">提交</button>
+                    <div style="display:none"><textarea id="Content"></textarea></div>
+                </div>
+            </form>
+        </div>
+        <!-- 右边 结束 -->
+    </div>
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+    <script>
+        var editor = null;
+        var imgel = null;
+        function formatImage() {
+            var val = '';
+            $('.up-img').each(function (index, value) {
+                if (index > 0)
+                    val += '|';
+                val += $(value).attr('src');
+            });
+            $('#Images').val(encodeURIComponent(val));
+        }
+        function deleteImage(el) {
+            $(el).parent().remove();
+            formatImage();
+        }
+        function uploadImage() {
+            if (arguments.length > 0) {
+                imgel = $(arguments[0]).find('img').first();
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: imgel.attr('src'),
+                        clickFn: function (url, title) {
+                            imgel.attr('src', url);
+                            editor.hideDialog();
+                            formatImage();
+                            $('#form').jqxValidator('validateInput', '#Images');
+                        }
+                    });
+                });
+            }
+            else {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            $('#imgbtn').before($('<div style="float:left; height:69px;"><a href="javascript:void(0)" onclick="uploadImage(this)"><img class="up-img" src="' + url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></div>'));
+                            editor.hideDialog();
+                            formatImage();
+                            $('#form').jqxValidator('validateInput', '#Images');
+                        }
+                    });
+                });
+            }
+        }
+        $(function () {
+            editor = KindEditor.create('#Content', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+                width: 670,
+                height: 300
+            });
+            $('#form').jqxValidator({
+                rules: [
+                    { input: '#Company', message: '公司名称不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Images', message: '必须上传证件图片', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Signatories', message: '签约人姓名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#SignatoriesPhone', message: '签约人联系电话不能为空', action: 'keyup, blur', rule: 'required' },
+                      { input: '#Header', message: '负责人姓名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#HeaderPhone', message: '负责人联系电话不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Address', message: '公司地址不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#PostId', message: '邮政编码不能为空', action: 'keyup, blur', rule: 'required' }
+                    //,{ input: '#Name', message: '用户名不能为空', action: 'keyup, blur', rule: 'required' },
+                    //{
+                    //    input: '#Name', message: '用户名必须以字母开头不包含"@"且长度为4～16位', action: 'keyup, focus', rule: function (input, commit) {
+                    //        return /^[A-Za-z][^@]{3,15}$/.test(input.val());
+                    //    }
+                    //},
+                    //{
+                    //    input: '#Name', message: '该用户名已存在', action: 'blur', rule: function (input, commit) {
+                    //        if (/^[A-Za-z][^@]{3,15}$/.test(input.val())) {
+                    //            return true;
+                    //            //return Cnaws.Passport.checkName(input.val());
+                    //        }
+                    //        return false;
+                    //    }
+                    //},
+                    //{ input: '#fPassword', message: '密码不能为空', action: 'keyup, blur', rule: 'required' },
+                    //{ input: '#fPassword', message: '密码长度必须为6～32位', action: 'keyup, blur', rule: 'length=6,32' },
+                    //{ input: '#Password', message: '确认密码不能为空', action: 'keyup, blur', rule: 'required' },
+                    //{
+                    //    input: '#Password', message: '两次密码不一致', action: 'keyup, focus', rule: function (input, commit) {
+                    //        if (input.val() === $('#fPassword').val()) {
+                    //            return true;
+                    //        }
+                    //        return false;
+                    //    }
+                    //}
+                ]
+            });
+            formatImage();
+            Cnaws.Area.Init('area', '$url("/country/")', $this.Distributor.County);
+            $("#form").submit(function () {
+                var form = $("#form");
+                form.attr('disabled', true);
+                if (form.jqxValidator('validate')) {
+                    Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                        if (data.code == -200) {
+                            //window.location.href = '$url("/distributor/contacts")';
+                            Cnaws.showSuccess('修改成功');
+                        }
+                        else {
+                            Cnaws.showError('数据操作失败，请联系管理员');
+                        }
+                        args.form.attr('disabled', false);
+                    }, { form: form });
+                }
+                else {
+                    form.attr('disabled', false);
+                }
+                return false;
+            });
+        })
+    </script>
+</body>
+</html>

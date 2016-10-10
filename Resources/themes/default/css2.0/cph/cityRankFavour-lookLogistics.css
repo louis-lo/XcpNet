@@ -1,0 +1,36 @@
+/* 中间 右边 开始*/
+.center_wrapRight{width: 995px;margin-bottom: 30px;}
+
+/* 中间 右边 开始*/
+.center_wrapRight{width: 995px;margin-bottom: 30px;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;}
+
+/* 你的包裹已被签收 开始 */
+.packageSign_title{margin-top: 10px;padding: 15px;background: #f3f3f3;border-bottom:1px solid #e2e2e2;font-size: 16px;}
+/* 你的包裹已被签收 结束 */
+
+/* 物流部分 */
+.package-status .status-list li::before {background-color: #d9d9d9;border: 3px solid #f3f3f3;border-radius: 5px;content: "";display: inline-block;height: 5px;margin-left: -6px;margin-right: 10px;width: 5px;}
+.package-status .status-list li {margin-bottom: -2px;}.package-status .status-list li {height: auto;min-height: 30px;}.package-status .status-list li {border-left: 1px solid #d9d9d9;height: 36px;margin-top: -5px;}.package-status {padding: 18px 0 0;}
+.package-status .status-box::before{content: " ";display: block;height: 4px;left: 20px;position: absolute;top: -2px;width: 10px;}.package-status .status-box{position: relative;}.package-status .status-box{overflow: hidden;}.package-status .status-list{margin-top: 0;font-size: 12px;list-style: outside none none;padding:10px 22px 30px;}.package-status .status-list .date{width: 78px;}.package-status .status-list .date, .package-status .status-list .week, .package-status .status-list .time{display: inline-block;}.package-status .status-list .date{font-weight: 600;margin-right: 8px;}.package-status .status-list .week{width: 32px;font-weight: 700;}.package-status .status-list .time{width: 48px;}.package-status .status-list .time{margin-left: 5px;margin-right: 28px;}.package-status .status-list .text{display: inline-block;line-height: 1.5em;vertical-align: text-top;width: 635px;}.hidden{visibility: hidden;}.package-status .status-box .status-list .latest::before{background-color: #fe4300;border-color: #f8e9e4;}.package-status .status-box .status-list .latest{border: medium none;padding-bottom: 15px;}			
+.package-status .status-list li.latest::before{margin-left:-5px}
+
+.orderAddress_border{border:1px solid #e2e2e2;padding: 15px 20px 50px;}
+.packageSign_wrap{background: #f3f3f3;}
+.orderAddress_wrap{padding:20px 0;}
+.orderAddress_wrap .orderLeft{margin-right: 20px;}
+.Address_wrap .addressLeft span{width: 60px;display: block;text-align: right;}
+.Address_wrap .addressRight span{display: block;}
+.Address_wrap .addressRight i{font-style: normal;}
+
+.orderAddress_information{border-top:none;}
+
+.orderAddress_information span{font-size: 14px;color: #333;font-weight: bold;}
+.informationPrint{border:1px solid #e2e2e2;width: 55px;height: 55px;}
+.informationPrint img{width: 55px;height: 55px;}
+.orderAddress_information .informationPrint{float: left;margin-left: 55px;}
+.informationPrintWrap{margin-top: 10px;}
+/* 中间 结束*/
+
+
+/* 中间 结束*/

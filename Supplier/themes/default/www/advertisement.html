@@ -1,0 +1,514 @@
+﻿$if(this.IsAjax)
+<li class="clearFix">
+    <div class="left fl">广告标题：</div>
+    <div class="fl">
+        <input type="text" value="$AdInfo.Title" id="Title" name="Title" placeholder="" />
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left fl">广告位：</div>
+    <div class="fl">
+        <select name="LabelId" id="LabelId" class="second">
+            $foreach(item in AdTypes)
+            <option $if(AdInfo.LabelId!!item.Id)selected="selected" $end value="$item.Id">$item.Name</option>
+            $end
+        </select>
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left fl">链接地址：</div>
+    <div class="fl">
+        <input type="text" value="$AdInfo.Url" name="Url" id="Url" placeholder="" />
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left fl">宽度：</div>
+    <div class="fl">
+        <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" value="$AdInfo.Width" name="Width" id="Width" placeholder="" />
+        （px设置为0为自适应）
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left fl">高度：</div>
+    <div class="fl">
+        <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" value="$AdInfo.Height" name="Height" id="Height" placeholder="" />
+        （px设置为0为自适应）
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left addressLeft fl">图片地址：</div>
+    <div class="fl">
+        <input type="text" name="ImgUrl" value="$AdInfo.ImgUrl" id="ImgUrl" placeholder="" class="address" />
+        <span class="browse" id="aImgUrl">浏览</span>
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left contentLeft fl">广告内容：</div>
+    <div class="fl ">
+        <input type="text" name="Content" value="$AdInfo.Content" id="Content" />
+
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left fl">排序：</div>
+    <div class="fl">
+        <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" value="$AdInfo.Sort" name="Sort" id="Sort" placeholder="" />
+        （默认为0）
+    </div>
+</li>
+<li class="clearFix">
+    <div class="left fl">是否启用：</div>
+    <div class="fl ">
+        <input type="radio" name="IsEnable" $if(AdInfo.IsEnable!!true)checked="checked" $end class="radio" />
+        启用
+        <input type="radio" name="IsEnable" $if(AdInfo.IsEnable!!false)checked="checked" $end class="radio" />
+        不启用
+    </div>
+</li>
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>广告管理</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/style.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.xdg.pc.advertisement.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('plugins/xalert/xalert-1.0.0.min.css')" />
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+
+    <script type="text/javascript">
+        function transfer(id) {
+            if (id!=0) {
+                window.location.href="$url('/advertisement/list','/','"+id+"')";
+            }else {
+                window.location.href="$url('/advertisement/list')";
+            }
+        }
+    </script>
+    <style>
+        .center_content {
+            width: 1200px;
+            margin: 0 auto;
+            margin-top: 7px;
+        }
+
+        .center_wrapRight {
+            float: right;
+        }
+
+        .J_Submit {
+            background: #fff none repeat scroll 0 0;
+            border: 1px solid #ededed;
+            border-radius: 2px;
+            cursor: pointer;
+            display: block;
+            height: 21px;
+            line-height: 21px;
+            text-align: center;
+            width: 43px;
+        }
+
+        tr td {
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/x_top.html")
+    <!-- 头部 第二部分 -->
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div id="content" class="center_wrap w1200 clearFix">
+        $load("inc/x_side.html")
+        <div class="center_wrapRight">
+            <h2>广告管理</h2>
+            <ul class="advertisementTop clearFix">
+                <li class="fl">当前类型：</li>
+                <li class="fl">
+                    选择类型：
+                    <select name="" onchange="transfer(this.value)" id="selAdType">
+                        <option value="-1">所有类型</option>
+                        $foreach(type in AdTypes)
+                        <option $if(label!!type.Id)selected="selected"$end value="$type.Id">$type.Name</option>
+                        $end
+                    </select>
+                </li>
+                <li class="fl"><a href="javascript:;" class="add">添加</a></li>
+            </ul>
+            <table class="classification_content" cellpadding="0" cellspacing="0">
+                <tr class="first">
+                    <td class="title">广告标题</td>
+                    <td class="label">标签</td>
+                    <td class="type">广告类型</td>
+                    <td class="width">广告宽度（px）</td>
+                    <td class="height">广告高度（px）</td>
+                    <td class="sort">排序（降序）</td>
+                    <td class="enable">是否启用</td>
+                    <td class="operation">操作</td>
+                </tr>
+                $foreach(item in AdList)
+                <tr class="second">
+                    <td class="title">$item.A.Title</td>
+                    <td class="label">乡道馆banner</td>
+                    <td class="type">$item.B.Name</td>
+                    <td class="width">$item.A.Width</td>
+                    <td class="height">$item.A.Height</td>
+                    <td class="sort">$item.A.Sort</td>
+                    <td class="enable">
+                        $if(item.A.IsEnable)
+                        <input type="checkbox" checked="checked" />
+                        $else
+                        <input type="checkbox" />
+                        $end
+                    </td>
+                    <td class="operation">
+                        <a href="javascript:void(0);" data-id="$item.A.Id" class="left modify">修改</a>
+                        <a href="javascript:void(0);" data-id="$item.A.Id" class="delete" >删除</a>
+                    </td>
+                </tr>
+                $end
+            </table>
+            <!--商品分页开始-->
+            <div class="center_pageBox fr clearFix">
+                <ul class="clearFix fl">
+                    $if(AdList.PageIndex==AdList.BeginPage)
+                    <li class="page_prev">
+                        <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                            <span class="unicon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_prev">
+                        <a href="$url('/Advertisement/List/',Label,'/',AdList.PageIndex-1)" class="pageprev_print pageprev_img">
+                            <span class="icon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $end
+
+                    $if(AdList.BeginPage>1)
+                    $end
+                    $for(i=AdList.BeginPage;i<=AdList.EndPage;i++)
+                    $if(i==AdList.PageIndex)
+                    <li class="page_numer itme">
+                        <a href="$url('/Advertisement/List/',Label,'/',i)">$i</a>
+                    </li>
+                    $else
+                    <li class="page_numer">
+                        <a href="$url('/Advertisement/List/',Label,'/',i)">$i</a>
+                    </li>
+                    $end
+                    $end
+                    $if(AdList.PagesCount>AdList.EndPage)
+                    <li class="page_numer"><a href="$url('/advertisement/List/',Label,'/',AdList.PageIndex+1)">...</a></li>
+                    <li class="page_numer"><a href="$url('/advertisement/List/',Label,'/',AdList.PagesCount)">$AdList.PagesCount</a></li>
+                    $end
+
+
+                    $if(AdList.PageIndex==AdList.EndPage)
+                    <li class="page_next page_prev">
+                        <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                            下一页
+                            <span class="unicon"></span>
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_next page_prev">
+                        <a href="$url('/advertisement/List/',Label,'/',AdList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                            下一页
+                            <span class="icon"></span>
+                        </a>
+                    </li>
+                    $end
+                </ul>
+                <div class="total fl"> 共 $AdList.PagesCount 页/$AdList.TotalCount条，</div>
+                <div class="form fl">
+                    <span class="text">跳到</span>
+                    <input class="input J_Input" type="number" id="PageInput" aria-label="页码输入框" max="$AdList.PagesCount" min="1" value="$AdList.PageIndex">
+                    <span class="text">页</span>
+                    <!--<span class="btn J_Submit fr" tabindex="0" role="button"><a id="btnJumb">确定</a></span>-->
+                    <span class="btn J_Submit fr" tabindex="0" onclick="window.location.href = '$url('/advertisement/list/',Label,'/'," ' + Math.min(parseInt(document.getElementById(' PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value)) + '")'" role=" button">确定</span>
+                </div>
+            </div>
+            <!--商品分页结束-->
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 添加广告弹窗开始 -->
+    <!-- 弹出层模板-->
+    $load("inc/xalert.html")
+    <!-- 弹出层结束-->
+    <script type="text/html" id="tmpl-advertisement">
+        <!--<div class="center_addAddressTitle">123</div>-->
+        <div class="new_addressWrap clearFix">
+            <form id="addForm" action="$url('/advertisement/submit')" method="post">
+                <div class="classificationOfPop">
+                    <div class="top" style="margin-bottom:30px">添加广告信息</div>
+                    <ul class="mid">
+                        <li class="clearFix">
+                            <div class="left fl">广告标题：</div>
+                            <div class="fl">
+                                <input type="text" id="Title" name="Title" placeholder="" />
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">广告位：</div>
+                            <div class="fl">
+                                <select name="LabelId" id="LabelId" class="second">
+                                    $foreach(type in AdTypes)
+                                    <option value="$type.Id">$type.Name</option>
+                                    $end
+                                </select>
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">链接地址：</div>
+                            <div class="fl">
+                                <input type="text" name="Url" id="Url" placeholder="" />
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">宽度：</div>
+                            <div class="fl">
+                                <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" name="Width" id="Width" value="0" placeholder="" />
+                                （px设置为0为自适应）
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">高度：</div>
+                            <div class="fl">
+                                <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" name="Height" id="Height" value="0" placeholder="" />
+                                （px设置为0为自适应）
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left addressLeft fl">图片地址：</div>
+                            <div class="fl">
+                                <input type="text" name="ImgUrl" id="ImgUrl" placeholder="" class="address" />
+                                <span class="browse" id="aImgUrl">浏览</span>
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left contentLeft fl">广告内容：</div>
+                            <div class="fl ">
+                                <input type="text" name="Content" id="Content" placeholder="" class="content" />
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">排序：</div>
+                            <div class="fl">
+                                <input type="text" value="0" onkeyup="value=value.replace(/[^\d]/g,'')" name="Sort" id="Sort" placeholder="" />
+                                （默认为0）
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">是否启用：</div>
+                            <div class="fl ">
+                                <input type="radio" name="IsEnable" checked="checked" class="radio" />
+                                启用
+                                <input type="radio" name="IsEnable" class="radio" />
+                                不启用
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </script>
+
+
+    <!-- 弹出层结束-->
+    <script type="text/html" id="tmpl-edit-advertisement">
+        <!--<div class="center_addAddressTitle">123</div>-->
+        <div class="new_addressWrap clearFix">
+            <form id="addForm" action="$url('/advertisement/submit/')" method="post">
+                <div class="classificationOfPop">
+                    <div class="top" style="margin-bottom:30px">修改广告信息</div>
+                    <ul class="mid" id="Management"></ul>
+                </div>
+            </form>
+        </div>
+    </script>
+    <!-- 分类弹窗结束 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    <script>
+        var editor = null;
+        $(function () {
+            $(".delete").click(function(){
+                if(confirm("是否确定删除该广告？")){
+                    $.ajax({
+                        type: "POST",
+                        dataType: "Json",
+                        url:Cnaws.getUrl("$url('/advertisement/del/')"+$(this).data("id")),
+                        success: function (data) {
+                            if (data.code == -200) {
+                                Cnaws.showSuccess("删除成功");
+                                setTimeout(function () { location.reload() }, 1000);
+                            }
+                            else {
+                                Cnaws.showError("抱歉,删除失败,请检查数据");
+                            }
+                        }
+                    })
+                }            
+            })
+
+            $('.add').xalert({
+                tmpl: '#tmpl-advertisement',
+                width:'900px',
+                height: 'auto',
+                onShow:function(xalert){
+                    editor = KindEditor.create('#Content', {
+                        cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                        uploadJson: '$filesystem("upload")',
+                        fileManagerJson: '$filesystem("filemanager")',
+                        allowFileManager: true,
+                        width: 670,
+                        height: 150
+                    });
+                    $('#aImgUrl').click(function () {
+                        if (editor.dialogs.length <= 0) {
+                            editor.loadPlugin('image', function () {
+                                IsOpenImg = false;
+                                editor.plugin.imageDialog({
+                                    imageUrl: $('#ImgUrl').val(),
+                                    clickFn: function (url, title) {
+                                        $('#ImgUrl').val(url);
+                                        editor.hideDialog();
+                                    }
+                                });
+                            });
+                        }
+                    });
+                    $('#addForm').jqxValidator({
+                        rules: [
+                        { input: '#Title', message: '标题名称不能为空!', action: 'keyup, blur', rule: 'required' },
+                        {
+                            input: '#LabelId', message: '广告位不能为空!', action: 'keyup, blur', rule: function (input, commit) {
+                                if ($(input).val() != 0) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        },
+                        { input: '#Width', message: '宽度不能为空!', action: 'keyup, blur', rule: 'required' },
+                        { input: '#Height', message: '高度不能为空!', action: 'keyup, blur', rule: 'required' }
+                        ]
+                    });
+                },
+                callback:function(xalert){
+                    var from=xalert.content.find("#addForm");
+                    xalert.content.find('#Content').val(editor.html());
+                    if(from.jqxValidator('validate')){
+                        $.ajax({
+                            type: "POST",
+                            dataType: "Json",
+                            url: from.attr("action"),
+                            data: from.serialize(),
+                            success: function (data) {
+                                if (data.code == -200) {
+                                    xalert.close();
+                                    Cnaws.showSuccess("保存成功");
+                                    setTimeout(function () { location.reload() }, 1000);
+                                }
+                                else {
+                                    Cnaws.showError("抱歉,保存失败,请检查数据");
+                                }
+                            }
+                        })
+                    }
+                }
+            });
+
+            $('.modify').xalert({
+                tmpl: '#tmpl-edit-advertisement',
+                width: '900px',
+                height: 'auto',
+                onShow:function(xalert){
+                    var id=$(xalert.target).data("id");                    
+                    $.ajax({
+                        type:"get",
+                        dataType:"Html",
+                        url:Cnaws.getUrl("$url('/advertisement/info/')"+id),
+                        async:false,
+                        success:function(data)
+                        {
+                            xalert.content.find("#Management").html(data);
+                        }
+                    })
+                    editor = KindEditor.create('#Content', {
+                        cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                        uploadJson: '$filesystem("upload")',
+                        fileManagerJson: '$filesystem("filemanager")',
+                        allowFileManager: true,
+                        width: 670,
+                        height: 150
+                    });
+                    editor.html(xalert.content.find("#Content").val());
+                    $('#aImgUrl').click(function () {
+                        if (editor.dialogs.length <= 0) {
+                            editor.loadPlugin('image', function () {
+                                IsOpenImg = false;
+                                editor.plugin.imageDialog({
+                                    imageUrl: $('#ImgUrl').val(),
+                                    clickFn: function (url, title) {
+                                        $('#ImgUrl').val(url);
+                                        editor.hideDialog();
+                                    }
+                                });
+                            });
+                        }
+                    });
+                    $('#addForm').jqxValidator({
+                        rules: [
+                        { input: '#Title', message: '标题名称不能为空!', action: 'keyup, blur', rule: 'required' },
+                        {
+                            input: '#LabelId', message: '广告位不能为空!', action: 'keyup, blur', rule: function (input, commit) {
+                                if ($(input).val() != 0) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        },
+                        { input: '#Width', message: '宽度不能为空!', action: 'keyup, blur', rule: 'required' },
+                        { input: '#Height', message: '高度不能为空!', action: 'keyup, blur', rule: 'required' }
+                        ]
+                    });
+                },
+                callback:function(xalert){
+                    var from=xalert.content.find("#addForm");
+                    xalert.content.find('#Content').val(editor.html());
+                    if(from.jqxValidator('validate')){
+                        $.ajax({
+                            type: "POST",
+                            dataType: "Json",
+                            url: Cnaws.getUrl(from.attr("action")+$(xalert.target).data("id")),
+                            data: from.serialize(),
+                            success: function (data) {
+                                if (data.code == -200) {
+                                    xalert.close();
+                                    Cnaws.showSuccess("保存成功");
+                                    setTimeout(function () { location.reload() }, 1000);
+                                }
+                                else {
+                                    Cnaws.showError("抱歉,保存失败,请检查数据");
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        });
+    </script>
+</body>
+</html>
+$end

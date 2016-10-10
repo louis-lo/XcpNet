@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>加盟管理-查看状态</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/leagueManage_lookState.css')">
+    $load("inc/s_comm.html")
+    <meta charset="utf-8" />
+</head>
+<body>
+    $load("inc/d_top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/d_side.html")
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr ">
+            <div class="dredgeId_top clearFix">
+                <span class=" allOrder fl"><a href="$url('/distributor/account')">开通账号</a></span>
+                <span class="fl">查看状态</span>
+            </div>
+            <div class="dredgeId_informationWrap clearFix">
+                <table align="center" border="0" width="100%">
+                    <tr class="topTr">
+                        <th>时间</th>
+                        <th>级别</th>
+                        <th>用户名</th>
+                        <th>签约人</th>
+                        <th>联系电话</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    $foreach(item in DistributorList.Data)                  
+                    <tr class="informationTr topTr">
+                        <td>$item.A.CreationDate.ToString("yyyy-MM-dd")</td>
+                        <td>$item.A.GetLevelString()</td>
+                        <td>$item.B.GetName()
+                        </td>
+                        <td>$item.A.Signatories</td>
+                        <td>$item.A.SignatoriesPhone</td>
+                        $if(item.A.Level!=100)
+                        $if(item.A.GetStateString()=='已提交审核')
+                        <td class="informationState" style="display: block;">审核中</td>
+                        $elseif(item.A.GetStateString()=='审核通过')
+                        <td class="informationStateY" style="display: block;">已通过</td>
+                        $else
+                        <td class="informationStateW" style="display: block;">未通过</td>
+                        $end
+                        $else
+                        $if(item.A.State==0)
+                        <td class="informationState" style="display: block;"><a href="javascript:;" class="Approved" style="color:green" data-id="$item.A.UserId">审核通过</a>&nbsp;&nbsp;<a href="javascript:;" class="Reject" data-id="$item.A.UserId" style="color:red">驳回</a></td>
+                        $elseif(item.A.State==1)
+                        <td class="informationStateY" style="display: block;">已通过</td>
+                        $elseif(item.A.State==2)
+                        <td class="informationStateW" style="display: block;">未通过</td>
+                        $end
+                        $end
+                        <td class="loockDetail"><a href="$url('/distributor/statusdetails/',item.A.UserId)">查看详情</a></td>
+                    </tr>
+                    $end
+                </table>
+                <!-- 分页 开始 -->
+                <div class="center_pageWrap">
+                    <div class="center_pageBox fr clearFix">
+                        <ul class="clearFix fl">
+                            <li class="page_prev">
+                                <a href="#" class="pageprev_unprint pageprev_img">
+                                    <span class="unicon"></span>
+                                    上一页
+                                </a>
+                            </li>
+                            $if(DistributorList.BeginPage>1)
+                            $end
+                            $for(i=DistributorList.BeginPage;i<=DistributorList.EndPage;i++)
+                            $if(i==DistributorList.PageIndex)
+                            <li class="page_numer itme">
+                                <a href="$url('/distributor/accountStatus/',ParentId,'/',i)">$i</a>
+                            </li>
+                            $else
+                            <li class="page_numer">
+                                <a href="$url('/distributor/accountStatus/',ParentId,'/',i)">$i</a>
+                            </li>
+                            $end
+                            $end
+                            $if(DistributorList.PagesCount>DistributorList.EndPage)
+                            <li class="no"><a href="$url('/distributor/accountStatus/',ParentId,'/',DistributorList.PageIndex+1)">...</a></li>
+                            <li><a href="$url('/distributor/accountStatus/',ParentId,'/',DistributorList.PagesCount)">$DistributorList.PagesCount</a></li>
+                            $end
+                            <li class="page_next page_prev">
+                                <a href="#" class="pageprev_next pageprev_print pagenext_img">
+                                    下一页
+                                    <span class="icon"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="total fl"> 共 $DistributorList.PagesCount 页/$DistributorList.TotalCount条，</div>
+                        <div class="form fl">
+                            <span class="text">跳到</span>
+                            <input class="input J_Input" type="number" aria-label="页码输入框" max="100" min="1" value="2">
+                            <span class="text">页</span>
+                            <span class="btn J_Submit fr" tabindex="0" role="button">跳转</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 分页 结束 -->
+            </div>
+        </div>
+        <!-- 右边 结束 -->
+    </div>
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+    <script>
+        (function () {
+            $(".Approved").click(function () {
+                var input = this;
+                if (confirm("是否通过该用户的加盟商申请？")) {
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "$url('/distributor/approved')",
+                        data: "Id=" + $(input).data("id") + "&State=1",
+                        success: function (data) {
+                            if (data.code == -200) {
+                                Cnaws.ShowError("操作成功，该用户已可以正常登陆！");
+                                setInterval(function () { location.reload() }, 1500);
+                            }
+                            else {
+                                Cnaws.ShowError("操作失败！");
+                            }
+                        }
+                    })
+                }
+            });
+            $(".Reject").click(function () {
+                var input = this;
+                if (confirm("是否驳回该用户的加盟商申请？")) {
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "$url('/distributor/approved')",
+                        data: "Id=" + $(input).data("id") + "&State=1",
+                        success: function (data) {
+                            if (data.code == -200) {
+                                Cnaws.ShowError("驳回成功！");
+                                setInterval(function () { location.reload() }, 1500);
+                            }
+                            else {
+                                Cnaws.ShowError("操作失败！");
+                            }
+                        }
+                    })
+                }
+            });
+        })();
+
+    </script>
+</body>
+</html>

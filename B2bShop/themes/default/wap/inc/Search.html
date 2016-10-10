@@ -1,0 +1,31 @@
+﻿<!-- search -->
+<div class="way_search" id="way_search">
+    <header class="bar_nav">
+        <div class="nav_main">
+            <div class="bar_navre">
+                <form id="searchForm" action="$url('/category/list/0/1')" method="get" target="_self">
+                    <label class="icon_search"></label>                    
+                    <input type="search" id="search" value="$if(isset("Filter"))$Filter.KeyWord$end" name="q" placeholder="搜索特色产品" />
+                    <input type="submit" style="position: absolute; width: 10%; border: none; height: 1.3rem; background: none; margin:0.4rem 0" value="搜索">
+                </form>
+            </div>
+            <div class="bar_navle" onclick="search_none()"><img src="$res('wap/img2.0/jhb/icon_Firststep.png')" /></div>
+        </div>
+    </header>
+    <div class="way_searchTxt">
+        <h3>热门搜索</h3>
+        <ul class="clearfix">
+            $foreach(item in clr.Cnaws.Statistic.Modules.StatisticTag.GetTop(this.DataSource,10,7))
+            <li><a href="$url('/category/list/0/1')?q=$item.Name">$item.Name</a></li>
+            $end
+        </ul>
+    </div>
+</div>
+<script>
+    function search(){
+	    document.getElementById("way_search").style.display="block";
+    };
+    function search_none(){
+	    document.getElementById("way_search").style.display="none";
+    };
+</script>

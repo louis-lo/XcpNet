@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>我的下级</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    我的下级
+                </div>
+            </div>
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <div class="mysubordinate bg_fff">
+                    <ul class="clearfix col_333">                     
+                        $if(Level.Level==0||Level.Level==1)
+                        <li>
+                            <a href="$url('/distributor/memberlevel/',ParentId)">
+                                <span class="withdrawals_icon nickname_icon"></span>
+                                <span>我的下级</span>
+                            </a>
+                        </li>
+                        $else
+                        <li>
+                            <a href="$url('/distributor/memberlevel/',ParentId)">
+                                <span class="withdrawals_icon nickname_icon"></span>
+                                <span>我的推荐</span>
+                            </a>
+                        </li>
+                        $end
+                        <li>
+                            <a href="$url('/distributor/money/',ParentId)">
+                                <span class="withdrawals_icon gender_icon"></span>
+                                <span>我的收益</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$url('/distributor/mymember/',ParentId)">
+                                <span class="withdrawals_icon password_icon"></span>
+                                <span>我的会员</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$url('/shop/myorder/',ParentId)">
+                                <span class="withdrawals_icon address_icon"></span>
+                                <span>我的订单</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+
+</body>
+</html>

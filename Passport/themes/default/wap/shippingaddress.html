@@ -1,0 +1,193 @@
+﻿$if(this.IsAjax)
+<div class="address_admin">
+    <ul>
+        $foreach(T in List)
+        <li class="bg_fff">
+            <div class="address_editTop col_333 pad_lr">$T.Consignee　$T.Mobile </div>
+            <div class="address_editTxt col_666 pad_lr">$GetAreaName(T.Province)$GetAreaName(T.City)$GetAreaName(T.County)$T.Address</div>
+            <div class="address_editEdit pad_lr col_666">
+                <span class="address_edit fr">
+                    <a href="$url('/shippingaddress/setaddress/',T.Id)" class="external"><span class="editaddress_icon"></span>编辑</a>
+                    <a href="javascript:void(0);" onclick="onDelete($T.Id)"><span class="deleteaddress_icon"></span>删除</a>
+                </span>
+                <span class="city_choice_click" onclick="onDefault($T.Id)">
+                    <span ${if(T.IsDefault)}class="city_choice on" ${else}class="city_choice" ${end}></span>
+                    默认地址
+                </span>
+            </div>
+        </li>
+        $end
+        <li class="deliver pad_lr"><a href="$url('/shippingaddress/setaddress')?target=$target" class="external">新增地址</a></li>
+    </ul>
+</div>
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>地址管理</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/city_show.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jtemplates.js')"></script>
+    <style>
+        .address_admin ul li {
+            margin-bottom: 15px;
+            line-height: 1.1rem;
+        }
+
+            .address_admin ul li .pad_lr {
+                padding: .3rem .75rem;
+            }
+
+        .address_editTxt {
+            border-bottom: 1px dotted #c7c7c7;
+        }
+
+        .city_choice {
+            display: inline-block;
+            background: url($res('wap/img2.0/cph/city_product_Icon.png')) no-repeat;
+            width: 24px;
+            height: 24px;
+            background-size: 393px 162px;
+            background-position: -155px -31px;
+            vertical-align: middle;
+            margin-top: -2px;
+        }
+
+            .city_choice.on {
+                background-position: -124px -31px;
+            }
+
+        .editaddress_icon, .deleteaddress_icon {
+            display: inline-block;
+            background: url(../img/city_product_Icon.png) no-repeat;
+            width: 20px;
+            height: 20px;
+            background-size: 393px 162px;
+            background-position: -225px -32px;
+            vertical-align: middle;
+            margin-top: -2px;
+        }
+
+        .deleteaddress_icon {
+            background-position: -247px -32px;
+        }
+
+        .deliver {
+            margin-top: 30px;
+        }
+
+            .deliver a {
+                display: block;
+                background: #e01928;
+                color: #fff;
+                width: 100%;
+                line-height: 44px;
+                text-align: center;
+                font-size: .8rem;
+                border: none;
+                border-radius: .15rem;
+            }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadData();
+        });
+
+        function loadData() {
+            $.ajax({
+                type: "GET",
+                dataType: "html",
+                url: '$url("shippingaddress/list/1")',
+                success: function (result) {
+                    $("#list").html(result);
+                }
+            });
+        }
+        function getCityName(val) {
+            try {
+                return AreaAll[val.toString()]['name'];
+            }
+            catch (e) {
+                return '';
+            }
+        }
+
+        function onDefault(id) {
+            if (window.confirm('确定将其设置为默认地址吗？')) {
+                //$(".city_choice").removeClass("on")
+                //$(this).children(".city_choice").addClass("on")
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "$url('/shippingaddress/setdefault')",
+                    data: "Id=" + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.href = '$url("/shippingaddress")';
+                        }
+                    }
+                });
+            }
+        }
+
+        function onDelete(id) {
+            if (window.confirm('删除后不可恢复，确认删除？')) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "$url('/shippingaddress/delete')",
+                    data: "Id=" + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.href = '$url("/shippingaddress")';
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+$set(target = this.Request.QueryString["target"])
+$if(clr.System.String.IsNullOrEmpty(target))
+$set(target = '$url("/ucenter")');
+$end
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current">
+            <!-- nav -->
+            <header class="bar bar-nav wayshow_navPosi">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="$target">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    地址管理
+                </div>
+            </header>
+            <!-- / nav -->
+            <!-- content -->
+            <div class="content native-scroll order_content" style="top:2.2rem" id="list">
+            </div>
+            <!-- end content -->
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#city-picker").cityPicker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+		<button class="button button-link pull-right close-picker">确定</button>\
+		<h1 class="title">选择收货地址</h1>\
+		</header>'
+            });
+        })
+    </script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm-city-picker.js')"></script>
+</body>
+</html>
+$end

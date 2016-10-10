@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>$Product.Title-$Site.Name - $Site.Title</title>
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.public.min.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.product.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    $if(CategoryList.Count>1)
+    $set(cateid=CategoryList[1].Id)
+    $elseif(CategoryList.Count==1)
+    $set(cateid=CategoryList[0].Id)
+    $else
+    $set(cateid=0)
+    $end
+    <div class="headerHr w100"></div>
+    <!-- 中间开始 -->
+    <div class="center_detialsNav w1000">
+        <a href="$url('/index')">首页</a> <i></i>
+        $foreach(item in CategoryList)
+        <a href="$url('/category/list/',item.Id)"> $item.Name </a> <i></i>
+        $end
+        <a href="javascript:;">$Product.Title </a>
+    </div>
+    <div class="center_wrap w1000 clearFix">
+        <!-- 放大镜 开始 -->
+        <!-- BEGIN 图片放大 -->
+        <div class="jqzoom-wrap fl">
+            <!-- 大图begin -->
+            <div id="preview" class="spec-preview">
+                <span class="jqzoom">
+                    <img style="width:400px;height:360px;" jqimg="$Product.GetImage()" src="$Product.GetImage()" />
+                </span>
+            </div>
+            <!-- 大图end -->
+            <!-- 缩略图begin -->
+            <div class="spec-scroll">
+                <a class="prev iconfont iconfont-prev">
+                </a>
+                <a class="next iconfont iconfont-next">
+                </a>
+                <div class="items">
+                    <ul class="clearFix">
+                        $foreach(img in Product.GetImages())
+                        <li>
+                            <img bimg="$img" src="$img" onmousemove="preview(this);">
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- 缩略图end -->
+        </div>
+        <!-- END 图片放大 -->
+        <!-- 放大镜 结束 -->
+        <!-- 商品信息 开始 -->
+        <div class="center_goods_right_box fl">
+            <div class="center_goods_name">
+                <h2>$Product.Title</h2>
+            </div>
+            <div class="center_goods_pric_img">
+                <div class="center_goods_pric">
+                    <div class="terrace_pricW clearFix">
+                        <div class="pric pricT fl">价格<span class="cost">$Product.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</span>元/$Product.Unit</div>
+                        <div class="jypric pricT fl">建议零售价：<span class="suggestCost">$Product.GetPrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</span>元/$Product.RetailUnit</div>
+                    </div>
+                    <div class="wholesale pricT">起批量<span>$Product.WholesaleCount</span>$Product.Unit</div>
+                </div>
+                <div class="clearFix">
+                    <div class="goodsinformationLeft fl">
+                        <span>商品货号</span>
+                    </div>
+                    <div class="goodsinformationRight fl">
+                        <div>
+                            $if(Product.BarCode==null ||Product.BarCode=="")
+                            无
+                            $else
+                            $Product.BarCode
+                            $end
+                        </div>
+                    </div>
+                </div>
+                <div class="goodsinformationT goodsinformationLeft">
+                    $foreach(item in Series)
+                    $set(index=foreachIndex-1)
+                    <div class="clearFix">
+                        <span class="goods_fretColor fl">$item.Name：</span>
+                        <div class="goods_fret fl" id="s-$item.Id">
+                            $foreach(map in item.GetMappings(this.DataSource))
+                            $set(active=false)
+                            $foreach(tmp in Mapping)
+                            $if(item.Id==tmp.SerieId&&map.Value==tmp.Value)
+                            $set(active=true)
+                            $end
+                            $end
+                            $if(active)
+                            <a class="active" href="javascript:;" s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">$map.Value</a>
+                            $else
+                            <a href="javascript:;" s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">$map.Value</a>
+                            $end
+                            $end
+                        </div>
+                    </div>
+                    $end
+                    
+                    <div class="clearFix">
+                        <span class="goods_fretColor fl">数量：</span>
+                        <div class="goods_number goods_fret clearFix fl">
+                            <div class="fl">
+                                <em class="jia jsMinus">-</em>
+                            </div>
+                            <div class="numberInput fl">
+                                <input class="jsNumber" type="text" data-max="$Product.Inventory" data-min="$Product.WholesaleCount"  value="$Product.WholesaleCount" data-pid="$Product.Id"/>
+                            </div>
+                            <div class="fl">
+                                <em class="jian jsPlus">+</em>
+                            </div>
+                            <div class="fl goods_numer_he">
+                                （库存$Product.Inventory）
+                                <!-- <span class="goods_numer_he"></span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                $if(this.Application.ActionName=="Info")
+                <div class="goods_buy clearFix">
+                    <!--<a href="javascript:;" class="cart_button fl" id="btnBuy">立即购买</a>-->
+                    <a href="javascript:;" class="buy_button cart_button fl btnCart" id="btnAdd" data-productid="$Product.Id" data-count="$Product.WholesaleCount">加入进货车</a>
+                </div>
+                $end
+            </div>
+        </div>
+        <!-- 商品信息 结束 -->
+        <!-- 店铺 信息 开始 -->
+        $if(StoreInfo != null && Supplier != null)
+        <div class="shopWrap fr">
+            <div class="shopPrintBox">
+                <div class="shopPrint">
+                    <a href="$url('/product/shop/', StoreInfo.UserId)">
+                        <img src="$StoreInfo.StoreLogo">
+                    </a>
+                </div>
+                <p>$StoreInfo.StoreName，$StoreInfo.StoreSlogan</p>
+            </div>
+            <div class="shopPrintBotton">
+                <ul class="clearFix">
+                    <li><em></em><span>全部商品（$ProductCount）</span></li>
+                    <li class="gys"><em></em><span>$if(Supplier.Level > 0)优质$else普通$end供应商</span></li>
+                    <li class="dp"><em></em><a href="$url('/category/list/', Product.CategoryId,'/0/0/',StoreInfo.Id)">查看商品</a></li>
+                </ul>
+            </div>
+        </div>
+        $end
+        <!-- 店铺 信息 结束 -->
+    </div>
+    <div class="goods_dotey_recommend_box clearFix w1000">
+        <div class="goods_dotey_recommend fl">
+            <!-- 相关分类 开始 -->
+            <div class="correlation ">
+                <div class="goods_dotey_recommend_title_box">
+                    <div class="goods_dotey_recommend_title">
+                        <span>相关分类</span>
+                    </div>
+                </div>
+                <div class="correlationClass">
+                    $set(CategoryList2=clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetAllParentsById(this.DataSource,cateid))
+                    <ul class="clearFix">
+                        $foreach(cate in CategoryList2)
+                        <li><a href="$url('/category/list/',cate.Id)" target="_blank">$cate.Name</a></li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- 相关分类 结束 -->
+            <div class="goods_dotey_recommend_title_box">
+                <div class="goods_dotey_recommend_title">
+                    <span>商城推荐</span>
+                </div>
+            </div>
+            <div class="goods_dotey_recommend_left">
+                $foreach(product in clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetTopRecommendByArea(this.DataSource,8,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                <a href="$url('/product/info/',product.A.Id)" target="_blank">
+                    <div class="goods_dotey_recommend_img">
+                        <img src="$product.A.GetImage()">
+                    </div>
+                    <div class="goods_dotey_recommend_miaoshu">
+                        <span class="goods_dotey_recommend_zi">$product.A.Title</span>
+                        <div class="centerHome_goodsprice">
+                            <span class="centerHomep"><i class="fb">$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i></span>
+                            <span>/$product.A.Unit（<i class="fb">$product.A.WholesaleCount</i>$product.A.Unit起定）</span>
+                        </div>
+                    </div>
+                </a>
+                $end
+            </div>
+        </div>
+        <!-- 商品介绍 。。 选项卡 开始 -->
+        <div class="yScrollList fr">
+            <div class="yScrollListTitle" id="mynav">
+                <h1 class="yth1click " id="yth1click_left">商品介绍</h1>
+                <h1 class="ytitleh12">售后保障</h1>
+            </div>
+            <div class="yScrollListIn ">
+                <div class="yScrollListInList yScrollListInList1" style="display:block;">
+                    <!-- 商品介绍模块 -->
+                    品牌：<span>
+                           $set(brand=clr.XcpNet.Supplier.Modules.Modules.DistributorBrand.GetById(this.DataSource,Product.BrandId))
+                           $if(brand!=null)
+                           $brand.Name
+                           $else
+                           无
+                           $end
+                    </span>
+                    <ul class="goods_introduce clearFix">
+                        <li> 商品名称：$Product.Title</li>
+                        <li>商品编号：
+                        $if(Product.BarCode==null || Product.BarCode=="")
+                            无
+                            $else
+                            $Product.BarCode
+                            $end</li>
+                        <li>商品重量：${Product.Weight}Kg</li>
+                        <li>商品发货地：${this.Location.ProvinceTxt}${this.Location.CityTxt}${this.Location.CountyTxt}</li>
+                        $foreach(item in Attributes)
+                        <li>$item.A.Name：$item.B.Value</li>
+                        $end
+                    </ul>
+                    <div class="center_recommend_goods">
+                        $Product.Content
+                    </div>
+                </div>
+                <!--规格参数模块-->
+                <div class="yScrollListInList yScrollListInList2" style="display: none">
+                    <div class="parameterTable">
+                        <table align="center" border="0" width="100%">
+                            $foreach(item in Attributes)
+                            <tr class="">
+                                <td class="parameterTrTow parameterTrOne">$item.A.Name</td>
+                                <td class="parameterTdTow">$item.B.Value</td>
+                            </tr>
+                            $end
+                        </table>
+                    </div>
+                    <div class="after_sales">
+                        <div class="after_salesPrint">
+                            <span>
+                                正品行货
+                            </span>
+                            <p class="after_salesPrint_ms">
+                                乡城品商城向您保证所售商品均为正品行货，乡城品自营商品开具机打发票或电子发票。
+                            </p>
+                        </div>
+                        <div class="after_salesPrintTwo after_salesPrint">
+                            <span>
+                                全国联保
+                            </span>
+                            <p class="after_salesPrint_ms">
+                                凭证保证书及乡城品商城发票，可享受全国联保服务（奢移品、钟表除外；奢移品、钟表由乡城品联系保修，享受法定三包售后服务），与您临商场选购的商品享受相同的质量保证。乡城品商城还为您提供具有竞争力的商品价格和运费政策，请您放心购买！
+                            </p>
+                            <br>
+                            <p class="after_salesPrint_ms">
+                                注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本公司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    权利声明：
+                    <p>
+                        乡城品上的所有商品信息、客户评价、商品咨询、网友讨论等内容，是乡城品重要的经营资源，未经许可，禁止非法转载使用。
+                    </p>
+                    <p>
+                        注：本站商品信息均来自于合作方，其真实性、准确性和合法性由信息拥有者（合作方）负责。本站不提供任何保证，并不承担任何法律责任。
+                    </p>
+                    <br>
+                    价格说明：
+                    <p>
+                        乡城品价：乡城品的价为商品的销售价，是您最终决定是否购买商品的依据。
+                    </p>
+                    <p>
+                        划线价：商品展示的划横线价格为参考价，改价格可能是品牌专柜标价，商品吊牌价或品牌供应商提供的正品零售价（如厂商指导价、建议零售价等）或该商品在乡城品平台上曾经展示过的销售价；由于地区、时间的差异性和市场行情波动，品牌装柜价、商品吊牌价等可能会与您购物时展示的不一致，该价格仅供您参考。
+                    </p>
+                    <p>
+                        折扣：如无特殊说明，折扣指销售商在原价、或划线价（如品牌专柜标价、商品吊牌价、厂商指导价、厂商建议零售价）等某一价格基础上计算出的优惠比例或优惠金额；如有疑问，您可在购买前联系销售商进行咨询。
+                    </p>
+                    <p>
+                        异常问题：商品促销信息以商品详情页“促销”栏中的信息为准；商品的具体售价以订单结算页价格为准；如您发现活动商品售价或促销信息有异常，建议购买前先联系销售商咨询。
+                    </p>
+                </div>
+                <!--规格参数模块 结束-->
+            </div>
+        </div>
+        <!-- 商品介绍  选项卡 结束 -->
+    </div>
+    <!-- 中间结束 -->
+
+    $load("inc/toolbar.html")
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('js2.0/lib/jquery.jqzoom.min.js')"></script>
+    <script type="text/javascript" src="$res('js2.0/lib/navfix.min.js')"></script>
+    <script type="text/javascript" src="$res('plugins/plusminusbtn/plusminusbtn-1.0.0.min.js')"></script>
+    <script>
+        var full = new Array();//$foreach(map in Mappings)
+        full.push({ 'p': '$map.ProductId', 's': '$map.SerieId', 'v': '$map.Value' });//$end
+        var mappings = new Array();//$foreach(item in Series)
+        mappings['$item.Id'] = new Array();//$foreach(map in Mappings)$if(map.SerieId==item.Id)
+        if (mappings['$item.Id']['$map.Value'] == undefined) {
+            mappings['$item.Id']['$map.Value'] = new Array();
+        }
+        mappings['$item.Id']['$map.Value'].push('$map.ProductId');//$end//$end//$end
+        var series = new Array();// $foreach(item in Series)
+        series['$item.Id'] = null;//$end
+        function hasValue(s, v, map) {
+            if (map != undefined) {
+                var arr = mappings[s][v];
+                if (arr != undefined) {
+                    for (var i = 0; i < map.length; ++i) {
+                        for (var j = 0; j < arr.length; ++j) {
+                            if (map[i] == arr[j]) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        };
+        function initElements(s, v) {
+            var map = mappings[s][v];
+            for (var key in series) {
+                if (key != s) {
+                    $('#s-' + key).find('a').each(function (index, value) {
+                        if (hasValue(key, $(value).attr("v-data"), map)) {
+                            $(value).removeClass('disabled');
+                        }
+                        else {
+                            $(value).removeClass('active');
+                            $(value).addClass('disabled');
+                        }
+                    });
+                }
+            }
+        };
+        function activeElement(e) {
+            var s = $(e).attr("s-data");
+            var v = $(e).attr("v-data");
+            $('#s-' + s).find('a').each(function (index, value) {
+                if (value != e) {
+                    $(value).removeClass('active');
+                }
+                else {
+                    $(value).addClass('active');
+                }
+            });
+            initElements(s, v);
+        };
+        function initSeries() {
+            for (var key in series) {
+                series[key] = null;
+            }
+            for (var key in series) {
+                $('#s-' + key).find('a').each(function (index, value) {
+                    if (!$(value).hasClass('disabled') && $(value).hasClass('active')) {
+                        series[$(value).attr('s-data')] = $(value).attr('v-data');
+                    }
+                });
+            }
+        };
+        function initMaps() {
+            for (var key in series) {
+                $('#s-' + key).find('a').each(function (index, value) {
+                    $(value).removeClass('disabled');
+                });
+            }
+            for (var key in series) {
+                if (series[key] != null) {
+                    initElements(key, series[key]);
+                }
+            }
+        };
+        var selectSeries = function (e) {
+            var el = $(e);
+            if (!el.hasClass('disabled')) {
+                if (!el.hasClass('active')) {
+                    activeElement(e);
+                    initSeries();
+                    var p;
+                    var tmp;
+                    var ok = true;
+                    var arr = new Array();
+                    for (var key in series) {
+                        if (series[key] == null) {
+                            ok = false;
+                            break;
+                        }
+                        tmp = mappings[key][series[key]];
+                        if (tmp == undefined) {
+                            ok = false;
+                            break;
+                        }
+                        for (var i = 0; i < tmp.length; ++i) {
+                            p = tmp[i];
+                            if (arr[p] == undefined) {
+                                arr[p] = 1;
+                            }
+                            else {
+                                arr[p] = arr[p] + 1;
+                            }
+                        }
+                    }
+                    if (ok) {
+                        p = null;
+                        for (var k in arr) {
+                            if (arr[k] == $Series.Count) {
+                                p = k;
+                                break;
+                            }
+                        }
+                        if (p != null) {
+                            window.location.href = Cnaws.getUrl('$url("/product/",this.Application.ActionName,"/")' + p);
+                        }
+                    }
+                }
+                else {
+                    el.removeClass('active')
+                    initSeries();
+                    initMaps();
+                }
+            }
+        };
+
+        $(function () {
+            initSeries();
+            initMaps();
+            $('div.goods_number').plusMinusBtn({
+                onChange: function (btn) {
+                    var addBtn = document.getElementById('btnAdd');
+                    var num = $(btn.number);
+                    addBtn.setAttribute('data-productid', num.data('pid'));
+                    addBtn.setAttribute('data-count', num.val());
+                }
+            });
+
+            $('#mynav').navfix(0, 1025);
+
+            var toolbar = new Toolbar({
+                cartInstance: new Cnaws.Cart({
+                    getPaymentUrl: function (orderId) {
+                        return Cnaws.getUrl('/buy/perfect/' + orderId);
+                    }
+                }),
+                onAddComplete: function (shopCart) {
+                    setTimeout(function () {
+                        shopCart.flowDrop.show();
+                    }, 1000);
+                    setTimeout(function () {
+                        shopCart.flowDrop.hide();
+                    }, 3000)
+                }
+            });
+
+            $('#btnBuy').click(function () {
+                var num = $('.jsNumber');
+                toolbar.options.cartInstance.buy(num.data('pid'), num.val());
+            });
+
+            $(".yScrollListTitle h1").click(function () {
+                var index = $(this).index(".yScrollListTitle h1");
+                $(this).addClass("yth1click").siblings().removeClass("yth1click");
+                $($(".yScrollListInList")[index]).show().siblings().hide();
+            })
+        });
+    </script>
+</body>
+</html>

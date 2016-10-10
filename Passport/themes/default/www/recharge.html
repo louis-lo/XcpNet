@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>城品惠-立即充值</title>
+    $load("inc/comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/imediate.css')">
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+		    $('#Money').jqxInput({ placeHolder: "请输入充值金额" });
+            $("#form").jqxValidator({
+                rules: [
+                    { input: '#Money', message: '充值金额不能为空', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#Money', message: '单笔充值不得少于10元', action: 'keyup, blur', rule: function (input, commit) {
+                            if (parseFloat(input.val()) >= 10.0)
+                                return true;
+                            return false;
+                        }
+                    }
+                ]
+            });
+            $("input[name=Payment]").click(function () {
+                $('#form').attr("action", $(this).data("url"));
+            });
+
+        });
+        function onSubmit() {
+            var form = $('#form');
+            form.attr('disabled', true);
+            if (form.jqxValidator('validate')) {
+                args.form.attr('disabled', false);
+                return true;
+            }
+            else {
+                form.attr('disabled', false);
+            }
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左侧边栏  -->
+        $load("inc/leftaside.html")
+
+        <!--内容 -->
+        <div class="center_wrapRight fr">
+            <h2>立即充值</h2>
+            <div class="imediate-money">
+                <form id="form" action="$url('recharge/submit/alipaydirect')" method="post" onsubmit="return onSubmit()">
+                    <p>可用金额:<span>$Member.Money.ToString("C2")</span>冻结金额:<span>$Member.FreezeMoney.ToString("C2")</span></p>
+                    <div class="monry-way">
+                        <div class="first-way clearFix">
+                            <div class="first-zfb clearFix fl">
+                                <div class="first-radio fl"><input id="alipay" data-url="$url('recharge/submit/alipaydirect')" autocomplete="off" value="AlipayDirect" name="Payment" type="radio" checked="checked" /></div>
+                                <span class="fl"><label for="alipay">支付宝</label></span>
+                            </div>
+                            <div class="first-wayPrint fl"><img class="first-wayPrint fl" src="$res('/payres/static/logos/alipaydirect.gif')" alt="支付宝" /></div>
+                        </div>
+                        <div class="first-way clearFix">
+                            <div class="first-zfb clearFix fl">
+                                <div class="first-radio fl"><input id="weixin" data-url="$url('recharge/makeqr/wxpay')" autocomplete="off" value="WeixinQr" name="Payment" type="radio" /></div>
+                                <span class="fl"><label for="weixin">微信扫码支付</label></span>
+                            </div>
+                            <div class="first-wayPrint fl"><img class="first-wayPrint fl" src="$res('/payres/static/logos/wxpay.png')" alt="微信扫码支付" /></div>
+                        </div>
+                    </div>
+                    <div class="input-m">
+                        <p>充值金额:<input type="text" id="Money" name="Money" value="10" />元</p>
+                        <p class="input-b">
+                            <button class="ture" type="submit">确定</button>
+                            <button class="close" type="button">取消</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--右边侧栏-->
+    $load("inc/toolbar.html")
+    <!-- 底部  -->
+    $load("inc/bottom.html")
+</body>
+</html>

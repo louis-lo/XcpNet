@@ -1,0 +1,168 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+table{border-collapse:collapse;border-spacing:0;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.w1000{ width:1200px; height:auto; overflow:hidden; margin:0 auto;}
+.mt{margin-top:10px;}
+button{cursor: pointer;}
+input,button {outline:none;border: 0;background: #fff;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+img{display: block;}.mt10{margin-top: 10px;}.mt25{margin-top: 25px;}.pr10{padding-right: 20px;}
+
+/* END reset */
+
+/* 头部分 */
+.header_wrap{background: #f5f5f5;}
+.header_top_left{height: 32px;line-height: 33px;}
+.header_top_left ul li a{color: #777;}
+.header_top_left ul li{float: left;margin-right: 30px;color: #777;font-size: 12px;}
+.home_img{background:url("../img/home_img.png")no-repeat scroll 0 9px;}
+.header_top_right{height: 32px;line-height: 33px;}
+.header_top_right ul li{padding-left: 30px;float: left;}
+.header_top_right ul li a{color: #777;}
+.home_print{margin-left: 20px;}
+
+/* 头部第二部分 开始*/
+.headerBottom_wrap{background: #ff7300;padding: 7px 0;}
+.header_bottom img{width: 141px;height: 50px;}
+.header_bottom span{font-size: 18px;padding: 14px 0 0 20px;color: #f5f5f5;}
+.header_bottom a{margin-left: 20px;color: #fff;font-size: 16px;}
+.header_search{margin-top: 13px;background: #fff;padding-left: 0px;}
+.header_search input{width: 260px;height: 27px;}
+.header_search button{width:69px;height: 28px;background: #f5f5f5;color: #999;border-left: 1px solid #e2e2e2;}
+/* 头部第二部分 结束*/
+/* 头部分 结束 */
+
+/* 中间 开始*/
+.center_wrap{margin-top: 20px;}
+/* 中间 左边导航栏 开始*/
+.center_wrapLeft{background: #f3f3f3;width: 188px;padding:25px 0;}
+
+/* 进货车被选中的状态 */
+.stock_cart{background: url("../img/stock_cartMain.png") 10px 0 no-repeat;}
+.stock_cart a{font-size: 16px;color:#ff7300;margin-left: 45px;}
+/* 进货车未选中的状态 */
+.stock_uncart{background: url("../img/stock_uncartMain.png") 10px 0 no-repeat;}
+.stock_uncart a{font-size: 16px;color:#333;margin-left: 45px;}
+
+/* 订单管理 */
+.order_manageWrap{margin-bottom: 40px;}
+.order_manage{background: url("../img/order_manage.png") 9px 0 no-repeat;}
+.order_manageWrap ul li{font-family: "宋体";}
+.order_manage span{font-size: 16px;color:#333;margin-left: 45px;}
+.order_manageClassify i{ background: url("../img/rightjt.png") 0px 10px no-repeat;width: 8px;height: 31px;display: block;}
+.center_wrapLeft ul .order_manageClassify{margin-top: 5px;height: 32px;line-height: 32px;}
+
+/* 导航 被选中的状态 背景为灰色 */
+.order_manageClassify a{display: block;padding: 0 15px 0 45px;background: #dcdada;}
+/* 导航 未选中的状态 没有背景色 */
+.join_manageClassify a{background: none;}
+
+/* 加盟管理 */
+.join_manage{background: url("../img/join_manage.png") 9px 0 no-repeat;}
+
+/* 财务中心 */
+.property_manage{background: url("../img/property_manage.png") 9px 0 no-repeat;}
+/* 账号管理 */
+.account_manage{background: url("../img/account_manage.png") 9px 0 no-repeat;}
+/* 中间 左边导航栏 结束*/
+
+/* 中间 右边 开始*/
+.center_wrapRight{width: 995px;}
+.center_wrapRight h2{font-weight: normal;width:90px;border-bottom:2px solid #ff7300;text-align: center;font-size: 16px;}
+
+/* 交易提醒 */
+.myTransactionWarn{padding:8px 20px;border: 1px solid #f9dfb2;font-size: 14px;color: #666;margin-top: 10px;background: #ffffdd;}
+.myTransactionWarn ul li{float: left;padding: 0 15px;font-family: "宋体";font-size: 13px;}
+.myTransactionWarn ul li a{color:#666;}
+.myTransactionWarn .pitch a{color:#ff7300;}
+.status li span{color:#ff7300;}
+
+/* 状态 开始 */
+
+/*  未付款 开始 */
+.status_goodsWrap{border:1px solid #e2e2e2;margin-top: 10px;border-bottom: none;}
+.obligationWrap{padding: 5px 0;background: #eee;border-bottom:1px solid #e2e2e2;}
+.obligationWrap ul li{float: left;text-align: center;}
+.obligationWrap_heart{width: 317px;}
+.obligationWrap_nature{width: 100px;}
+.obligationWrap_price{width: 90px;}
+.obligationWrap_number{width: 115px;}
+.obligationWrap_hj{width: 140px;}
+.obligationWrap_state{width: 131px;}
+.obligation_orderBh{background: #f5f5f5;padding-left: 5px;}
+.obligation_orderBh span{color:#ff7300;padding-right: 20px;}
+.obligation_goodsWrap{background: #fff;padding: 0;}
+.obligation_goodsWrap ul li{border-right: 1px solid #e2e2e2;height: 70px;padding: 20px 0 0 0;}
+.obligation_goodsWrap ul li:last-child{border-right: none;}
+.obligation_goodsWrap ul .goods_heart a{display: block;}
+.orderGoods_print{border:1px solid #e2e2e2;margin-left: 6px;width: 50px;height: 55px;}
+.orderGoods_print img{width: 50px;height: 55px;}
+.orderGoods_ms{width: 240px;overflow: hidden;height: 40px;text-align: left;margin-top: -5px;margin-left: 10px; }
+.goods_nature p{text-align: left;margin-left: 20px;}
+.obligation_goodsWrap .goods_price{line-height: 55px;}
+.goods_price span{color:#ff7300;font-size: 14px;}
+.goods_state p{color:#ff4401;}
+.obligation_bottom{border-bottom:1px solid #e2e2e2;padding: 10px 30px;}
+.obligation_bottomRight{text-align: right;font-size: 13px;}
+.obligation_bottomRight i{font-style: normal;color: #e31939;}
+.obligation_bottomRight span{margin-left: 30px;padding-right: 40px;}
+.obligation_bottomRight span i{color: #ff7300;font-size:22px;}
+.obligation_bottomRight button{background: #ff7300;color: #fff;padding: 4px 10px; }
+.obligation_bottomRight .oncePay{background:#ff4401;margin-left: 10px; }
+/*  未付款 结束 */
+/* 商品分页 开始 */
+.center_pageWrap{margin: 30px 0 70px;}
+.center_pageBox{overflow: hidden;}
+.center_pageBox ul li{float: left;background: #fff;}
+.center_pageBox ul li a{font-size: 14px;}
+.page_prev{border:1px solid #e2e2e2;width: 75px;height: 30px;line-height: 30px;text-align: center;margin-left: 10px;}
+.page_prev span{background: url("../img2.0/TB1Z4WGMpXXXXbyaXXX6sGuHVXX-458-458.png")no-repeat;width: 6px;height: 12px;display: inline-block;vertical-align: middle;}
+/* 上一页 两种状态 灰色*/
+.pageprev_img .unicon{background-position: -158px -422px;}
+.pageprev_unprint{vertical-align: middle;display: table-cell;display: block;color: #999;}
+/* 上一页 两种状态 可以点击*/
+.pageprev_img .icon{background-position: -126px -422px;}
+.pageprev_print{vertical-align: middle;display: table-cell;display: block;color: #333;}
+
+/* 下一页 两种状态 可以点击*/
+.pagenext_img .icon{background-position: -174px -422px;}
+.pageprev_next {color:#333;}
+/* 下一页 两种状态 灰色*/
+.pagenext_img .unicon{background-position: -206px -422px;}
+.pageprev_unnext {color:#999;}
+.page_numer a{height: 30px;line-height: 30px;width: 35px;border:1px solid #e2e2e2;margin-left: -1px;display: block;text-align: center;}
+.itme{margin-left: 10px;}
+.center_pageBox .dot{width: 35px;height: 30px;text-align: center;line-height: 40px;background: none;}
+.text{margin-left: 10px; line-height: 37px; color: #999;}
+.m-page .input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.btn, .input{margin-top: 7px;} .input, .text{color: #999;}
+.btn, .input, .text{margin-left: 5px;}
+.btn{background-clip: padding-box;border: 1px solid #ededed;border-radius: 2px;cursor: pointer;height: 21px;line-height: 21px;text-align: center;width: 43px;display: block;background: #fff;}
+.center_pageBox .page_numer a:hover{background: #f40 none repeat scroll 0 0; border-color: #f40; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_pageBox .itme a{background: #f40 none repeat scroll 0 0; border-color: #f40; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_mergepay button{border:1px solid #e2e2e2;padding:4px 10px;margin-left: 5px;}
+.center_mergepay input{margin-top: 2px;}
+/* 商品分页 结束 */
+/* 中间 结束*/
+
+/* 底部 开始 */
+.bottom_box{background: #fafafa;padding-bottom: 30px;margin-top: 32px;}
+.bottom_foot_box{margin-top: 43px;}
+.bottom_foot_box ul{width: 472px;margin: 0 auto;}
+.bottom_foot_box ul li{border-right: 1px solid #999;float: left;padding: 0 12px;height: 13px;line-height: 13px;}
+.bottom_foot_box ul li a{color: #666;}
+.bottom_foot_box ul li:last-child{border-right:0px;}
+.bottom_section_last{text-align: center;margin-top: 8px;}
+.bottom_section_last p{color:#999;margin-bottom: 2px;}
+/* 底部 结束 */
+
+

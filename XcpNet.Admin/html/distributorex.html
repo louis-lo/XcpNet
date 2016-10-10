@@ -1,0 +1,182 @@
+﻿<style>
+    #pzDisForm input[type=text] {
+        border: 1px solid #ddd;
+        height: 24px;
+        line-height: 24px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    caption, th {
+        text-align: right;
+    }
+</style>
+$if(isset("UserList"))
+<table class="table list" border="1" cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            <th>用户名</th>
+            <th>公司名称</th>
+            <th>等级</th>
+            <th>状态</th>
+            <th>签约人</th>
+            <th>联系电话</th>
+            <th>账户余额</th>
+            <th>充值金额</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    $foreach(item in UserList)
+    <tr>
+        <td>$item.A.Name</td>
+        <td>$item.B.Company</td>
+        <td>$if(item.B.UserId>0)$item.B.GetLevelString()$end</td>
+        <td>$if(item.B.UserId>0)$item.B.GetStateString()$end</td>
+        <td>$item.B.Signatories</td>
+        <td>$item.B.SignatoriesPhone</td>
+        <td>$if(item.B.UserId>0)$item.A.Money.ToString("C2")$end</td>
+        <td>
+            $if(item.B.UserId>0)
+            $if(item.B.State==1)
+            <input id="money_$foreachIndex" type="text" class="text" style="width:120px" />
+            $end
+            $end
+        </td>
+        <td>
+            $if(item.B.UserId>0)
+            <input type="button" class="submit js-pz" value="平账" data-userid="$item.B.UserId" />
+            $if(item.B.State==1)
+            <input id="btn_$foreachIndex" type="button" class="submit" value="充值" onclick="return addMoney($item.B.UserId,$foreachIndex)" />
+            $else
+            <input id="btn_$foreachIndex" type="button" class="submit" value="审核" onclick="return changeState($item.A.Id,$foreachIndex)" />
+            $end
+            $else
+            <input id="btn_$foreachIndex" type="button" class="submit" value="添加" onclick="return addDistributor($item.A.Id, $foreachIndex)" />
+            $end
+        </td>
+    </tr>
+    $end
+</table>
+$else
+<div>
+    <div>
+        <form id="form" action="$url('distributorex/search')" method="post" onsubmit="return doSearch()">
+            <label for="Users">用户名：</label>
+            <input type="text" id="Users" placeholder="请输入用户名或手机号码或登陆邮箱" name="Users" class="text" style="width:500px" />
+            <span>多个用户名用“,”分隔</span>
+            <input type="submit" class="submit" value="查询" />
+        </form>
+    </div>
+    <div id="suppliers" style="margin-top:10px;"></div>
+</div>
+<div id="pzContainer" style="display:none;">
+    <div><span>请输入平账金额</span></div>
+    <div>
+        <form id="pzDisForm" method="post">
+            <table style="border-collapse:separate; border-spacing:10px;">
+                <tbody>
+                    <tr>
+                        <th><label>最大可平账金额为：</label></th>
+                        <td>
+                            <span id="maxDMoney"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>平账金额：</label></th>
+                        <td>
+                            <input type="text" name="DrawMoney" id="pzDMoney" placeholder="请输入平账金额" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>银行名称：</label></th>
+                        <td>
+                            <input type="text" name="BankName" id="pzBankName" placeholder="请输入银行卡名称" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>银行卡号：</label></th>
+                        <td>
+                            <input type="text" name="BankCard" id="pzBankCard" placeholder="请输入银行卡名称" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix" style="padding:10px;">
+                <input type="submit" id="btnOk" value="确定" class="submit winbtn" />
+                <input type="button" id="btnCancel" value="取消" class="submit winbtn" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function doSearch() {
+        var form = $('#form');
+        form.attr('disabled', true);
+        if (form.jqxValidator('validate')) {
+            $.ajax({
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                dataType: 'html',
+                success: function (data) {
+                    $('#suppliers').html(data)
+                    $('#form').attr('disabled', false);
+                    var id;
+                    loadPz(id);
+                }
+            });
+        }
+        else {
+            form.attr('disabled', false);
+        }
+        return false;
+    }
+    function addDistributor(id, row) {
+        var btn = $('#btn_' + row);
+        $(btn).attr('disabled', true);
+        postAjax('$url("distributorex/submit")', 'UserId=' + id, function (data, args) {
+            if (showResult(data, '添加加盟商成功', '添加加盟商失败', null)) {
+                doSearch();
+            }
+            $(btn).attr('disabled', false);
+        }, row);
+        return false;
+    }
+    function changeState(id, row) {
+        var btn = $('#btn_' + row);
+        $(btn).attr('disabled', true);
+        postAjax('$url("distributorex/changestate")', 'UserId=' + id, function (data, args) {
+            if (showResult(data, '审核加盟商成功', '审核加盟商失败', null)) {
+                doSearch();
+            }
+            $(btn).attr('disabled', false);
+        }, row);
+        return false;
+    }
+    function addMoney(id, row) {
+        var btn = $('#btn_' + row);
+        $(btn).attr('disabled', true);
+        postAjax('$url("distributorex/money")', 'UserId=' + id + '&Money=' + encodeURIComponent($('#money_' + row).val()), function (data, args) {
+            if (showResult(data, '充值成功', '充值失败', null)) {
+                doSearch();
+            }
+            $(btn).attr('disabled', false);
+        }, row);
+        return false;
+    }
+    $('#form').jqxValidator({
+        rules: []
+    });
+    doSearch();
+
+    function loadPz(id) {
+        if (PingZhang) {
+            PingZhang('$url("distributorEx/GetArrivalMoney/")', '$url("distributorEx/PingZhang")', '#pzDisForm');
+            id && window.clearInterval(id)
+        }
+        else {
+            id = window.setInterval(loadPz, 500);
+        }
+    }
+</script>
+$end

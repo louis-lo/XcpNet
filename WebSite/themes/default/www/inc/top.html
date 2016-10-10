@@ -1,0 +1,142 @@
+<link rel="stylesheet" type="text/css" href="$res('plugins/areachange/areaChange.min.css')" />
+<link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cph.pc.top.min.css')" />
+<div class="header_topbox w100">
+    <div class="header_topNav w1000  clearFix">
+        <div class="header_topNav_left fl">
+            <ul class="clearFix">
+                <li class="jsChangeLocation" title="切换地区">
+                    送至：<span>${this.Location.ProvinceTxt}</span>
+                    <span>${this.Location.CityTxt}</span>
+                    <span>${this.Location.CountyTxt}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="header_topNav_right fr">
+            <ul class="clearFix" id="control">
+                $if(this.IsLogin)
+                <li><a href="$passport('/ucenter')"> $this.User.Identity.Name</a></li>
+                <li><a href="$passport('/logout')"> 退出</a></li>
+                $else
+                <li><a href="$passport('/login')">请登录</a></li>
+                $end
+                <li><a href="$passport('/bought')">我的订单</a></li>
+                <li class="phone"><a href="#">手机乡城品<span></span></a></li>
+                <li class="attention"><a href="#">关注乡城品</a></li>
+                <li class="kehu"><a href="$Site.Url" target="_blank">城品惠首页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    $load("inc/xalert.html")
+<style>
+    .location_Title {
+        font-size: 14px;
+        background: #fff9f3;
+        text-align: center;
+        height: 76px;
+        line-height: 76px;
+    }
+
+        .location_Title span {
+            color: #ff8d18;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+    .new_addressRint select {
+        width: 70px;
+        height: 22px;
+    }
+
+    .new_addressLeft {
+        font-size: 15px;
+        margin-top: 3px;
+    }
+</style>
+
+<script type="text/html" id="tmpl-lacation">
+    <div class="location_Title">
+        您现在的位置是<span>
+            ${this.Location.ProvinceTxt}
+            ${this.Location.CityTxt}
+            ${this.Location.CountyTxt}
+        </span>
+    </div>
+    <div class="new_addressWrap clearFix">
+        <div class="lj_select" id="areaSelect" data-pid="" data-cid="" data-tid="">
+            <a href="javascript:;" class="areaName"></a>
+            <div class="city_content">
+                <div class="select_tab clear">
+                    <a href="javascript:;" class="first current" data-to="province_list">省份</a>
+                    <a href="javascript:;" data-to="city_list">城市</a>
+                    <a href="javascript:;" data-to="county_list">县区</a>
+                </div>
+                <div class="area_list province_list"></div>
+                <div class="area_list city_list"></div>
+                <div class="area_list county_list"></div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/javascript" src="$res('plugins/areachange/areaChange.min.js')"></script>
+<script>
+    ; +(function ($, doc) {
+        var getUrl = function (action) {
+            var controllerName = '$this.Application.ControllerName';
+            return '/' + controllerName + '/' + action + '.html';
+        },
+        setLocaltion = function () {
+            var url = getUrl('setLocation'),
+                  postData = {
+                      Province: $("#Province").val(),
+                      City: $("#City").val(),
+                      County: $("#County").val()
+                  };
+
+            $.post(url, postData, function (result) {
+                if (result.code === -200) {
+                    Cnaws.showSuccess('正在加载，请稍后...');
+                    location.reload();
+                }
+                else {
+                    ShowBox.showErrorByCode(result.code);
+                }
+            }, 'json');
+        };
+
+        $(function () {
+            var xalertOptions = {
+                tmpl: '#tmpl-lacation',
+                onShow: function (xalert) {
+                    var areaChangeFrom = new areaSelectChange("areaSelect", {
+                        hasHot: false,
+                        hideName: {
+                            provinceName: "Province",
+                            cityName: "City",
+                            countyName: "County"
+                        }
+                    }, function () {
+                        xalert.close();
+                        setLocaltion();
+                    });
+                    $('#areaSelect .first').trigger('click');
+                },
+                height: '300px',
+                width: '40%',
+                left: '30%',
+                top: '30%',
+                enableCancel: false,
+                enableOk: false,
+                enableClose: false
+            };
+            //$if(this.Location.CountyId <= 0)
+            var xalert = new Xalert(xalertOptions);
+            xalert.show();
+            //$end
+
+            xalertOptions.enableClose = true;
+            $('.jsChangeLocation').xalert(xalertOptions);
+        });
+
+    })($, document)
+</script>

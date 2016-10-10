@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>售后管理</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.aftersaleslist.css')">
+    <script type="text/javascript" src="$res('/resource/static/datepicker/wdatepicker.js')"></script>
+    <style type="text/css">
+        .center_content {
+            width: 1250px;
+            margin: 0 auto;
+            margin-top: 7px;
+        }
+
+        .center_wrapRight {
+            float: right;
+        }
+
+        .hunt input {
+            background: #fe500b none repeat scroll 0 0;
+            color: #fff;
+            display: inline-block;
+            font-family: "simsun";
+            font-size: 13px;
+           
+         
+            text-align: center;
+            width: 86px;
+        }
+    </style>
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/side.html")
+        <div class="center_wrapRight">
+            <h2>售后管理</h2>
+            <form action="$url('/aftersales/list/1')" method="post">
+                <div class="seachWrap" style="margin-top:10px">
+                    宝贝名称：<input type="text"  name="title" value="$title" placeholder="请输入宝贝名称" />
+                    <span>买家昵称：</span><input  name="nickName" value="$nickName"  type="text" placeholder="请输入买家昵称" />
+                    <span>申请售后时间：</span><input  type="date" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })"  name="startCreateDate" value="$startCreateDate" /> 到 <input onchange="change(this)" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })"  type="date" name="endCreateDate" value="$endCreateDate"/>
+                    <select name="serverState" id="serverState" >
+                        <option value="-1">全部</option>
+                        <option value="0">待审核</option>
+                        <option value="1">待邮寄</option>
+                        <option value="2">处理中</option>
+                        <option value="3">已完成</option>
+                        <option value="4">申请失败</option>
+                        <option value="5">已取消</option>
+                    </select>
+                    <div class="hunt" style="display:block"><input type="submit" id="btnSearch" value="搜索" /></div>
+                </div>
+            </form>
+            <table align="center" border="0" width="100%" class="tableTrHeader">
+                <tr>
+                    <th class="heartTh">宝贝</th>
+                    <th class="pricTh">成交价格（元）</th>
+                    <th class="numberTh">数量</th>
+                    <th>买家</th>
+                    <th class="afterTh">售后状态</th>
+                    <th class="tuikTh">申请退款金额（元）</th>
+                    <th>交易操作</th>
+                </tr>
+            </table>
+            <!-- 分页 开始 -->
+            <div class="center_pageWrapT">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+                        $if(OrderList.PageIndex==1)
+                        <li class="page_prev">
+                            <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/aftersales/list/',OrderList.PageIndex-1)" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+                        $if(OrderList.PagesCount<=0||OrderList.PageIndex==OrderList.PagesCount)
+                        <li class="page_next page_prev">
+                            <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/aftersales/list/',OrderList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+            <!-- if begin -->
+            $if(OrderList.Data.Count>0)
+            <table align="center" border="0" width="100%" class="heartDelivInf">
+                $foreach(item in OrderList)
+                $set(info=json(item.ProductOrderMapping.ProductInfo))
+                <tr class="tableTrTop">
+                    <td colspan="7">
+                        售后订单号：$item.AfterSalesRecord.Id
+                        <span>交易订单：$item.AfterSalesRecord.OrderId</span>
+                        <span class="afterDate">申请售后时间：$item.AfterSalesRecord.CreateDate.ToString()</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tableTd">
+                        <div class="heartInformation">
+                            <a href="$Site.Url/product/info/${item.ProductOrderMapping.ProductId}.html" target="_blank" class="clearFix">
+                                <div class="heartDelivImg fl">
+                                    <img src="$GetImage(info.Image)">
+                                </div>
+                                <div class="heartDelivMs fl">
+                                    $info.Title
+                                    <p>
+                                        适合身高：3/6码66CM<span>颜色：奶白色</span>
+                                        $foreach(attr in info.Series)
+                                        <span> $attr.Key：</span><span>$attr.Value</span>
+                                        $end
+                                    </p>
+                                    <p>售后原因：$item.AfterSalesRecord.Reason</p>
+                                    <p>买家反馈：$item.AfterSalesRecord.Message</p>
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="pricTd">$item.ProductOrderMapping.TotalMoney.ToString("C2")</td>
+                    <td class="numberTd">$item.AfterSalesRecord.RefundCount</td>
+                    <td class="stutasTd">$item.Member.NickName</td>
+                    <td class="afterTd">$GetStateInfo(item.AfterSalesRecord.ServerState)<p>（$GetTypeInfo(item.AfterSalesRecord.ServiceType)）</p></td>
+                    <td class="receiptTd">$item.AfterSalesRecord.RefundMoney.ToString("C2")</td>
+                    $if(item.AfterSalesRecord.ServerState == 0)
+                    <td class="stockTd"><a href="$url('/AfterSales/AfterSalesDetailed/', item.AfterSalesRecord.Id)" target="_blank" class="change">处理售后</a></td>
+                    $else
+                    <td class="stockTd"><a href="$url('/AfterSales/AfterSalesDetailed/', item.AfterSalesRecord.Id)" target="_blank" class="change">查看售后</a></td>
+                    $end
+                </tr>
+                $end
+            </table>
+            $end
+
+            <!-- if end -->
+            <!-- 分页 开始 -->
+            <div class="center_pageWrap clearFix">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+                        $if(OrderList.PageIndex==1)
+                        <li class="page_prev">
+                            <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/aftersales/list/',OrderList.PageIndex-1)" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+
+                        $if(OrderList.BeginPage>1)
+                        $end
+                        $for(i=OrderList.BeginPage;i<=OrderList.EndPage;i++)
+                        $if(i==OrderList.PageIndex)
+                        <li class="page_numer itme">
+                            <a href="$url('/aftersales/list/',i)">$i</a>
+                        </li>
+                        $else
+                        <li class="page_numer">
+                            <a href="$url('/aftersales/list/',i)">$i</a>
+                        </li>
+                        $end
+                        $end
+                        $if(OrderList.PagesCount>OrderList.EndPage)
+                        <li class="page_numer"><a href="$url('/aftersales/list/',OrderList.PageIndex+1)">...</a></li>
+                        <li class="page_numer"><a href="$url('/aftersales/list/',OrderList.PagesCount)">$OrderList.PagesCount</a></li>
+                        $end
+
+                        $if(OrderList.PagesCount<=0||OrderList.PageIndex==OrderList.PagesCount)
+                        <li class="page_next page_prev">
+                            <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/aftersales/list/',OrderList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                    <div class="total fl"> 共 $OrderList.PagesCount 页/$OrderList.TotalCount条，</div>
+                    <div class="form fl">
+                        <span class="text">跳到</span>
+                        <input class="input J_Input location_number" id="PageInput" type="number" aria-label="页码输入框" max="$OrderList.PagesCount" min="1" value="1">
+                        <span class="text">页</span>
+                        <span class="pagebtn J_Submit fr" tabindex="0" onclick="window.location.href='$url("/aftersales/list/","'+Math.min(parseInt(document.getElementById('PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value))+'")'" role="button">跳转</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+        </div>
+    </div>
+
+    $load("inc/bottom.html")
+</body>
+</html>

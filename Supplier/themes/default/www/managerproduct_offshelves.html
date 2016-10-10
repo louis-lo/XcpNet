@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>产品上架管理-下架</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/style.css')" />
+    $load("inc/s_comm.html")
+    <script src="$res('js2.0/jquery.zoom.js')"></script>
+    <script type="text/javascript">
+        /*使用jqzoom*/
+        $(function () {
+            $(".jqzoom").jqueryzoom({
+                xzoom: 400, //放大图的宽度(默认是 200)
+                yzoom: 400, //放大图的高度(默认是 200)
+                offset: 10, //离原图的距离(默认是 10)
+                position: "right", //放大图的定位(默认是 "right")
+                preload: 1
+            });
+            $("input[type='text']").focus(function () {
+                $(this).css("border-color", "#ff5820")
+            });
+            $("input[type='text']").blur(function () {
+                $(this).css("border-color", "#ccc")
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/s_top.html")
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/s_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="fr">
+            <h3 class="ProductShelves">产品下架管理</h3>
+
+            <!--当前分类开始-->
+            <form id="SearchForm" method="Post" action="$this.Url">
+                <div class="classification clearFix">
+                    <p class="fl">当前分类：城品惠$CategoryName</p>
+                    <select class="fl" name="CategoryId">
+                        <option value="0">所有商品</option>
+                        $foreach(category in CategoryList)
+                        <option value="$category.Id" $if(category.Name!!CategoryName)selected ="selected" $end>$category.Name</option>
+                        $end
+                    </select>
+                    <div class="search fl clearFix">
+                        <input type="text" placeholder="" name="KeyWord" value="$KeyWord" class="fl" />
+                        <a href="javascript:;" class="fl" onclick="$('#SearchForm').submit()">查询</a>
+                    </div>
+                </div>
+            </form>
+            <!--当前分类结束-->
+
+            <table class="sroductShelves_supplier" cellpadding="0" cellspacing="0">
+                <tr class="first">
+                    <td class="supplier">供应商</td>
+                    <td class="title">标题</td>
+                    <td class="images">图片</td>
+                    <td class="classification">分类</td>
+                    <td class="state">状态</td>
+                    <td class="price">价格</td>
+                    <td class="operation">操作</td>
+                </tr>
+                $foreach(item in ProductList.Data)
+                <tr>
+                    <td class="supplier">$item.Supplier_Company</td>
+                    <td class="title">
+                        <p>$item.Product_Title</p>
+                    </td>
+                    <td class="big_images">
+                        <a class="jqzoom"><img style="width:20px;height:20px" src="$GetImage(item.Product_Image)" jqimg="$GetImage(item.Product_Image)" /></a>
+                    </td>
+                    <td class="classification">
+                        <a href="#" class="new_address">$item.ProductCategory_Name</a>
+                    </td>
+
+                    <td class="state">已上架</td>
+
+                    <td class="price">
+                        <a href="$url('/productmanager/showprice/',item.Product_Id)" target="_blank">管理价格</a>
+                    </td>
+                    <td class="operation clearFix">
+                        <a href="$Site.Url$url('/product/view/',item.Product_Id)" target="_blank" class="left fl">预览</a>
+                        $if(item.Product_State==1)
+                        <a href="#" data-id="$item.Product_Id" class="right new_address2 fl">下架</a>
+                        $elseif(item.Product_State==3)
+                        <a href="#" class="right new_address2 fl current">审核下架</a>
+                        $end
+                    </td>
+                </tr>
+                $end
+
+
+
+            </table>
+
+            <!--商品分页开始-->
+            <div class="center_pageBox clearFix" style="margin-left:150px;">
+                <ul class="clearFix fl">
+                    $if(ProductList.PageIndex==ProductList.BeginPage)
+                    <li class="page_prev">
+                        <a href="#" class="pageprev_unprint pageprev_img">
+                            <span class="unicon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_prev">
+                        <a href="$url('/productmanager/manager/offshelves/',ProductList.PageIndex-1)" class="pageprev_print pageprev_img">
+                            <span class="icon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $end
+                    $if(ProductList.BeginPage>1)
+                    $end
+                    $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+                    $if(i==ProductList.PageIndex)
+                    <li class="page_numer"><a href="$url('/productmanager/manager/offshelves/',i)">$i</a></li>
+                    $else
+                    <li class="page_numer"><a href="$url('/productmanager/manager/offshelves/',i)">$i</a></li>
+                    $end
+                    $end
+                    $if(ProductList.PagesCount>ProductList.EndPage)
+                    <li class="page_numer"><a href="$url('/productmanager/manager/offshelves/',ProductList.PageIndex+1)">...</a></li>
+                    <li class="page_numer"><a href="$url('/productmanager/manager/offshelves/',ProductList.PagesCount)">$ProductList.PagesCount</a></li>
+                    $end
+                    $if(ProductList.PagesCount<=0||ProductList.PageIndex==ProductList.PagesCount)
+                    <li class="page_next page_prev">
+                        <a href="#" class="pageprev_unnext pageprev_print pagenext_img">
+                            下一页
+                            <span class="unicon"></span>
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_next page_prev">
+                        <a href="$url('/productmanager/manager/offshelves/',ProductList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                            下一页
+                            <span class="icon"></span>
+                        </a>
+                    </li>
+                    $end
+                </ul>
+                <div class="total fl"> 共 $ProductList.PagesCount 页/$ProductList.TotalCount条，</div>
+                <div class="form fl">
+                    <span class="text">到第</span>
+                    <input class="input J_Input" type="number" id="PageInput" aria-label="页码输入框" max="$ProductList.PagesCount" min="1" value="1">
+                    <span class="text">页</span>
+                    <span class="btn J_Submit fr" tabindex="0" onclick="window.location.href = '$url('/productmanager/manager/offshelves/'," ' + document.getElementById(' PageInput').value + '")' " role=" button">确定</span>
+                </div>
+            </div>
+            <!--商品分页结束-->
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 分类弹窗开始 -->
+    <!-- 弹出层模板-->
+    $load("inc/xalert.html")
+    <!-- 弹出层结束-->
+    <script type="text/html" id="tmpl-address">
+        <!--<div class="center_addAddressTitle">123</div>-->
+        <div class="new_addressWrap clearFix">
+            <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                <div class="classificationOfPop">
+                    <div class="top">请选择产品分类</div>
+                    <div class="mid">
+                        分类：
+                        <select>
+                            <option value="">家用电器</option>
+                        </select>
+                        <select>
+                            <option value="">大家电</option>
+                        </select>
+                        <select>
+                            <option value="">家庭影院</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+    <!-- 分类弹窗结束 -->
+    <!--下架提示开始 -->
+    <script>
+
+        $(function () {
+            //      $(".center_addressSelect a").each(function () {
+            //          $(this).click(function () {
+            //              $(this).find(".xiugai_button").css("display", "block");
+            //              $(this).siblings().find(".xiugai_button").css("display", "none");
+            //              $(this).attr("id", "default_A").siblings().attr("id", "");
+            //          });
+            //      });
+            //		$(".County_JoinLe_nav h3").click(function(){
+            //			$(this).toggleClass("on").next("ul").toggle("on")
+            //		})
+            //
+
+            $('.new_address2').xalert({
+                tmpl: '是否下架？',
+                width: '24%',
+                height: '30%',
+                top: '40%',
+                left: '38%',
+                callback: function (xalert) {
+                    var id = $(xalert.target).data('id');
+                    xalert.close();
+                    Cnaws.postAjax('$url("/productmanager/state")', { 'Id': id, 'action': '1' }, function (data, args) {
+                        if (data.code == -200) {
+                            Cnaws.showSuccess('下架成功');
+                            setTimeout(function () {location.reload()},1000);
+                        }
+                        else {
+                            ShowBox.showErrorByCode(data.code);
+                            //Cnaws.showWarning("取消订单失败！");
+                        }
+                    });
+                }
+            })
+
+        });
+    </script>
+    <!--下架提示结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+</body>
+</html>

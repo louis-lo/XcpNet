@@ -1,0 +1,42 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{width:100%; height:auto;}
+.w1000{width:1200px; height:auto; margin:0 auto;}
+.mt{margin-top:10px;}
+input{outline:none;border: 0;background: #fff;}
+button{border:0;outline:none;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto; min-height:680px}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:96px;border-bottom:2px solid #ff3f08;text-align: center;font-size: 16px;}
+
+/* 中间地址栏 */
+.address_content{border: 1px solid #e2e2e2;margin-top: 20px;padding-right:100px;padding-bottom: 40px;padding-top:20px;margin-bottom: 30px;}
+.new_addressLeft span{display: block;text-align: right;color: #555;}
+.new_addressLeft .person{margin-top: 6px;}
+.new_addressLeft .address{margin-top: 22px;}
+.new_addressLeft .rode{margin-top: 22px;}
+.new_addressLeft span i{color: #ff6c00;font-style: normal;}
+.new_addressRint{margin-top: 4px;margin-left: 15px;}
+.new_addressRint input{width: 180px; height: 28px;border:1px solid #e2e2e2;padding-left: 10px;}
+.new_addressSelect select{width: 155px;margin-top: 15px;height: 28px;}
+.new_addressRoad input{width: 471px;margin-top: 15px;}
+.new_addressTell{margin-top: 15px;}
+.tell{margin-left: 20px;color: #555;margin-top: 24px;}
+.verify{border-radius:2px;width:120px; height:30px;background: #ff3f08;color: #fff;cursor: pointer;margin: 60px 0 0 80px;}
+.default_div input{width: 10px;height: 8px;}
+.default_div{color:#999;margin: 10px 0px 10px 45px;}
+
+.address_table{width: 100%;border: 1px solid #e2e2e2;margin-top: 20px;border-collapse:collapse;margin-bottom: 20px;}
+.address_table thead{background-color: #f3f3f3;border: 0}
+.address_table th{border: 0px;font-weight: normal;color: #555;height: 30px;}
+.address_table td{border: 1px solid #e2e2e2;font-weight: normal;color: #555;}
+.address_table tbody tr{text-align:center;height: 70px;}
+/* 中间地址栏结束 */

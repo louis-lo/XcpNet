@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title></title>
+    $load('inc/comm.html')
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/purchase_order.css')" />
+<style>
+.bar{text-align:center;font-size:.8rem;}
+.bar.nav_bottom{height:2.5rem;}
+.Purchase_planon{position:absolute;width:3.8rem;left:1.6rem;top:0;font-size:.7rem;}
+.open-popup.col_ff7 .Purchase_plan_icon{border-top:.3rem solid #ff7300;}
+.Purchase_plan_icon{display:inline-block;border-left:.25rem solid transparent;
+border-right:.25rem solid transparent;border-top:.3rem solid #cacaca;margin-left:.2rem;vertical-align:middle;}
+.Purchase_plan_icon.on{border-top:.3rem solid #ff7300}
+.bar_nav .way_shopcart{position:absolute;width:3rem;right:0;top:.15rem;}
+.bar_nav .way_shopcart a{text-align: center;position:relative;}
+.bar_nav .way_shopcart div:first-child{width:1rem;line-height:0;margin:0 auto;position:relative;}
+.shopcart_num{position:absolute;top:0rem;right:-0.5rem;display:inline-block;padding:0 0.3rem;background:#f44336;color:#fff;line-height:10px;font-size:.4rem;border-radius:.4rem;border: 1px solid #fff;}
+.bar_nav .way_shopcart div:last-child{font-size:.6rem;line-height:1.5;}
+
+.order_content ul li{padding:0;border-bottom:1px solid #f3f3f3;line-height:1.5rem;text-align:left;border-radius:0}
+.tab .Purchase_planList li:last-child{border-bottom:.75rem solid #f6f6f6;}
+.purchaseall_Txt,.purchaseall_Sub{text-align:right;}
+.content-block ul li.purchaseall_order{color:#666}
+.content-block ul li.purchaseall_Txt{line-height:1.8rem;}
+.purchaseall_Txt span:last-child{;margin-left:.5rem;}
+.content-block ul .purchaseall_Test{position:relative;border-bottom:1px solid #f3f3f3}
+.purchase_labelQ,.purchase_labelB{position:absolute;left:.7rem;top:.35rem;width:2.8rem;height:1.3rem;line-height:1.2rem;font-size:.6rem;background:url(../img/purchase_labelQ.png) no-repeat;background-size:100% 100%;text-align:center;}
+.purchase_labelB{background:url(../img/purchase_labelB.png) no-repeat;background-size:100% 100%;}
+.purchaseall_Sub a{padding:.3rem 0.65rem;font-size:.7rem;border-radius:.15rem;}
+.purchaseall_Sub a:last-child{background:#ff7300;border:1px solid #ff7300;margin-left:.5rem;}
+.purchaseall_Le img{height:4rem;width:4rem;vertical-align:middle;}
+.purchaseall_Con h3{font-size:.7rem;font-weight:normal;}
+.purchaseall_Con .Coninfo{margin-top:.15rem;}
+.content-block ul li.purchase_complete{padding:.3rem .75rem;}
+.purchase_complete a:first-child{background:#fff;border:1px solid #e5e5e5;color:#333;}
+.popup-overlay{top:2.2rem}
+.popup-about{top:2.2rem;height:60%;}
+.popup{transform: translate3d(0,-100%,0);}
+.popup.modal-out{transform: translate3d(0,-100%,0);}
+.popup.modal-in{transform: translate3d(0,0,0);}
+.buttons-tab .button{border:none;display:block;padding:0;text-align:center;height:2rem;line-height:2rem;color:#333;font-size:.7rem;background:#f3f3f3;}
+.tab .content-block{margin:0;padding:0;}
+.buttons-tab:after{height:0;}
+.buttons-tab{display: block;}
+.buttons-row .button:first-child,.buttons-row .button:last-child{border-radius:0;border-left-width:0px;}
+.buttons-tab .button.active{background:#fff;color:#333;border:none;}
+</style>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="clearfix bar bar_nav bar-nav col_333" style="z-index:99999">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="javascript:history.go(-1);">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				进货方案
+				<div class="way_shopcart">
+                    <a href="$url('/cart')" class="external">
+                        <div><img src="$res('wap/img2.0/jhb/icon_ShopCart2.png')"><span class="shopcart_num jsCount"></span></div>
+                        <div>进货车</div>
+                    </a>
+				</div>
+				<div class="Purchase_planon">
+					<a href="#" id="open-about" data-popup=".popup-about" class="open-about open-popup col_333">
+						全部方案<span class="Purchase_plan_icon"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="content native-scroll">
+			<!-- content -->
+			<!-- for tab -->
+			<div id="tab" class="tab">
+		        <div class="content-block">
+		        	<!-- for order list -->
+                    $foreach(pro in ProgrammeList)
+		        	<ul class="Purchase_planList">
+		        		<li class="purchaseall_Test">
+		        			<div class="purchaseall_Le">
+		        				<img src="$pro.Image" />
+		        			</div>
+		        			<div class="purchaseall_Con">
+		        				<h3 class="txt_hide2L col_333">$pro.Title<span class="col_ff7">($pro.Count款产品)</span></h3>
+		        				<div class="txt_hide Coninfo col_666">方案：$pro.GetTypeString()</div>
+		        				<div class="txt_hide Coninfo col_666">行业：$pro.GetCategoryString(this.DataSource)</div>
+		        			</div>
+		        		</li>
+		        		<li class="purchaseall_Sub purchase_complete clearfix">
+							<a href="$DetailUrl(pro.Id)" class=" externalcol_fff">查看详情</a><a href="javascript:;" data-prograid="$pro.Id" class="col_fff">一键进货</a>
+		        		</li>
+		        	</ul>
+                    $end
+		        	<!-- end for order list -->
+		        </div>
+		  	</div>
+			<!-- end for tab -->
+			<!-- end content -->
+		</div>
+		
+		<!-- about Popup -->
+		<div class="popup popup-about">
+			<div class="content-block Product_class">
+				<div class="content native-scroll order_content bg_fff" style="width:25%;left:0;background:#f3f3f3;">
+					<div class="buttons-tab">
+				    	<a href="#tab1" class="tab-link button active">分类</a>
+				    	<a href="#tab2" class="tab-link button">行业</a>
+				   </div>
+				</div>
+				
+				<div class="content native-scroll order_content" style="width:72%;left:auto;right:0;">
+				    <div class="tabs">
+				    	<!-- tab content -->
+				    	<div id="tab1" class="tab active">
+					        <div class="content-block city_goods_list">
+					        	<!-- class -->
+					        	<div class="mt10">
+						        	<ul class="clearfix bg_fff">
+						        		<!-- for class goods -->
+						        		<li class="txt_hide"><a $if(Ptype!!-1) style="color:red" $end href="$ProUrl(-1)" class="external">全部方案</a></li>
+						        		<li class="txt_hide"><a $if(Ptype!!0) style="color:red" $end href="$ProUrl(0)" class="external">新开店方案</a></li>
+						        		<li class="txt_hide"><a $if(Ptype!!1) style="color:red" $end href="$ProUrl(1)" class="external">改造点方案</a></li>						        		
+						        		<li class="txt_hide"><a $if(Ptype!!2) style="color:red" $end href="$ProUrl(2)" class="external">综合方案</a></li>
+						        	</ul>
+					        	</div>
+								<!-- end class -->
+					        </div>
+				    	</div>
+				    	<!-- end tab content -->
+				    	<div id="tab2" class="tab">
+					        <div class="content-block city_goods_list">
+					        	<!-- class -->
+					        	<div class="mt10">
+						        	<ul class="clearfix bg_fff">
+                                        <li  class="txt_hide"><a $if(IndutryCategoryId!!0) style="color:red" $end href="$url('/programme/index/1/',0,'/',Ptype)" class="external">全部</a><em></em></li>
+                                        $foreach(cate in IndutryCategoryList)
+                                        <li  class="txt_hide"><a $if(cate.Id!!IndutryCategoryId) style="color:red" class="pitchA" $end href="$url('/programme/index/1/',cate.Id,'/',Ptype)" class="external">$cate.Name</a><em></em></li>
+                                        $end
+						        	</ul>
+					        	</div>
+								<!-- end class -->
+					        </div>
+				    	</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<!-- about Popup -->
+		<div class="popup-overlay close-popup"></div>
+		<!-- bottom nav -->
+		$load("inc/nav.html")
+		<!-- end bottom  -->
+	</div>
+</div>
+<script>
+$("#open-about").on("click",function(){
+	if($(".popup.popup-about.modal-in").attr('style') == "display: block;"){
+		$("#open-about").attr('class','close-popup col_333');
+	}else{
+		$("#open-about").attr('class','open-about open-popup col_ff7');
+	}
+});
+$(".close-popup").on("click",function(){
+	if($(".popup.popup-about.modal-in").attr('style') == "display: block;"){
+		$("#open-about").attr('class','close-popup col_333');
+	}
+})
+</script>
+</body>
+</html>

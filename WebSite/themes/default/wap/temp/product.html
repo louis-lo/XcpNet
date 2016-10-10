@@ -1,0 +1,12 @@
+﻿<a class="media-left" href="$url('/product/info/',item.A.Id)"><img class="load-img" src="$item.A.GetImage()" alt="$item.A.Title"></a>
+<div class="media-body">
+    <h3><a href="$url('/product/info/',item.A.Id)">$item.A.Title</a></h3>
+    <p>
+        <ins>$item.A.GetSalePrice().ToString("C2")</ins>
+        <des>$item.A.MarketPrice.ToString("C2")</des>
+    </p>
+    <p class="clearfix thumbnail-footer">
+        <span class="ensure-01">已交保证金</span>
+        <span class="ensure-02">品质保障</span>
+    </p>
+</div>

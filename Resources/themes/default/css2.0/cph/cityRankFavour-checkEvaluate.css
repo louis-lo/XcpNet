@@ -1,0 +1,57 @@
+/* 中间 右边 开始*/
+.center_wrapRight{width: 995px;margin-bottom: 30px;}
+.center_wrapRight h2{font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 18px;margin-top: 12px;padding-bottom: 5px;}
+
+.orderEvaluateWrap{border:1px solid #e2e2e2;background: #f6f6f6;padding:25px 50px;margin-top: 15px;border-bottom:none;}
+.orderEvaluateWrap span{font-size: 17px;color:#333;}
+.evaluateWrap{margin-top: 48px;}
+/* 商品图片 开始 */
+.goodsPrint{width:80px;overflow: hidden;color:#666;margin-right: 15px;}
+.goodsPrint img{width: 80px;height: 80px;}
+/* 评价商品 晒图 开始 */
+.goodsEvaluate{width: 410px;height: 180px;border:1px solid #e2e2e2;}
+.Evaluate{border-bottom:1px solid #e2e2e2;}
+.EvaluateChar{height: 118px;line-height: 118px;}
+.EvaluateCharP{border-right: 1px solid #e2e2e2;width: 60px;background: #efefef;text-align: center;color:#666;}
+.EvaluateCon {line-height: 0;}
+.EvaluateCon textarea{width: 338px;height: 108px;border:0;resize: none;background: none;color:#333;padding: 10px 0 0 10px;}
+textarea::-webkit-input-placeholder {color:#333;}
+textarea:-moz-placeholder {color:#333;}
+
+.printChar{height:61px;line-height: 61px;}
+.printCon{background: #fff;width: 333px;line-height: 0;padding:8px;}
+.printCon img{width: 45px;height: 45px;margin-left: 8px;}
+
+/* 评价星星 开始 */
+.EvaluateStar{width: 240px;margin:32px 25px;}
+.EvaluateStar span{font-size: 12px;}
+.EvaluateStar .starc{width: 135px;height: 20px;margin-left: 10px;background: url("../../img2.0/cph/evaluate_star.png") 0 -22px no-repeat;background-size:265px 51px;}
+/* 五颗红星 */
+.EvaluateStar .star0{background-position: 2px 0px;}
+/* 四颗红星 */
+.EvaluateStar .star1{background-position: -23px 0px;}
+/* 三颗红星 */
+.EvaluateStar .star2{background-position: -50px 0px;}
+/* 二颗红星 */
+.EvaluateStar .star3{background-position: -76px 0px;}
+/* 一颗红星 */
+.EvaluateStar .star4{background-position: -103px 0px;}
+/* 五颗灰色星星 */
+.EvaluateStar .star5{background-position: 2px -25px;}
+
+.star_bg{width:144px;height:23px;background:url(../../img2.0/cph/evaluate_star.png) 0px -22px no-repeat;background-size:298px 48px;margin-left: 10px;}
+.star_bg ul{width:144px;height:23px;background:url(../../img2.0/cph/evaluate_star.png) 0px -22px no-repeat;background-size:295px 48px;}
+.star_bg .star1{background-position:-118px 1px;}
+.star_bg .star2{background-position:-89px 1px;}
+.star_bg .star3{background-position:-59px 1px;}
+.star_bg .star4{background-position:-30px 1px;}
+.star_bg .star5{background-position:-0px 1px;}
+.star_bg ul li{width:24px;height:23px;text-indent:-999px;float:left;margin-left:5px;}
+.star_bg ul li:first-child{margin-left:0;}
+
+.withCharWrap{border-top:2px solid #e2e2e2;width: 700px;margin:98px auto 0;position: relative;}
+.withChar{width: 162px;position: absolute;z-index: 1;top: -12px;left: 38%;background: #f6f6f6;text-align: center;color: #999;}
+.evaluateWrapB{margin-bottom: 196px;}
+.commitWrap{padding: 12px 20px;border:1px solid #e2e2e2;border-top: none;}
+.commitInput{margin: 2px 5px;}
+.commitWrap a{padding:5px 10px;background: #c40000;color: #fff;border-radius: 3px;margin-left:355px;}

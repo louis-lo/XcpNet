@@ -1,0 +1,22 @@
+p {
+	padding-left: 20px;
+	padding-right: 20px;
+	line-height: 1.2;
+	color: #333;
+}
+.textarea,
+.input {
+	width: 600px;
+	padding: 19px 20px;
+	border: 1px solid #EAEAEA;
+}
+.textarea {
+	height: 180px;
+	padding: 19px 20px;
+
+}
+.input {
+	height: 32px;
+	margin-top: 18px;
+	line-height: 32px;
+}

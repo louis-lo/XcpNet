@@ -1,0 +1,273 @@
+body,div,span,p,a,ul,ol,dl,li,dt,dd,img,h1,h2,h3,h4,h5,h6,textarea,input,i{margin:0; padding:0; border:none; list-style:none; outline: none;}
+body{color:#333; font-family:"微软雅黑"; font-size:12px; line-height:22px;}
+a{color:#333; text-decoration:none;}
+.clearFix:after{clear:both; display:block; visibility:hidden; height:0; line-height:0; content:'';}
+.fl{float:left}.fr{float: right;}
+.w1200{width:1200px; margin:0 auto; height:auto;}
+.w1003{width:1003px; margin:0 auto; height:auto;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.txt_hide{text-overflow:ellipsis;max-width:100%;white-space:nowrap;overflow:hidden;}
+input,button {outline:none;border: 0;background: #fff;}
+button{cursor: pointer;}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {color:#666;}
+input::-moz-placeholder{color:#666;}
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {color:#666;}
+.mt25{margin-top: 25px;}
+.txt_hide{text-overflow:ellipsis;max-width:100%;white-space:nowrap;overflow:hidden;}
+.txt_hide2L{overflow: hidden;-webkit-line-clamp: 2;-moz-line-clamp: 2;-ms-line-clamp: 2;-o-line-clamp: 2;line-clamp: 2;-webkit-box-orient: vertical;-moz-box-orient: vertical;-ms-box-orient: vertical;-o-box-orient: vertical;box-orient: vertical;display: -webkit-box;display: -moz-box;display: -ms-box;display: -o-box;display: box;word-break: break-all;}
+
+
+
+
+/* 上架方案管理 开始*/
+/* 头部分 */
+.header_wrap{background: #f5f5f5;}
+.header_top_left{height: 32px;line-height: 33px;}
+.header_top_left ul li a{color: #777;}
+.header_top_left ul li{float: left;margin-right: 30px;color: #777;font-size: 12px;}
+.home_img{background:url("../img/home_img.png")no-repeat scroll 0 9px;}
+.header_top_right{height: 32px;line-height: 33px;}
+.header_top_right ul li{padding-left: 30px;float: left;}
+.header_top_right ul li a{color: #777;}
+.home_print{margin-left: 20px;}
+
+/* 头部第二部分 开始*/
+.headerBottom_wrap{background: #ff7300;padding: 7px 0;}
+.header_bottom img{width: 141px;height: 50px;}
+.header_bottom span{font-size: 18px;padding: 14px 0 0 20px;color: #f5f5f5;}
+.header_bottom a{margin-left: 20px;color: #fff;font-size: 16px;}
+.header_search{margin-top: 13px;background: #fff;padding-left: 0px;}
+.header_search input{width: 250px;height: 27px; padding-left:10px;}
+.header_search button{width:69px;height: 28px;background: #f5f5f5;color: #999;border-left: 1px solid #e2e2e2;}
+/* 头部第二部分 结束*/
+/* 头部分 结束 */
+
+/* 中间 开始*/
+/* 中间 左边导航栏 开始*/
+.center_wrap{margin-top:20px;}
+
+
+/* 城品惠产品管理 */
+.Countylevel_JoinImg{background:url(../img/Countylevel_JoinImg.png) no-repeat;vertical-align:middle; margin-top:-3px;}
+.County_JoinLe{width:197px;border-top:2px solid #ff500a;font-family:"宋体";}
+.County_JoinLe_nav{border:1px solid #e5e5e5;border-bottom:none;}
+.County_JoinLe_nav h3{height:43px;line-height:43px;font-weight:normal;font-size:14px;text-indent:40px;color:#335b64;position:relative;background:url(../img/Countylevel_JoinImg.png) 0px -17px #e6e6e6 no-repeat;cursor:pointer;}
+.County_JoinLe_nav h3 .JoinLe_openIcon{position:absolute;right:14px;top:16px;width:8px;height:8px;background-position:-127px -3px;}
+.County_JoinLe_nav h3.on .JoinLe_openIcon{background-position:-148px -3px;}
+.County_JoinLe_nav ul{display:none;}
+.County_JoinLe_nav h3.on~ul{display:block;}
+.County_JoinLe_nav ul li{height:32px;line-height:32px;text-indent:55px;background:url(../img/Countylevel_JoinImg.png) 0px -28px #f5f5f5 no-repeat;}
+.County_JoinLe_nav ul li a{font-size:12px;color:#335b64;display:block;}
+.County_JoinLe_nav ul li a:hover,.County_JoinLe_nav ul li a.on{color:#ff500a;}
+.JoinLe_navIcon{display:inline-block;width:14px;height:14px;margin-right:5px;}
+/* 城品惠产品管理结束 */
+
+/* 进货宝产品管理 */
+.Countylevel_JoinImg02{background-position:-18px 0;}
+/* 进货宝产品管理结束 */
+
+/* 供应商管理 */
+.Countylevel_JoinImg03{background-position:-37px 0;}
+/* 供应商管理结束 */
+
+/* 加盟管理 */
+.Countylevel_JoinImg04{background-position:-58px 0;}
+/* 加盟管理 结束*/
+
+/* 财务中心 */
+.Countylevel_JoinImg05{background-position:-79px 0;}
+/* 财务中心 结束*/
+
+/* 账号管理 */
+.Countylevel_JoinImg06{background-position:-103px 0;}
+/* 账号管理 结束*/
+
+/* 中间 左边导航栏 结束*/
+
+/* 中间 右边开始 */
+.ProductShelves{width:114px; height:24px; line-height:15px; font-size:18px; text-align: center; border-bottom:2px solid #ff500a; margin-bottom:15px; font-family:"宋体";}
+
+/* 处理售后开始 */
+.customerService{width:994px; height:auto;}
+
+/* 买家已申请退款开始 */
+.customerService .top{height:69px; border:1px solid #e5e5e5; background:#fafafa; padding-top:14px; line-height:26px; font-size:16px;}
+.customerService .top .icons{width:26px; height:26px; display:inline-block; background:url(../img/Countylevel_JoinImg.png) no-repeat 0 -208px; vertical-align:middle; margin:-3px 5px 0 20px; }
+.customerService .top .icons2{background-position: -36px -210px;}
+
+/* 中部开始 */
+.customerService .mid{height:34px; line-height:34px; border:1px solid #e5e5e5; background:#fafafa; text-align:center; margin-top:15px;}
+.customerService .baby{width:350px;}
+.customerService .deal{width:154px;}
+.customerService .number{width:64px;}
+.customerService .buyers{width:88px;}
+.customerService .state{width:96px;}
+.customerService .refund{width:118px;}
+.customerService .operation{width:120px;}
+
+/* 底部开始 */
+.customerService .down{margin-top:13px; border:1px solid #ececec;}
+.customerService .down .down_head{height:41px; line-height:41px; border-bottom: 1px solid #ececec; background:#f1f1f1;}
+.customerService .down .down_head .left{margin-left:24px; margin-right:43px;}
+.customerService .down .down_head .right{color:#666;}
+/* 底部订单开始 */
+.customerService .down_foot .order{height:90px; padding-top:18px; line-height:18px; text-align:center; border-bottom:1px solid #ececec;}
+.customerService .down_foot .baby .img{width:58px; height:57px; margin:16px 25px;}
+.customerService .down_foot .baby .img img{width:58px; height:58px;}
+.customerService .down_foot .baby .right{width:236px; text-align:left;}
+.customerService .down_foot .baby .right .size{color:#999;}
+.customerService .down_foot .baby .right .messages{color:#999;}
+.customerService .down_foot .state .color{color:#ff500c; cursor:pointer;}
+/* 底部买家信息开始 */
+.customerService .down_foot .information{color:#999; height:26px; line-height:26px;}
+.customerService .down_foot .information li{margin-left:25px;}
+.customerService .down_foot .information .first span{margin-left:25px;}
+
+/* 退款金额开始 */
+.customerService .down_foot .refund{border-left:1px solid #ececec; height:117px; padding-top:18px; text-align: center;}
+.customerService .down_foot .operation{border-left:1px solid #ececec; height:117px; padding-top:18px; text-align:center;}
+
+/* 最底部开始 */
+.customerService .last{margin-top:14px; border:1px solid #e5e5e5; background:#fafafa; padding:4px 19px 4px 26px; line-height:30px;}
+.customerService .last span{color:#666;}
+.customerService .last .refuse{border-top:1px dashed #e5e5e5; padding-top:24px; margin-bottom:53px;}
+.customerService .last .refuse span{line-height:108px;}
+.customerService .last .refuse textarea{width:868px; height:98px; line-height:22px; padding-left:14px; padding-top:10px; color:#999; border:1px solid #e1e1e1; resize:none;}
+
+/* 确定按钮开始 */
+.customerService .btn{margin-top:22px; padding-right:20px; text-align:right;}
+.customerService .btn a{width:90px; height:29px; line-height:29px; text-align:center; color:#7c7b7b; background:#e6e6e6; margin-right:8px; display:inline-block; border-radius:2px;}
+.customerService .btn a.color{color:#fff; background:#ff500b;}
+ 
+/* 中间 结束*/
+
+
+
+/* 底部 开始 */
+.bottom_box{background: #fafafa;border-top:1px solid #e2e2e2;padding-bottom: 30px;margin-top: 32px;}
+.bottom_foot_box{margin-top: 43px;}
+.bottom_foot_box ul{width: 472px;margin: 0 auto;}
+.bottom_foot_box ul li{border-right: 1px solid #999;float: left;padding: 0 12px;height: 13px;line-height: 13px;}
+.bottom_foot_box ul li a{color: #666;}
+.bottom_foot_box ul li:last-child{border-right:0px;}
+.bottom_section_last{text-align: center;margin-top: 8px;}
+.bottom_section_last p{color:#999;margin-bottom: 2px;}
+/* 底部 结束 */
+
+
+/* 处理退款弹窗开始 */
+.classificationOfPop .top{height:40px; text-align:center; background:#ebebeb; text-align: center; line-height:40px; margin-bottom:70px;}
+.classificationOfPop .mid span{width:26px; height:26px; border-radius:13px; background:#f42323; text-align:center; line-height:26px; color:#fff; display:inline-block; font-size:18px; margin-right:23px;}
+.classificationOfPop .mid{text-align: center; margin-bottom:70px;}
+
+/* 同意退换货地址开始 */
+.customerService .returnAddress{border:1px solid #e5e5e5; background:#fafafa; margin-top:12px; padding:6px 14px 0;}
+.customerService .returnAddress li{margin-bottom:20px;}
+.customerService .returnAddress li .address_left2{display:none;}
+.customerService .returnAddress li.on .address_left2{display:block;}
+.customerService .returnAddress .address_left span{width:9px; height:12px; background:url(../img/Countylevel_JoinImg.png) no-repeat -73px -216px; display:inline-block; margin-right:10px;}
+.customerService .returnAddress .address{width:885px;}
+.customerService .returnAddress .address input{vertical-align:middle;margin-top:-2px;}
+.customerService .returnAddress .address span{display:inline-block; color:#666;}
+.customerService .returnAddress .address .one{width:436px;}
+.customerService .returnAddress .address .two{width:99px;}
+.customerService .returnAddress .address .three{width:230px;}
+.customerService .returnAddress a{color:#ff500b; margin-left:19px;}
+.customerService .returnAddress .increase{height:22px; margin-left:0; margin-bottom:28px; display:block;}
+.customerService .returnAddress .increase span{width:18px; height:18px; background:url(../img/Countylevel_JoinImg.png) no-repeat -182px -80px; display:inline-block; margin-right:7px; margin-top:-2px; vertical-align:middle;}
+
+/* 同意退款-编辑地址开始 */
+/* 新增退货地址开始 */
+.ProductShelves_r{font-weight:bold; line-height:15px; font-size:15px; margin-right:5px; font-family:"宋体";}
+/* 收货人 */
+.addAddress .top{width:985px; border:1px solid #e7e7e7; margin-bottom:26px;}
+.addAddress .top ul{padding:18px 0 0 10px; line-height:29px; margin-bottom:42px;}
+.addAddress .top li{margin-bottom:14px; height:29px;}
+.addAddress .top li span{color:#ff3300; display:inline-block; vertical-align:middle;}
+.addAddress .top .consignee input{width:165px; height:27px; border:1px solid #e5e5e5; text-indent:11px;}
+.addAddress .top input::-webkit-input-placeholder{color:#999;}
+.addAddress .top input:-ms-input-placeholder{color:#999;}
+.addAddress .top input::-moz-placeholder{color:#999;}
+/* 地址 */
+.addAddress .top .address select{width:155px; height:27px; border-color:#e5e5e5; outline:none; padding-left:17px; color:#999;}
+/* 详细地址 */
+.addAddress .top .detailedAddress input{width:535px; height:27px; border:1px solid #e5e5e5; text-indent:11px;}
+/* 联系电话 */
+.addAddress .top .telephone input{width:165px; height:27px; border:1px solid #e5e5e5; text-indent:11px;}
+/* 设为默认地址开始 */
+.addAddress .top .setUp{margin-top:10px;}
+.addAddress .top .setUp input{vertical-align:middle;}
+/* 保存按钮 */
+.addAddress .top .sub{display:block; width:120px; height:29px; font-size:14px; background:#ff500b; text-align: center; line-height:29px; color:#fff; margin:42px 0 40px 53px; cursor:pointer;}
+/* 新增退货地址结束 */
+.addAddress .down{border:1px solid #e5e5e5; text-align:center;}
+.addAddress .down .first{height:34px; line-height:34px; border-bottom:1px solid #e5e5e5; background:#fafafa;}
+.addAddress .down .default{width:81px;}
+.addAddress .down .consignee{width:120px;}
+.addAddress .down .where{width:175px;}
+.addAddress .down .street{width:350px;}
+.addAddress .down .telephone{width:129px;}
+.addAddress .down .operation{width:128px;}
+.addAddress .down .last{height:85px; line-height:85px;}
+.addAddress .down .last .default{width:80px; border-right:1px solid #e5e5e5;}
+.addAddress .down .last .consignee{width:119px; border-right:1px solid #e5e5e5;}
+.addAddress .down .last .where{width:174px; border-right:1px solid #e5e5e5;}
+.addAddress .down .last .street{width:349px; border-right:1px solid #e5e5e5;}
+.addAddress .down .last .telephone{width:128px; border-right:1px solid #e5e5e5;}
+.addAddress .down .last .operation .left{margin-right:27px;}
+
+/* 买家已回寄开始 */
+.customerService .top .top_down{margin-top:14px; line-height:12px; margin-left:73px;}
+.customerService .top .top_down p{display:inline-block; font-size:12px;}
+.customerService .top .top_down p span{color:#666666;}
+.customerService .top .top_down .logistics{width:244px;}
+.customerService .top .top_down .look{font-size:12px; margin-right:48px; color:#ff500b;}
+.customerService .top .top_down .look span{width:10px; height:6px; display:inline-block; background:url(../img/Countylevel_JoinImg.png) no-repeat -182px -219px;} 
+
+/* 同意换货—确认收货开始 */
+.customerService .exchange p{color:#444; display:inline-block; margin-left:21px; font-size:12px;}
+.customerService .exchange p span{color:#666;}
+.customerService .exchange a{color:#ff500b; font-size:12px; margin-left:74px;}
+
+
+/* 物流信息开始 */
+.package-status .currentLocation{height:51px; line-height:51px; font-size:15px; margin:0 61px; padding-left:19px; border-bottom:1px solid #e7e7e7; margin-bottom:20px;}
+.package-status .status-list li::before {background-color: #d9d9d9;border: 3px solid #f3f3f3;border-radius: 5px;content: "";display: inline-block;height: 5px;margin-left: -6px;margin-right: 10px;width: 5px;}
+.package-status .status-list li {margin-bottom: -2px;}
+.package-status .status-list li {height: auto;min-height: 30px;}
+.package-status .status-list li {border-left: 1px solid #d9d9d9;height: 36px;margin-top: -5px;}
+.package-status {background:#f3f3f3; border:1px solid #e5e5e5; border-top:none;}
+.package-status .status-box::before{content: " ";display: block;height: 4px;left: 20px;position: absolute;top: -2px;width: 10px;}
+.package-status .status-box{position: relative;}
+.package-status .status-box{overflow: hidden;}
+.package-status .status-list{margin-top: 0; font-size: 12px; list-style: outside none none; padding:10px 22px 30px; margin-left:61px;}
+.package-status .status-list .date{width: 78px;}
+.package-status .status-list .date, .package-status .status-list .week, .package-status .status-list .time{display: inline-block;}
+.package-status .status-list .date{font-weight: 600;margin-right: 8px;}
+.package-status .status-list .week{width: 32px;font-weight: 700;}
+.package-status .status-list .time{width: 48px;}
+.package-status .status-list .time{margin-left: 5px;margin-right: 28px;}
+.package-status .status-list .text{display: inline-block;line-height: 1.5em;vertical-align: text-top;width: 635px;}
+.hidden{visibility: hidden;}
+.package-status .status-box .status-list .latest::before{background-color: #fe4300;border-color: #f8e9e4;}
+.package-status .status-box .status-list .latest{border: medium none;padding-bottom: 15px;}			
+.package-status .status-list li.latest::before{margin-left:-5px}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

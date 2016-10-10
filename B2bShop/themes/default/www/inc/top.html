@@ -1,0 +1,36 @@
+$set(coltName=this.Application.ControllerName.ToLower())
+$if("cart|buy|payment".indexOf(coltName)<0)
+$set(topAd=clr.XcpNet.Ad.Modules.Advertisement.GetById(this.DataSource,133))
+<div class="headerTopAd w100">
+    <a href="$topAd.Url" target="_blank">
+        <img src="$topAd.ImgUrl" />
+    </a>
+    <span onclick="$(this).parent('div').hide()">X</span>
+</div>
+$end
+<div class="header_topbox w100">
+    <div class="header_topNav w1000  clearFix">
+        <div class="header_topNav_left fl">
+            <ul class="clearFix">
+                <li>
+                    送至：${this.Location.ProvinceTxt}${this.Location.CityTxt}${this.Location.CountyTxt}
+                </li>
+            </ul>
+        </div>
+        <div class="header_topNav_right fr">
+            <ul class="clearFix" id="control">
+                $if(this.IsLogin)
+                <li><a href="$site.SupplierUrl"> $this.User.Identity.Name</a></li>
+                <li><a href="$passport('/logout')"> 退出</a></li>
+                $else
+                <li><a href="$passport('/login')?target=$site.SupplierUrl">请登录</a></li>
+                $end
+                <li><a href="$site.SupplierUrl$url('/shop/order')">我的订单</a></li>
+                <li class="phone"><a href="#">手机乡城品<span></span></a></li>
+                <li class="attention"><a href="#">关注乡城品</a></li>
+                <li class="kehu"><a href="http://help.xcpnet.com/article/list/5.html" target="_blank">售后服务</a></li>
+                <li class="kehu"><a href="http://help.xcpnet.com/article/list/3.html"  target="_blank">帮助中心</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

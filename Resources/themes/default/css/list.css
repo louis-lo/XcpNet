@@ -1,0 +1,141 @@
+/* BEGIN list */
+.main .aside dd {
+	padding-left: 12px;
+	padding-right: 12px;
+}
+.main .aside li {
+	width:50%;
+	height: 22px;
+	margin-top: 10px;
+	line-height: 22px;
+	float: left;
+	text-align: center;
+}
+/* END list */
+
+/* BEGIN filter */
+.filter {
+	line-height: 1.5;
+	border: 1px solid #E5E5E5;
+}
+.filter .row {
+	padding: 12px 15px;
+	border-top: 1px dotted #E5E5E5;
+}
+.filter .row.first {
+	border-top: 0;
+}
+.filter .key {
+	width: 75px;
+}
+.filter .value {
+	width: 850px;
+}
+.filter .ext {
+	width: 43px;
+	text-align: right;
+}
+.filter .active a {
+	color: #ED1611;
+	font-weight: bold;
+}
+.filter li {
+	float: left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.filter .key,
+.filter .value,
+.filter .ext {
+	float: left;
+}
+/* END filter */
+
+/* BEGIN .main-list  */
+.main-list li,
+.main-list li .img {
+	width:226px;
+}
+.main-list li {
+	padding: 12px;
+	padding-bottom: 0;
+	margin-left: 17px;
+}
+.main-list li .img {
+	height: 226px;
+}
+.main-list .thumbnail-footer {
+	margin-top: 0;
+}
+.main-list .price {
+	padding-top: 2px;
+	padding-bottom: 8px;
+}
+.main-list del {
+	padding-right: 5px;
+	border-right: 1px solid #999;
+}
+.main-list .assure {
+	height: 33px;
+	padding: 0;
+	line-height: 33px;
+	border-top: 1px dotted #C1C1C1;
+}
+.main-list .assure span {
+	display: block;
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+/* END .main-list  */
+
+/* BEGIN history */
+.history {
+	padding-top:25px;
+	padding-bottom:25px;
+	margin-top:45px;
+	border:1px solid #EEE;
+	overflow: hidden;
+}
+.history ul {
+	position:relative;
+	left:-1px;
+	width:1000px;
+}
+.history li,
+.history li .img {
+	width:160px;
+}
+.history li {
+	padding-left:20px;
+	padding-right:19px;
+	border: 0;
+	border-right: 1px solid #EEE;
+}
+.history .img {
+	height: 160px;
+}
+.history .thumbnail-footer {
+	margin-top: 12px;
+}
+.history ins {
+	font-size: 18px;
+}
+.history del {
+	display: block;
+	margin-top: 5px;
+}
+.history .thumbnail .tip span {
+	width:10px;
+	height:17px;
+	line-height:17px;
+	background:url(img/tip.png);
+}
+.history .thumbnail .tip p {
+	height:17px;
+	padding-left: 3px;
+	padding-right: 3px;
+	font-size: 12px;
+	line-height:17px;
+}
+/* END history */

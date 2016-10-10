@@ -1,0 +1,146 @@
+﻿
+/* 方案管理开始 */
+.ProductShelves{width:77px; height:24px; line-height:15px; font-size:15px; text-align: center; border-bottom:2px solid #ff500a; font-family:"宋体";}
+
+/* 添加方案开始 */
+.programme_top{margin-top:13px; line-height:29px;}
+.programme_top select{width:172px; height:29px; border-color:#e5e5e5; color:#999; text-indent:13px; outline:none; margin-right:8px;}
+.programme_top .top{margin-bottom:15px;}
+.programme_top .top .query{display:inline-block; margin-left:15px; color:#666; cursor:pointer;}
+.programme_top .top .query span{width:11px; height:5px; background:url(img/Countylevel_JoinImg.png) no-repeat -215px -86px; display:inline-block;}
+.search_button_condition{height: 25px;background-color: #ffffff;border: 0px;border-left: 0px;}
+.search_button_condition:hover{color:#e31939;}
+.search_button_condition img{float: right;margin: 6px 6px;}
+.search_button_condition span{font-size: 12px;}
+.programme_top .top .activation{display:inline-block; width:100px; height:29px; background:#ff0017; text-align: center; color:#fff; cursor:pointer;}
+.programme_top .search_condition{display:none;}
+.programme_top .down{margin-bottom:15px;}
+.programme_top .down_query{width:172px; height:29px; border:1px solid #e5e5e5; text-indent:13px; margin-right:81px;}
+.programme_top .down .sub{width:80px; height:29px; background:#ff500a; color:#fff; cursor:pointer;}
+/* 添加方案开结束*/
+
+/* 方案内容开始 */
+.programme{border-collapse: collapse; text-align:center;}
+.programme li{border:1px solid #e5e5e5; height:34px; line-height:34px; background:#fafafa; margin-bottom:9px;}
+.programme .name{width:298px;}
+.programme .attribute{width:142px;}
+.programme .industry{width:148px;}
+.programme .state{width:142px;}
+.programme .number{width:78px;}
+.programme .operation{width:172px;}
+.programme .many{height:51px; line-height:51px; background:none;}
+.programme .many .name img{width:20px; height:20px;vertical-align: middle; margin-right:18px;}
+.programme .many .operation .left{margin-right:25px;}
+.many .deleteCon:hover{color: #ff500a;}
+/* 方案内容结束 */
+.addingScheme .down{border: 1px solid #e5e5e5; margin-top:10px;}
+.addingScheme .down .down_top{height:44px; line-height:44px; border-bottom:1px solid #e5e5e5; font-family:"宋体"; background:#f3f3f3;}
+.addingScheme .down .down_top h3{margin-left:13px; font-size:15px;}
+.addingScheme .down .down_top .right{width:100px; height:29px; line-height:29px; background:#ff0017; text-align:center; color:#fff; margin:8px 27px 0 0; font-size:14px; cursor:pointer; border-radius:3px;}
+
+.addingScheme .down .down_down{min-height:285px; overflow:auto; text-align:center; border-bottom:1px solid #e5e5e5;}
+.addingScheme .down .down_down .first{background:#fafafa; line-height:34px;}
+.addingScheme .down .down_down .first div{height:34px;}
+.addingScheme .down .down_down .one{width:44px;}
+.addingScheme .down .down_down .two{width:66px;}
+.addingScheme .down .down_down .three{width:171px; padding:0 36px; white-space:nowrap; text-overflow:ellipsis; overflow: hidden;}
+.addingScheme .down .down_down .four{width:104px;}
+.addingScheme .down .down_down .five{width:73px;}
+.addingScheme .down .down_down .six{width:84px;}
+.addingScheme .down .down_down .seven{width:73px; cursor:pointer; position:relative;}
+.addingScheme .down .down_down .eight{width:53px;}
+.addingScheme .down .down_down .nine{width:111px;}
+.addingScheme .down .down_down .ten{min-width:122px;}
+.addingScheme .down .down_down .seven .state span{width:9px; height:5px; display:inline-block; background:url(img/Countylevel_JoinImg.png) no-repeat -170px -5px; }
+.addingScheme .down .down_down .seven ul{border:1px solid #ff733b;position: absolute;left:-6px; bottom:-62px; z-index:99; display:none;}
+.addingScheme .down .down_down .first .seven:hover ul{display:block;}
+.addingScheme .down .down_down .seven ul li{width:85px; height:30px; line-height:30px; color:#666; background:#fff;}
+.addingScheme .down .down_down .seven ul li:hover{background:#ff6633; color:#fff;}
+
+.addingScheme .down .down_down .last{border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; margin-bottom:10px;}
+.addingScheme .down .down_down .last div{height:54px; line-height:54px;}
+.addingScheme .down .down_down .last .one{width:43px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .two{width:65px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .three{width:170px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .four{width:103px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .four span{display:block; line-height:25px; text-align: left; text-indent:19px;}
+.addingScheme .down .down_down .last .five{width:72px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .six{width:83px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .seven{width:72px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .eight{width:52px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .nine{width:110px; border-right:1px solid #e5e5e5;}
+.addingScheme .down .down_down .last .nine input{width:80px; height:27px; border:1px solid #e5e5e5; background:#fff; line-height:27px; display:inline-block; text-align: center;}
+.addingScheme .down .down_down .last .ten .left{margin-right:24px; color:#ff500a;}
+.addingScheme .down .down_down .last:hover{background:#fbefea;}
+
+/* 添加方案-批量删除按钮 */
+.addingScheme_delete_right{margin:25px 5px 11px 260px;}
+.addingScheme_delete{width:80px; height:25px; background:#fb8a5d; color:#fff; text-align: center; line-height:25px; border-radius:3px; margin-top:27px; margin-left:13px; cursor:pointer;}
+
+/* 添加方案-保存按钮 */
+.addingScheme_preservation{text-align: right;}
+.addingScheme_preservation input{width:100px; height:29px; background:#ff500a; color:#fff; margin-top:15px; cursor:pointer;}
+
+/* 添加方案结束 */
+
+/* 保存按钮 */
+.priceManagement_preservation{text-align: right;}
+.priceManagement_preservation input{width:100px; height:29px; background:#f14806; text-align:center; line-height:29px; color:#fff; display:inline-block; cursor:pointer; margin-top:31px; margin-right:35px; font-size:14px;}
+/* 添加方案结束 */
+
+
+/* 添加产品开始 */
+.add_product{border:1px solid #e5e5e5; text-align:center; padding-bottom:31px;}
+.add_product li{height:34px; line-height:34px; margin-bottom:14px; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5;}
+.add_product .first{background:#fafafa; border:0; margin-bottom:0;}
+.add_product .one{width:40px;}
+.add_product .two{width:85px;}
+.add_product .three{width:261px;}
+.add_product .four{width:104px;}
+.add_product .five{width:143px;}
+.add_product .six{width:109px;}
+.add_product .seven{width:248px;}
+
+.add_product .last .one{width:39px; border-right:1px solid #e5e5e5;}
+.add_product .last .two{width:84px; border-right:1px solid #e5e5e5;}
+.add_product .last .three{width:200px; padding:0 30px; border-right:1px solid #e5e5e5; white-space:nowrap; text-overflow:ellipsis; overflow: hidden;}
+.add_product .last .four{width:103px; border-right:1px solid #e5e5e5;}
+.add_product .last .four img{width:20px; height:20px; vertical-align:middle;}
+.add_product .last .five{width:142px; border-right:1px solid #e5e5e5;}
+.add_product .last .six{width:108px; border-right:1px solid #e5e5e5;}
+.add_product .last .seven{text-align:left;}
+.add_product .last .seven .left{margin-left:62px; margin-right:31px; color:#ff500a;}
+.add_product .last .seven .on{color:#5eba78;}
+.add_product .last:hover{background:#fbefea;}
+
+/* 添加方案弹窗开始 */
+.classificationOfPop .top{height:42px; line-height:42px; background:#ff500b; font-size: 16px; color:#fff;}
+.classificationOfPop .mid{border:1px solid #e5e5e5; border-bottom:0;}
+.classificationOfPop li{background:#fafafa; height:42px; line-height:42px; border-bottom:1px solid #e5e5e5;}
+.classificationOfPop .first{background:#ececec; height:28px; line-height:28px;}
+.classificationOfPop .color{width:100px;}
+.classificationOfPop .specifications{width:100px;}
+.classificationOfPop .material{width:100px;}
+.classificationOfPop .price{width:75px;}
+.classificationOfPop .stock{width:70px;} 
+.classificationOfPop .number{width:80px;}
+.classificationOfPop .operation{width:80px;}
+.classificationOfPop .mid ul{height:215px; overflow:auto;} 
+.classificationOfPop .mid select{width:88px; height:29px; border:1px solid #e5e5e5; color:#999; outline:none;}
+.classificationOfPop .mid input{width:58px; height:27px; border:1px solid #e5e5e5; text-align: center;}
+.classificationOfPop .down{height:46px; line-height:46px; margin-left:14px;}
+.classificationOfPop .down span{width:12px; height:12px; display: inline-block; background:url(img/Countylevel_JoinImg.png) no-repeat -91px -216px; vertical-align:middle; margin-top:-3px; margin-right:2px;}
+.classificationOfPop .down{color:#ff500b; text-align: left; cursor:pointer;}
+.colorOn{display: none;}
+/*顶部开始 */
+.addingScheme .top{border:1px solid #e5e5e5; padding:13px 10px; margin-top:8px;}
+.addingScheme .top li{line-height:31px; margin-bottom:10px;}
+.addingScheme .top .left{margin-right:15px; width:60px;}
+.addingScheme .top .one .company{width:430px; height:29px; border:1px solid #e5e5e5; text-indent:14px;}
+.addingScheme .top .two p{display:inline-block; margin-right:33px;}
+.addingScheme .top .two p input{vertical-align:middle; margin-right:10px;}
+.addingScheme .top .one select{width:192px; height:29px; border:1px solid #e5e5e5; text-indent:16px; color:#999; outline:none;}
+.addingScheme .top .last{line-height:72px;}
+.addingScheme .top .last .right{position:relative; line-height:0;}
+.addingScheme .top .last span img{width:78px; height:72px;}
+.addingScheme .top .last .right input{width:78px; height:72px; position:absolute; left:0; top:0; opacity:0; z-index:99;}

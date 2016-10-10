@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/citygoods_list.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+
+</head>
+<body bgcolor="#f6f6f6">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="clearfix bar bar-nav col_333 bg_fff">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="#">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    评价
+                </div>
+            </div>
+
+            <div class="content native-scroll">
+                <form id="SetComment" onsubmit="return false">
+                    <div class="clearfix pad_lr admin_evaluateTop">
+                        <div class="fl admin_evaluateImg"><img src="$Member.GetImage(res('css/img/user/default_face.png'))" /></div>
+                        <div class="fl admin_evaluateNum">
+                            <div class="col_333">评分</div>
+                            <div class="star_bg clearfix">
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                    <li>4</li>
+                                    <li>5</li>
+                                </ul>
+                                <input type="hidden" id="Star" name="Star" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin_evaluateTextarea pad_lr">
+                        <textarea name="Content" id="Content" cols="28" rows="5" onKeyDown="textCounter(Content,remLen,200);" onKeyUp="textCounter(Content,remLen,200);" placeholder="写下购买体会和使用感受来帮助其他小伙伴~"></textarea>
+                        <div style="text-align:right;"><input name="remLen" type="text" value="200" size="5" style="background:none;border:none;width:60px;text-align:right;" readonly="readonly">/200</div>
+                    </div>
+                    <input type="hidden" name="TargetId" value="$Product.ProductId" />
+                    <input type="hidden" id="CommentImgs" name="CommentImgs" />
+                    <input type="hidden" name="TargetData" value="$Product.OrderId" />
+                    <div class="admin_evaluateButton pad_lr"><button type="submit">提交</button></div>
+                </form>
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+    <SCRIPT LANGUAGE="JavaScript">
+        $(function () {
+            $(".star_bg ul li").click(function () {
+                var this_index = $(this).index() + 1;
+                $(".star_bg ul").attr('class', 'star' + this_index);
+                $("#Star").val(this_index);
+            })
+
+            $("#SetComment").submit(function () {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '$url("/comment/Submit")',
+                    data:$(this).serialize(),
+                    success: function (result) {
+                        if (result.code == -200) {
+                            //Cnaws.showNotify('success', '评论成功！');
+                            $.alert('评论成功！');
+                            setTimeout(function () {
+                                window.location.href = "$url('/bought/list')"
+                            }, 1200);
+                        }
+                        else {
+                            //Cnaws.showNotify('error', '评论失败,请稍后再试！');
+                            $.alert('评论失败,请稍后再试！');
+                        }
+                    }
+                });
+
+                //Cnaws.postAjax('$url("/comment/Submit")', $(this).serialize(), function (data, args) {
+                //    if (data.code == -200) {
+                //        Cnaws.showNotify('success', '评论成功！');
+                //        setTimeout(function () {
+                //            window.location.href = "$url('/comment/list/0/0/0/0/0/1')"
+                //        }, 1200);
+                //    }
+                //    else {
+                //        Cnaws.showNotify('error', '评论失败,请稍后再试！');
+                //    }
+                //});
+            });
+        })
+
+       // <!--
+       function textCounter(field, countfield, maxlimit) {
+       // 函数，3个参数，表单名字，表单域元素名，限制字符；
+       if (field.value.length > maxlimit)
+       //如果元素区字符数大于最大字符数，按照最大字符数截断；
+       field.value = field.value.substring(0, maxlimit);
+       else
+       //在记数区文本框内显示剩余的字符数；
+       countfield.value = maxlimit - field.value.length;
+       }
+       //-->
+    </SCRIPT>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

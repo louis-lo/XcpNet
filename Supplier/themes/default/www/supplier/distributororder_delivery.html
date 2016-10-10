@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商后台-待发货订单</title>
+    <link type="text/css" rel="stylesheet" href="$res('css2.0/supplier/xcp.supplier.productdeliver.css')">
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/datepicker/wdatepicker.js')"></script>
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/side.html")
+        <!-- 中间 开始 -->
+        <div class="center_wrapRight fr">
+            <h2>待发货的宝贝</h2>
+            <form action="$url('/distributororder/list/delivery')" method="get">
+                <div class="seachWrap" style="margin-top:10px">
+                    订单搜索：<input type="text" name="title" value="$Search.title" style="width:185px" placeholder="输入商品标题或订单号进行搜索" />
+                    <span>收货人：</span><input name="nickName" value="$Search.nickName" type="text" placeholder="请输入收件人" />
+                    <span>支付时间：</span><input type="date" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" name="startDate" value="$Search.startDate" /> 到 <input onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" type="date" name="endDate" value="$Search.endDate" />
+                    <div class="hunt" style="display:block"><input type="submit" id="btnSearch" value="搜索" /></div>
+                </div>
+            </form>
+            <table align="center" border="0" width="100%" class="tableTrHeader">
+                <tr>
+                    <th class="heartTh">宝贝</th>
+                    <th>单价（元）</th>
+                    <th class="numberTh">数量</th>
+                    <th>订单状态</th>
+                    <th>实收款（元）</th>
+                    <th>交易操作</th>
+                </tr>
+            </table>
+            <!-- 分页 开始 -->
+            <div class="center_pageWrapT">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+                        $if(OrderList.PageIndex==1)
+                        <li class="page_prev">
+                            <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/distributororder/list/delivery/',OrderList.PageIndex-1)$this.Request.Url.Query" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+                        $if(OrderList.PagesCount<=0||OrderList.PageIndex==OrderList.PagesCount)
+                        <li class="page_next page_prev">
+                            <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/distributororder/list/delivery/',OrderList.PageIndex+1)$this.Request.Url.Query" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+            <!-- if begin -->
+            $foreach(item in OrderList)
+            $set(maps=item.GetMapping(this.DataSource))
+            <table align="center" border="0" width="100%" class="heartDelivInf">
+                <tr class="tableTrTop">
+                    <td colspan="6">订单号：$item.Id<span>付款时间：$item.PaymentDate.ToString()</span></td>
+                </tr>
+                $foreach(map in maps)
+                $set(info=json(map.ProductInfo))
+                <tr>
+                    <td class="tableTd">
+                        <div class="heartInformation">
+                            <a href="$Site.B2bShopUrl$url('/product/show/',map.ProductId)" target="_blank" class="clearFix">
+                                <div class="heartDelivImg fl">
+                                    <img src="$map.GetImage(info.Image)" alt="$info.Title">
+                                </div>
+                                <div class="heartDelivMs fl">
+                                    $info.Title
+                                    <p>
+                                        $foreach(attr in info.Series)
+                                        <span>$attr.Key：$attr.Value</span>&nbsp;
+                                        $end
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="pricTd">
+                        $map.Price.ToString("C2")
+                        $if(map.IsService)
+                        <br />
+                        <a href="$url('/aftersales/aftersalesdetailed/',map.AfterSalesOrderId)" style="color:#ff6600;" target="_blank" title="点击查看售后详情">(己申请售后)</a>
+                        $end
+                    </td>
+                    <td class="numberTd">$map.Count$info.Unit</td>
+                    $if(foreachIndex==1)
+                    <td class="stutasTd" rowspan="$maps.Count">$if(item.State==3)等待出库$elseif(item.State==5)等待发货$end<p><a href="$url('/shop/supplierstatus/',item.Id)" target="_blank">订单详情</a></p></td>
+                    <td class="receiptTd" rowspan="${maps.Count}">
+                        <p>$item.TotalMoney.ToString("C2")</p>
+                        <p>(含邮费$item.FreightMoney.ToString("C2"))</p>
+                        $if(item.Payment=="cashondelivery")<p style="color:red">货到付款</p>$end
+                    </td>
+                    <td class="stockTd" rowspan="${maps.Count+1}">
+                        $if(item.State==3)
+                        <a href="javascript:;" class="change OutWarehouse new_address" data-id="$item.Id">出库</a>
+                        $elseif(item.State==5)
+                        <a href="javascript:;" class="change delivery new_address" data-id="$item.Id">发货</a>
+                        $end
+                    </td>
+                    $end
+                </tr>
+                $end
+                <tr>
+                    <td colspan="4" class="merchantTd">
+                        $set(addr=json(item.Address))
+                        买家信息：<span>$addr.Consignee</span>
+                        <span>$addr.Mobile</span>
+                        <span>邮编：$addr.PostId</span>
+                        <span>地址：$addr.Province$addr.City$addr.County$addr.Address</span>
+                        <span>买家留言：$item.Message</span>
+                    </td>
+                    <td class="receiptTd"></td>
+                </tr>
+            </table>
+            $end
+            <!-- if end -->
+            <!-- 弹出层模板-->
+            $load("inc/xalert.html")
+            <script type="text/html" id="tmpl-address">
+                <div class="center_addAddressTitle">填写物流信息</div>
+                <div class="new_addressWrap clearFix">
+                    <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                        <div class="new_addressWrap clearFix">
+                            <div class="new_addressLeft fl">
+                                <span class="expressName">快递名称：</span>
+                                <span class="expressN">快递单号：</span>
+                            </div>
+                            <div class="new_addressRint fl">
+                                <div>
+                                    <select class="checkWidth" id="providerKey" name="ProviderKey">
+                                        $foreach(LogisticsCompany in clr.Cnaws.Product.Modules.LogisticsCompany.GetAll(this.DataSource))
+                                        <option value="$LogisticsCompany.NameCode">$LogisticsCompany.Name</option>
+                                        $end
+                                    </select>
+                                    <input type="hidden" name="ProviderName" id="providerName" />
+                                </div>
+                                <div class="expressNumber">
+                                    <input id="orderId" name="OrderId" type="hidden" value="1" />
+                                    <input id="billNo" name="BillNo" class="checkWidth" type="text" style="width:300px" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </script>
+            <!-- 弹出层结束-->
+            <!-- 分页 开始 -->
+            <div class="center_pageWrap clearFix">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+                        $if(OrderList.PageIndex==1)
+                        <li class="page_prev">
+                            <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/distributororder/list/delivery/',OrderList.PageIndex-1)$this.Request.Url.Query" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+
+                        $if(OrderList.BeginPage>1)
+                        $end
+                        $for(i=OrderList.BeginPage;i<=OrderList.EndPage;i++)
+                        $if(i==OrderList.PageIndex)
+                        <li class="page_numer itme">
+                            <a href="javascript:;">$i</a>
+                        </li>
+                        $else
+                        <li class="page_numer">
+                            <a href="$url('/distributororder/list/delivery/',i)$this.Request.Url.Query">$i</a>
+                        </li>
+                        $end
+                        $end
+                        $if(OrderList.PagesCount>OrderList.EndPage)
+                        <li class="page_numer"><a href="$url('/distributororder/list/delivery/',OrderList.PageIndex+1)$this.Request.Url.Query">...</a></li>
+                        <li class="page_numer"><a href="$url('/distributororder/list/delivery/',OrderList.PagesCount)$this.Request.Url.Query">$OrderList.PagesCount</a></li>
+                        $end
+
+                        $if(OrderList.PagesCount<=0||OrderList.PageIndex==OrderList.PagesCount)
+                        <li class="page_next page_prev">
+                            <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/distributororder/list/delivery/',OrderList.PageIndex+1)$this.Request.Url.Query" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                    <div class="total fl"> 共 $OrderList.PagesCount 页/$OrderList.TotalCount条，</div>
+                    <div class="form fl">
+                        <span class="text">跳到</span>
+                        <input class="input J_Input location_number" id="PageInput" type="number" aria-label="页码输入框" max="$OrderList.PagesCount" min="1" value="1">
+                        <span class="text">页</span>
+                        <span class="pagebtn J_Submit fr" tabindex="0" onclick="window.location.href='$url("/distributororder/list/delivery/","'+Math.min(parseInt(document.getElementById('PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value))+'")$this.Request.Url.Query'" role="button">跳转</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+        </div>
+        <!-- 中间 结束 -->
+    </div>
+    $load("inc/bottom.html")
+</body>
+</html>
+<script>
+    $(function () {
+
+        $(".OutWarehouse").click(function () {
+            Cnaws.postAjax('$url("/distributororder/list/dooutwarehouse")', "OrderId="+ $(this).data("id"), function (data, args) {
+                if (data.code == -200) {
+                    Cnaws.showSuccess('出库成功');
+                    setTimeout(function () {location.reload()},1500);
+
+                }
+                else {
+                    Cnaws.showError('出库失败，请重试或与管理员联系');
+                }
+            });
+
+        });
+
+        $(".delivery").xalert({
+            tmpl: '#tmpl-address',
+            height: '286px',
+            top:'25%',
+            callback:function(xalert){                
+                xalert.content.find("#orderId").val($(xalert.target).data("id"));
+                xalert.content.find("#orderId").val()
+                xalert.content.find("#providerName").val(xalert.content.find("#providerKey").find("option:selected").text());
+                Cnaws.postAjax('$url("/distributororder/list/dodelivery")',xalert.content.find("#addForm").serialize(),function (data, args) {
+                    if (data.code == -200) {                        
+                        Cnaws.showSuccess('发货成功');
+                        setTimeout(function () {location.reload()},1500);
+                    }
+                    else {
+                        Cnaws.showError('发货失败，请重试或与管理员联系');
+                    }
+                })
+                xalert.close();
+            },
+        });
+    })
+</script>

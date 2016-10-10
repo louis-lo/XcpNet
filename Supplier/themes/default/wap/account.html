@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>开通账号</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+    <script src="$res('wap/js2.0/zepto-mvalidate.js')"></script>
+    <style>
+        .field-tooltipWrap {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 19891014;
+            display: block;
+        }
+
+        .field-tooltipInner {
+            pointer-events: none;
+            display: table;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .field-tooltip {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            .field-tooltip .zvalid-resultformat {
+                display: inline-block;
+                position: relative;
+                background-color: rgba(0,0,0,0.8);
+                color: #fff;
+                padding: 10px 15px;
+                font-size: 14px;
+                border-radius: 6px;
+                box-shadow: 0 0 8px rgba(0,0,0,.1);
+                pointer-events: auto;
+                animation-name: fieldTipBounceIn;
+                -webkit-animation-name: fieldTipBounceIn;
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+                -webkit-animation-duration: .18s;
+                animation-duration: .18s;
+            }
+    </style>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    开通帐号
+                    <div class="navRe">
+                        <a href="#" class="col_ff7">查看状态</a>
+                    </div>
+                </div>
+            </div>
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <form class="zform zform-radius" action="$url('/distributor/createaccount')" id="form1" method="post" onsubmit="return false">
+                    <div class="accounts_info bg_fff">
+                        <div class="list-block">
+
+                            <ul>
+                                <!-- Text inputs -->
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">加盟级别</div>
+                                            <div class="item-input">
+                                                <input name="Leveltxt" type="text" data-id="1" placeholder="县级加盟商" id="picker" readonly="" value="县级加盟商" data-required="true" data-descriptions="level">
+                                                <input name="Level" type="hidden" id="LevelHidden" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">用户名</div>
+                                            <div class="item-input">
+
+                                                <input name="Name" type="text" class="field-text" placeholder="请输入用户名" data-required="true" data-descriptions="username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">密码</div>
+                                            <div class="item-input">
+                                                <input name="fPassword" type="password" placeholder="请输入密码" id="pwd" data-required="true" data-descriptions="password">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">确认密码</div>
+                                            <div class="item-input"><input name="Password" type="password" id="confirmpwd2" placeholder="请输入确认密码" data-required="true" data-descriptions="confirmpassword" data-conditional="confirmpwd"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">签约人</div>
+                                            <div class="item-input"><input name="Signatories" type="text" placeholder="请填写签约人" data-required="true" data-descriptions="sign"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">签约人电话</div>
+                                            <div class="item-input"><input name="SignatoriesPhone" type="number" placeholder="请填写联系电话" data-validate="phone" data-describedby="phone-description"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">负责人</div>
+                                            <div class="item-input"><input name="Contact" type="text" placeholder="请填写负责人" data-required="true" data-descriptions="responsible"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">负责人电话</div>
+                                            <div class="item-input"><input name="ContactPhone" type="number" placeholder="请填写负责人联系电话" data-validate="phone2" data-describedby="phone-description"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">选择省市区</div>
+                                            <div class="item-input">
+                                                <input type="text" id="city-picker" data-id="" readonly placeholder="请选择" data-required="true" data-descriptions="provincial_city" value="请选择">
+                                                <input type="hidden" id="area_provinces" name="area_provinces" />
+                                                <input type="hidden" id="area_cities" name="area_cities" />
+                                                <input type="hidden" id="area_counties" name="area_counties" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">详细地址</div>
+                                            <div class="item-input"><input name="Address" type="text" placeholder="请填写详细地址" data-required="true" data-descriptions="address"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">邮政编码</div>
+                                            <div class="item-input"><input name="PostId" type="number" placeholder="请填写邮政编码" data-validate="Postcode" data-describedby="phone-description"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="pad_lr">上传证件图片</h3>
+
+                    <div class="row pad_lr clearfix">
+                        <input type="hidden" id="ImgIndex" value="0" />
+                        <div class="col-33">
+                            <div class="box_imgchile uploadimg" id="uploadimg1" style="background:url($res('wap/img2.0/onload_imgicon.png')); background-size :contain; background-repeat:no-repeat;">
+                            </div>
+                        </div>
+                        <div class="col-33">
+                            <div class="box_imgchile uploadimg" id="uploadimg2" style="background:url($res('wap/img2.0/onload_imgicon.png'));background-size:contain; background-repeat:no-repeat;"></div>
+                        </div>
+                        <div class="col-33">
+                            <div class="box_imgchile uploadimg" id="uploadimg3" style="background:url($res('wap/img2.0/onload_imgicon.png'));background-size:contain;  background-repeat:no-repeat;"></div>
+                        </div>
+                        <!--<div class="col-33">
+                            <div class="box_imgchile">
+                                <div class="box_imglast">
+                                    <span class="onload_imgicon"><img class="uploadimg" id="uploadimg3" src="$res('wap/img2.0/onload_imgicon.png')" /></span>
+                                    <span>上传凭证</span>
+                                    <span>最多三张</span>
+                                </div>
+                            </div>
+                        </div>-->
+                        <input type="hidden" id="ImgIndex" value="0" />
+                    </div>
+
+                    <input type="hidden" id="CommentImgs" name="Images" />
+                    <div class="returngoods_button"><input type="submit" value="提交申请"></div>
+                </form>
+                <form id='formFile' name='formFile' style="display:none" method="post" action="$filesystem('upload')" target='frameFile' enctype="multipart/form-data">
+                    <input type="file" name="imgFile" id="ImageFile" />
+                </form>
+            </div>
+
+            <!-- content -->
+        </div>
+    </div>
+    <script>
+        $(function () {
+
+            //加盟级别
+            $("#picker").picker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+		<button class="button button-link pull-right close-picker">确定</button>\
+		<h1 class="title">请选择加盟级别</h1>\
+		</header>',
+                cols: [
+                    {
+                        textAlign: 'center'
+                         //$if(Distributor.Level==0)
+                        , values: [ 1, 2, 3, 4]
+                        , displayValues: [ '县级加盟商', '镇级旗舰店', '镇级中心店', '村级加盟店']//显示值
+                        //$elseif(Distributor.Level==1)
+                         , values: [ 2, 3, 4]
+                        , displayValues: ['镇级旗舰店', '镇级中心店', '村级加盟店']//显示值
+                        //$else
+                          , values: [4]
+                        , displayValues: [ '村级加盟店']//显示值
+                        //$end
+                    }
+                ]
+                , formatValue: function (picker, values, displayValues) {
+                    return displayValues;
+                },
+                onChange: function (picker, values, displayValues) {
+                    $(this.input).attr("data-id", values);
+                }
+            });
+            //地区
+            $("#city-picker").cityPicker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+		<button class="button button-link pull-right close-picker">确定</button>\
+		<h1 class="title">选择地区</h1>\
+		</header>'
+            });
+
+
+            //表单
+            $.mvalidateExtend({
+                phone: {
+                    required: true,
+                    pattern: /^0?1[3|4|5|8][0-9]\d{8}$/,
+                    each: function () {
+
+                    },
+                    descriptions: {
+                        required: '<div class="field-invalidmsg">请输入签约人号码</div>',
+                        pattern: '<div class="field-invalidmsg">您输入的手机号码格式不正确</div>',
+                        valid: '<div class="field-validmsg">正确</div>'
+                    }
+                },
+                phone2: {
+                    required: true,
+                    pattern: /^0?1[3|4|5|8][0-9]\d{8}$/,
+                    each: function () {
+                    },
+                    descriptions: {
+                        required: '<div class="field-invalidmsg">请输入负责人号码</div>',
+                        pattern: '<div class="field-invalidmsg">您输入的手机号码格式不正确</div>',
+                        valid: '<div class="field-validmsg">正确</div>'
+                    }
+                },
+                Postcode: {
+                    required: true,
+                    pattern: /^[a-zA-Z0-9 ]{3,12}$/,
+                    each: function () { },
+                    descriptions: {
+                        required: '<div class="field-invalidmsg">请输入邮政编码</div>',
+                        pattern: '<div class="field-invalidmsg">您输入的邮政编码格式不正确</div>',
+                        valid: '<div class="field-validmsg">正确</div>'
+                    }
+                }
+
+            });
+            $("#form1").mvalidate({
+                type: 1,
+                onKeyup: true,
+                sendForm: true,
+                firstInvalidFocus: false,
+                valid: function (event, options) {
+                    event.preventDefault();
+                    //点击提交按钮时,表单通过验证触发函数
+                    $("#form1").submit(function () {
+                        $("#LevelHidden").val($("#picker").data().picker.value);
+                        var form = $("#form1");
+                        form.attr('disabled', true);
+                        if (form.mvalidate) {
+                            $("#LevelHidden").val($("#picker").attr("data-id"));
+                            var areaid = $("#city-picker").attr("data-id").split(',');
+                            $("#area_provinces").val(areaid[0]);
+                            $("#area_cities").val(areaid[1]);
+                            $("#area_counties").val(areaid[2]);
+                            $.post(form.attr('action'), form.serialize(), function (data) {
+                                if (data.code == -200) {
+                                    //$.alert("提现申请成功，我们将会尽快处理");
+                                    window.location.href = '$url("/distributor/contacts")';
+                                    alert(0);
+                                }
+                                else {
+                                    alert(1);
+                                    $.alert('数据操作失败，请联系管理员');
+                                 
+                                }
+                                form.attr('disabled', false);
+                            }, 'json');
+                        }
+                        else {
+                            form.attr('disabled', false);
+                        }
+                        return false;
+                    });
+
+                },
+                invalid: function (event, status, options) {
+                    //点击提交按钮时,表单未通过验证触发函数
+
+                },
+                eachField: function (event, status, options) {
+                    //点击提交按钮时,表单每个输入域触发这个函数 this 执向当前表单输入域，是jquery对象
+
+                },
+                eachValidField: function (val) { },
+                eachInvalidField: function (event, status, options) { },
+                conditional: {
+                    confirmpwd: function () {
+                        return $("#pwd").val() == $("#confirmpwd2").val();
+                    }
+                },
+                descriptions: {
+                    level: {
+                        required: '请输入加盟级别',
+                    },
+                    username: {
+                        required: '请输入用户名'
+                    },
+                    password: {
+                        required: '请输入密码'
+                    },
+                    confirmpassword: {
+                        required: '请再次输入密码',
+                        conditional: '两次密码不一样'
+                    },
+                    sign: {
+                        required: '请输入签约人'
+                    },
+                    responsible: {
+                        required: '请输入负责人'
+                    },
+                    provincial_city: {
+                        required: '省市区',
+                    },
+                    address: {
+                        required: '请填写地址'
+                    }
+                }
+            });
+            //上传图片
+            $(".uploadimg").click(function () {
+                $("#ImgIndex").val($(this).attr("id"));
+                $("#ImageFile").click();
+            });
+
+            $("#ImageFile").change(function (e) {
+                var formData = new FormData($("#formFile")[0]);
+                //$('#jqxLoader').jqxLoader({ text: "正在上传,请稍后...", width: 150, height: 150, autoOpen: true });
+                //$('#jqxLoader').jqxLoader('open');
+                if (e.target.files.length > 0) {
+                    var formData = new FormData($("#formFile")[0]);
+                    $.ajax({
+                        url: $("#formFile").attr("action"),
+                        type: 'POST',
+                        data: formData,
+                        dataType: "json",
+                        async: true,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if (data.error == 0) {
+                                $('#' + $("#ImgIndex").val()).css({ "background": "url(" + data.url + ")", "background-repeat": "no-repeat" });
+                                $('#' + $("#ImgIndex").val()).css({ "background": "url(" + data.url + ")", "background-repeat": "no-repeat" });
+                                formatImage();
+                                //$("#aa span:eq(" + $("#ImgIndex").val() + ")").each(function (index, value) {
+                                //    $(value).attr("src", data.url);
+                                //    //$(value + ' .uploadimg').attr("src", data.url);
+                                //    //$(value + ' .uploadimg').attr("data-url", data.url);
+                                //    //formatImage();
+                                //    //$('#jqxLoader').jqxLoader('close');
+                                //});
+                            }
+                        },
+                        error: function (responseStr) {
+                            alert("失败:" + JSON.stringify(responseStr));//将    json对象    转成    json字符串。
+                        }
+                    });
+                }
+            });
+        });
+        function formatImage() {
+            var val = '';
+            $('.uploadimg').each(function (index, value) {
+                if (index > 0)
+                    val += '|';
+                val += $(value).attr('data-url');
+            });
+            $('#CommentImgs').val(encodeURIComponent(val));
+        }
+    </script>
+    <script src="$res('wap/js2.0/sm.min.js')"></script> 
+    <script src="$res('wap/js2.0/sm-city-picker.js')"></script>
+</body>
+</html>

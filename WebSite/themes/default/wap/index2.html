@@ -1,0 +1,505 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>乡城品</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('css/swiper.min.css')">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/common.css')">
+    <style type="text/css">
+        /* BEGIN nav */
+        .nav li.home a {
+            color: #82451e;
+            background-image: url($res('wap/css/img/home_active.png'));
+        }
+        /* END nav */
+
+        /* BEGIN section-title */
+        .section-title {
+            height: 30px;
+            margin-top: 36px;
+        }
+
+            .section-title h2 {
+                height: 14px;
+                border-bottom: 2px solid #CCC;
+            }
+
+            .section-title span {
+                display: block;
+                width: 130px;
+                height: 30px;
+                line-height: 30px;
+                padding-left: 55px;
+                margin-left: auto;
+                margin-right: auto;
+                font-weight: normal;
+                color: #935e3c;
+                background: #F0F0F0 url($res('wap/css/img/index/section_title.png')) no-repeat 15px top;
+            }
+        /* END section-title */
+    </style>
+</head>
+<body>
+
+    $load("inc/nav.html")
+
+    <div class="page">
+        <style type="text/css">
+            .header .left-box,
+            .header .right-box {
+                float: left;
+                margin-top: 17px;
+            }
+
+            .header .left-box {
+                width: 40px;
+                height: 15px;
+                line-height: 15px;
+                padding-top: 40px;
+                margin-left: 27px;
+                font-size: 12px;
+                background: url($res('wap/css/img/index/code.png')) no-repeat center 2px;
+            }
+
+            .header .right-box {
+                width: 483px;
+                height: 51px;
+                line-height: 51px;
+                padding-left: 45px;
+                margin-left: 16px;
+                background: #FFF url($res('wap/css/img/index/search.png')) no-repeat 19px 12px;
+                border: 1px solid #EEE6E1;
+                border-radius: 4px;
+            }
+
+                .header .right-box input {
+                    width: 443px;
+                    height: 31px;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    margin-top: 10px;
+                    line-height: 31px;
+                    border: 0;
+                }
+        </style>
+        <div class="clearfix header">
+            <div class="left-box" style="background:none; padding-top:10px">
+            </div>
+            <form action="$url('/search')" method="get" onsubmit="return onSearch()">
+                <div class="right-box" style="width:430px">
+                    <input type="text"  style="width:390px" id="q" name="q">
+                </div>
+                <div style="float:right;">
+                    <button type="submit" style="background:none; border:none; padding-right:10px; padding-left:10px; color:#fff">搜索</button>
+                </div>
+            </form>
+        </div>
+        <div class="content">
+
+            <!-- BEGIN slider -->
+            <style type="text/css">
+                .swiper-container,
+                .swiper-slide {
+                    width: 640px !important;
+                    height: 260px !important;
+                }
+
+                .swiper-slide {
+                    text-indent: -9999px;
+                }
+
+                .swiper-pagination-bullet {
+                    width: 11px;
+                    height: 11px;
+                    background-color: #FFF;
+                    opacity: 10;
+                }
+
+                .swiper-pagination-bullet-active {
+                    background-color: #A8531D;
+                }
+            </style>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide" style="background-image:url($res('wap/img/index/index_slider.png'))">Slide 1</div>
+
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <!-- END slider -->
+            <!-- BEGIN slider -->
+            <!--<img src="$res('wap/img/index/index_slider.png')" alt="" style="display:block;">-->
+            <!-- END slider -->
+            <!-- BEGIN index-nav -->
+            <style type="text/css">
+                .index-nav {
+                    padding-top: 39px;
+                    padding-bottom: 22px;
+                    background-color: #FFF;
+                    border-top: 1px solid #E3E3E3;
+                    border-bottom: 1px solid #DBDBDB;
+                }
+
+                    .index-nav li {
+                        float: left;
+                        width: 160px;
+                        height: 106px;
+                    }
+
+                        .index-nav li a {
+                            display: block;
+                            width: 100%;
+                            /*height: 72px;*/
+                            height: 14px;
+                            padding-top: 88px;
+                            font-size: 18px;
+                            color: #333;
+                            text-align: center;
+                            background-repeat: no-repeat;
+                            background-position: center top;
+                        }
+
+                        .index-nav li.index-nav-01 a {
+                            background-image: url($res('wap/css/img/index/index_nav_01.png'));
+                        }
+
+                        .index-nav li.index-nav-02 a {
+                            background-image: url($res('wap/css/img/index/index_nav_02.png'));
+                        }
+
+                        .index-nav li.index-nav-03 a {
+                            background-image: url($res('wap/css/img/index/index_nav_03.png'));
+                        }
+
+                        .index-nav li.index-nav-04 a {
+                            background-image: url($res('wap/css/img/index/index_nav_04.png'));
+                        }
+            </style>
+            <ul class="clearfix index-nav">
+                <li class="index-nav-01"><a href="$url('/category/list/1')" title="">全部分类</a></li>
+                <li class="index-nav-02"><a href="$url('/category/list/2')" title="">热销商品</a></li>
+                <li class="index-nav-03"><a href="$passport('/cart')" title="">购物车</a></li>
+                <li class="index-nav-04"><a href="$passport('/bought')" title="">我的订单</a></li>
+            </ul>
+            <!-- END index-nav -->
+            <!-- BEGIN hot-sale -->
+            <style type="text/css">
+                .hot-sale {
+                    padding-top: 20px;
+                    padding-bottom: 15px;
+                    margin-top: 10px;
+                    background-color: #FFF;
+                    border-top: 1px solid #D3D3D3;
+                    border-bottom: 1px solid #D7D7D7;
+                }
+
+                .hot-sale-header {
+                    height: 31px;
+                    padding-right: 50px;
+                    font-size: 18px;
+                    color: #333;
+                    text-align: right;
+                    background: url($res('wap/css/img/index/hot_sale_header.png')) no-repeat 17px top;
+                }
+
+                    .hot-sale-header span {
+                        display: inline-block;
+                        height: 28px;
+                        line-height: 28px;
+                        padding-left: 2px;
+                        padding-right: 2px;
+                        margin-left: 3px;
+                        background-color: #FEBF17;
+                        border: 1px solid #FED977;
+                        border-radius: 4px;
+                    }
+
+                        .hot-sale-header span.first {
+                            margin-left: 10px;
+                        }
+
+                        .hot-sale-header span.splits {
+                            background-color: #FFF;
+                            border-color: #FFF;
+                        }
+
+                .hot-sale-body {
+                    margin-top: 12px;
+                }
+
+                    .hot-sale-body ul {
+                        width: 603px;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+
+                    .hot-sale-body li {
+                        float: left;
+                        width: 150px;
+                        height: 196px;
+                        padding-left: 25px;
+                        padding-right: 25px;
+                        border-left: 1px solid #E5E5E6;
+                    }
+
+                        .hot-sale-body li.first-child {
+                            border-left-color: #FFF;
+                        }
+
+                        .hot-sale-body li a {
+                            display: block;
+                            width: 100%;
+                            /*height: 40px;*/
+                            height: 65px;
+                            padding-top: 156px;
+                            color: #ff3300;
+                            background-size: 150px 118px;
+                            background-repeat: no-repeat;
+                            background-position: left 12px;
+                        }
+
+                    .hot-sale-body ins,
+                    .hot-sale-body div,
+                    .hot-sale-body span,
+                    .hot-sale-body des {
+                        display: block;
+                    }
+
+                    .hot-sale-body ins,
+                    .hot-sale-body div {
+                        float: left;
+                    }
+
+                        .hot-sale-body div.price {
+                            height: 26px;
+                            line-height: 1;
+                        }
+
+                    .hot-sale-body ins {
+                        font-size: 26px;
+                        font-weight: 700;
+                    }
+
+                    .hot-sale-body div.price div {
+                        position: relative;
+                        top: -10px;
+                        left: 10px;
+                        line-height: 1.3;
+                    }
+
+                    .hot-sale-body span {
+                        font-size: 16px;
+                    }
+
+                    .hot-sale-body des {
+                        display: block;
+                        font-size: 18px;
+                        color: #7f401d;
+                        text-decoration: line-through;
+                    }
+            </style>
+            <div class="hot-sale">
+                <div class="hot-sale-header"><!-- 距结束<span class="first">12</span><span>12</span><span class="splits">:</span><span>12</span><span>12</span>--></div>
+                <div class="hot-sale-body">
+                    <ul class="clearfix">
+                        $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopDiscountByWeek(this.DataSource,3))
+                        <li class="first-child">
+                            <a href="$url('/product/info/',product.Id)" title="$product.Title" style="background-image:url($product.GetImage())">
+                                <div class="clearfix price">
+                                    <ins>$product.GetSalePrice().ToString("C2")</ins>
+                                    <des>$product.MarketPrice.ToString("C2")</des>
+                                    <div style="display:none;">
+                                        <span style="display:none;">$product.GetDiscount()折</span>
+                                        <des>$product.GetSalePrice().ToString("C2")</des>
+                                    </div>
+                                </div>
+
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- END hot-sale -->
+
+            <style type="text/css">
+                .section-01 {
+                    margin-top: 10px;
+                    background-color: #FFF;
+                    border-top: 1px solid #CFCFCF;
+                    border-bottom: 1px solid #E4E4E4;
+                }
+
+                    .section-01 a {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .section-01 h2,
+                    .section-01 h3 {
+                        font-weight: normal;
+                    }
+
+                    .section-01 h2 {
+                        padding-top: 33px;
+                        font-size: 24px;
+                        color: #333;
+                    }
+
+                    .section-01 h3 {
+                        margin-top: 12px;
+                        font-size: 18px;
+                        color: #82451e;
+                    }
+
+                    .section-01 .left-box,
+                    .section-01 .right-box {
+                        float: left;
+                        width: 319px;
+                        height: 349px;
+                        border-bottom: 1px solid #DDD;
+                    }
+
+                    .section-01 .left-box {
+                        border-right: 1px solid #E5E5E6;
+                    }
+
+                    .section-01 .right-box {
+                        border-left: 1px solid #E5E5E6;
+                    }
+
+                    .section-01 .left-box h2,
+                    .section-01 .left-box h3 {
+                        padding-left: 20px;
+                    }
+
+                    .section-01 .right-box h2,
+                    .section-01 .right-box h3 {
+                        padding-left: 15px;
+                    }
+
+                    .section-01 .right-box-top {
+                        height: 162px;
+                        border-bottom: 1px solid #E5E5E6;
+                    }
+
+                    .section-01 .right-box-bottom {
+                        height: 186px;
+                    }
+
+                        .section-01 .right-box-bottom h2 {
+                            padding-top: 20px;
+                        }
+            </style>
+            <!--<div class="clearfix section-01">
+                <div class="left-box">
+                    <a href="" title="家用电器专场" style="background:url($res('wap/img/index/section_01_leftbox.png')) no-repeat center 115px;">
+                        <h2>家用电器专场</h2>
+                        <h3>全场嗨购 低价抢好货</h3>
+                    </a>
+                </div>
+                <div class="right-box">
+                    <div class="right-box-top">
+                        <a href="" title="手机数码" style="background:url($res('wap/img/index/section_01_rightbox_top.png')) no-repeat 180px 17px;">
+                            <h2>手机数码</h2>
+                            <h3>正品行货 急速配送</h3>
+                        </a>
+                    </div>
+                    <div class="right-box-bottom">
+                        <a href="" title="母婴、玩具" style="background:url($res('wap/img/index/section_01_rightbox_bottom.png')) no-repeat 150px 35px;">
+                            <h2>母婴、玩具</h2>
+                            <h3>品牌钜惠 全套礼包</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>-->
+            <!-- BEGIN thumbnail -->
+            <div class="section-title"><h2><span>乡品精选</span></h2></div>
+            <ul class="clearfix thumbnail">
+                $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopBestByCategory(this.DataSource,2,1))
+                <li>
+                    <a href="$url('/product/info/',product.Id)" title="$product.Title">
+                        <img src="$product.GetImage()" alt="$product.Title">
+                    </a>
+                    <h3><a href="$url('/product/info/',product.Id)" title="$product.Title">$product.Title</a></h3>
+                    <p>
+                        <ins>$product.GetSalePrice().ToString("C2")</ins>
+                        <des>$product.MarketPrice.ToString("C2")</des>
+                    </p>
+                    <!--<p class="sold-total">已售<span>5986</span>件</p>-->
+                    <p class="clearfix thumbnail-footer">
+                        <span class="ensure-01">已交保证金</span>
+                        <span class="ensure-02">品质保障</span>
+                    </p>
+                </li>
+                $end
+            </ul>
+            <!-- END thumbnail -->
+            <!-- BEGIN thumbnail -->
+            <div class="section-title"><h2><span>城品精选</span></h2></div>
+            <ul class="clearfix thumbnail">
+                $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopBestByCategory(this.DataSource,6,2))
+                <li>
+                    <a href="$url('/product/info/',product.Id)" title="$product.Title">
+                        <img src="$product.GetImage()" alt="$product.Title">
+                    </a>
+                    <h3><a href="$url('/product/info/',product.Id)" title="$product.Title">$product.Title</a></h3>
+                    <p>
+                        <ins>$product.GetSalePrice().ToString("C2")</ins>
+                        <des>$product.MarketPrice.ToString("C2")</des>
+                    </p>
+                    <!--<p class="sold-total">已售<span>5986</span>件</p>-->
+                    <p class="clearfix thumbnail-footer">
+                        <span class="ensure-01">已交保证金</span>
+                        <span class="ensure-02">品质保障</span>
+                    </p>
+                </li>
+                $end
+            </ul>
+            <!-- END thumbnail -->
+            <!-- BEGIN thumbnail -->
+            <div class="section-title"><h2><span>热销商品</span></h2></div>
+            <ul class="clearfix thumbnail">
+                $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopHotByMonth(this.DataSource,10))
+                <li>
+                    <a href="$url('/product/info/',product.Id)" title="$product.Title">
+                        <img src="$product.GetImage()" alt="$product.Title">
+                    </a>
+                    <h3><a href="$url('/product/info/',product.Id)" title="$product.Title">$product.Title</a></h3>
+                    <p>
+                        <ins>$product.GetSalePrice().ToString("C2")</ins>
+                        <des>$product.MarketPrice.ToString("C2")</des>
+                    </p>
+                    <!--<p class="sold-total">已售<span>5986</span>件</p>-->
+                    <p class="clearfix thumbnail-footer">
+                        <span class="ensure-01">已交保证金</span>
+                        <span class="ensure-02">品质保障</span>
+                    </p>
+                </li>
+                $end
+            </ul>
+            <!-- END thumbnail -->
+        </div>
+    </div>
+
+    <script src="$res('js/jquery-1.11.3.min.js')"></script>
+    <script src="$res('js/swiper.min.js')"></script>
+    $load("inc/comm.html")
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            spaceBetween: 30,
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+.w-270 {
+	width: 270px !important;
+}
+.w-282 {
+	width: 282px !important;
+}
+
+.content .panel {
+	padding-bottom: 110px;
+}
+.content .panel-body {
+	margin-top: 50px;
+}
+
+/* BEGIN ul */
+.content ul {
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 1px dotted #E4DCD0;
+}
+.content ul li {
+	width: 355px;
+	float: left;
+	padding-left: 45px;
+}
+.content ul p {
+	padding-bottom: 20px;
+	margin-top: 15px;
+	font-size: Arial;
+	font-size: 60px;
+	font-weight: bold;
+}
+/* END ul */
+
+.content table {
+	margin-top: 30px;
+}
+.content th,
+.content td {
+	padding-top: 15px;
+}
+.content th {
+	width: 100px;
+	padding-right: 25px;
+	color: #999;
+	text-align: right;
+}

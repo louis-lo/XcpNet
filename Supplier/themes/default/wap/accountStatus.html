@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>查看详情</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    查看状态
+                    <div class="navRe">
+                        <!--<a href="#" class="col_ff7">查看状态</a>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- end nav -->
+
+            <div class="content native-scroll">
+                <div class="See_state">
+                    <ul>
+                        $foreach(item in DistributorList.Data)
+                        <li class="on">
+                            <div class="bg_fff pad_lr"><span class="fr See_stateArrow withdrawals_icon"></span>$item.A.Company</div>
+                            <dl class="col_666">
+                                <dd class="pad_lr">
+                                    <span class="fr">
+                                        状态：<span style="color:#99d1ae">$item.A.GetStateString()</span>
+                                    </span>
+                                    <span>加盟级别：$item.A.GetLevelString()</span>
+                                </dd>
+                                <dd class="pad_lr">
+                                    <span class="fr">电话：$item.A.SignatoriesPhone</span>
+                                    <span>签约人: $item.A.Signatories</span>
+                                </dd>
+                                <dd class="pad_lr">
+                                    <span class="fr">电话：$item.A.ContactPhone</span>
+                                    <span>负责人: $item.A.Contact</span>
+                                </dd>
+                                <dd class="pad_lr">
+                                    <span>详细地址：$item.A.GetAddressStr()</span>
+                                </dd>
+                                <dd class="pad_lr">
+                                    <span>邮政编码：$item.A.PostId</span>
+                                </dd>
+                            </dl>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+    <script>
+        $(function () {
+            $(".See_state ul li").click(function () {
+                $(this).toggleClass("on")
+            })
+        })
+    </script>
+</body>
+</html>

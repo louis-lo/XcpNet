@@ -1,0 +1,16 @@
+.center_wrapRight{width: 995px;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;}
+/**安全设置**/
+.login-pay{width:990px;border:1px solid #ddd;margin-top:18px;border-bottom: none;}
+.login-pass,.pay-pass{border-bottom:1px solid #ddd;clear: both;overflow: hidden;}
+.passwords-t{width: 132px;}
+.passwords-t,.passwords-des,.passwords-update{padding: 30px}
+.passwords-des{width: 416px;}
+.passwords-t h3{margin-left: 36px;}
+.des-pay{color: #CF0002;}
+.passwords-des span{padding:6px 15px;line-height: 28px;border-left: 1px solid #ddd;}
+.passwords-update{width: 262px;}
+.passwords-update a{padding: 7px 10px;background: #CF0002;color: #fff;}
+.passwordsPrintW{width: 32px;height: 28px;}
+.passwordsPrint{background: url("../../img2.0/cph/gou.png")no-repeat;}
+.passwordsPrintC{background: url("../../img2.0/cph/no.png")no-repeat;}

@@ -1,0 +1,68 @@
+﻿@charset "utf-8";
+/* 中间 开始*/
+.center_wrap{margin-top: 20px;padding-bottom:20px;}
+
+/* 右边 开始*/
+.withdrawDeposit_earnings{background: #f3f3f3;border-bottom:1px solid #e2e2e2;text-align:left;padding:15px 25px;color:#555;}
+.withdrawDeposit_earnings input,.withdrawDeposit_earnings select{border:1px solid #e2e2e2;width: 170px;height: 28px;}
+.withdrawDeposit_earnings button{width: 70px;height: 26px;background: #ff7300;color: #fff;margin-left: 20px;}
+.withdrawDeposit_earnings span{margin-left: 30px;}
+.nullTr{height: 12px;border-bottom:1px solid #e2e2e2;}
+.center_wrapRight{width: 995px;}
+.dredgeId_top .mySy{font-weight: normal;width:90px;border-bottom:2px solid #ff7300;text-align: center;font-size: 16px;display: block;}
+.center_wrapRight .allOrder{border-bottom:none;}
+
+.dredgeId_informationWrap table{border:1px solid #e2e2e2;}
+.dredgeId_informationWrap{margin-top: 10px;height: 627px;}
+.dredgeId_informationWrap table tr:nth-child(odd){background:#FAFAFA;}
+.dredgeId_informationWrap .topTr {border-bottom:1px solid #e2e2e2;background: #f3f3f3;height: 36px;line-height: 35px;}
+.dredgeId_informationWrap td{text-align: center;color:#666;}
+.dredgeId_informationWrap .informationTr {background:none;}
+.loockDetail a{color: #ff7300;}
+.orderTh{width: 180px;}
+/*转账中 提现审核中*/
+.dredgeId_informationWrap .informationState a{color: #333;}
+/* 提现成功*/
+.dredgeId_informationWrap .informationStateT a{color:#69cc90;}
+/* 提现失败*/
+.dredgeId_informationWrap .informationStateS a{color:#ff7300;}
+
+/* 商品分页 开始 */
+.center_pageWrap{height: 78px;border:1px solid #e2e2e2;border-top: none;padding-top: 30px;}
+.center_pageBox{overflow: hidden;margin-right: 10px;}
+.center_pageBox ul li{float: left;background: #fff;}
+.center_pageBox ul li a{font-size: 14px;}
+.page_prev{border:1px solid #e2e2e2;width: 75px;height: 30px;line-height: 30px;text-align: center;margin-left: 10px;}
+.page_prev span{background: url("../img2.0/TB1Z4WGMpXXXXbyaXXX6sGuHVXX-458-458.png")no-repeat;width: 6px;height: 12px;display: inline-block;vertical-align: middle;}
+/* 上一页 两种状态 灰色*/
+.pageprev_img .unicon{background-position: -158px -422px;}
+.pageprev_unprint{vertical-align: middle;display: table-cell;display: block;color: #999;}
+/* 上一页 两种状态 可以点击*/
+.pageprev_img .icon{background-position: -126px -422px;}
+.pageprev_print{vertical-align: middle;display: table-cell;display: block;color: #333;}
+
+/* 下一页 两种状态 可以点击*/
+.pagenext_img .icon{background-position: -174px -422px;}
+.pageprev_next {color:#333;}
+/* 下一页 两种状态 灰色*/
+.pagenext_img .unicon{background-position: -206px -422px;}
+.pageprev_unnext {color:#999;}
+.page_numer a{height: 30px;line-height: 30px;width: 35px;border:1px solid #e2e2e2;margin-left: -1px;display: block;text-align: center;}
+.itme{margin-left: 10px;}
+.center_pageBox .dot{width: 35px;height: 30px;text-align: center;line-height: 40px;background: none;}
+.text{margin-left: 10px; line-height: 37px; color: #999;}
+.m-page .input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.btn, .input{margin-top: 7px;} .input, .text{color: #999;}
+.btn, .input, .text{margin-left: 5px;}
+.btn{background-clip: padding-box;border: 1px solid #ededed;border-radius: 2px;cursor: pointer;height: 21px;line-height: 21px;text-align: center;width: 43px;display: block;background: #fff;}
+.center_pageBox .page_numer a:hover{background: #f40 none repeat scroll 0 0; border-color: #f40; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_pageBox .itme a{background: #f40 none repeat scroll 0 0; border-color: #f40; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_mergepay button{border:1px solid #e2e2e2;padding:4px 10px;margin-left: 5px;}
+.center_mergepay input{margin-top: 2px;}
+/* 商品分页 结束 */
+
+/* 右边 结束*/
+
+/* 中间 结束 */
+

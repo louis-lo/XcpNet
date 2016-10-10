@@ -1,0 +1,87 @@
+﻿<div class="header_wrap">
+    <!-- 头部 导航 开始-->
+    <div class="header_top">
+        <div class="w1000">
+            <div class="header_top_left fl">
+                <ul class="clearFix" id="control">
+                    $if(this.IsLogin)
+                    <li>$this.User.Identity.Name</li>
+                    <li><a href="$passport('/ucenter')">会员中心</a></li>
+                    <li><a href="$passport('/logout')">退出</a></li>
+                    $else
+                    <li>
+                        请<a class="top_left_a_one" href="$passport('/login')">登录</a>
+                    </li>
+                    <li>
+                        <a class="top_left_a_two" href="$passport('/register')">免费注册</a>
+                    </li>
+                    $end
+                </ul>
+            </div>
+            <div class="header_top_right fr">
+                <ul class="clearFix">
+                    <li class="home_img">
+                        <a href="/xdginfo/xdghomepage.html">回到首页</a>
+                    </li>
+                    <li>
+                        <a href="$passport('/ucenter')">我的乡城品</a>
+                    </li>
+                    <li>
+                        <a href="$passport('/cart')"> 购物车</a>
+                    </li>
+                    <li>
+                        <a href="http://help.xcpnet.com/article/list/5.html">售后服务</a>
+                    </li>
+                    <li>
+                        <a href="http://help.xcpnet.com/article/list/3.html">帮助中心</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 头部 导航 结束-->
+    <!-- 头部 搜索 开始-->
+    <div class="header_bottom w1000">
+        <div class="header_bottom_logo_left">
+            <img src="$res('img/logo.png')">
+        </div>
+        <div class="header_bottom_logo_right">
+            <img src="$res('img/logo_02.png')">
+        </div>
+        <form id="searchForm" action="$url('/search')" method="get" target="_blank" onsubmit="">
+            <div class="header_bottom_search clearFix">
+                <div class="header_bottom_search_img">
+                </div>
+                <input type="text" id="q" name="q" placeholder="请输入您要搜索的商品关键字" />
+                <a class="search_button" href="javascript:onSearch('搜全站')">搜全站</a>
+            </div>
+            $if(UserId == "")
+            <a class="search_button_two search_button fr" href="javascript:onSearch('搜特产')">搜特产</a>
+            $else
+            <a class="search_button_two search_button fr" href="javascript:onSearch('搜本馆')">搜本馆</a>
+            $end
+            <input type="hidden" id="id" name="id" value="$UserId" />
+            <input type="hidden" id="searchType" name="searchType" value="" />
+        </form>
+        <div class="cl"></div>
+        <div class="search_li">
+            <ul class="clearFix">
+                $foreach(item in clr.Cnaws.Statistic.Modules.StatisticTag.GetTop(this.DataSource,5,7))
+                <li>
+                    <a ${if(foreachIndex == 1)}class="search_li_01"${end} href="$url('/search')?q=$urlencode(item.Name)">$item.Name</a>
+                </li>
+                $end
+            </ul>
+        </div>
+    </div>
+    <!-- 头部 搜索 结束-->
+</div>
+<script type="text/javascript">
+    function onSearch(searchType) {
+        if ($('#q').val().length > 0)
+        {
+            $("#searchType").val(searchType);
+            $("#searchForm").submit();
+        }
+    }
+</script>

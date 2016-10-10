@@ -1,0 +1,308 @@
+﻿$if(this.IsAjax)
+    $if(OrderList.Data.Count>0)
+<div class="order_all">
+    $foreach(item in OrderList)
+    $set(info=json(item.ProductOrderMapping.ProductInfo))
+    <!-- order for -->
+    <ul>
+        <li><a href="$url('/buy/status/',item.AfterSalesRecord.OrderId)" class="external"><div class="order_Txt"><span class="fr col_e01928">$GetStateInfo(item.AfterSalesRecord.ServerState)</span>订单号：$item.AfterSalesRecord.Id</div></a></li>
+        <!-- M for -->
+        <li class="purchaseall_Test">
+            <div class="purchaseall_Le">
+                <img src="$GetImage(info.Image)">
+            </div>
+            <div class="purchaseall_Con">
+                <h3 class="txt_hide2L col_333"><a class="external" href="$url('/buy/status/',item.AfterSalesRecord.OrderId, '/', item.AfterSalesRecord.ProductId)">$info.Title</a></h3>
+                <p class="txt_hide2L Coninfo col_999">
+                    $foreach(attr in info.Series)
+                    $attr.Key：$attr.Value&nbsp;
+                    $end
+                </p>
+            </div>
+            <div class="purchaseall_Re">
+                <p class="col_999">$item.ProductOrderMapping.TotalMoney.ToString("C2")</p>
+                <p class="col_999">X$item.AfterSalesRecord.RefundCount</p>
+            </div>
+        </li>
+        <li class="purchaseall_Sub purchase_complete" style="line-height: 2.2rem;">
+            <a href="$url('/service/showinfo/', item.AfterSalesRecord.Id)" class="payment_submit col_666 external">查看售后</a>
+        </li>
+        <!-- end M for -->
+        <li class="purchaseall_Txt">
+            <span class="col_666">共$item.AfterSalesRecord.RefundCount款商品</span>
+            <span class="col_e01928">实付：￥<b class="this_Price">$item.AfterSalesRecord.RefundMoney.ToString("C2")</b></span>
+        </li>
+    </ul>
+    <!-- end order for -->
+    $end
+</div>
+    $end
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/swiper.min.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <script type="text/javascript">
+        $(function () {
+            var dataCount = parseInt('$OrderList.Data.Count');
+            if (dataCount<4) {
+                $('.infinite-scroll-preloader').remove();
+            }
+        });
+
+        function delOrder(id) {
+            if (window.confirm('取消后不可恢复，确认取消？')) {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '$url("/buy/cancel")',
+                    data: 'Id=' + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function doReceipt(id) {
+            if (window.confirm('确认收货？')) {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '$url("/buy/receipt")',
+                    data: 'Id=' + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.href = '$url("/comment/list")';
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function reminderDelivery(orderId) {
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: '$url("/ReminderDelivery/Reminder/", "' + orderId + '")',
+                success: function (result) {
+                    if (result.code == -200) {
+                        alert("提醒成功");
+                    }
+                    else {
+                        alert("今日已成功提醒过商家，请等待商家发货");
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current" id="page-infinite-scroll-bottom">
+            <div class="clearfix bar bar-nav col_333 bg_fff">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    全部订单
+                </div>
+            </div>
+
+            <div class="bar bar-nav bg_fff" style="top:2.2rem">
+                <div class="order_nav clearfix">
+                    <!-- Swiper -->
+                    <div class="swiper-container fl">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><a href="$url('/bought/list/','_')">全部</a></div>
+                            <div class="swiper-slide"><a href="$url('/bought/list/','Payment')">待付款</a></div>
+                            <div class="swiper-slide"><a href="$url('/bought/list/','OutWarehouse')">出库中</a></div>
+                            <div class="swiper-slide"><a href="$url('/bought/list/','Delivery')">待发货</a></div>
+                            <div class="swiper-slide"><a href="$url('/bought/list/','Receipt')">待收货</a></div>
+                            <div class="swiper-slide"><a href="$url('/bought/list/','Finished')">已完成</a></div>
+                            <div class="swiper-slide on"><a href="$url('/service/servicelist')">售后</a></div>
+                        </div>
+                    </div>
+                    <div class="fr purchasemy_icon ordermore_icon"></div>
+                </div>
+            </div>
+
+            <!-- order more nav -->
+            <div class="bar bar-nav bg_fff ordermore_nav" style="top:2.2rem;border:none;z-index: 999999;">
+                <div class="ordermore_navTop clearfix">
+                    <div class=" fl col_666">选择状态</div>
+                    <div class="fr purchasemy_icon ordermore_icon ordermore_iconS"></div>
+                </div>
+                <div class="ordermore_navList">
+                    <ul class="clearfix">
+                        <li><a href="$url('/bought/list/','_')" name="tabOrder" v="_">全部订单</a></li>
+                        <li><a href="$url('/bought/list/','Payment')" name="tabOrder" v="Payment">待付款</a></li>
+                        <li><a href="$url('/bought/list/','OutWarehouse')" name="tabOrder" v="OutWarehouse">出库中</a></li>
+                        <li><a href="$url('/bought/list/','Delivery')" name="tabOrder" v="Delivery">待发货</a></li>
+                        <li><a href="$url('/bought/list/','Receipt')" name="tabOrder" v="Receipt">待收货</a></li>
+                        <li><a href="$url('/bought/list/','Finished')" name="tabOrder" v="Finished">已完成</a></li>
+                        <li class="on"><a href="$url('/service/servicelist')">售后</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- / order more nav -->
+            <!-- content -->
+            <!--<div class="content native-scroll">-->
+            <!--$load("inc/xalert.html")-->
+            <div class="content pull-to-refresh-content infinite-scroll infinite-scroll-bottom" data-ptr-distance="55" data-distance="100">
+                <!-- 默认的下拉刷新层 -->
+                <div class="pull-to-refresh-layer">
+                    <div class="preloader"></div>
+                    <div class="pull-to-refresh-arrow"></div>
+                </div>
+                <div id="temp">
+                    $if(OrderList.Data.Count>0)
+                    <div class="order_all">
+                        $foreach(item in OrderList)
+                        $set(info=json(item.ProductOrderMapping.ProductInfo))
+                        <!-- order for -->
+                        <ul>
+                            <li><a href="$url('/buy/status/',item.AfterSalesRecord.OrderId)" class="external"><div class="order_Txt"><span class="fr col_e01928">$GetStateInfo(item.AfterSalesRecord.ServerState)</span>订单号：$item.AfterSalesRecord.Id</div></a></li>
+                            <!-- M for -->
+                            <li class="purchaseall_Test">
+                                <div class="purchaseall_Le">
+                                    <img src="$GetImage(info.Image)">
+                                </div>
+                                <div class="purchaseall_Con">
+                                    <h3 class="txt_hide2L col_333"><a class="external" href="$url('/buy/status/',item.AfterSalesRecord.OrderId, '/', item.AfterSalesRecord.ProductId)">$info.Title</a></h3>
+                                    <p class="txt_hide2L Coninfo col_999">
+                                        $foreach(attr in info.Series)
+                                        $attr.Key：$attr.Value&nbsp;
+                                        $end
+                                    </p>
+                                </div>
+                                <div class="purchaseall_Re">
+                                    <p class="col_999">$item.ProductOrderMapping.Price.ToString("C2")</p>
+                                    <p class="col_999">X$item.ProductOrderMapping.Count</p>
+                                </div>
+                            </li>
+                            <li class="purchaseall_Sub purchase_complete" style="line-height: 2.2rem;">
+                                <a href="$url('/service/showinfo/', item.AfterSalesRecord.Id)" class="payment_submit col_666 external">查看售后</a>
+                            </li>
+                            <!-- end M for -->
+                            <li class="purchaseall_Txt">
+                                <span class="col_666">共$item.ProductOrderMapping.Count款商品</span>
+                                <span class="col_e01928">实付：<b class="this_Price">$item.ProductOrderMapping.TotalMoney.ToString("C2")</b></span>
+                            </li>
+                        </ul>
+                        <!-- end order for -->
+                        $end
+                    </div>
+                    $else
+                    <!-- 暂无订单  -->
+                    <div class="no_order">
+                        <div class="purchasemy_icon no_orderIcon"></div>
+                        <div class="order_noresultTxt">
+                            <h3 class="col_666">暂无订单</h3>
+                            <a href="#" class="col_fff">去首页逛逛</a>
+                        </div>
+                    </div>
+                    <!-- end 暂无订单  -->
+                    $end
+                </div>
+                <!-- 加载提示符 -->
+                <div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>
+                <!-- 加载提示符 -->
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+    <!-- Swiper JS -->
+    <script type="text/javascript" src="$res('wap/js2.0/cph/swiper.min.js')"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var num = 1;
+        var maxnum = parseInt('$OrderList.EndPage');
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            //从第几个开始
+            initialSlide: 6,
+            slidesPerView: 4.5,
+            spaceBetween: 10,
+            breakpoints: {
+                1024: {
+                    slidesPerView: 4.5,
+                    spaceBetween: 10
+                },
+                768: {
+                    slidesPerView: 4.5,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 4.5,
+                    spaceBetween: 10
+                },
+                320: {
+                    slidesPerView: 4.5,
+                    spaceBetween: 10
+                }
+            }
+        });
+        $(function () {
+            $(".ordermore_icon").click(function () {
+                if ($(".ordermore_nav").hasClass("ordermore_navS")) {
+                    $(".ordermore_nav").removeClass("ordermore_navS")
+                } else {
+                    $(".ordermore_nav").addClass("ordermore_navS")
+                }
+
+            })
+        })
+
+        function refresh() {
+            $.ajax({
+                cache: false,
+                type: 'get',
+                dataType: 'html',
+                url: '$url("/service/servicelist/' + num + '")',
+                success: function (result) {
+                    $("#temp").html(result);
+                }
+            });
+        }
+        function loadData() {
+            num++;
+            if (num>maxnum) {
+                //$("#temp").append('');
+                // 加载完毕，则注销无限加载事件，以防不必要的加载
+                $.detachInfiniteScroll($('.infinite-scroll'));
+                // 删除加载提示符
+                $('.infinite-scroll-preloader').remove();
+            }else{
+                var url = '$url("/service/servicelist/' + num + '")';
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: 'html',
+                    success: function (result) {
+                        $("#temp").append(result);
+                    }
+                });
+            }
+        }
+    </script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+    <script type="text/javascript" src="$res('wap/js2.0/cph/demos.js')"></script>
+</body>
+</html>
+$end

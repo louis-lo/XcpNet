@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>城品惠供应商</title>
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <link rel="stylesheet" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/datepicker/wdatepicker.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/passport.js')"></script>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.supplierlist.css')">
+
+</head>
+
+
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/s_top.html")
+    <!-- 头部 第二部分 -->
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/s_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="fr">
+            <div class="clearFix">
+                <h3 class="ProductShelves fl">进货宝供应商</h3>
+            </div>
+            <form id="EditSupplier" method="post" action="$url('/supplier/onedit')" onsubmit="return false">
+                <!--新增供应商开始-->
+                <div class="cph_newlyAdded">
+                    <ul>
+                        <li class="clearFix phone">
+                            <span class="left fl">登陆账号:</span>
+                            <input type="text" id="Name" name="Name" autocomplete="off" value="" class="txt fl" placeholder="输入登陆账号以字母开头" />
+                        </li>
+                        <li class="clearFix password">
+                            <span class="left fl">密码:</span>
+                            <input type="password" id="Password" autocomplete="off" value="" class="txt fl" placeholder="请输入密码" />
+                        </li>
+                        <li class="clearFix password">
+                            <span class="left fl">确认密码:</span>
+                            <input type="password" id="RePassword" autocomplete="off"  value="" name="Password" class="txt fl" placeholder="请再次输入密码" />
+                        </li>
+                        <!--<li class="clearFix name">
+                    <span class="left fl">姓名:</span>
+                    <input type="text" class="txt fl" id="" placeholder="请输入供应商姓名" />
+                </li>-->
+                        <li class="clearFix company">
+                            <span class="left fl">公司名称:</span>
+                            <input type="text" name="Company" autocomplete="off" id="Company" value="" class="txt fl" placeholder="请输入公司名称" />
+                        </li>
+                        <li class="clearFix photo">
+                            <span class="left fl">证件照片:</span>
+                            <div class="img fl">
+                                <img class="UploadButton" src="$res('css2.0/img/head_portrait.png')" />
+                            </div>
+                            <p class="fl">*(照片最佳尺寸338*338，最多添加三张)</p>
+                        </li>
+                        <li class="clearFix name">
+                            <span class="left fl">签约人:</span>
+                            <input type="text" id="Signatories" name="Signatories" autocomplete="off" value="" class="txt fl" placeholder="请输入签约人姓名" />
+                            <span class="left fl">联系电话:</span>
+                            <input type="text" class="txt fl" id="SignatoriesPhone" autocomplete="off" value="" name="SignatoriesPhone" placeholder="请输入签约人联系电话" />
+                        </li>
+                        <li class="clearFix name">
+                            <span class="left fl">负责人:</span>
+                            <input type="text" class="txt fl" id="Contact" autocomplete="off"  value="" name="Contact" placeholder="请输入负责人姓名" />
+                            <span class="left fl">联系电话:</span>
+                            <input type="text" class="txt fl" id="ContactPhone" autocomplete="off"  value="" name="ContactPhone" placeholder="请输入负责人联系电话" />
+                        </li>
+                        <li class="clearFix name">
+                            <span class="left fl">QQ:</span>
+                            <input type="text" id="QQ" name="QQ" value="" autocomplete="off"  class="txt fl" placeholder="输入QQ" />
+                        </li>
+                        <!--<li class="clearFix theMain">
+                            <span class="left fl">行业:</span>
+                            <span class="icons fl"></span>
+                            <p class="fl">（*点击添加多个主营行业）</p>
+                        </li>-->
+                        <!--<li class="clearFix industry">
+                    <span class="left fl">行业:</span>
+                    <select class="fl">
+                        <option value="">家居服</option>
+                    </select>
+                </li>-->
+                        <li class="clearFix address">
+                            <span class="left fl">详细地址:</span>
+                            <div class="fl clearFix">
+                                <!--<select class="fl">
+                            <option value="">广东省</option>
+                        </select>
+                        <select class="fl">
+                            <option value="">深圳市</option>
+                        </select>
+                        <select class="fl">
+                            <option value="">请选择</option>
+                        </select>
+                        <br />-->
+                                <input type="text" placeholder="请输入详细地址" autocomplete="off"  id="Address" name="Address" value="" class="txt fl" />
+                            </div>
+                        </li>
+                        <li class="clearFix name">
+                            <span class="left fl">保证金:</span>
+                            <input type="text" class="txt fl" id="Money" autocomplete="off"  name="Money" value="" placeholder="请输入金额" />
+                            <p class="fl">元</p>
+                        </li>
+                        <li class="clearFix name">
+                            <span class="left fl">入驻时间:</span>
+                            <input type="text" placeholder="请选择入住时间" autocomplete="off"  class="Wdate fl txt" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd' })" id="CreationDate" name="CreationDate" />
+                        </li>
+                        <li class="clearFix name">
+                            <span class="left fl">年限:</span>
+                            <input type="text" id="Year" name="Year" autocomplete="off"  value="" class="txt fl" placeholder="输入年限" /><p class="fl">年</p>
+                        </li>
+                        <li class="clearFix industry">
+                            <span class="left fl">状态:</span>
+                            <select class="fl" id="State" name="State">
+                                <option value="NotPaid">未支付</option>
+                                <option value="Incomplete">未完善</option>
+                                <option value="NotApproved">未审核</option>
+                                <option value="Approved" selected="selected">已审核</option>
+                            </select>
+                        </li>
+
+                        <li class="last">
+                            <a href="javascript:;">取消</a>
+                            <input type="submit" value="确定" class="sub" />
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 查看详情弹窗开始 -->
+    <!-- 弹出层模板-->
+    $load("inc/xalert.html")
+    <!-- 弹出层结束-->
+    <!-- 查看详情弹窗结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+
+    <script type="text/javascript">
+        var editor = null;
+        /*使用jqzoom*/
+        $(function() {
+            editor = KindEditor.editor({
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+            });
+
+            $("input[type='text']").focus(function(){
+                $(this).css("border-color","#ff5820")
+            });
+            $("input[type='text']").blur(function(){
+                $(this).css("border-color","#ccc")
+            });
+
+
+            $(".theMain").on("click",".icons", function () {
+                var textNull = '<div class="right fl"><input class="inputValue" id="Categories" name="Categories" type="text" value="" /><em></em></div>'
+                $(this).before(textNull);
+            })
+            $(".theMain").on("blur", ".inputValue", function () {
+                var inpContent = $(this).val();
+                if (inpContent != "") {
+                    $(this).next().css("visibility", "visible");
+                }
+            })
+
+            $(".theMain").on("click",".right em", function () {
+                $(this).parent().remove();
+            })
+
+            $(".photo").on("click", ".UploadButton", function () {
+                if (editor.dialogs.length <= 0 && $(".photo .images").length<3) {
+                    editor.loadPlugin('image', function () {
+                        editor.plugin.imageDialog({
+                            clickFn: function (url, title) {
+                                var ImgInput = '<div class="img images fl"><img src="' + url + '"><em style="visibility:visible"></em><input type="hidden" value="' + url + '" name="Images"></div>'
+                                $(".photo .UploadButton").parent().before(ImgInput);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                }                
+            })
+            $(".photo").on("blur", ".inputValue", function () {
+                var inpContent = $(this).val();
+                if (inpContent != "") {
+                    $(this).next().css("visibility", "visible");
+                }
+            })
+
+            $(".photo").on("click", ".images em", function () {
+                $(this).parent().remove();
+            })
+            $('#EditSupplier').jqxValidator({
+                rules: [
+                    { input: '#Company', message: '公司名称不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Signatories', message: '签约人姓名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#SignatoriesPhone', message: '签约人联系电话不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Contact', message: '负责人姓名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#ContactPhone', message: '负责人联系电话不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Address', message: '公司地址不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Name', message: '用户名不能为空', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#Name', message: '用户名必须以字母开头不包含"@"且长度为4～16位', action: 'keyup, focus', rule: function (input, commit) {
+                            return /^[A-Za-z][^@]{3,15}$/.test(input.val());
+                        }
+                    },
+                    {
+                        input: '#Name', message: '该用户名已存在', action: 'blur', rule: function (input, commit) {
+                            if (/^[A-Za-z][^@]{3,15}$/.test(input.val())) {
+                                return Cnaws.Passport.checkName(input.val());
+                            }
+                            return false;
+                        }
+                    },
+                    { input: '#Password', message: '密码不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Password', message: '密码长度必须为6～32位', action: 'keyup, blur', rule: 'length=6,32' },
+                    { input: '#RePassword', message: '确认密码不能为空', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#RePassword', message: '两次密码不一致', action: 'keyup, focus', rule: function (input, commit) {
+                            if (input.val() === $('#Password').val()) {
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                ]
+            });
+            $("#EditSupplier").submit(function () {
+                $(this).attr('disabled', true);
+                if ($(this).jqxValidator('validate')) {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "Json",
+                        url: $(this).attr("action"),
+                        data: $(this).serialize(),
+                        success: function (data) {
+                            if (data.code == -200) {
+                                Cnaws.showSuccess("添加成功");
+                                setTimeout(function () {
+                                    location.href = '$url("/supplier/list")';
+                                }, 2000);
+                            }
+                            else
+                                Cnaws.showError("抱歉,添加失败！请检查数据");
+                        }
+                    })
+                }
+                $(this).attr('disabled', false);
+                return false;
+            })
+        });
+    </script>
+
+</body>
+</html>

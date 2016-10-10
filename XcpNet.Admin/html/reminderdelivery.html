@@ -1,0 +1,100 @@
+﻿<script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxrating.js')"></script>
+<script type="text/javascript" src="$url('s_product/allcategory')"></script>
+<style type="text/css">
+    .p-main td, .p-main th {
+        text-align: center;
+    }
+
+    .p-header, .p-header span, .p-main thead {
+        background: #CCC;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .p-main img {
+        width: 96px;
+        height: 96px;
+    }
+
+    .p-main td, .p-main li, .p-main p {
+        height: 20px;
+        line-height: 20px;
+    }
+
+    .p-main li {
+        padding: 0 10px;
+    }
+
+        .p-main li label {
+            width: 80px;
+            text-align: right;
+            float: left;
+            display: inline-block;
+        }
+
+    .p-header span {
+        float: left;
+        display: inline;
+        margin: 0 10px;
+    }
+
+    .p-m-10 {
+        margin-top: 10px;
+    }
+</style>
+<div id="data"></div>
+<div id="order" style="display:none;">
+    <div><span id="righttitle">供应商信息</span></div>
+    <div>
+        <form id="form" action="" method="post">
+            <div id="s-content" style="margin-bottom:6px;width:700px;height:460px"></div>
+            <div style="float:right;padding:10px;">
+                <input class="approved submit" type="button" id="ok" value="确定" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function showInfo(id) {
+        $.ajax({
+            type: "GET",
+            url: getUrl('$url("productorder/info/")' + id),
+            dataType: 'html',
+            success: function (data) {
+                $('#s-content').html(data);
+                $('#order').jqxWindow('open');
+            }
+        });
+    }
+    var mainWindow = initWindow('order', 'form', [], null, null, null, function () { }, function () {
+        mainWindow.close();
+        mainWindow.end();
+    }, null);
+    var dataTable = initDataTable("data", "$url('reminderdelivery/list/')",
+        [
+            { name: "OrderId", type: "string" },
+            { name: "UserName", type: "string" },
+            { name: "SupplierName", type: "string" },
+            { name: "RemindTime", type: "date" },
+            { name: "ReminderCount", type: "int" }
+        ],
+        [
+            {
+                text: "订单Id", datafield: "OrderId", width: "20%", columntype: "textbox", editable: false, cellsrenderer: function (row, column, value) {
+                    return '<div class="action"><a href="javascript:;" onclick="return showInfo(\'' + value + '\')">' + value + '</a></div>';
+                }
+            },
+            { text: "用户", datafield: "UserName", width: "20%", columntype: "textbox", editable: false },
+            { text: "供应商", datafield: "SupplierName", width: "20%", columntype: "textbox", editable: false },
+            {
+                text: "提醒时间", datafield: "RemindTime", width: "30%", columntype: "textbox", editable: false, cellsrenderer: function (row, column, value) {
+                    return '<div class="action">' + (new Date(value * 1000)).format('yyyy-MM-dd hh:mm:ss') + '</div>';
+                }
+            },
+            { text: "提醒次数", datafield: "ReminderCount", width: "10%", columntype: "textbox", editable: false }
+        ]);
+    dataTable.loadTypePage("_", 1);
+</script>

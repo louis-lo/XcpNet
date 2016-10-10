@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>七货来了 - $Site.Title</title>
+    <meta name="keywords" content="七货来了,团购,秒杀,$Site.Keywords">
+    <meta name="description" content="七货来了,团购,秒杀,$Site.Description">
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css/common.css')">
+	<link rel="stylesheet" href="$res('css/list.css')">
+	<style type="text/css">
+	.list .assure {color:#999;}
+	</style>
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    $load("inc/nav.html")
+
+	<!-- BEGIN main -->
+	<div class="main">
+		<div class="content-wrap">
+			<div class="content" style="position:relative;">
+				<style type="text/css">
+				.aside .search {
+					width: 112px;
+					margin-left: auto;
+					margin-right: auto;
+					border: 1px solid #E5E5E5;
+				}
+				.aside .search .search-text,
+				.aside .search .search-btn {
+					height: 26px;
+					line-height: 26px;
+					padding: 0;
+				}
+				.aside .search .search-text {
+					width: 73px;
+					padding-right: 5px;
+					padding-left: 5px;
+				}
+				.aside .search .search-btn {
+					width: 26px;
+					color: #000;
+					background-color: #FFF;
+					border-left: 1px solid #E5E5E5;
+				}
+				</style>
+                <div class="site-nav">
+                    <a href="$Site.Url">首页</a> > 团购
+                </div>
+				<div class="clearfix" style="margin-top:25px;">
+					<!-- BEGIN list -->
+					<div class="list f-left" style="width:790px;">
+						<ul class="clearfix section-content thumbnail main-list">
+                            $foreach(item in ProductList)
+							<li style="${if(foreachIndex%3==1)}margin-left:0${end}">
+								<a href="$url('/product/info/',item.A.Id)" target="_blank" style="display:block;">
+									<img class="img" src="$item.A.GetImage()" alt="$item.A.Title">
+									<div class="caption">
+										<h3 class="title">$item.A.Title</h3>
+										<div class="clearfix thumbnail-footer">
+											<p class="clearfix price">
+												<ins>$item.A.GetSalePrice().ToString("C2")</ins>
+												<del>$item.A.MarketPrice.ToString("C2")</del> 
+												已售：$item.B.Count
+											</p>
+											<p class="clearfix assure">
+												<span>已交保证金</span>
+												<span>乡城品品质保障</span>
+											</p>
+										</div>
+									</div>
+								</a>
+							</li>
+							$end
+						</ul>
+						<!-- BEGIN pagination -->
+						<div class="clearfix pagination">
+							<ul>
+                                $if(ProductList.BeginPage>1)
+                                <li><a href="$url('/discount/list/',1)">1</a></li>
+                                <li class="no"><a href="$url('/discount/list/',ProductList.PageIndex-1)">...</a></li>
+                                $end
+                                $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+                                $if(i==ProductList.PageIndex)
+                                <li class="active">$i</li>
+                                $else
+                                <li><a href="$url('/discount/list/',i)">$i</a></li>
+                                $end
+                                $end
+                                $if(ProductList.PagesCount>ProductList.EndPage)
+                                <li class="no"><a href="$url('/discount/list/',ProductList.PageIndex+1)">...</a></li>
+                                <li><a href="$url('/discount/list/',ProductList.PagesCount)">$ProductList.PagesCount</a></li>
+                                $end
+							</ul>
+						</div>
+						<!-- END pagination -->
+					</div>
+					<!-- END list -->
+					
+					<!-- BEGIN aside-goods  -->
+					<div class="aside-goods">
+						<div class="panel">
+							<!--<div class="clearfix panel-header">
+								<h2 class="f-left">宝贝推荐</h2>
+								<a class="f-right" href="">更多</a>
+							</div>-->
+							<div class="panel-body">
+                                $foreach(item in RecommendList)
+								<a href="$url('/product/info/',item.Id)" target="_blank">
+									<img class="img" src="$item.GetImage()" alt="$item.Title">
+									<h3 class="title">$item.Title</h3>
+									<p>$item.GetSalePrice().ToString("C2")</p>
+								</a>
+								$end
+							</div>
+						</div>
+					</div>
+					<!-- BEGIN aside-goods  -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+    $load("inc/footer.html")
+    $load("inc/bottom.html")
+</body>
+</html>

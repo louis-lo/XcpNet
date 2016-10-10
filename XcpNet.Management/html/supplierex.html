@@ -1,0 +1,343 @@
+﻿<script type="text/javascript" src="$url('articlecategory/allcategory')"></script>
+<div id="articles"></div>
+<div id="article" style="display:none;">
+    <div><span id="righttitle">添加文章</span></div>
+    <div>
+        <form id="aform" action="" method="post">
+            <div style="margin-bottom:6px;">
+                <table border="0" cellpadding="0" cellspacing="0" class="table">
+                    <tr>
+                        <td align="right" style="width:88px;"><label for="atitle">标题：</label></td>
+                        <td>
+                            <input id="atitle" name="Title" type="text" class="text" style="width:400px;float:left;" />
+                            <select id="astyle" name="Style" class="select" style="margin-left:10px;float:left;">
+                                <option value="0">正常</option>
+                                <option value="1">粗体</option>
+                                <option value="2">斜体</option>
+                                <option value="3">下划线</option>
+                                <option value="4">删除线</option>
+                            </select>
+                            <div style="margin-left:10px;float:left;height:23px;" id="dropDownButton">
+                                <div style="padding:3px;">
+                                    <div id="colorPicker"></div>
+                                </div>
+                            </div>
+                            <input id="acolor" name="Color" type="hidden" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="acategory">分类：</label><input id="hcategory" name="Category" type="hidden" value="0" /></td>
+                        <td id="acategory"></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="aimage">封面：</label></td>
+                        <td><input id="aimage" name="Image" type="text" class="text" style="width:500px;" /><input id="aview" type="button" value="浏览" class="cancel" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="adate">时间：</label></td>
+                        <td><input id="hdate" name="CreationDate" type="hidden" /><input id="atop" name="Top" type="checkbox" /><label for="atop">置顶</label><input id="avisibility" name="Visibility" type="checkbox" checked="checked" style="margin-left:10px;" /><label for="avisibility">审核</label><div id="adate" style="float:left;display:inline-block;margin-right:10px;"></div></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="adescription">摘要：</label></td>
+                        <td><textarea id="adescription" name="Description" class="text" style="width:680px;height:50px;"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="acontent">内容：</label></td>
+                        <td><textarea id="acontent" style="width:680px;height:190px;visibility:hidden;display:block;"></textarea><input type="hidden" id="HContent" name="Content" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="akeywords">关键字：</label></td>
+                        <td><input id="akeywords" name="Keywords" type="text" class="text" style="width:680px;" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="aauthor">来源：</label></td>
+                        <td><input id="aauthor" name="Author" type="text" class="text" style="width:680px;" placeholder="$Site.Name" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="areferer">引用：</label></td>
+                        <td><input id="areferer" name="Referer" type="text" class="text" style="width:680px;" placeholder="http://" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right;padding:10px;">
+                <input id="aid" name="Id" type="hidden" value="0" />
+                <input type="button" id="ok" value="确定" class="submit" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var editor = null;
+    var categories = null;
+    var categoryrenderer = function (row, column, value) {
+        var html = '<div class="action">';
+        if (value == 0) {
+            html += '根分类';
+        }
+        else {
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                if (allCategory.data[i].Id == value) {
+                    html += allCategory.data[i].Name;
+                    break;
+                }
+            }
+        }
+        html += '</div>';
+        return html;
+    }
+    var daterenderer = function (row, column, value) {
+        return '<div class="action">' + (new Date(value * 1000)).format('yyyy-MM-dd hh:mm:ss') + '</div>';
+    };
+    var actionrenderer = function (row, column, value) {
+        return '<div class="action"><a href="javascript:;" onclick="return showEdit(' + value + ')">编辑</a><a href="javascript:;" onclick="return doDelete(' + value + ')">删除</a></div>';
+    }
+    function reset() {
+        $('#acategory').empty();
+        categories = new Array();
+    }
+    function showAdd() {
+        $('#righttitle').text('添加文章');
+        reset();
+        $('#aid').val('0');
+        $('#article').jqxWindow('open');
+    }
+    function showEdit(id) {
+        $('#righttitle').text('编辑文章');
+        reset();
+        $('#aid').val(id);
+        $('#article').jqxWindow('open');
+    }
+    function doDelete(id) {
+        if (window.confirm('确定要删除该管理员吗？')) {
+            postAjax('$url("article/del")', 'Id=' + id, function (data, args) {
+                if (showResult(data, '删除文章成功', '删除文章失败', null)) {
+                    dataTable.reloadPage();
+                }
+            }, null);
+        }
+        return false;
+    }
+    function doCategory(el, pre, id, must, def) {
+        $('#hcategory').val(id);
+        while (categories.length > 0) {
+            if (categories[categories.length - 1] != pre) {
+                $('#acategory_' + categories[categories.length - 1]).remove();
+                categories.pop();
+            }
+            else {
+                break;
+            }
+        }
+        if (id > 0 || must) {
+            getAjax(getUrl('$url("article/categories/")' + id), function (data, args) {
+                if (data.code == -200) {
+                    if (data.data.length > 0) {
+                        var html = '<select id="acategory_' + args.id + '" onchange="doCategory(\'' + args.el + '\',' + args.id + ',this.options[this.options.selectedIndex].value,false,0)"><option value="0">请选择分类</option>';
+                        for (var i = 0; i < data.data.length; ++i) {
+                            html += '<option value="' + data.data[i].Id + '"' + (data.data[i].Id == args.def ? ' selected="selected"' : '') + '>' + data.data[i].Name + '</option>';
+                        }
+                        html += '</select>';
+                        $('#' + args.el).append($(html));
+                        categories.push(args.id);
+                    }
+                }
+            }, { el: el, id: id, def: def });
+        }
+    }
+    function validate(form, aid) {
+        $('#aform').jqxValidator('hide');
+        $('#hdate').val($('#adate').val());
+        $('#acontent').val(editor.html());
+        $('#HContent').val(encodeURIComponent(editor.html()));
+        $('#aform').jqxValidator({
+            rules: [
+                { input: '#atitle', message: '文章标题不能为空!', action: 'keyup, blur', rule: 'required' },
+                {
+                    input: '#acategory_' + categories[categories.length - 1], message: '请选择文章分类!', action: 'keyup, blur', rule: function (input, commit) {
+                        var value = $('#hcategory');
+                        if (parseInt(value.val()) > 0 && parseInt(input.val()) > 0) {
+                            return true;
+                        }
+                        return false;
+                    }
+                },
+                {
+                    input: '.ke-edit-iframe', message: '文章内容不能为空!', action: 'keyup, blur', rule: function (input, commit) {
+                        if ($('#acontent').val() != '') {
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            ]
+        });
+        return form.jqxValidator('validate');
+    }
+    var mainWindow = initWindow('article', 'aform', null, 'aid', validate, null, function () {
+        if (editor == null) {
+            editor = KindEditor.create('#acontent', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true
+            });
+            $('#aview').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: $('#aimage').val(),
+                        clickFn: function (url, title) {
+                            $('#aimage').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+            $("#colorPicker").on('colorchange', function (event) {
+                $("#dropDownButton").jqxDropDownButton('setContent', getTextElementByColor(event.args.color));
+                $('#acolor').val('#' + event.args.color.hex);
+            });
+            $("#colorPicker").jqxColorPicker({ colorMode: 'hue', width: 220, height: 220 });
+            $("#dropDownButton").jqxDropDownButton({ width: 120, height: 22 });
+            $("#adate").jqxDateTimeInput({ culture: JS_Lang, formatString: 'yyyy-MM-dd HH:mm:ss', dayNameFormat: 'shortest' });
+        }
+        var aid = $('#aid').val();
+        if (aid == '0') {
+            $('#atitle').val('');
+            $('#astyle').val('0');
+            $("#colorPicker").jqxColorPicker('setColor', '#000');
+            $('#hcategory').val('0');
+            $('#aimage').val('');
+            $('#adate').val(new Date());
+            document.getElementById('avisibility').checked = true;
+            document.getElementById('atop').checked = false;
+            //$('#avisibility').attr('checked', true);
+            //$('#atop').attr('checked', false);
+            $('#adescription').val('');
+            editor.html('');
+            $('#akeywords').val('');
+            $('#aauthor').val('');
+            $('#areferer').val('');
+            doCategory('acategory', 0, 0, true, 0);
+        }
+        else {
+            getAjax(getUrl('$url("article/get/")' + aid), function (data, args) {
+                if (data.code == -200) {
+                    $('#atitle').val(data.data.Title);
+                    $('#astyle').val('' + data.data.Style);
+                    $("#colorPicker").jqxColorPicker('setColor', data.data.Color == '' ? '#000' : data.data.Color);
+                    $('#aimage').val(data.data.Image);
+                    $('#adate').val(new Date(data.data.CreationDate * 1000));
+                    document.getElementById('avisibility').checked = data.data.Visibility;
+                    document.getElementById('atop').checked = data.data.Top;
+                    //$('#avisibility').attr('checked', data.data.Visibility);
+                    //$('#atop').attr('checked', data.data.Top);
+                    $('#adescription').val(data.data.Description);
+                    editor.html(data.data.Content);
+                    $('#akeywords').val(data.data.Keywords);
+                    $('#aauthor').val(data.data.Author);
+                    $('#areferer').val(data.data.Referer);
+                    getAjax(getUrl('$url("article/parents/")' + data.data.CategoryId), function (data, args) {
+                        if (data.code == -200) {
+                            var id;
+                            var pid = 0;
+                            for (var i = 0; i < data.data.length; ++i) {
+                                id = data.data[i];
+                                doCategory('acategory', pid, pid, pid == 0, id);
+                                pid = id;
+                            }
+                        }
+                        $('#hcategory').val(args);
+                    }, data.data.CategoryId);
+                }
+            }, null);
+        }
+        $('#hdate').val($('#adate').val());
+    }, function (form) {
+        postAjax('$url("article/add")', form.serialize(), function (data, args) {
+            if (showResult(data, '添加文章成功', '添加文章失败', function (code) {
+                    if (code == -1) {
+                        return { type: 'error', message: '选择的分类还有子分类' };
+                    }
+                    return null;
+                })) {
+                dataTable.reloadPage();
+            }
+            mainWindow.close();
+            mainWindow.end();
+        }, null);
+    }, function (form) {
+        postAjax('$url("article/mod")', form.serialize(), function (data, args) {
+            if (showResult(data, '修改文章成功', '修改文章失败', function (code) {
+                    if (code == -1) {
+                        return { type: 'error', message: '选择的分类还有子分类' };
+                    }
+                    return null;
+                })) {
+                dataTable.reloadPage();
+            }
+            mainWindow.close();
+            mainWindow.end();
+        }, null);
+    });
+    var dataTable = initDataTable('articles', '$url("article/list/")', [
+		{ name: 'Id', type: 'int' },
+		{ name: 'Title', type: 'string' },
+		{ name: 'CategoryId', type: 'int' },
+		{ name: 'CreationDate', type: 'date' },
+		{ name: 'Top', type: 'bool' },
+		{ name: 'Visibility', type: 'bool' }
+    ], [
+		{
+			text: '标题', datafield: 'Title', width: '35%', columntype: 'textbox', cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+			    if (newvalue == '') {
+			        return oldvalue;
+			    }
+			}
+		},
+		{ text: '分类', datafield: 'CategoryId', width: '20%', cellsrenderer: categoryrenderer, editable: false },
+		{ text: '日期', datafield: 'CreationDate', width: '15%', cellsrenderer: daterenderer, editable: false },
+		{ text: '置顶', datafield: 'Top', width: '10%', columntype: 'checkbox' },
+		{ text: '审核', datafield: 'Visibility', width: '10%', columntype: 'checkbox' },
+		{ text: '操作', datafield: 'Id', minwidth: '10%', cellsrenderer: actionrenderer, editable: false }
+    ], function (toolbar) {
+        toolbar.empty();
+
+        toolbar.append($('<div style="margin:5px 0 5px 5px;float:left;display:inline;height:22px;line-height:22px;">当前分类：</div><div id="menucur" style="margin:5px 5px 5px 0;float:left;display:inline;height:22px;line-height:22px;">所有文章</div>'));
+        toolbar.append($('<div id="catemenu" style="margin-top:1px;float:left;display:inline;"><ul><li>选择分类<ul id="menuitem_0"><li onclick="reloadPage(0,1,\'所有文章\')">所有文章</li></ul></li></ul></div>'));
+        var temp = [];
+        for (var i = 0; i < allCategory.data.length; ++i) {
+            temp[allCategory.data[i].ParentId] = true;
+        }
+        for (var i = 0; i < allCategory.data.length; ++i) {
+            $('#menuitem_' + allCategory.data[i].ParentId).append($('<li onclick="reloadPage(' + allCategory.data[i].Id + ',1,\'' + allCategory.data[i].Name + '\')">' + allCategory.data[i].Name + (temp[allCategory.data[i].Id] ? '<ul id="menuitem_' + allCategory.data[i].Id + '"></ul>' : '') + '</li>'));
+        }
+
+        var container = $("<div style='margin:5px;float:left;display:inline;'></div>");
+        var input = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height: 23px; float: left; width: 80px;' value='添加' />");
+        toolbar.append(container);
+        container.append(input);
+
+        $('#catemenu').jqxMenu({ height: 27, width: 70 });
+
+        input.on('click', function (event) {
+            showAdd();
+            return false;
+        });
+    }, function (rowid, rowdata, commit) {
+        postAjax('$url("article/update")', 'Id=' + rowdata.Id + '&Title=' + encodeURIComponent(rowdata.Title) + '&Visibility=' + rowdata.Visibility + '&Top=' + rowdata.Top, function (data, args) {
+            if (data.code == -200) {
+                args(true);
+                dataTable.reloadPage();
+            }
+            else {
+                args(false);
+            }
+        }, commit);
+    });
+    dataTable.loadTypePage(0, 1);
+    function reloadPage(type, page, name) {
+        $('#menucur').html(name);
+        dataTable.loadTypePage(type, page);
+    }
+</script>

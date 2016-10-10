@@ -1,0 +1,26 @@
+html{font-size: 100px;}
+body{margin:0px;padding:0px;line-height:1.5;-webkit-tap-highlight-color:rgba(0,0,0,0);font-size:0.14rem;word-break:break-word;font-family:"Microsoft YaHei",tahoma,arial,'Hiragino Sans GB';color:#999;line-height:0.22rem;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+ul li{list-style:none;}h3{font-size: 0.16rem;font-weight:normal;}a{text-decoration: none;color:#333;}
+img{max-width:100%;}
+div,p,ul,li,h3,img,dd{margin:0;padding: 0;word-break:break-word;}.fl{float:left;}.fr{float:right;}
+
+
+
+
+
+/* big */
+@media (min-width:450px) and (max-width:1024px) {
+    html {font-size:129.375px;}
+    body{font-size:0.12rem;}
+}
+/* iphone 6 */
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2) {
+    html {font-size: 117.1875px;}
+    body{font-size:0.14rem;}
+}
+/* iphone6 plus */
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3) {
+    html {font-size: 129.375px;}
+    body{font-size:0.14rem;}
+}

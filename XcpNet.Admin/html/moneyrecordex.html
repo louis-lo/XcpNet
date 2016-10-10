@@ -1,0 +1,52 @@
+﻿<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的账单 - $Site.Name</title>
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css/u_common.css')">
+    <link rel="stylesheet" href="$res('css/u_recharge.css')">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>订单号</th>
+                <th>创建时间</th>
+                <th>类型</th>
+                <th>金额</th>
+                <th>详情</th>
+            </tr>
+        </thead>
+        <tbody>
+            $foreach(item in RecordList)
+            <tr>
+                <td>$item.TargetId</td>
+                <td>$item.CreationDate.ToString()</td>
+                <td>$item.Title</td>
+                <td>$item.Value.ToString("C2")</td>
+                <td style="color:#26bc00;">$if(item.Type==1&&item.Value<0)<a href="$url('/buy/status/',item.TargetId)" target="_blank">查看详情</a>$else成功$end</td>
+            </tr>
+            $end
+        </tbody>
+    </table>
+    <div class="clearfix pagination">
+        <ul>
+            $if(RecordList.BeginPage>1)
+            <li><a href="$url('/billlist/list/',1)">1</a></li>
+            <li class="no"><a href="$url('/billlist/list/',RecordList.PageIndex-1)">...</a></li>
+            $end
+            $for(i=RecordList.BeginPage;i<=RecordList.EndPage;i++)
+            $if(i==RecordList.PageIndex)
+            <li class="active">$i</li>
+            $else
+            <li><a href="$url('/billlist/list/',i)">$i</a></li>
+            $end
+            $end
+            $if(RecordList.PagesCount>RecordList.EndPage)
+            <li class="no"><a href="$url('/billlist/list/',RecordList.PageIndex+1)">...</a></li>
+            <li><a href="$url('/billlist/list/',RecordList.PagesCount)">$RecordList.PagesCount</a></li>
+            $end
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+table{border-collapse:collapse;border-spacing:0;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{ width:100%; height:auto;overflow: hidden;}
+.w1000{ width:1200px; height:auto;margin:0 auto;}
+.mt{margin-top:10px;}
+input,button {outline:none;border: 0;background: #fff;}
+button{cursor: pointer;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+img{display: block;}.mt10{margin-top: 10px;}.mt25{margin-top: 25px;}.pr10{padding-right: 20px;}
+i{font-style: normal;}
+
+/* END reset */
+
+/* 头部分 */
+.headerBottom_wrap{background: #FE500B;padding: 7px 0;}
+.header_bottom img{width: 141px;height: 50px;}
+/* 头部分 结束 */
+
+/* 中间 开始*/
+.center_wrap{padding: 7px 0;background: #f9f9f9;}
+.center_wrapBox{}
+.center_wrapBoxLeft{font-size: 15px;color: #444;}
+.center_wrapBoxLeft p{font-size: 12px;color: #666;}
+.center_wrapBox i{color:#FE500B;font-style: normal;}
+.center_wrapBoxRight{margin-left: 323px;}
+.center_payWayBox{margin-top: 15px;padding:10px 0 35px;box-shadow: 0px 0px 12px 1px #ccc;position: relative;}
+.payprint{width: 114px;background: url("../img2.0/payprint.png") no-repeat;height: 35px;position: absolute;z-index: 1;top: 14px;left: -3px;}
+.center_payWayBox h2{font-weight: normal;width:90px;border-bottom:2px solid #ff7300;text-align: center;font-size: 16px;}
+.center_payWayBox a{margin-right: 10px;}
+.pricColor{color:#FE500B;}
+.order_hao{margin-top: 5px;}
+.order_hao td{text-align: center;height: 30px;}
+.order_hao .trOne{background:#ededed;}
+.order_hao .tdOne{width: 350px;}
+.center_orderPage{text-align: center;margin-top: 5px;overflow: hidden;}
+.center_orderPage ul{width: 100px;float: right;}
+.center_orderPage ul li{float: left;margin-right: 6px;background:#ededed;}
+
+.center_payPrice{font-size: 16px;margin-bottom: 15px;color: #333;}
+/* 选择余额支付 显示的 输入密码框框 */
+.center_payPassword{margin-top: 10px;}
+.center_payPassword input{background:#f2f2f2;padding-left: 20px;width: 336px;height: 42px;}
+.paypwd_error {
+    border: 1px solid red;
+}
+
+/* 忘记密码 提示 */
+.center_payTs{width: 340px;background:url("../img2.0/payPassword.png") 0px 2px no-repeat;margin: 15px;color:#fb0002;display:none}
+.center_payTs span{margin-left: 28px;}
+
+.center_payPassword a{color:#ff7300;margin-left: 10px;}
+/* 选择余额支付 显示的 输入密码框框 结束*/
+
+/* 分页 选中状态*/
+.center_orderPage ul .un{background:#fff;}
+
+.center_orderPage ul li a{width:25px; height: 25px;display: block;border:1px solid #e2e2e2;line-height: 25px;}
+.pay_mode{border:0px solid #e2e2e2;margin-top: 50px;}
+.pay_mode ul input{margin-top: 10px;}
+#border_li{
+	border: 2px solid #ff7300;
+}
+.pay_mode ul li:first-child{
+	border-top:1px solid #e2e2e2;
+}
+.pay_mode ul li{border-bottom:1px solid #e2e2e2;cursor: pointer;padding: 13px 30px;}
+.pay_mode ul li span .ye{background: url("../img2.0/cart_pay.png")no-repeat;display: inline-block;vertical-align: middle;width: 34px;height: 34px;padding-left: 25px;}
+.pay_mode ul li span .wx{background: url("../img2.0/cart_wx.png")no-repeat;}
+.pay_mode ul li span .zfb{background: url("../img2.0/cart_zfb.png")no-repeat;}
+.pay_mode ul li span .hdfk {
+    background: rgba(0, 0, 0, 0) url("../img2.0/cart_hdfk.png") no-repeat scroll 0 0;
+}
+.pay_mode ul li span .zz{background: url("../img2.0/cart_zz.png")no-repeat;}
+.pay_mode ul li .yepayWay{font-size: 16px;vertical-align: middle;margin-left: 20px;}
+.cart_button{margin-top: 17px;}
+
+.cart_button button{width: 155px;height: 45px;background: #FE500B;font-size: 20px;color: #fff;}
+
+.ablemoney_span{margin: 10px 30px 20px;}
+.ablemoney_span span{color:#666;}
+.ablemoney_span span i{color: #ff7300;font-weight: bold;font-size: 13px;}
+
+.ablemoney_spantwo{display: none;}
+.colseWrap{padding: 13px 30px;}
+/* 中间 结束*/
+
+/* 底部 开始 */
+.bottom_box{background: #fafafa;border-top:1px solid #e2e2e2;padding-bottom: 30px;margin-top: 15px;}
+.bottom_foot_box{margin-top: 43px;}
+.bottom_foot_box ul{width: 472px;margin: 0 auto;}
+.bottom_foot_box ul li{border-right: 1px solid #999;float: left;padding: 0 12px;height: 13px;line-height: 13px;}
+.bottom_foot_box ul li a{color: #666;}
+.bottom_foot_box ul li:last-child{border-right:0px;}
+.bottom_section_last{text-align: center;margin-top: 8px;}
+.bottom_section_last p{color:#999;margin-bottom: 2px;}
+/* 底部 结束 */

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/swiper.min.css">
+<script src="../js/zepto.min.js"></script>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="clearfix bar bar-nav col_333 bg_fff">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="#">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				待付款
+			</div>
+		</div>
+
+		<div class="bar bar-nav bg_fff" style="top:2.2rem">
+			<div class="order_nav clearfix">
+				<!-- Swiper -->
+			    <div class="swiper-container fl">
+			        <div class="swiper-wrapper">
+			            <div class="swiper-slide"><a href="#">全部</a></div>
+			            <div class="swiper-slide on"><a href="#">代付款</a></div>
+			            <div class="swiper-slide"><a href="#">出库中</a></div>
+						<div class="swiper-slide"><a href="#">待发货</a></div>
+						<div class="swiper-slide"><a href="#">待收货</a></div>
+						<div class="swiper-slide"><a href="#">已完成</a></div>
+						<div class="swiper-slide"><a href="#">售后</a></div>
+			        </div>
+			        <!-- Add Pagination -->
+			        <!--<div class="swiper-pagination"></div>-->
+			    </div>
+			    <div class="fr purchasemy_icon ordermore_icon"></div>
+			</div>
+		</div>
+		
+		<!-- order more nav -->
+		<div class="bar bar-nav bg_fff ordermore_nav" style="top:2.2rem;border:none;z-index: 999999;">
+			<div class="ordermore_navTop clearfix">
+				<div class=" fl col_666">选择状态</div>
+				<div class="fr purchasemy_icon ordermore_icon ordermore_iconS"></div>
+			</div>
+			<div class="ordermore_navList">
+				<ul class="clearfix">
+					<li class="on"><a href="#">全部订单</a></li>
+					<li><a href="#">代付款</a></li>
+					<li><a href="#">出库中</a></li>
+					<li><a href="#">待发货</a></li>
+					<li><a href="#">待收货</a></li>
+					<li><a href="#">已完成</a></li>
+					<li><a href="#">售后</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- / order more nav -->
+		<!-- content -->
+		<div class="content native-scroll">
+			<div class="order_all">
+				<!-- for order list -->
+	        	<ul>
+	        		<li><div class="order_Txt"><span class="fr col_ff7">未付款</span><span class="purchasemy_icon choice_icon"></span>订单号：14641449182431</div></li>
+	        		<li class="purchaseall_Test">
+	        			<div class="purchaseall_Le">
+	        				<img src="../img/purchasemy_topImg.png" />
+	        			</div>
+	        			<div class="purchaseall_Con">
+	        				<h3 class="txt_hide2L col_333">乡城品优品 夏季条纹休闲连衣裙瘦半身裙子</h3>
+	        				<p class="txt_hide2L Coninfo col_999">颜色：白象牙见识拍  规格：XL</p>
+	        			</div>
+	        			<div class="purchaseall_Re">
+	        				<p>￥120.00</p>
+	        				<p>X1</p>
+	        			</div>
+	        		</li>
+	        		<li class="purchaseall_Txt">
+	        			<span class="col_999">共1款商品</span>
+	        			<span class="col_ff7">实付：￥<b class="this_Price">240.00</b></span>
+	        		</li>
+	        		<li class="purchaseall_Sub"><a href="#" class="col_666 delete_order">取消订单</a><a href="#" class="payment_submit col_fff">立即支付</a></li>
+	        	</ul>
+	        	<!-- end for order list -->
+	        	<!-- for order list -->
+	        	<ul>
+	        		<li><div class="order_Txt"><span class="fr col_ff7">待付款</span><span class="purchasemy_icon choice_icon"></span>订单号：14641449182431</div></li>
+	        		<li class="purchaseall_Test">
+	        			<div class="purchaseall_Le">
+	        				<img src="../img/purchasemy_topImg.png" />
+	        			</div>
+	        			<div class="purchaseall_Con">
+	        				<h3 class="txt_hide2L col_333">乡城品优品 夏季条纹休闲连衣裙瘦半身裙子</h3>
+	        				<p class="txt_hide2L Coninfo col_999">颜色：白象牙见识拍  规格：XL</p>
+	        			</div>
+	        			<div class="purchaseall_Re">
+	        				<p>￥120.00</p>
+	        				<p>X1</p>
+	        			</div>
+	        		</li>
+	        		<li class="purchaseall_Txt">
+	        			<span class="col_999">共1款商品</span>
+	        			<span class="col_ff7">实付：￥<b class="this_Price">240.00</b></span>
+	        		</li>
+	        		<li class="purchaseall_Sub"><a href="#" class="col_666 delete_order">取消订单</a><a href="#" class="payment_submit col_fff">立即支付</a></li>
+	        	</ul>
+	        	<!-- end for order list -->
+			</div>
+		</div>
+		<!-- / content -->
+		<div class="purchaseall_merge pad_lr clearfix">
+			<span class="fr"><a class="Consolidated_payment col_fff" href="javascript:;">合并支付</a></span>
+			<span class="payment_Select">
+				<span class="purchasemy_icon choice_icon choice2_icon"></span>
+				<span>全选</span>
+			</span>
+		</div>
+		
+	</div>
+</div>
+<!-- Swiper JS -->
+<script src="../js/swiper.min.js"></script>
+<!-- Initialize Swiper -->
+<script>
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    //从第几个开始
+    initialSlide :1,
+    slidesPerView: 4.5,
+    spaceBetween: 10,
+    breakpoints: {
+        1024: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        },
+        768: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        },
+        640: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        },
+        320: {
+            slidesPerView: 4.5,
+            spaceBetween: 10
+        }
+    }
+});
+$(function(){
+	$(".delete_order").click(function(){
+		if(window.confirm('你确定要删除该订单吗？')){
+			$(this).parent().parent().remove()
+			if($(".order_all").children("ul").length==0){
+				$(".purchaseall_merge").css("display","none")
+			}
+        	return true;
+        	
+       }else{
+            return false
+        }
+	})
+	$(".payment_submit").click(function(){
+		var this_click = $(this);
+		payment_submit.payment(this_click)
+	});
+	$(".paymentback_icon").click(function(){
+		$(".purchaseall_payment").css("bottom","100%")
+	});
+	$(".purchaseall_paymentDesc ul li").click(function(){
+		var this_click = $(this);
+		payment_submit.purchaseall_paymentDesc(this_click)
+	});
+	$(".order_Txt").on("click",function(){	
+
+		$(this).toggleClass("on");
+		if($(".order_Txt.on").length==0){
+			$(".Consolidated_payment,.choice2_icon").removeClass("on")
+		}else{
+			$(".Consolidated_payment").addClass("on")
+		}
+	});
+	$(".payment_Select").on("click",function(){
+		if($(".choice2_icon").hasClass("on")){
+			$(this).children(".choice2_icon").removeClass("on")
+			$(".order_Txt").removeClass("on")
+			$(".Consolidated_payment").removeClass("on")
+		}else{
+			$(this).children(".choice2_icon").addClass("on")
+			$(".order_Txt").addClass("on")
+			$(".Consolidated_payment").addClass("on")
+		}		
+	});
+	$(".Consolidated_payment").on("click",function(){
+		if($(this).hasClass("on")){
+			alert("提交")
+		}
+	})
+});
+var payment_submit = function(){
+	this.click = function(){
+		var this_click = $(this);
+	}
+	this.payment = function(this_click){
+		var this_Price = this_click.parent(".purchaseall_Sub").prev(".purchaseall_Txt").children('.col_ff7').children(".this_Price").text();
+		$(".purchaseall_Price").text(this_Price);
+		$(".purchaseall_payment").css("bottom","0");
+	}
+	this.purchaseall_paymentDesc = function(this_click){
+		$(".purchaseall_paymentDesc ul li").removeClass();
+		this_click.addClass("on")
+	}
+}
+var payment_submit = new payment_submit();
+</script>
+<script src="../js/sm.min.js"></script>
+</body>
+</html>

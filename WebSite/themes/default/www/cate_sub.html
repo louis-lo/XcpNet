@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>$Category.Name - $Site.Title</title>
+    <meta name="keywords" content="$Category.Name,$Site.Keywords">
+    <meta name="description" content="${Category.Name}分类,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cph.pc.category.sub.min.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <div class="content">
+        <div class="center_targetWrap w1000">
+            <a href="$Site.Url">首页</a> <i></i>
+            $if(Filter.KeyWord==null || Filter.KeyWord=="")
+            $foreach(item in CategoryList)
+            <a href="$url('/category/list/',item.Id)"> $item.Name </a> <i></i>
+            $end
+            $else
+            <a href="javascript:;">搜索“$Filter.KeyWord”的结果 </a>
+            $end
+        </div>
+        <div class="cneterScreen w1000">
+            <div class="cneterScreenTop">
+                <span>$Category.Name</span> - 商品筛选
+            </div>
+            $if(CategoryId==0)
+            <div class="screenBrand clearFix">
+                <div class="Brand fl"><b>分类：</b></div>
+                <div id="brand" class="brandClassify fl Classify">
+                    <ul class="clearFix">
+                        $foreach(cate in CategoryList)
+                        <li>
+                            <a href="$CateUrl(cate.Id)" class="pitchA clearFix js">
+                                <span class="fl">$cate.Name</span>
+                                <em class="pitchEm pitchEmOn fl "></em>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            $end
+            $if(BrandList.Count>0)
+            <div class="screenBrand clearFix">
+                <div class="Brand fl"><b>品牌：</b></div>
+                <div id="brand" class="brandClassify fl Classify">
+                    <ul class="clearFix">
+                        $foreach(brand in BrandList)
+                        <li>
+                            <a href="$BrandUrl(brand.Id)" class="pitchA clearFix js">
+                                <span class="fl">$brand.Name</span>
+                                <em class="pitchEm pitchEmOn fl "></em>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            $end
+            $foreach(attr in AttributeList)
+            <div class="screenBrand clearFix">
+                <div class="Brand fl"><b>$attr.Name：</b></div>
+                <div class="brandClassify fl">
+                    <ul class="clearFix">
+                        $foreach(attrMap in attr.GetAllValuesByCategory(this.DataSource))
+                        <li>
+                            <a href="$AttrUrl(attr.Id,attrMap.Value)" class="pitchA clearFix">
+                                <span class="fl">$attrMap.Value</span>
+                                <em class="pitchEm pitchEmOn fl "></em>
+                            </a>
+                            $end
+                    </ul>
+                </div>
+            </div>
+            $end
+            <div class="screenBrand clearFix">
+                <div class="Brand fl"><b>价格：</b></div>
+                <div class="classify brandClassify fl">
+                    <input class="pricIput" type="text" value="0" id="txtStartPrice" /> - <input type="text" value="0" id="txtEndPrice" />
+                    <a href="javascript:;" id="btnPrice" onclick='window.location.href = "$PriceUrl(' "+document.getElementById(" txtStartPrice").value+"','"+document.getElementById("txtEndPrice").value+"')"'>确定</a>
+                </div>
+            </div>
+        </div>
+        <!-- 商品 筛选 结束 -->
+        <div class="mainBar">
+            <div class="main_con clearFix">
+                <div class="main_con_left fl">
+                    <div class="mall_recommend">
+                        <div class="mall_recommend_tit">商城推荐</div>
+                        $set(products=clr.Cnaws.Product.Modules.Product.GetTopRecommendByArea(this.DataSource,7,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                        $for(i=0;i <clr.System.Math.Min(7,products.Count);i++) $set(product=products[i])
+                        <a href="$url('/product/info/',product.A.Id)" target="_blank">
+                            <dl>
+                                <dt><img class="jsProductImg" data-original="$product.A.GetImage()"/></dt>
+                                <dd>
+                                    <p class="goods_describ">$product.A.Title</p>
+                                    <span class="price">
+                                        $product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")
+                                    </span>
+                                </dd>
+                            </dl>
+                        </a>
+                        $end
+                    </div>
+                </div>
+                <div class="main_con_right fr">
+                    <div class="sort">
+                        <div class="sort_top">
+                            <span>排序：</span>
+                            <ul class="sort_type clearFix">
+                                $if(Filter.OrderBy==2)
+                                <li class="change"><a href="$OrderUrl(1)">销量</a></li>
+                                $else
+                                <li><a href="$OrderUrl(2)">销量</a></li>
+                                $end
+
+                                $if(Filter.OrderBy==6)
+                                <li class="change"><a href="$OrderUrl(5)">价格</a></li>
+                                $else
+                                <li><a href="$OrderUrl(6)">价格</a></li>
+                                $end
+
+                                $if(Filter.OrderBy==4)
+                                <li class="change"><a href="$OrderUrl(3)">人气</a></li>
+                                $else
+                                <li><a href="$OrderUrl(4)">人气</a></li>
+                                $end
+                            </ul>
+                            <ul class="sort_top_right">
+                                <li class="one"><i>$ProductList.PageIndex</i>/$ProductList.PagesCount </li>
+                                $if(ProductList.PageIndex>1)
+                                <li><a href="$PageUrl(ProductList.PageIndex-1)" title="上一页"><</a>
+                                $else
+                                <li><a href="javascript:;"title="没有上一页了" style="color:#bdb8b8"> < </a></li>
+                                $end
+
+                                $if(ProductList.PagesCount>ProductList.PageIndex)
+                                <li><a href="$PageUrl(ProductList.PageIndex+1)" title="下一页"> > </a></li>
+                                $else
+                                <li><a href="javascript:;"title="没有下一页了" style="color:#bdb8b8"> > </a></li>
+                                $end
+                            </ul>
+                        </div>
+                        <div class="sort_bottom">
+                            <a class="ping" href="javascript:;"><img src="$res('img2.0/3.png')" /></a>
+                            <a class="zong" href="javascript:;"><img src="$res('img2.0/4.png')" /></a>
+                        </div>
+                    </div>
+                    <div class="show_pic clearFix">
+                        $foreach(item in ProductList)
+                        <dl class="show_pic_a">
+                            <a href="$url('/product/info/',item.Product_Id)" class="show_picHover" target="_blank">
+                                <dt>
+                                    $set(product=clr.Cnaws.Product.Modules.Product.GetById(this.DataSource,item.Product_Id))
+                                    <img class="jsProductImg1" data-original="$product.GetImage()" />
+                                    <!--<div class="goods_changebz goods_bz">
+                                        <span>品牌特供</span>
+                                    </div>-->
+                                </dt>
+                                <dd>
+                                    <p class="goodsHover">$item.Product_Title</p>
+                                    <span>
+                                        $item.Product_Price.ToString("c2")
+                                    </span>
+                                    <del> $item.Product_MarketPrice.ToString("c2")</del>
+                                </dd>
+                                <!--<div class="s">
+                                    <p class="p_2 p_1"><a href="javascript:;" class="btnCart" data-productid="$item.Product_Id" data-count="1">加入购物车</a></p>
+                                </div>-->
+                            </a>
+                        </dl>
+                        $end
+                    </div>
+                    <div class="show_B">
+                        $foreach(item in ProductList)
+                        <ul class="show_B_a">
+                            <li class="img_">
+                                <a href="$url('/product/info/',item.Product_Id)" target="_blank">
+                                    $set(product=clr.Cnaws.Product.Modules.Product.GetById(this.DataSource,item.Product_Id))
+                                    <img src="$product.GetImage()"  width="54" height="54"/>
+                                </a>
+                            </li>
+                            <li class="news">
+                                <span class="hh"><a href="$url('/product/info/',item.Product_Id)" target="_blank">$item.Product_Title</a></span>
+                                <!--<span class="news_a"><a href="#">品牌特供</a></span>-->
+                            </li>
+                            <li class="price_">
+                                本店售价  :<i>
+                                    $item.Product_Price.ToString("c2")
+                                </i>
+                            </li>
+                            <li class="j0in_">
+                                <a href="javascript:;" class="btnCart" data-productid="$item.Product_Id" data-count="1">加入购物车</a>
+                            </li>
+                        </ul>
+                        $end
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分页 开始 -->
+    <div class="center_pageWrap w1000">
+        <div class="center_pageBox fr clearFix">
+            <ul class="clearFix fl">
+                $if(ProductList.PageIndex>1)
+                <li class="page_prev">
+                <a href="$PageUrl(ProductList.PageIndex-1)"class=" pageprev_img">&lt;上一页</a></li>
+                $end
+                $for(i=ProductList.BeginPage;i<=ProductList.EndPage-1;i++)
+               
+                $if(i==ProductList.PageIndex)
+                <li class="page_numer itme"><a href="javascript:;">$i</a></li>
+                $else
+                <li class="page_numer"><a href="$PageUrl(i)">$i</a></li>
+                $end
+                $if(i==ProductList.BeginPage )
+                <li class="dot">...</li>
+                $end
+                $end
+                $if(ProductList.EndPage>ProductList.PageIndex)
+                <li class="dot">...</li>
+                <li class="page_numer"><a href="$PageUrl(ProductList.PagesCount)">$ProductList.PagesCount</a></li>
+                <li  class="page_next page_prev"><a class="pageprev_next pagenext_img" href="$PageUrl(ProductList.PageIndex+1)">下一页&gt;</a></li>
+                $end
+            </ul>
+            <div class="total fl"> 共 $ProductList.PagesCount 页/$ProductList.TotalCount条，</div>
+            <div class="form fl">
+                <span class="text">跳到</span>
+                <input id="txtPageNumber" class="input J_Input" type="number" aria-label="页码输入框" max="$ProductList.PagesCount" min="1" value="2">
+                <span class="text">页</span>
+                <span class="pagebtn J_Submit fr" tabindex="0" role="button" id="btnRedirect">跳转</span>
+            </div>
+        </div>
+    </div>
+    <!-- 分页 结束 -->
+    $load("inc/bottom.html")
+    $load("inc/toolbar.html")
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script>
+        $(function () {
+            $("img.jsProductImg").scaling(150, 150, '$res("img2.0/index/load_image.png")');
+            $("img[data-original]").lazyload();
+
+            $(".pitchA").click(function () {
+                $(this).addClass("pitchOn").parent().siblings().children().removeClass("pitchOn");
+                $(this).children(".pitchEm").removeClass("pitchEmOn").parent().parent().siblings().children().find(".pitchEm").addClass("pitchEmOn");
+            })
+
+            $(".brandClassify ul a em").hover(function () {
+                $(this).parent().addClass("pitchColor");
+            }, function () {
+                $(this).parent().removeClass("pitchColor");
+            });
+
+            $("a.ping").click(function(){
+                if($(".show_B").is(":hidden")){
+                    $(".show_B").show();
+                    $(".show_pic").hide();
+                }	
+            });
+            $("a.zong").click(function(){
+                if($(".show_pic").is(":hidden")){
+                    $(".show_pic").show();
+                    $(".show_B").hide();
+                }	
+            });
+            $("dl.show_pic_a").mouseover(function(){
+			
+                $(this).find(".s").addClass("hidden"); 
+                $(this).find(".goodsHover").css("color","#e31939");      
+            })
+                .mouseout(function() {
+                $(this).find(".s").removeClass("hidden"); 
+                $(this).find(".goodsHover").css("color","#333");
+            });
+
+            $("img.jsProductImg").scaling(150, 150, '$res("img2.0/index/load_image.png")');
+            $("img.jsProductImg1").scaling(200, 200, '$res("img2.0/index/load_image.png")');
+            $("img[data-original]").lazyload();
+
+            $('#btnRedirect').click(function(){
+                var page=$("#txtPageNumber").val();
+                window.location.href = "$PageUrl(9999)".replace('9999',page);
+            });
+        });
+    </script>
+</body>
+</html>

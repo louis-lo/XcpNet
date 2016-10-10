@@ -1,0 +1,68 @@
+﻿<div class="top"style="margin-bottom: 0px">查看详情</div>
+<ul class="mid">
+    <li class="clearFix">
+        <div class="left fl">公司名称：</div>
+        <div class="fl">$SupplierInfo.Company</div>
+    </li>
+    <li class="mid_photo clearFix">
+        <div class="left fl">证件图片：</div>
+        $set(images=SupplierInfo.GetImages())
+        $if(images.Length>0)
+        $for(i=0;i<images.Length;i++)
+        $if(images[i]!="")
+        <div class="right fl clearFix">
+            <div class="right_img fl">
+                <img width="94px" height="95px" src="$images[i]" />
+            </div>
+        </div>
+        $end
+        $end
+        $end
+    </li>
+    <li class="clearFix">
+        <div class="left fl">签约人：</div>
+        <div class="fl">$SupplierInfo.Signatories　联系电话　$SupplierInfo.SignatoriesPhone</div>
+    </li>
+    <li class="clearFix">
+        <div class="left fl">负责人：</div>
+        <div class="fl">$SupplierInfo.Contact　联系电话　$SupplierInfo.ContactPhone</div>
+    </li>
+    <!--<li class="clearFix">
+        <div class="left fl">行业：</div>
+        <div class="fl">文胸内衣</div>
+    </li>-->
+    <!--<li class="clearFix">
+        <div class="left fl">主营产品：</div>
+        <div class="fl">内裤</div>
+    </li>-->
+    <li class="clearFix">
+        <div class="left fl">公司地址：</div>
+        <div class="fl">$SupplierInfo.Address</div>
+    </li>
+    <li class="clearFix">
+        <div class="left fl">保证金：</div>
+        <div class="fl">$SupplierInfo.Money.ToString("C2")</div>
+    </li>
+    <li class="clearFix">
+        <div class="left fl">入驻时间：</div>
+        <div class="fl">$SupplierInfo.CreationDate.ToString("yyyy-MM-dd")</div>
+    </li>
+    <li class="clearFix">
+        <div class="left fl">年限：</div>
+        <div class="fl">${SupplierInfo.Year}年</div>
+    </li>
+    <li class="clearFix">
+        <div class="left fl">状态：</div>
+        <div class="fl">$SupplierInfo.GetStateString()</div>
+    </li>
+    <!--<li class="clearFix">
+        <div class="left fl">结算方式：</div>
+        <div class="fl">自营</div>
+    </li>
+    <li class="mid_last clearFix">
+        <div class="left fl">提成：</div>
+        <div class="right fl">
+            15<span>（提成只对代卖方式有效）</span>
+        </div>
+    </li>-->
+</ul>

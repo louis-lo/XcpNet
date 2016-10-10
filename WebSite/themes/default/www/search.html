@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>$Q - $Site.Title</title>
+    <meta name="keywords" content="$Q,$Site.Keywords">
+    <meta name="description" content="$Q分类,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css/base_02.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/index_02.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/list_02.css')">
+    <style type="text/css">
+        .filter .active,.pagination  .active {
+            color: #F00;
+        }
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            $(".load-img").scaling(220, 220, errPic);
+            $(".load-img2").scaling(28, 28, errPic);
+            $(".load-img3").scaling(180, 180, errPic);
+        });
+    </script>
+</head>
+<body>
+    $load("inc/top2.html")
+
+    $set(cates=clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+    <link rel="stylesheet" type="text/css" href="$res('css/slider.css')" />
+    <div class="clearfix container slider">
+        <dl class="slider-aside-left">
+            <dt><a href="javascript:void(0)">所有商品分类</a></dt>
+            $foreach(cate in cates)
+            <dd>
+                <a href="$url('/category/list/',cate.Id)">$cate.Name<span>></span></a>
+                <div class="slider-aside-left-item">
+                    <ul class="clearfix" style="display:none;">
+                        $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,cate.Id))
+                        <li><a href="$url('/category/list/',child.Id)">$child.Name</a></li>
+                        $end
+                    </ul>
+
+                    <!-- BEGIN 新增 -->
+                    <dl class="clearfix">
+                        <dt>大家电 <span>></span></dt>
+                        <dd>
+                            <a href="">电器/数码</a>
+                        </dd>
+                    </dl>
+                    <!-- END 新增 -->
+                </div>
+            </dd>
+            $end
+        </dl>
+    </div>
+
+    <!-- 主内容 开始 -->
+    <!-- BEGIN main -->
+    <div class="container main">
+
+        <!-- BEGIN breadcrumb -->
+        <ul class="clearfix breadcrumb">
+            <li><a href="$Site.Url">首页</a></li>
+            <li>&nbsp;>&nbsp;</li>
+            <li>搜索“$Q”的结果</li>
+        </ul>
+        <!-- END breadcrumb -->
+
+        <div class="clearfix content">
+            <div class="content-aside">
+                <div class="panel">
+                    <div class="clearfix panel-header">
+                        <h2 class="f-left">宝贝推荐</h2>
+                        <a class="f-right" href="" title="更多">更多</a>
+                    </div>
+                    <div class="panel-body">
+                        $foreach(item in RecommendList)
+                        <a href="$url('/product/info/',item.Id)" target="_blank">
+                            <img class="img load-img3" data-original="$item.GetImage()" alt="$item.Title">
+                            <h3 class="title">$item.Title</h3>
+                            <p>$item.GetSalePrice().ToString("C2")</p>
+                        </a>
+                        $end
+                    </div>
+                </div>
+            </div>
+            <div class="content-main">
+                <!-- BEGIN filter -->
+
+                <div class="clearfix filter" style="margin-left: 18px;">
+                    <ul class="f-left first-child">
+                        <li>排序方式：</li>
+                        <li><a $if(Filter.OrderBy==0)class="active"$end href="$OrderUrl(0)">默认</a></li>
+                        $if(Filter.OrderBy==1)
+                        <li><a class="active" href="$OrderUrl(2)">销量↓</a></li>
+                        $elseif(Filter.OrderBy==2)
+                        <li><a class="active" href="$OrderUrl(1)">销量↑</a></li>
+                        $else
+                        <li><a href="$OrderUrl(1)">销量↓</a></li>
+                        $end
+                        $if(Filter.OrderBy==3)
+                        <li><a class="active" href="$OrderUrl(4)">人气↓</a></li>
+                        $elseif(Filter.OrderBy==4)
+                        <li><a class="active" href="$OrderUrl(3)">人气↑</a></li>
+                        $else
+                        <li><a href="$OrderUrl(3)">人气↓</a></li>
+                        $end
+                        $if(Filter.OrderBy==5)
+                        <li><a class="active" href="$OrderUrl(6)">价格↑</a></li>
+                        $elseif(Filter.OrderBy==6)
+                        <li><a class="active" href="$OrderUrl(5)">价格↓</a></li>
+                        $else
+                        <li><a href="$OrderUrl(5)">价格↑</a></li>
+                        $end
+                    </ul>
+                </div>
+                <!-- END filter -->
+
+                <ul class="clearfix">
+                    $foreach(item in ProductList)
+                    <li>$load("temp/product.html")</li>
+                    $end
+                </ul>
+
+                <!-- BEGIN pagination -->
+                <div class="clearfix pagination">
+                    <ul>
+                        $if(ProductList.BeginPage>1)
+                        <li class="no"><a href="$PageUrl(ProductList.PageIndex-1)">&lt;上一页</a></li>
+                        <li><a href="$PageUrl(1)">1</a></li>
+                        <li>...</li>
+                        $end
+                        $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+                        $if(i==ProductList.PageIndex)
+                        <li><a href="javascript:void(0)" class="active">$i</a></li>
+                        $else
+                        <li><a href="$PageUrl(i)">$i</a></li>
+                        $end
+                        $end
+                        $if(ProductList.PagesCount>ProductList.EndPage)
+                        <li>...</li>
+                        <li><a href="$PageUrl(ProductList.PagesCount)">$ProductList.PagesCount</a></li>
+                        <li class="no"><a href="$PageUrl(ProductList.PageIndex+1)">下一页&gt;</a></li>
+                        $end
+                    </ul>
+                </div>
+                <!-- END pagination -->
+            </div>
+        </div>
+
+    </div>
+    <!-- END main -->
+    <!-- 主内容 结束 -->
+    
+    $load("inc/footer2.html")
+
+    <script type="text/javascript">
+        $('.slider-aside-left').hover(function () {
+            $(this).find('dd').stop().slideDown();
+        }, function () {
+            $(this).find('dd').stop().slideUp();
+        })
+    </script>
+</body>
+</html>

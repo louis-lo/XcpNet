@@ -1,0 +1,311 @@
+﻿$if(this.IsAjax)
+$foreach(item in ProductList)
+<!-- BEGIN order -->
+<div class="order">
+    <a href="$url('/product/info/',item.Id)">
+        <!-- BEGIN order-boby -->
+        <div class="order-body">
+
+            <!-- BEGIN media -->
+            <div class="clearfix media">
+                <div class="media-left">
+                    <img class="media-object" src="$item.GetImage()" alt="$item.Title">
+                </div>
+                <div class="media-body">
+                    <h2>$item.Title</h2>
+                    <p class="media-body-footer">
+                        $item.Price.ToString("C2")
+                    </p>
+
+                </div>
+            </div>
+            <!-- END media -->
+
+        </div>
+        <!-- END order-body -->
+    </a>
+</div>
+<!-- END order -->
+$end
+<script type="text/javascript">
+    pageIndex = $ProductList.PageIndex;
+    pageCount = $ProductList.PagesCount;
+</script>
+$else
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/common.css')">
+    <link rel="stylesheet" href="$res('wap/css/order.css')">
+    <style type="text/css">
+        .order, .content {
+            margin-top: 0;
+        }
+        .media-body{width:430px;padding-right:0;}
+        #wrapper {
+            position: absolute;
+            z-index: 1;
+            top: 85px;
+            bottom: 0;
+            width: 640px;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        #pullDown, #pullUp {
+            height: 80px;
+            line-height: 80px;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #888;
+            text-align: center;
+        }
+
+            #pullDown .pullDownIcon, #pullUp .pullUpIcon {
+                display: block;
+                float: left;
+                margin-left: 180px;
+                width: 80px;
+                height: 80px;
+                background: url($res('/resource/static/iscroll/pull-icon.png')) 0 0 no-repeat;
+                background-size: 80px 160px;
+                -webkit-transition-property: -webkit-transform;
+                -webkit-transition-duration: 250ms;
+            }
+
+            #pullDown .pullDownIcon, #pullUp.flip .pullUpIcon {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+
+            #pullUp .pullUpIcon, #pullDown.flip .pullDownIcon {
+                -webkit-transform: rotate(-180deg) translateZ(0);
+            }
+
+            #pullDown .pullDownLabel, #pullUp .pullUpLabel {
+                display: block;
+                float: left;
+            }
+
+            #pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+                background-position: 0 100%;
+                -webkit-transform: rotate(0deg) translateZ(0);
+                -webkit-transition-duration: 0ms;
+                -webkit-animation-name: loading;
+                -webkit-animation-duration: 2s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+            }
+
+        @-webkit-keyframes loading {
+            from {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg) translateZ(0);
+            }
+        }
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript">
+        var locked = false;
+        var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
+        var pageIndex = $ProductList.PageIndex;
+        var pageCount = $ProductList.PagesCount;
+
+        function pullDownAction() {
+            if (!locked) {
+                locked = true;
+                $.ajax({
+                    type: "GET",
+                    url: "$url('/product/shoplist/', StoreInfo.UserId, '/', categoryId)",
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#content').html(data);
+                        locked = false;
+                        myScroll.refresh();
+                    }
+                });
+            }
+        }
+        function pullUpAction() {
+            if (!locked) {
+                locked = true;
+                $.ajax({
+                    type: "GET",
+                    url: Cnaws.getUrl("$url('/product/shoplist/', StoreInfo.UserId, '/', categoryId, '/')" + (pageIndex + 1)),
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#content').append($(data));
+                        locked = false;
+                        myScroll.refresh();
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            pullDownEl = document.getElementById('pullDown');
+            if (pullDownEl != null) {
+                pullDownOffset = pullDownEl.offsetHeight;
+            }
+            else {
+                pullDownOffset = 0;
+            }
+            pullUpEl = document.getElementById('pullUp');
+            if (pullUpEl != null) {
+                pullUpOffset = pullUpEl.offsetHeight;
+            }
+
+            myScroll = new IScroll('#wrapper', {
+                scrollbars: true,
+                mouseWheel: true,
+                interactiveScrollbars: true,
+                shrinkScrollbars: 'scale',
+                fadeScrollbars: true,
+                probeType: 3,
+                startY: -pullDownOffset,
+                click: true
+            });
+            myScroll.beginDown = 0;
+            myScroll.beginUp = 0;
+            myScroll.on('scroll', function () {
+                if (!locked) {
+                    if (this.y > 5) {
+                        if (pullDownEl != null) {
+                            if (this.beginDown == 0) {
+                                this.beginDown = 1;
+                                pullDownEl.className = 'flip';
+                                pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+                            }
+                        }
+                    }
+                    else if (this.y < (this.maxScrollY - 5)) {
+                        if (pullUpEl != null) {
+                            if (this.beginUp == 0) {
+                                this.beginUp = 1;
+                                pullUpEl.className = 'flip';
+                                pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+                            }
+                        }
+                    }
+                }
+            });
+            myScroll.on('scrollEnd', function () {
+                if (this.beginDown == 1) {
+                    if (!locked) {
+                        this.beginDown = 2;
+                        pullDownEl.className = 'loading';
+                        pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+                        pullDownAction();
+                    }
+                    else {
+                        this.beginDown = 0;
+                    }
+                }
+                if (this.beginUp == 1) {
+                    if (!locked) {
+                        if (pageIndex < pageCount) {
+                            this.beginUp = 2;
+                            pullUpEl.className = 'loading';
+                            pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+                            pullUpAction();
+                        }
+                        else {
+                            this.beginUp = 0;
+                            pullUpEl.className = '';
+                            pullUpEl.querySelector('.pullUpLabel').innerHTML = '已到最后一页';
+                        }
+                    }
+                    else {
+                        this.beginUp = 0;
+                    }
+                }
+            });
+            myScroll.on('refresh', function () {
+                if (this.beginDown == 2) {
+                    this.beginDown = 0;
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                    if (this.y < 5) {
+                        this.scrollTo(this.x, this.options.startY);
+                    }
+                }
+                if (this.beginUp == 2) {
+                    this.beginUp = 0;
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                }
+            });
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        });
+    </script>
+</head>
+<body>
+
+    <div class="page">
+        
+        <div class="header">
+            <a href="javascript:window.history.go(-1);" class="back">返回</a>
+            店铺分类
+        </div>
+        
+        <div id="wrapper">
+            <div id="scroller">
+
+
+                $if(ProductList.Data.Count>0&&ProductList.PagesCount>1)
+                <div id="pullDown">
+                    <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+                </div>
+                $end
+                <div id="content" class="content">
+                    $foreach(item in ProductList)
+                    <!-- BEGIN order -->
+                    <div class="order">
+                        <a href="$url('/product/info/',item.Id)">
+                            <!-- BEGIN order-boby -->
+                            <div class="order-body">
+
+                                <!-- BEGIN media -->
+                                <div class="clearfix media">
+                                    <div class="media-left">
+                                        <img class="media-object" src="$item.GetImage()" alt="$item.Title">
+                                    </div>
+                                    <div class="media-body">
+                                        <h2>$item.Title</h2>
+                                        <p class="media-body-footer">
+                                            $item.Price.ToString("C2")
+                                        </p>
+
+                                    </div>
+                                </div>
+                                <!-- END media -->
+
+                            </div>
+                            <!-- END order-body -->
+                        </a>
+                    </div>
+                    <!-- END order -->
+                    $end
+                </div>
+                $if(ProductList.Data.Count>0&&ProductList.PagesCount>1)
+                <div id="pullUp">
+                    <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                </div>
+                $end
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+$end

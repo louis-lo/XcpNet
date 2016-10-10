@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>订单支付失败 - $Site.Name</title>
+    <link rel="stylesheet" href="$res('css/base.css')">
+    $load("inc/comm.html")
+    <link rel="stylesheet" href="$res('css2.0/xcp.cph.pc.buy_pay.min.css')">
+    <!--<link rel="stylesheet" href="$res('css2.0/xcp.pc.buy.min.css')">-->
+</head>
+<body>
+    $load("inc/top.html")
+    <style>
+        .header_logo {
+    padding: 25px 0 20px;
+}
+    </style>
+    <div class="header_zhongBoxWrap w100">
+        <div class="header_zhongBox w1000 clearFix">
+            <a href="$url(Site.Url)">
+                <div class="header_logo fl">
+                    <div class="fl">
+                        <img src="$res('img2.0/logo.png')">
+                    </div>
+                    <div class="header_logo_right fr">
+                        <span>乡品进城</span>
+                        <p>城品下乡</p>
+                    </div>
+                </div>
+            </a>
+            <div class="header_right_logo" style="position:inherit">
+                <div>
+                    <span class="span_one">查看购物车</span>
+                    <span class="span_two">拍下商品</span>
+                    <span class="span_three">付款</span>
+                    <span class="span_four">确认收货</span>
+                </div>
+                <div>
+                    <img src="$res('img2.0/passport/cart_cg3.png')" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="middle_big_div w1000">
+        <div class="div_one">
+            <div class="div_one_div clearFix">
+                $if(State==0)
+                <div class="left_div_fail"></div>
+                $else
+                <div class="left_div_success"></div>
+                $end
+                <div class="right_div">
+                    <div class="right_div_one">
+                        <span class="span_one">
+                            $if(State==0)
+                            订单支付失败！$Msg
+                            $else
+                            订单支付成功！
+                            $end
+                        </span>
+                    </div>
+                    <!--<div class="right_div_two clearFix">
+                        <div class="orderNumber fl">
+                            <p>订单号：4589569867</p>
+                            <p>订单号：4589569867</p>
+                            <p>订单号：4589569867</p>
+                            <p>订单号：4589569867</p>
+                            <p>订单号：4589569867</p>
+                        </div>
+                        <div class="brandMoreSelect fl" id="More_id">
+                            <a href="javascript:void(0)">更多</a>
+                        </div>
+                        <div class="brandSQSelect fl brandMoreSelect undis" id="SQ_id">
+                            <a href="javascript:void(0)">收起</a>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="div_two">
+            <span>
+                您还可以：
+            </span>
+            $if(State==0)
+            <span>
+                <a href="javascript:window.history.go(-1);">返回</a>
+            </span>
+            <!--<span>
+                <a href="#">取消</a>
+            </span>-->
+            $else
+           
+            <span>
+                $if(Result!=null)
+                $if(OrderType==1)
+                <a href="$url('/buy/status/',OrderId)">查看订单详情</a>
+                $elseif(OrderType==5)
+                <a href="$Site.SupplierUrl$url('/shop/status/',OrderId)">查看订单详情</a>
+                $else
+                <a href="$url('/bought')">查看我的订单</a>
+                $end
+                $else
+                <a href="$url('/bought')">查看我的订单</a>
+                $end
+            </span>
+           
+            <span>
+                <a href="$Site.Url">继续浏览其它商品</a>
+            </span>
+            $end
+        </div>
+    </div>
+    $load("inc/toolbar.html")
+    $load("inc/bottom.html")
+</body>
+</html>

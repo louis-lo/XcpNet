@@ -1,0 +1,19 @@
+﻿<div class="item">
+    <a href="$url('/product/info/',item.A.Id)" target="_blank"><img class="load-img" style="width:220px;height:220px;" data-original="$item.A.GetImage()"></a>
+    <div class="goods-info">
+        <ul class="clearfix first-child">
+            $foreach(img in item.A.GetImages())
+            $if(foreachIndex<7)
+            <li><a href="$url('/product/info/',item.A.Id)" target="_blank"><img class="load-img2" data-original="$img"></a></li>
+            $end
+            $end
+        </ul>
+        <a class="goods-name ${if(item.Level>0)}supplier${end}" href="$url('/product/info/',item.A.Id)" target="_blank">$item.A.Title</a>
+        <p>
+            <ins>$item.A.GetSalePrice().ToString("C2")</ins>
+            <del>$item.A.MarketPrice.ToString("C2")</del>
+        </p>
+        <a class="dp" href="javascript:void(0)">$if(item.Level>0)优质$else普通$end供应商</a>
+        <a class="add-cart" href="javascript:void(0)" onclick="addCart($item.A.Id)">加入购物车</a>
+    </div>
+</div>

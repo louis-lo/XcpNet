@@ -1,0 +1,100 @@
+/* BEGIN section-01 */
+.section-01 .first {
+	height: 27px;
+	line-height: 27px;
+	padding-left: 50px;
+	font-weight: bold;
+	background: url(img/seller/lamps.png) no-repeat 15px top;
+}
+.section-01 .last {
+	height: 21px;
+	line-height: 21px;
+	padding-left: 80px;
+	margin-top: 15px;
+	color: #333;
+	background: url(img/seller/clock.png) no-repeat 45px top;
+}
+/* END section-01 */
+
+/* BEGIN section-02 */
+.section-02 .f-left {
+	width: 518px;
+}
+.section-02 .f-right {
+	width: 240px;
+}
+.section-02 .f-left li,
+.section-02 .f-right .panel-body p {
+	position: relative;
+	height: 18px;
+	line-height: 18px;
+	text-indent: 26px;
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin-top: 15px;
+}
+.section-02 .f-left li {
+	float: left;
+	width: 33.3%;
+}
+.section-02 .f-left li span,
+.section-02 .f-right .panel-body p span {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 15px;
+	color: #ed6c44;
+	font-weight: bold;			
+}
+.section-02 .f-right .panel-body p span {
+	right: 0;
+}
+/* END section-02 */
+/* BEGIN section-03 */
+.section-03 .tab-content li {
+	position: relative;
+	padding-left: 20px;
+	padding-right: 40px;
+	margin-top: 20px;
+	background: url(img/seller/li.png) no-repeat 5px 3px;
+}
+.section-03 li span {
+	position: absolute;
+	right: 20px;
+}
+/* END section-03 */
+
+/* BEGIN tab */
+.tab .tab-nav {
+	margin-top: 25px;
+	border-bottom: 2px solid #E0E0E0;
+}
+.tab .tab-nav li {
+	position: relative;
+	top: 2px;
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: 3px;
+	cursor: pointer;
+}
+.tab .tab-nav li.first {
+	margin-left: 25px;
+}
+.tab .tab-nav li.active {
+	color: #FFF;
+	color: #ED6C44;
+	border-bottom: 2px solid #ED6C44;
+}
+.tab .tab-content {
+	padding: 15px;
+}
+.tab .tab-content .tab-pane {
+	display: none;
+} 
+.tab .tab-content .tab-pane.active {
+	display: block;
+}
+/* END tab */

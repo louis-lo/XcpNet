@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/purchase_cart.css')" />
+    <script src="$res('wap/js2.0/jhb/zepto.min.js')"></script>
+    <script src="$res('wap/js2.0/toasterror.js')"></script>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="clearfix bar bar_nav bar-nav col_333">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    进货车
+
+                    <!--<div class="way_shopcart">
+                        <a href="#">
+                            进货
+                            <span class="purchase_icon shopcart_nav"></span>
+                        </a>
+                    </div>-->
+                </div>
+            </div>
+            <!--<div class="shopcart_class bar bar-nav" style="padding:0;">
+                <div class="shopcart_classArrow"></div>
+                <ul class="clearfix">
+                    <li><a href="#">方案进货</a></li>
+                    <li><a href="#">单选进货</a></li>
+                </ul>
+            </div>-->
+            <div class="content native-scroll">
+                <!-- content -->
+                <!-- for tab -->
+                <div id="tab5" class="tab">
+                    <div class="content-block">
+                        $if(SupplierList!=null)
+                        $if(SupplierList.Count>0)
+                        $foreach(supplier in SupplierList)
+                        $set(CartList=GetCartListBySupplierId(supplier.A.UserId))
+                        <!--$if(CartList.Key<supplier.A.MinOrderPrice)-->
+                        $set(TotalMoney=TotalMoney-CartList.Key)
+                        <!--$end-->
+                        <div class="Store" data-minprice="$supplier.A.MinOrderPrice" style="border-bottom: 0.75rem solid #f6f6f6; border-top: 0.25rem solid #f6f6f6;">
+                            <div style="height:40px; line-height:40px; padding:0 10px;">
+                                <span style="font-weight:bold"><a href="$url('/category/list/0/1/0/0/_/',supplier.A.UserId,'/_')" style="cursor:pointer">$if(supplier.B.StoreName!=null)$supplier.B.StoreName$else$supplier.A.Company$end</a></span>
+                                <span class="supplierTotal" style="float:right; color:#f60; font-weight: bold;">$CartList.Key.ToString("C2")</span>
+                                <span style="float:right; color:#f60; font-weight: bold;">共计：</span>
+                            </div>
+                            <!-- for order list -->
+                            $foreach(cart in CartList.Value)
+                            <ul class="Purchase_planList supplier_$supplier.A.UserId" data-supplier="$supplier.A.UserId" id="Cart_$cart.A.Id" style="background:#f5f5f5">
+                                <li class="purchaseall_Test">
+                                    <div class="purchaseall_opction  ${if(CartList.Key<supplier.A.MinOrderPrice)} disabled ${else} on $end">
+                                        <span class="purchase_icon choice_icon" data-id="$cart.B.Id"></span>
+                                    </div>
+
+                                    <div class="purchaseall_Le">
+                                        <a href="$url('/product/info/',cart.B.Id)" class="external"><img src="$cart.A.Image" alt="$cart.A.Title" /></a>
+                                    </div>
+                                    <div class="purchaseall_Con">
+                                        <h3 class="txt_hide2L col_333">$cart.A.Title</h3>
+                                        <div class="txt_hide2L Coninfo col_999">
+                                            $foreach(item in json(cart.A.Attributes))
+                                            <span> ${item.Value.Name}：${item.Value.Value}</span>
+                                            $end
+                                        </div>
+                                        <div class="txt_hide2L Coninfo col_999 UnitPrice">
+                                            <span>单价：</span><span class="col_ff7">￥<b class="this_UnitPrice">$cart.B.GetSalePrice(this.DataSource,this.Distributor.Province,this.Distributor.City,this.Distributor.County).ToString("F2")</b></span>/$cart.B.Unit
+                                        </div>
+                                    </div>
+                                    <div class="purchaseall_Re">
+                                        <span class="purchase_icon place_order_del" style="cursor:pointer" data-id="$cart.A.Id"></span>
+                                    </div>
+                                </li>
+                                <li class="purchaseall_Sub purchase_complete clearfix" style="border-bottom:3px solid #fff">
+                                    <span class="fl thisTotal_list">合计：<span class="col_ff7">￥<b class="purchase_thisTotal">00.00</b></span></span>
+                                    <span href="javascript:;" class="fr infoPlus" id="infoPlus"></span>
+                                    <input type="text" autocomplete="off" class="shop_infoValue fr" value="$cart.A.Count" data-min="$cart.B.WholesaleCount" data-max="$cart.B.Inventory">
+                                    <span href="javascript:;" class="fr infoMinus" id="infoMinus"></span>
+                                </li>
+                            </ul>
+                            $end
+                            <!-- end for order list -->
+                            <div style="height:24px; line-height:24px; padding-right:10px; $if(CartList.Key>=supplier.A.MinOrderPrice)display:none$end" class="minordertotast">
+                                <span class="supplierTotal_3680" style="float:right; color:red;">注意：店铺需要满$supplier.A.MinOrderPrice.ToString("F2")元才能下单，<a href="$url('/category/list/0/1/0/0/_/',supplier.A.UserId,'/_')" style=" color:blue; cursor:pointer">去店铺</a></span>
+                            </div>
+                        </div>
+                        $end
+                        $end
+                        $else
+                        <div style="width:100%; text-align:center; padding-top:50px;">
+                            进货车空空如也,赶紧逛逛吧~
+                        </div>
+                        $end
+                    </div>
+                </div>
+                <!-- end for tab -->
+                <!-- end content -->
+            </div>
+
+            <div class="bar bar-footer purchaseall_merge pad_lr clearfix">
+                <span class="fr"><a class="Consolidated_payment col_fff" href="javascript:;">去结算</a></span>
+                <span class="payment_Select fl">
+                    <span class="purchase_icon choice2_icon"></span>
+                    <span>全选</span>
+                </span>
+                <span class="fl" style="font-size:.7rem;width:6.5rem;display:inline-block;margin-left:1rem;">
+                    <div>待支付 <span class="col_ff7">¥<b class="purchase_Total">0.00</b></span></div>
+                    待支付(包邮)
+                </span>
+            </div>
+            <!-- bottom nav -->
+            $load('inc/nav.html')
+            <!-- end bottom  -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/jhb/sm.min.js')"></script>
+    <script>
+
+        var checkStoreMinPrice = function (options) {
+            var check = true;
+            $(options).find(".Store").each(function (e) {
+                var items = $(this).find(".purchaseall_Test").has(".on"), totalMoney = 0.0;
+                items.each(function (index, item) {
+                    var ulitem = $(item).parents("ul");
+                    totalMoney += parseFloat($(ulitem).find(".purchase_thisTotal").text());
+                });
+                if (items.length > 0 && totalMoney < parseFloat($(this).data("minprice"))) {
+                    check = false;
+                }
+            })
+            return check;
+        }
+
+        var calcSupplier = function (options) {
+            var supplierCart = $(options).parents(".Store");
+
+            var items = supplierCart.find(".purchase_thisTotal"), totalMoney = 0.0;
+            items.each(function (index, item) {
+                totalMoney += parseFloat($(item).text());
+            });
+            if (totalMoney >= parseFloat(supplierCart.data("minprice"))) {
+                supplierCart.find('.purchaseall_opction').removeClass("disabled");
+                supplierCart.find('.minordertotast').hide();
+
+            }
+            else {
+                supplierCart.find('.purchaseall_opction').addClass("disabled").removeClass("on");
+                supplierCart.find('.minordertotast').show();
+            }
+
+            supplierCart.find(".supplierTotal").text('¥' + parseFloat(totalMoney).toFixed(2))
+        }
+
+        var payment_submit = function () {
+            //全选结算
+            this.Select = function () {
+                $(".purchase_Total").text((parseFloat(0.00)).toFixed(2))
+                for (var a = 0; a < $(".Purchase_planList").length; a++) {
+                    var Purchase_planList = $(".Purchase_planList");
+                    if (Purchase_planList.eq(a).children(".purchaseall_Test").children(".purchaseall_opction").hasClass("on")) {
+                        //单价
+                        var UnitPrice_val = Purchase_planList.eq(a).children(".purchaseall_Test").children(".purchaseall_Con").children(".UnitPrice").children().children(".this_UnitPrice").text()
+                        //数量
+                        var number_val = Purchase_planList.eq(a).children(".purchaseall_Sub").children(".shop_infoValue").val();
+                        //总价
+                        var Total_val = Purchase_planList.eq(a).children(".purchaseall_Sub").children(".thisTotal_list").children().children(".purchase_thisTotal");
+                        Total_val.text((parseFloat(UnitPrice_val) * Number(number_val)).toFixed(2));
+                        $(".purchase_Total").text((parseFloat(Total_val.text()) + parseFloat($(".purchase_Total").text())).toFixed(2))
+                    }
+                }
+
+            }
+            //键盘输入添加数量
+            this.blur = function (this_click) {
+                if (this_click.val() < 1) {
+                    $.alert('数量不能小于1')
+                    this_click.val(1);
+                    return false;
+                }
+                for (var a = 0; a < $(".Purchase_planList").length; a++) {
+
+                    if ($(".Purchase_planList").eq(a).children(".purchaseall_Test").children(".purchaseall_opction").hasClass("on")) {
+
+                        var Purchase_planList = $(".Purchase_planList");
+                        //当前单价
+                        var UnitPrice_val = Purchase_planList.eq(a).children(".purchaseall_Test").children(".purchaseall_Con").children(".UnitPrice").children().children(".this_UnitPrice").text()
+                        //当前数量
+                        var number_val = Purchase_planList.eq(a).children(".purchaseall_Sub").children(".shop_infoValue").val();
+
+                        //当前总价
+                        var Total_val = Purchase_planList.eq(a).children(".purchaseall_Sub").children(".thisTotal_list").children().children(".purchase_thisTotal");
+                        Total_val.text((parseFloat(UnitPrice_val) * Number(number_val)).toFixed(2));
+                        calcSupplier(this_click);
+                        //结算总价
+                        $(".purchase_Total").text((parseFloat(Total_val.text()) + parseFloat($(".purchase_Total").text())).toFixed(2))
+                    } else {
+                        var Purchase_planList = $(".Purchase_planList");
+                        //单价
+                        var UnitPrice_val = Purchase_planList.eq(a).children(".purchaseall_Test").children(".purchaseall_Con").children(".UnitPrice").children().children(".this_UnitPrice").text()
+                        //数量
+                        var number_val = Purchase_planList.eq(a).children(".purchaseall_Sub").children(".shop_infoValue").val();
+
+                        //总价
+                        var Total_val = Purchase_planList.eq(a).children(".purchaseall_Sub").children(".thisTotal_list").children().children(".purchase_thisTotal");
+                        Total_val.text((parseFloat(UnitPrice_val) * Number(number_val)).toFixed(2));
+                        calcSupplier(this_click);
+                    }
+                }
+            }
+
+            //数量+1
+            this.info_Plus = function (this_click) {
+                //数量
+                var this_click_val = this_click.next(".shop_infoValue");
+                //数量增加
+                this_click_val.val(Number(this_click_val.val()) + Number(1));
+                //当前单价
+                var this_UnitPrice = this_click.parent().prev().children(".purchaseall_Con").children(".UnitPrice").children().children(".this_UnitPrice").text();
+                //当前总价
+                var purchase_thisTotal = this_click.prev().children().children(".purchase_thisTotal").text();
+                purchase_thisTotal = (parseFloat(this_UnitPrice) * Number(this_click_val.val())).toFixed(2)
+                this_click.prev().children().children(".purchase_thisTotal").text(purchase_thisTotal)
+                calcSupplier(this_click);
+                if (this_click.parent().prev().children(".purchaseall_opction").hasClass("on")) {
+                    this.Select()
+                }
+            },
+            //数量-1
+            this.infoMinus = function (this_click) {
+                var this_click_val = this_click.prev(".shop_infoValue").val();
+                if (this_click_val <= 1) {
+                    return false
+                }
+                //this_click.prev(".shop_infoValue").val(Number(this_click_val)-Number(1))
+                var this_click_val = this_click.prev(".shop_infoValue");
+                //数量减少
+                this_click_val.val(Number(this_click_val.val()) - Number(1))
+                //当前单价
+                var this_UnitPrice = this_click.parent().prev().children(".purchaseall_Con").children(".UnitPrice").children().children(".this_UnitPrice").text();
+                //当前总价
+                var purchase_thisTotal = this_click.siblings(".thisTotal_list").children().children(".purchase_thisTotal").text();
+
+                purchase_thisTotal = (parseFloat(purchase_thisTotal) - parseFloat(this_UnitPrice)).toFixed(2);
+
+                this_click.siblings(".thisTotal_list").children().children(".purchase_thisTotal").text(purchase_thisTotal);
+                calcSupplier(this_click);
+                if (this_click.parent().prev().children(".purchaseall_opction").hasClass("on")) {
+                    this.Select()
+                }
+            }
+        }
+        var payment_submit = new payment_submit();
+
+
+        (function () {
+            //当前价格
+            for (var i = 0; i < $(".Purchase_planList").length; i++) {
+                var Purchase_planList = $(".Purchase_planList").eq(i);
+                //单价
+                var UnitPrice_val = Purchase_planList.children(".purchaseall_Test").children(".purchaseall_Con").children(".UnitPrice").children().children(".this_UnitPrice").text()
+                //数量
+                var number_val = Purchase_planList.children(".purchaseall_Sub").children(".shop_infoValue").val();
+                //总价
+
+                var Total_val = Purchase_planList.children(".purchaseall_Sub").children(".thisTotal_list").children().children(".purchase_thisTotal");
+                Total_val.text((parseFloat(UnitPrice_val) * Number(number_val)).toFixed(2));
+            }
+            //删除
+            $(".place_order_del").click(function () {
+                var thisDiv = $(this);
+                $.confirm('确认要删除?', function () {
+                    $.ajax({
+                        url: "$url('/cart/del')",
+                        dataType: "json",
+                        type: "Post",
+                        data: "Id=" + $(thisDiv).data("id"),
+                        async: false,
+                        success: function (data) {
+                            if (data.code == -200) {
+                                var div = thisDiv.parents('.Store').children()
+                                if (thisDiv.parents('.Store').find("ul").length > 1) {
+                                    thisDiv.parents(".Purchase_planList").remove();
+                                    calcSupplier(div);
+                                }
+                                else {
+                                    thisDiv.parents('.Store').remove();
+                                }
+                                $.toast("删除成功！");
+                                payment_submit.Select()
+                            }
+                            else {
+                                ShowBox.ToastByCode(data.code);
+                            }
+                        }
+                    })
+                });
+
+                $.alert('1')
+            });
+            //数量增加
+            $(".infoPlus").click(function () {
+                var this_click = $(this);
+                payment_submit.info_Plus(this_click)
+                //		payment_submit.Select()
+            });
+            //键盘输入，数量增加
+            $(".shop_infoValue").on("blur", function () {
+                $(".purchase_Total").text(0);
+                var this_click = $(this);
+
+                payment_submit.blur(this_click)
+            });
+            //数量减少
+            $(".infoMinus").click(function () {
+                var this_click = $(this);
+                payment_submit.infoMinus(this_click)
+            });
+            $(".purchaseall_opction").on("click", function () {
+                if (!$(this).hasClass("disabled")) {
+                    if ($(this).hasClass("on")) {
+                        $(this).removeClass("on")
+                        //当前总价
+                        var this_opction = $(this).parent().next().children(".thisTotal_list").children().children(".purchase_thisTotal").text();
+                        //支付价格
+                        var this_Total = $(".purchase_Total");
+                        //替换付款总价
+                        this_Total.text((parseFloat(this_Total.text() - parseFloat(this_opction))).toFixed(2));
+                        if ($(".choice2_icon").hasClass("on")) {
+                            $(".choice2_icon").removeClass("on")
+                        }
+                    } else {
+                        $(this).addClass("on")
+                        //当前总价
+                        var this_opction = $(this).parent().next().children(".thisTotal_list").children().children(".purchase_thisTotal").text();
+                        //支付价格
+                        var this_Total = $(".purchase_Total");
+                        //替换付款总价
+                        this_Total.text((parseFloat(this_opction) + parseFloat(this_Total.text())).toFixed(2));
+                    }
+
+                    if ($(".purchaseall_opction.on").length == 0) {
+                        $(".Consolidated_payment,.choice2_icon").removeClass("on")
+                    } else {
+                        $(".Consolidated_payment").addClass("on")
+                    }
+                }
+            });
+            //全选
+            $(".payment_Select").on("click", function () {
+                if ($(".choice2_icon").hasClass("on")) {
+                    $(this).children(".choice2_icon").removeClass("on")
+                    $(".purchaseall_opction").removeClass("on")
+                    $(".disabled").removeClass("on")
+                    $(".Consolidated_payment").removeClass("on")
+                    $(".purchase_Total").text((parseFloat(0.00)).toFixed(2))
+                } else {
+                    $(this).children(".choice2_icon").addClass("on")
+                    $(".purchaseall_opction").addClass("on")
+                    $(".disabled").removeClass("on")
+                    $(".Consolidated_payment").addClass("on")
+                    payment_submit.Select()
+                }
+            });
+            $(".Consolidated_payment").on("click", function () {
+                if ($(this).hasClass("on")) {
+                    var ids = "";
+                    var counts = "";
+                    if ($(".page-group").find(".Store").length > 0 && $(".page-group").find(".Store").find(".purchaseall_Test").has(".on").length > 0) {
+                        if (checkStoreMinPrice($(".page-group"))) {
+                            $(".page-group").find(".Store").find(".purchaseall_Test").has(".on").each(function (e) {
+                                ids += $(this).find(".choice_icon").data("id") + ",";
+                                counts += $(this).parents("ul").find(".purchaseall_Sub").find(".shop_infoValue").val() + ",";
+                            })
+                            $.ajax({
+                                type:"Post",
+                                dataType: "json",
+                                url: "$url('/buy')",
+                                data: "Id=" + ids + "&Count=" + counts,
+                                async: false,
+                                success: function (data) {
+                                    if (data.code == -200) {
+                                        location.href = "$url('/buy/perfect/', '" + data.data.OrderId + "')";
+                                    }
+                                    else {
+                                        ShowBox.ToastByCode(data.code);
+                                    }
+                                }
+                            })
+                        } else {
+                            $.toast("抱歉，进货车中的部分店铺不足下单量！");
+                        }
+                    }
+                    else {
+                        $.toast("您还未选择任何商品！");
+                    }
+                }
+            });
+            $(".way_shopcart a").on("click", function () {
+                if ($(".shopcart_class").hasClass("on")) {
+                    $(".shopcart_class").removeClass("on")
+                } else {
+                    $(".shopcart_class").addClass("on")
+                }
+            })
+            $(".content").on("click", function () {
+                $(".shopcart_class").removeClass("on")
+            })
+            $(".payment_Select").click();
+        })
+
+        
+    </script>
+</body>
+</html>

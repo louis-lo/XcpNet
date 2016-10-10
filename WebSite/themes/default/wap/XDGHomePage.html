@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title>乡道馆</title>
+<link rel="stylesheet" href="$res('wap/css/way.css')" />
+<script src="$res('wap/js/zepto.min.js')"></script>
+</head>
+<body>
+<div class="wrap">
+	<!-- nav -->
+	<header class="bar_nav">
+		<div class="nav_main">
+			<div class="bar_navre">
+	        	<label class="icon_search"></label>
+	        	<input type="search" id="search" onclick="search()" placeholder="搜索特色产品" />
+			</div>
+			<div class="bar_navle"><img src="$res('wap/img/way_logo.png')" /></div>
+		</div>
+	</header>
+	<!-- / nav -->
+	<!-- banner -->
+	<div class="ban_Left">
+        <div id="slideBox" class="slideBox">
+			<div class="bd">
+				<ul>
+					<!-- for banner -->
+                    $foreach(item1 in clr.XcpNet.Ad.Modules.Advertisement.GetByLabel(this.DataSource, 6))
+					<li>
+						<div style="width:100%;height:100%;background:url($item1.ImgUrl) no-repeat;background-size:100% 100%;"></div>                 
+					</li>
+                     $end
+					<!-- end for banner -->
+					<!--<li>
+						<div style="width:100%;height:100%;background:url($res('wap/img/way_bannerImg.png')) no-repeat;background-size:100% 100%;"></div>
+					</li>
+					<li>
+						<div style="width:100%;height:100%;background:url($res('wap/img/way_bannerImg.png')) no-repeat;background-size:100% 100%;"></div>
+					</li>-->
+                   
+				</ul>
+			</div>
+			<div class="hd">
+				<ul></ul>
+			</div>
+			<div class="way_bannerBg"><img src="$res('wap/img/way_bannerBg.png')" /></div>
+		</div>
+	</div>
+    <!-- / banner -->
+	<!--最新-->
+	<div class="way_city pad_lr">
+		<div class="city_address">
+			<ul class="clearfix">
+				<!-- for -->
+                $foreach(item in XDGInfoList)
+				<li class="fl">
+					<a href="$url('/xdginfo/xdgdetailpage/', item.UserId)">
+						<div class="shop_classImg" style="background:url($item.StoreLogo);background-size:100% 100%;"></div>
+						<div class="shop_className">
+							<table>
+								<tr>
+									<td align="center" valign="middle"><h3>$item.StoreName</h3></td>
+								</tr>
+							</table>
+						</div>
+					</a>
+				</li>
+                $end
+				<!-- /end for -->
+			</ul>
+		</div>
+	</div>
+	
+	$load("inc/xdgnav.html")
+	
+</div>
+
+<div class="way_search" id="way_search">
+	<header class="bar_nav">
+        <form id="searchForm" action="$url('/search')" method="get" target="_blank" onsubmit="">
+            <div class="nav_main">
+                <div class="bar_navre">
+                    <label class="icon_search"></label>
+                    <input type="search" id="search" class="q"  name="q" placeholder="搜索特色产品" />
+                    <a class="" href="javascript:onSearch()">搜索</a>
+                </div>
+                <div class="bar_navle" onclick="search_none()"><img src="$res('wap/img/icon_Firststep.png')" /></div>
+            </div>
+            <input type="hidden" id="id" name="id" value="$UserId" />
+            <input type="hidden" id="searchType" name="searchType" value="搜特产" />
+        </form>
+	</header>
+	<div class="way_searchTxt">
+		<h3>热门搜索</h3>
+		<ul class="clearfix">
+            $foreach(item in clr.Cnaws.Statistic.Modules.StatisticTag.GetTop(this.DataSource,5,7))
+            <li><a href="$url('/search')?q=$urlencode(item.Name)">$item.Name</a></li>
+            $end
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="$res('wap/js/TouchSlide.1.1.js')" ></script>
+<script>
+TouchSlide({ 
+	slideCell:"#slideBox",
+	titCell:".hd ul",
+	mainCell:".bd ul", 
+	effect:"leftLoop", 
+	autoPage:true,
+	autoPlay:true
+});
+function search(){
+	document.getElementById("way_search").style.display="block";
+}
+function search_none(){
+	document.getElementById("way_search").style.display="none";
+}
+function onSearch() {
+    if ($('.q').val().length > 0) {
+        $("#searchForm").submit();
+    }
+}
+</script>
+</body>
+</html>

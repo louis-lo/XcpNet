@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>我的购物车 - $Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    <link rel="stylesheet" href="$res('css2.0/xcp.cph.pc.cart.min.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="header_zhongBoxWrap w100">
+        <div class="header_zhongBox w1000 clearFix">
+            <a href="$url(Site.Url)">
+                <div class="header_logo fl">
+                    <div class="fl">
+                        <img src="$res('img2.0/logo.png')">
+                    </div>
+                    <div class="header_logo_right fr">
+                        <span>乡品进城</span>
+                        <p>城品下乡</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="header_right_logo">
+        <div>
+            <span class="span_one">查看购物车</span>
+            <span class="span_two">拍下商品</span>
+            <span class="span_three">付款</span>
+            <span class="span_four">确认收货</span>
+            <span class="span_four">评价</span>
+        </div>
+        <div>
+            <img src="$res('img2.0/passport/cart_cg.png')" />
+        </div>
+    </div>
+    <div class="goods_infos w1000 ">
+        <form id="form" method="post" action="$passport('/buy')">
+            <ul class="clearFix">
+                <li class="goods_header clearFix">
+                    <div class="item_select fl">
+                        <input type="checkbox" id="chkAll" checked />
+                        <span>全选</span>
+                    </div>
+                    <div class="item_pro fl">
+                        产品
+                    </div>
+                    <div class="item_pric fl">
+                        单价
+                    </div>
+                    <div class="item_num fl">
+                        数量
+                    </div>
+                    <div class="item_rental fl">
+                        小计
+                    </div>
+                    <div class="item_oper item_rental fl">
+                        操作
+                    </div>
+                </li>
+                $foreach(cart in CartList)
+                <li class="goods_wrap clearFix">
+                    <div class="goods_checkbox fl">
+                        <input type="checkbox" class="dxuan" name="Id" value="$cart.A.ProductId" ${if(cart.B.IsPublish()!!true)}checked ="checked" ${end} data-id="$cart.A.Id" />
+                    </div>
+                    <a href="$Site.Url$url('/product/info/',cart.B.Id)" target="_blank">
+                        <div class="goods_print fl">
+                            <img src="$cart.A.Image" alt="$cart.A.Title" />
+                        </div>
+                        <div class="goods_msNorms fl">
+                            <span class="goods_ms">
+                                $cart.A.Title
+                            </span>
+                            $foreach(item in json(cart.A.Attributes))
+                            <span> ${item.Value.Name}：<i>${item.Value.Value}</i> </span>
+                            $end
+                        </div>
+                    </a>
+                    <div class="goods_pric fl ">
+                        <span class="pricBig fb">$cart.A.Price.ToString("c2")</span>/$cart.B.Unit
+                    </div>
+                    <div class="item_number fl">
+                        <span class="fl prev">-</span>
+                        <input type="text" class="fl js-number" value="$cart.A.Count" name="Count" data-max="$cart.B.Inventory" />
+                        <span class="fl next">+</span>
+                    </div>
+                    <div class="goods_gross goods_lsj goods_pric fl ">
+                        <span class="fb">$cart.A.GetTotalMoney().ToString("c2")</span>
+                    </div>
+                    <div class="item_del fl">
+                        <a href="javascript:;" class="js-del">删除</a>
+                    </div>
+                </li>
+                $end
+            </ul>
+            <div class="aggregate_wrap clearFix">
+                <div class="aggregate_wrapLeft fl">
+                    <a href="$url(Site.Url)" class="fl">继续购物</a>
+                    <span class="clear_cart" title="清空选中的商品">清空选中的商品</span>
+                </div>
+                <div class="aggregate_wrapRight fr">
+                    商品总金额：<span class="fnb" id="totalMoney">$TotalMoney.ToString("c2")</span><span class="myf">（不含运费）</span>
+                    <!--<button id="btnSubmit">去结算</button>-->
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="center_bottomRight w1000">
+        <div class="bg">
+            <span class="goodsTj fb">商城推荐</span>
+            <a class="checkGd fr" href="$Site.Url">查看更多 > </a>
+        </div>
+        <ul class="clearFix">
+            $set(RecomList=clr.Cnaws.Product.Modules.Product.GetTopRecommendByArea(this.DataSource,5,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+            $foreach(item in RecomList)
+            <li>
+                <a href="${Site.Url}/product/info/${item.A.Id}.html" target="_blank">
+                    <div class="centerHome_goodsPrint">
+                        <img src="$item.A.GetImage()">
+                    </div>
+                    <div class="centerHome_goodsMs">
+                        $item.A.Title
+                    </div>
+                    <div class="centerHome_goodsprice">
+                        <span>$item.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</span>
+                    </div>
+                </a>
+            </li>
+            $end
+        </ul>
+    </div>
+    $load("inc/xlaert.html")
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('plugins/shoppingcart/shoppingCart-1.0.0.min.js')"></script>
+    <script type="text/javascript" src="$res('plugins/plusminusbtn/plusminusbtn-1.0.0.min.js')"></script>
+    <script type="text/javascript" src="$res('js2.0/xcp.cph.pc.cart.min.js')"></script>
+    <script>
+        $(function () {
+            Cart();
+        });
+    </script>
+</body>
+</html>

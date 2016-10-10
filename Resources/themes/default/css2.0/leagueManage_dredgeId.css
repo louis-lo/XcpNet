@@ -1,0 +1,330 @@
+﻿@charset "utf-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 22px;
+    font-family: Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";
+}
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, p {
+    margin: 0;
+    padding: 0;
+}
+
+input, select, textarea {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+img {
+    border: 0;
+}
+
+ul, li {
+    list-style-type: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    color: #353535;
+    text-decoration: none;
+}
+
+.tc {
+    text-align: center;
+}
+
+.tl {
+    text-align: left;
+}
+
+.tr {
+    text-align: right;
+}
+
+.dis {
+    display: block;
+}
+
+.undis {
+    display: none;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.cl {
+    clear: both;
+}
+
+.fb {
+    font-weight: bold;
+}
+
+.fnb {
+    font-weight: 200;
+    margin-left: -1px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+    outline: none;
+}
+
+.w100 {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.w1000 {
+    width: 1200px;
+    height: auto;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.mt {
+    margin-top: 10px;
+}
+
+input, button {
+    outline: none;
+    border: 0;
+    background: #fff;
+}
+
+button {
+    cursor: pointer;
+}
+
+.clearFix:after {
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0;
+    line-height: 0;
+    content: '';
+}
+
+img {
+    display: block;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt25 {
+    margin-top: 25px;
+}
+
+.pr10 {
+    padding-right: 20px;
+}
+/* END reset */
+
+
+
+/* 中间 开始*/
+.center_wrap {
+    margin-top: 20px;
+}
+/* 左边导航栏 开始*/
+.center_wrapLeft {
+    background: #f3f3f3;
+    width: 188px;
+    padding: 25px 0;
+}
+
+/* 进货车被选中的状态 */
+.stock_cart {
+    background: url("./img2.0/stock_cartMain.png") 10px 0 no-repeat;
+}
+
+    .stock_cart a {
+        font-size: 16px;
+        color: #ff7300;
+        margin-left: 45px;
+    }
+/* 进货车未选中的状态 */
+.stock_uncart {
+    background: url("./img2.0/stock_uncartMain.png") 10px 0 no-repeat;
+}
+
+    .stock_uncart a {
+        font-size: 16px;
+        color: #333;
+        margin-left: 45px;
+    }
+
+/* 订单管理 */
+.order_manageWrap {
+    margin-bottom: 40px;
+}
+
+.order_manage {
+    background: url("./img2.0/order_manage.png") 9px 0 no-repeat;
+}
+
+.order_manageWrap ul li {
+    font-family: "宋体";
+}
+
+.order_manage span {
+    font-size: 16px;
+    color: #333;
+    margin-left: 45px;
+}
+
+.order_manageClassify i {
+    background: url("./img2.0/rightjt.png") 0px 10px no-repeat;
+    width: 8px;
+    height: 31px;
+    display: block;
+}
+
+.center_wrapLeft ul .order_manageClassify {
+    margin-top: 5px;
+    height: 32px;
+    line-height: 32px;
+}
+
+/* 导航 被选中的状态 背景为灰色 */
+.order_manageClassify a {
+    display: block;
+    padding: 0 15px 0 45px;
+    background: #dcdada;
+}
+/* 导航 未选中的状态 没有背景色 */
+.join_manageClassify a {
+    background: none;
+}
+
+/* 加盟管理 */
+.join_manage {
+    background: url("./img2.0/join_manage.png") 9px 0 no-repeat;
+}
+
+/* 财务中心 */
+.property_manage {
+    background: url("./img2.0/property_manage.png") 9px 0 no-repeat;
+}
+/* 账号管理 */
+.account_manage {
+    background: url("./img2.0/account_manage.png") 9px 0 no-repeat;
+}
+/* 左边导航栏 结束*/
+
+
+/* 右边 开始*/
+.center_wrapRight {
+    width: 995px;
+}
+
+.dredgeId_top span {
+    font-weight: normal;
+    width: 90px;
+    border-bottom: 2px solid #ff7300;
+    text-align: center;
+    font-size: 16px;
+}
+
+.center_wrapRight .allOrder {
+    border-bottom: none;
+    margin-left: 40px;
+}
+
+.dredgeId_informationWrap {
+    border: 1px solid #e2e2e2;
+    margin-top: 10px;
+    padding: 10px 20px;
+    height: 627px;
+}
+
+.dredgeId_informationLeft {
+}
+
+    .dredgeId_informationLeft span {
+        display: block;
+        color: #666;
+        font-size: 14px;
+        font-family: "宋体";
+        text-align: right;
+    }
+
+.dredgeId_leagueRank {
+    margin-bottom: 15px;
+}
+
+    .dredgeId_leagueRank select {
+        width: 160px;
+        height: 28px;
+        border: 1px solid #e2e2e2;
+        padding-left: 8px;
+        margin-right: 5px;
+    }
+
+.dredgeId_name input {
+    width: 149px;
+    height: 28px;
+    border: 1px solid #e2e2e2;
+    padding-left: 10px;
+}
+
+.dredgeId_firmName input {
+    width: 768px;
+}
+
+.dredgeId_print img {
+    width: 72px;
+    height: 72px;
+}
+
+.dredgeId_partiesTell {
+    margin-left: 30px;
+}
+
+.leagueRank {
+    margin-top: 3px;
+}
+
+.name {
+    margin-top: 21px;
+}
+
+.password {
+    margin-top: 24px;
+}
+
+.firmName {
+    margin-top: 23px;
+}
+
+.print {
+    margin-top: 43px;
+}
+
+.dredgeId_informationWrap button {
+    padding: 6px 52px;
+    background: #ff7300;
+    color: #fff;
+    font-size: 18px;
+    font-family: "Microsoft YaHei";
+    margin-top: 37px;
+}
+/* 右边 结束*/
+
+/* 中间 结束 */
+
+

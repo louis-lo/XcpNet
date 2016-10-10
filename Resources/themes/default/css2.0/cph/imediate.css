@@ -1,0 +1,19 @@
+.center_wrapRight{width: 995px;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;}
+/**立即充值**/
+.imediate-money{padding: 40px 64px;margin-top:18px;border: 1px solid #ddd;min-height: 672px;width: 862px;}
+.imediate-money p{font-size: 14px;color:#726e6d;}
+.imediate-money p span{color:#e31939;margin-right: 5px;}
+.imediate-money .monry-way{border: 1px solid #e31939;padding:25px;width: 806px;margin-top: 15px;}
+.monry-way .first-way{clear: both;overflow: hidden;}
+.first-way .first-zfb{float: left;line-height: 70px;position: relative;}
+.first-way p input{position: absolute;top:30px;}
+.first-way p span{padding-left: 15px;color: #333;}
+.imediate-money .input-m{width: 330px;padding: 35px 0;margin: 0 auto;}
+.input-m p input{background: #F7F7F7;border: 1px solid #ddd;height: 38px;width: 234px;margin-left: 5px;padding-left: 10px;color: red;font-size: 16px;font-weight: bold;}
+.input-m .input-b{margin-left: 64px;}
+.input-b button{margin-top: 30px;padding:8px 24px;cursor: pointer;}
+.input-b .ture{background: #cf0002;color: #fff;border: 1px solid #CF0002;}
+.input-b .close{color: #747474;background: #F7F7F7;border: 1px solid #ddd;margin-left: 4px;}
+.first-wayPrint{width: 162px;height: 70px;margin-left: 15px;background: url("../../img2.0/cph/im_03.jpg") no-repeat;}
+.first-radio{margin: 2px;}

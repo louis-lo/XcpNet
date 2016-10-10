@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>我的会员</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    我的会员
+                </div>
+            </div>
+
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <!-- for -->
+                $foreach(item in DistributorList.Data)
+                <div class="list-block myRecommend">
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_responsibleicon"></span>真实姓名：</div>
+                                    <div class="item-input">$item.B.Name</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_companyicon"></span>登录次数：</div>
+                                    <div class="item-input">$item.B.LoginNum次</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_telicon"></span>联系电话：</div>
+                                    <div class="item-input">$item.B.Mobile</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_addressicon"></span>联系地址：</div>
+                                    <div class="item-input">$item.A.GetAddressStr()</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_codeicon"></span>创建时间：</div>
+                                    <div class="item-input">$item.A.CreationDate.ToString("yyyy-MM-dd")</div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                $end
+                <!-- end for -->
+
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+
+</body>
+</html>

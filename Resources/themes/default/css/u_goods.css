@@ -1,0 +1,23 @@
+/* BEGIN media */
+.media-body {
+	width: 161px;
+}
+/* END media */
+
+/* BEGIN list */
+.list-body .list-item {
+	margin-bottom: 12px;
+	background-color: #FFF;
+	border: 1px solid #DDD;
+}
+.list-body .w-245 {
+	padding-left: 10px;
+}
+.list-body td.w-110 {
+	border-left: 1px solid #EEE;
+}
+.list-body td.w-131 {
+	width:130px;
+	border-left: 1px solid #EEE;
+} 
+/* END list */

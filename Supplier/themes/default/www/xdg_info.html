@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>信息管理</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/style.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.xdg.pc.info.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('plugins/xalert/xalert-1.0.0.min.css')" />
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <style>
+        .center_content {
+            width: 1200px;
+            margin: 0 auto;
+            margin-top: 7px;
+        }
+
+        .center_wrapRight {
+            float: right;
+        }
+
+        .J_Submit {
+            background: #fff none repeat scroll 0 0;
+            border: 1px solid #ededed;
+            border-radius: 2px;
+            cursor: pointer;
+            display: block;
+            height: 21px;
+            line-height: 21px;
+            text-align: center;
+            width: 43px;
+        }
+
+        tr td {
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/x_top.html")
+    <!-- 头部 第二部分 -->
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div id="content" class="center_wrap w1200 clearFix">
+        $load("inc/x_side.html")
+        <div class="center_wrapRight">
+            <h2>乡道馆信息</h2>
+            <div class="information_content clearFix">
+                <div class="shop_information_right fl">
+                    <span class="shopName_span"><i>*</i>　我　的　馆　名：</span>
+                    <span class="shopLogo_span"><i>*</i>乡道馆首页本馆展示图：</span>                    
+                    <span class="slogan_span"><i>*</i>乡道馆首页本馆宣传语：</span>
+                    <span class="slogan_span2"><i>*</i>　公　告　内　容：</span>
+                    <span class="slogan_span2"><i>*</i>　简　介：</span>
+                    <span class="shopLogo_span" style="margin-top:115px"><i>*</i>我的乡道馆首页焦点图：</span>
+                </div>
+                <div class="shop_information_left fl">
+                    <form id="signup" method="post" action="$url('/xdginfo/submit')">
+                        <div class="shop_name">
+                            <input type="text" id="name" class="required" value="$XDGInfo.StoreName" name="StoreName"  placeholder="请输入馆名" /> 
+                        </div>
+                        <div class="shop_logo_box">
+                            <a class="shop_logo">
+                                $if(clr.System.String.IsNullOrEmpty(XDGInfo.StoreLogo))
+                                <img id="imgStoreLogoUpload" src="$res('css/img/upload_btn.png')" width="96" height="97">
+                                $else
+                                <img id="imgStoreLogoUpload" src="$XDGInfo.StoreLogo" width="96" height="97">
+                                $end
+                                <input type="hidden" id="StoreLogo" name="StoreLogo" value="$XDGInfo.StoreLogo" />
+                            </a>
+                            <span><i>*</i>注：照片最佳尺寸338*338</span>
+                        </div>
+                       
+                        <div class="shop_slogan shop_name">
+                            <input type="text" placeholder="最多不超过15个字" id="slogan" class="required" value="$XDGInfo.StoreSlogan" name="StoreSlogan" />
+                        </div>
+                        <div class="shop_slogan shop_name">
+                            <input type="text" placeholder="最多不超过15个字" id="notice" value="$XDGInfo.StoreNotice" name="StoreNotice" />
+                        </div>
+                        <div class="shop_slogan shop_name">
+                            <textarea placeholder="最多只能输入200字" maxlength="200" id="intro" name="StoreExplain">$XDGInfo.StoreExplain</textarea>
+                            <span id="Length">0/200</span>
+                        </div>
+                        <div class="shop_logo_box">
+                            <a class="shop_logo">
+                                $if(clr.System.String.IsNullOrEmpty(XDGInfo.StoreBusinessLicense))
+                                <img id="imgStoreBusinessLicenseUpload" src="$res('css/img/upload_btn.png')" width="96" height="97">
+                                $else
+                                <img id="imgStoreBusinessLicenseUpload" src="$XDGInfo.StoreBusinessLicense" width="96" height="97">
+                                $end
+                                <input type="hidden" id="StoreBusinessLicense" name="StoreBusinessLicense" value="$XDGInfo.StoreBusinessLicense" />
+                            </a>
+                            <span><i>*</i>注：照片最佳尺寸1080*620</span>
+                        </div>
+                        <div class="shop_button">
+                            <input type="submit" class="shop_button_submint" value="保存" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var editor;
+        $(function () {
+            editor = KindEditor.editor({
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+            });
+            $("#signup").jqxValidator({
+                rules: [
+                    { input: '#name', message: '我的馆名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#slogan', message: '乡道馆首页本馆宣传语不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#notice', message: '公告内容不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#intro', message: '简介不能为空', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+            $("#signup").submit(function () {
+                if ($(this).jqxValidator('validate')) {
+                    if ($("#StoreLogo").val().length <= 0) {
+                        alert("请上传乡道馆首页本馆展示图");
+                    }
+                    else {
+                        if ($("#StoreBusinessLicense").val().length <= 0) {
+                            alert("请上传乡道馆首页焦点图");
+                        }
+                        else {
+                            var form = $(this);
+                            form.attr('disabled', true);
+                            if (form.jqxValidator('validate')) {
+                                Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                                    if (data.code == -200) {
+                                        Cnaws.showSuccess('保存成功');
+                                    }
+                                    else {
+                                        Cnaws.showError('数据操作失败，请联系管理员');
+                                    }
+                                    args.form.attr('disabled', false);
+                                }, { form: form });
+                            }
+                            else {
+                                form.attr('disabled', false);
+                            }
+                        }
+                    }
+                }
+                return false;
+            });
+            $("#imgStoreLogoUpload").click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            $("#imgStoreLogoUpload").attr("src", url);
+                            $("#StoreLogo").val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            })
+            $("#imgStoreBusinessLicenseUpload").click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            $("#imgStoreBusinessLicenseUpload").attr("src", url);
+                            $("#StoreBusinessLicense").val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            })
+            $("#intro").keyup(function () {
+                $("#Length").html(this.value.length+ "/200");
+            });
+            
+        })
+    </script>
+
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    
+</body>
+</html>

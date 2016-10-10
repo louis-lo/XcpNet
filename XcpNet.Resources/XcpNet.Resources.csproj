@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6D5D5FB1-5329-42A6-BDB5-190CB62DD853}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XcpNet.Resources</RootNamespace>
+    <AssemblyName>XcpNet.Resources</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\wapFileManager.cs" />
+    <Compile Include="Controllers\ApiFileManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Data\Cnaws.Data.csproj">
+      <Project>{ce902b7f-b059-4762-8b53-eecbcb1b831c}</Project>
+      <Name>Cnaws.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Json\Cnaws.Json.csproj">
+      <Project>{1c0696f0-1736-4b61-b581-a038ed1f67e5}</Project>
+      <Name>Cnaws.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Passport\Cnaws.Passport.csproj">
+      <Project>{dbe3b4bf-c373-4a22-a26e-3eac4d6d7ca7}</Project>
+      <Name>Cnaws.Passport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Resources\Cnaws.Resources.csproj">
+      <Project>{39955889-1404-4a20-a3e9-956537528b7e}</Project>
+      <Name>Cnaws.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Web\Cnaws.Web.csproj">
+      <Project>{ef5fbd6b-c513-458a-9aa0-19ffa1c64aba}</Project>
+      <Name>Cnaws.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws\Cnaws.csproj">
+      <Project>{e629a227-782d-47a6-b49b-31ff16ccbeb2}</Project>
+      <Name>Cnaws</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

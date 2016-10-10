@@ -1,0 +1,101 @@
+﻿.cph_supplier{margin-top:12px;}
+.cph_supplier .top{height:40px; line-height:40px; border:1px solid #e6e6e6; background:#fafafa;}
+.cph_supplier .top_li{margin-left:21px;}
+.cph_supplier .top_li_right{width:148px; height:26px; background:#fff; margin-top:7px; margin-left:7px; line-height:26px; border:1px solid #ff500a; color:#666; text-indent:16px; position:relative;} 
+.cph_supplierIcons{width:9px; height:5px; background:url(img/Countylevel_JoinImg.png) no-repeat -170px -5px; display:block; position:absolute; right:7px; top:10px;}
+.cph_supplierIcons2{width:5px; height:9px; background-position: 0 -83px; right:8px}
+.cph_supplier .second{border:1px solid #ff500a; border-top:1px solid #fff; position:absolute; left:-1px; top:26px; background:#fff;}
+.cph_supplier .second_li{width:148px; height:26px; position:relative; cursor:pointer;}
+.cph_supplier .second_li2:hover{background:#ff6633; color:#fff;}
+.cph_supplier .second{display:none;}
+.top_li_right_on:hover .second{display:block;}
+.top_li_right_on2:hover .second{display:block;}
+.cph_supplier .third{display:none;}
+.cph_supplier .second_li:hover .third{display:block;}
+.cph_supplier .fourth{display:none;}
+.cph_supplier .third_li:hover .fourth{display:block;} 
+.cph_supplier .second_li:hover .second_p{background:#ff6633; color:#fff;}
+.cph_supplier .third{border:1px solid #ff500a; position:absolute; right:-150px; top:-1px; background:#fff;}
+.cph_supplier .third_li{width:148px; height:26px; position:relative;}
+.cph_supplier .third_li:hover .third_p{background:#ff6633; color:#fff;}
+.cph_supplier .fourth{border:1px solid #ff500a; position:absolute; right:-150px; top:-1px; background:#fff;}
+.cph_supplier .fourth_li{width:148px; height:26px; position:relative;}
+.cph_supplier .fourth_li:hover .fourth_p{background:#ff6633; color:#fff;}
+.cph_supplier .top .btn{width:104px; height:28px; background:#ff4200; line-height:28px; border-radius:3px; margin-top:6px;}
+.cph_supplier .top .btn a{color:#fff; display:block;}
+/* down */
+.cph_supplier .down{border-collapse: collapse; border:1px solid #e5e5e5; text-align: center; margin-top:7px;}
+.cph_supplier .down tr{height:36px; line-height:36px; background:#f3f3f3; border-bottom:1px solid #e5e5e5;}
+.cph_supplier .down .company{width:192px;}
+.cph_supplier .down .level{width:118px;}
+.cph_supplier .down .industry{width:94px;}
+.cph_supplier .down .bond{width:109px;}
+.cph_supplier .down .time{width:100px;}
+.cph_supplier .down .term{width:65px;}
+.cph_supplier .down .state{width:76px;}
+.cph_supplier .down .settlement{width:80px;}
+.cph_supplier .down .commission{width:58px;}
+.cph_supplier .down .operation{width:97px;}
+
+.cph_supplier .down .last{background:none;}
+.cph_supplier .down .last .company{width:191px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .company p{width:144px; display:inline-block; vertical-align:middle;}
+.cph_supplier .down .last .level{width:117px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .industry{width:93px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .bond{width:108px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .time{width:99px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .term{width:64px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .state{width:75px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .settlement{width:79px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .commission{width:57px; border-right:1px solid #e5e5e5;}
+.cph_supplier .down .last .operation a{color:#ff7300;}
+/* 城品惠供应商结束 */
+/* 新增供应商开始 */
+.cph_newlyAdded{width:989px; border:1px solid #e5e5e5; padding-top:48px; margin-top:14px;}
+.cph_newlyAdded li{line-height:29px; margin-bottom:13px; text-align: center;}
+.cph_newlyAdded .left{width:108px; text-align:right; margin-right:10px;}
+.cph_newlyAdded .phone .txt{width:158px; height:27px; border:1px solid #e5e5e5; text-indent:10px;}
+.cph_newlyAdded .message .txt{width:125px; height:27px; border:1px solid #e5e5e5; text-indent:10px;}
+.cph_newlyAdded .message .right{width:114px; height:29px; background:#eee; margin-left:8px; cursor:pointer;}
+.cph_newlyAdded .password .txt{width:158px; height:27px; border:1px solid #e5e5e5; text-indent:10px;}
+.cph_newlyAdded .name .txt{width:158px; height:27px; border:1px solid #e5e5e5; text-indent:10px; margin-right:8px;}
+.cph_newlyAdded .company .txt{width:405px; height:27px; border:1px solid #e5e5e5; text-indent:10px;}
+.cph_newlyAdded .photo{line-height:72px;}
+.cph_newlyAdded .photo .img{width:78px; height:72px; position:relative ; margin-right:8px}
+.cph_newlyAdded .photo .images em {
+    background: rgba(0, 0, 0, 0) url("img/cph_Supplier.png") no-repeat scroll -176px -40px;
+    display: block;
+    height: 16px;
+    position: absolute;
+    right: 4px;
+    top: 5px;
+    visibility: hidden;
+    width: 16px;
+}
+.cph_newlyAdded .photo .img img{width:78px; height:72px;} 
+.cph_newlyAdded .photo .img .txt{width:78px; height:72px; position:absolute; left:0; top:0; opacity:0;}
+.cph_newlyAdded .photo p{color:#ff500a; margin-left:24px; line-height:22px; margin-top:50px;}
+.cph_newlyAdded .industry select{width:158px; height:27px; border:1px solid #e5e5e5; text-indent:5px; color:#666; outline:none;}
+.cph_newlyAdded .theMain .right{position:relative;margin-right: 10px;}
+.cph_newlyAdded .theMain .right input{width:178px; height:27px; border:1px solid #e5e5e5; text-indent:10px; color:#999;}
+.cph_newlyAdded .theMain .right em{width:16px; height:16px; background:url(img/cph_Supplier.png) no-repeat -176px -40px; display:block; position:absolute; right:5px; top:6px;visibility: hidden;}
+.cph_newlyAdded .theMain .icons{width:31px; height:31px; background:url(img/cph_Supplier.png) no-repeat -347px -35px; margin-left:9px; cursor:pointer;}
+.cph_newlyAdded .theMain p{color:#ff500a; margin-left:12px;}
+.cph_newlyAdded .address select{width:158px; height:27px; border:1px solid #e5e5e5; text-indent:5px; color:#666; outline:none; margin-right:8px;}
+.cph_newlyAdded .address .txt{width:766px; height:27px; border:1px solid #e5e5e5; text-indent:10px; margin-top:8px;}
+.cph_newlyAdded .time .right{width:158px; height:27px; border:1px solid #e5e5e5; text-indent:10px; text-align:left; position:relative;}
+.cph_newlyAdded .time .right span{width:17px;  height:17px; background:url(img/cph_Supplier.png) no-repeat -316px -42px; display:inline-block; vertical-align:middle; margin-top:-4px; margin-left:36px;}
+.cph_newlyAdded .time .right input{position:absolute; left:14px; bottom:-21px; display:none;}
+.cph_newlyAdded .time .right:hover input{display:block;}
+.cph_newlyAdded .last{margin-top:38px; margin-left:115px; text-align:left; margin-bottom:27px;}
+.cph_newlyAdded .last a{width:88px; height:29px; background:#d4d4d4; line-height:29px; color:#7c7b7b; display:inline-block; text-align: center; margin-right:18px;}
+.cph_newlyAdded .last .sub{width:88px; height:29px; background:#ff500b; color:#fff;cursor:pointer;}
+/* 新增供应商结束 */
+/* 查看详情页开始 */
+.classificationOfPop .top{height:40px; line-height:40px; background:#ebebeb;}
+.classificationOfPop .mid{line-height:35px; margin-top:40px;}
+.classificationOfPop .mid .left{width:156px; text-align:right; margin-right:20px;}
+.classificationOfPop .mid_photo{line-height:95px; margin-bottom:12px;}
+.classificationOfPop .mid_photo .right_img{width:94px; height:95px; position:relative; margin-right:5px;}
+.classificationOfPop .mid_photo .right_img input{width:74px; height:75px; position:absolute; left:0; top:0; opacity:0;}
+.classificationOfPop .mid_last .right span{color:#ff0000;}

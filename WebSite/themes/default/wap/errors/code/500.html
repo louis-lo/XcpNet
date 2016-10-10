@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$Code-$Site.Name</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/common.css')">
+    <style type="text/css">
+        body {
+            padding-bottom: 0;
+        }
+        .header {
+            font-size: 30px;
+            color: #000;
+            background-color: #F9F9F9;
+            border-bottom: 2px solid #B2B2B2;
+        }
+        .header a {
+            background: url($res('wap/css/img/back_01.jpg')) no-repeat center center;
+        }
+        .content {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <a href="$Site.Url" class="back">返回</a>
+            $Code
+        </div>
+        <div class="clearfix content">
+            <img src="$res('wap/css/img/404.png')" style="margin-top:200px;">
+            <p style="margin-top:45px;color:#333;">糟了，页面找不到了...</p>
+            <p style="margin-top:10px;"><span id="jumpTo">5</span>S后跳转到首页</p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function countDown(secs, surl) {
+            var jumpTo = document.getElementById('jumpTo');
+            jumpTo.innerHTML = secs;
+            if (--secs > 0) {
+                setTimeout("countDown(" + secs + ",'" + surl + "')", 1000);
+            }
+            else {
+                location.href = surl;
+            }
+        }
+        countDown(5, '$Site.Url');
+    </script>
+</body>
+</html>

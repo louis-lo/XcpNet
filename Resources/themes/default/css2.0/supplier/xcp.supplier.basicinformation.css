@@ -1,0 +1,49 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{width:100%; height:auto;}
+.w1000{width:1200px; height:auto; margin:0 auto;}
+.mt{margin-top:10px;}
+input{outline:none;border: 0;background: #fff;}
+button{border:0;outline:none;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto; min-height:680px}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #ff3f08;text-align: center;font-size: 16px;}
+
+.information_content{border: 1px solid #ccc;margin-top: 30px;padding-top: 10px;padding-bottom: 160px;}
+.basic_information_right{width: 70px;padding-left: 20px;}
+.basic_information_right span{display: block;color: #333;text-align: right;}
+.companyName{margin-top: 20px;}
+.idPhone{margin-top: 52px;}
+.mainTrade{margin-top: 24px;}
+.mainProduct{margin-top: 19px;}
+.basic_information_left{width: 600px;float: left;padding-top:6px;}
+.basic_information_left .basic_type{margin: 10px 0;}
+.basic_information_left .basic_trade{margin: 15px 0;padding-bottom: 5px;}
+.basic_information_left .basic_trade .span_basicTrade{border:1px solid #e5e5e5;padding:3px 25px;position: relative;}
+.basic_information_left .basic_type input{height: 30px;border: 1px solid #e5e5e5;padding-left: 10px;}
+.basic_trade a img{height: 30px;margin-left: 30px;}
+.same_text{width:170px;}
+.company_text{width: 420px;}
+.phone_distance{margin-left: 50px;}
+.phone_distance input{width: 190px;}
+.basic_information_left .product_company input{width: 580px; padding-left: 10px;}
+.shop_logo_box span{margin: 13px 0 18px 0;display: block;}
+.shop_logo{border:1px solid #e2e2e2;width: 95px;height: 95px;margin-top: 10px;display: block;}
+.shop_logo img{width: 95px;height: 95px;}
+.shop_button{padding: 20px 0;margin-left: 330px;margin-top: 100px;}
+.shop_button .shop_button_submint{border-radius:2px;padding: 7px 35px;background-color: #ff3f08;font-size: 15px;color: #fff;}
+.span_basicTrade a{display: inline-block;width: 16px;height: 16px;position: absolute;z-index: 1;top: -5px;right: -6px;background: url("../img/close.jpg") no-repeat;}
+
+.center_addAddressTitle{border-bottom:1px solid #e2e2e2;padding:10px;font-size: 16px;background: #ebebeb;text-align:center;}
+.centerButtonWrap{text-align: center;}
+.new_addressWrap{padding:30px 20px;}
+.new_addressRint select{width: 172px;height: 30px;}
+.new_addressLeft{margin-top: 3px;}

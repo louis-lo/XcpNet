@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>城品惠-售后详情</title>
+    $load("inc/comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-cancelApply.css')">
+
+
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左侧边栏  -->
+        $load("inc/leftaside.html")
+
+        <!--内容 0/5,1/2/4/6,3-->
+        <div class="center_wrapRight fr">
+            <h2>售后管理</h2>
+            <div class="applyJdWrap">
+                <div class="${if(Order.ServerState==0||Order.ServerState==5)}applyJdPrint1${elseif(Order.ServerState==1||Order.ServerState==2||Order.ServerState==4||Order.ServerState==6)}applyJdPrint2${else}applyJdPrint3${end}"></div>
+                <div class="applyJdWz">
+                    <ul class="clearFix">
+                        <li>申请退换货</li>
+                        <li class="conLi">商家审核</li>
+                        <li class="lastLi">完成售后</li>
+                    </ul>
+                </div>
+                <div class="applyJdDate">
+                    <ul class="clearFix">
+                        $if(Order.ServerState==0||Order.ServerState==5)
+                        <li>$Order.CreateDate.ToString("yyyy-mm-dd hh:mm:ss")</li>
+                        $elseif(Order.ServerState==1||Order.ServerState==2||Order.ServerState==4||Order.ServerState==6)
+                        <li>$Order.CreateDate.ToString("yyyy-mm-dd hh:mm:ss")</li>
+                        <li class="dateconLi">${if(Order.ExamineDate.Year!=1 && Order.ExamineDate.Year!=1970)}$Order.ExamineDate.ToString("yyyy-mm-dd hh:mm:ss")${end}</li>
+                        $else
+                        <li>$Order.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</li>
+                        <li class="dateconLi">${if(Order.ExamineDate.Year!=1 && Order.ExamineDate.Year!=1970)}$Order.ExamineDate.ToString("yyyy-mm-dd hh:mm:ss")${end}</li>
+                        <li class="datelastLi">${if(Order.ExamineDate.Year!=1 && Order.ExamineDate.Year!=1970)}$Order.Completiontime.ToString("yyyy-mm-dd hh:mm:ss")${end}</li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+
+            <div class="applyContentWrap clearFix">
+                <div class="applyContentR fl">
+                    <div class="applyHintWrap clearFix">
+                        $if(Order.ServerState==0)
+                        <div class="applyHintP fl"></div>
+                        <div class="applyHintWz fl">
+                            <span>你的售后申请商家正在<i>审核中</i>！</span>
+                            <p>您已经申请售后，商家正在审核中，如有疑问请咨询客服<i>0769-1236958</i></p>
+                        </div>
+                        $elseif(Order.ServerState==1)
+                        <div class="applyHintP1 fl"></div>
+                        <div class="applyHintWz fl">
+                            <span>你的售后通过审核<i>待回寄商品</i>！</span>
+                            <p>您已经申请售后，待回寄商品中，如有疑问请咨询客服<i>0769-1236958</i></p>
+                        </div>
+                        $elseif(Order.ServerState==2)
+                        <div class="applyHintP fl"></div>
+                        <div class="applyHintWz fl">
+                            <span>你的售后申请商家正在<i>处理中</i>！</span>
+                            <p>您已经申请售后，商家正在处理中，如有疑问请咨询客服<i>0769-1236958</i></p>
+                        </div>
+                        $elseif(Order.ServerState==3)
+                        <div class="applyHintP fl"></div>
+                        <div class="applyHintWz fl">
+                            <span>你的售后申请<i>已经完成</i>！</span>
+                            <p>您已经申请售后，已经完成售后，如有疑问请咨询客服<i>0769-1236958</i></p>
+                        </div>
+                        $elseif(Order.ServerState==4)
+                        <div class="applyHintP fl"></div>
+                        <div class="applyHintWz fl">
+                            <span>你的售后<i>申请失败</i>！</span>
+                            <p>您已经申请售后，申请失败，如有疑问请咨询客服<i>0769-1236958</i></p>
+                        </div>
+                        $elseif(Order.ServerState==5)
+                        <div class="applyHintP fl"></div>
+                        <div class="applyHintWz fl">
+                            <span>你已经<i>取消</i>售后申请！</span>
+                            <p>您已经取消申请售后，如有疑问请咨询客服<i>0769-1236958</i></p>
+                        </div>
+                        $elseif(Order.ServerState==6)
+                        <div class="applyHintP fl"></div>
+                        <div class="applyHintWz fl">
+                            <span>你的售后申请<i>被驳回</i>！</span>
+                            <p>如有疑问请咨询客服<i>0769-1236958</i></p>
+                            <div class="nopassreason">未通过理由：$Order.FailMessage</div>
+                        </div>
+                        $end
+                    </div>
+                    <div class="shouhuo_application">
+                        <div class="applyservice">
+                            <span>申请服务：<i class="fb">$Order.GetTypeInfo()</i></span>
+                        </div>
+                        <div class="ContentWrap clearFix">
+                            <div class="ContentWrapR applyGoodsCoT fl">
+                                <span>售后订单号：</span>
+                                <span>退款金额：</span>
+                                <span>仅退款原因：</span>
+                                <span>说明：</span>
+                                <span>凭证信息：</span>
+                            </div>
+                            <div class="ContentWrapL applyGoodsCoT fl">
+                                <span>$Order.Id</span>
+                                <span><i class="fb">￥$Order.DealMoney.ToString("f2")</i>元 <em>数量：$Order.RefundCount</em>0</span>
+                                <span>$Order.Reason</span>
+                                <span>$Order.Message</span>
+                                <div class="ContentWrapimg">
+                                    <img src="$Order.Message">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    ${if(Order.ServerState==0)}
+                    <div class="applybutton"><button type="button">取消申请</button></div>
+                    ${end}
+                </div>
+
+                <!-- 商品信息 订单信息 开始 -->
+                $load("inc/productorderinfo.html")
+                <!-- 商品信息 订单信息 结束 -->
+            </div>
+        </div>
+    </div>
+    <!--右边侧栏-->
+    $load("inc/toolbar.html")
+    <!-- 底部  -->
+    $load("inc/bottom.html")
+</body>
+</html>
+
+
+
+

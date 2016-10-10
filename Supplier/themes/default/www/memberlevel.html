@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/leagueManage_myJunior.css')">
+    $load("inc/s_comm.html")
+    <title>省级加盟商</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    $load("inc/d_top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/d_side.html")
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr ">
+            <div class="dredgeId_top clearFix">
+                <h2>我的下级</h2>
+            </div>
+            <div class="dredgeId_informationWrap clearFix">
+                <table align="center" border="0" width="100%">
+                    <tr>
+                        <th>公司名</th>
+                        <th>级别</th>
+                        <th>负责人</th>
+                        <th>签约人电话</th>
+                        <th>地址</th>
+                        <th>邮编</th>
+                    </tr>
+                    <!-- if begin -->
+                    $foreach(item in DistributorList)
+                    <tr>
+                        <td class="nameTd">$item.Company</td>
+                        <td>$item.GetLevelString()</td>
+                        <td>$item.Signatories</td>
+                        <td>$item.ContactPhone</td>
+                        <td class="addressTd">$item.GetAddressStr()</td>
+                        <td>$item.PostId</td>
+                    </tr>
+                    <tr>
+                        $if(item.GetLevelString()=='省级加盟商')
+                        <td colspan="6" class="buttonTd">
+                            <button onclick="location.href='$url('/distributor/memberlevel/',item.UserId)'">我的下级</button>
+                            <button onclick="location.href='$url('/distributor/mymember/',item.UserId)'">我的会员</button>
+                            <button onclick="location.href='$url('/distributor/money/',item.UserId)'">我的收益</button>
+                            <button onclick="location.href='$url('/shop/myorder/',item.UserId)'">我的订单</button>
+                        </td>
+                        $elseif(item.GetLevelString()=='县级加盟商')
+                        <td colspan="6" class="buttonTd">
+                            <button onclick="location.href='$url('/distributor/memberlevel/',item.UserId)'">他的下级</button>
+                            <button onclick="location.href='$url('/distributor/mymember/',item.UserId)'">他的会员</button>
+                            <button onclick="location.href='$url('/distributor/money/',item.UserId)'">他的收益</button>
+                            <button onclick="location.href = '$url('/shop/myorder/',item.UserId)'">他的订单</button>
+                        </td>
+                        $else
+                        <td colspan="6" class="buttonTd">       
+                            <button onclick="location.href='$url('/distributor/mymember/',item.UserId)'">他的会员</button>
+                            <button onclick="location.href='$url('/distributor/money/',item.UserId)'">他的收益</button>
+                            <button onclick="location.href='$url('/shop/myorder/',item.UserId)'">他的订单</button>
+                        </td>
+                        $end
+                    </tr>
+                    <tr>
+                        <td class="nullTr" colspan="6"></td>
+                    </tr>
+                    $end
+                    
+                </table>
+                <!-- 分页 开始 -->
+                <div class="center_pageWrap">
+                    <div class="center_pageBox fr clearFix">
+                        <ul class="clearFix fl">
+                            $if(DistributorList.PageIndex==DistributorList.BeginPage)
+                            <li class="page_prev">
+                                <a href="MoneyList" class="pageprev_unprint pageprev_img">
+                                    <span class="unicon"></span>
+                                    上一页
+                                </a>
+                            </li>
+                            $else
+                            <li class="page_prev">
+                                <a href="$url('/distributor/memberlevel/',ParentId,'/',DistributorList.PageIndex-1)" class="pageprev_print pageprev_img">
+                                    <span class="icon"></span>
+                                    上一页
+                                </a>
+                            </li>
+                            $end
+                            $if(DistributorList.BeginPage>1)
+                            $end
+                            $for(i=DistributorList.BeginPage;i<=DistributorList.EndPage;i++)
+                            $if(i==DistributorList.PageIndex)
+                            <li class="page_numer itme">
+                                <a href="javascript:;">$i</a>
+                            </li>
+                            $else
+                            <li class="page_numer">
+                                <a href="$url('/distributor/memberlevel/',ParentId,'/',i)">$i</a>
+                            </li>
+                            $end
+                            $end
+                            $if(DistributorList.PagesCount>DistributorList.EndPage)
+                            <li class="no"><a href="$url('/distributor/memberlevel/',ParentId,'/',DistributorList.PageIndex+1)">...</a></li>
+                            <li><a href="$url('/distributor/memberlevel/',ParentId,'/',DistributorList.PagesCount)">$DistributorList.PagesCount</a></li>
+                            $end
+                            $if(DistributorList.PagesCount<=0||DistributorList.PageIndex==DistributorList.PagesCount)
+                            <li class="page_next page_prev">
+                                <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                    下一页
+                                    <span class="unicon"></span>
+                                </a>
+                            </li>
+                            $else
+                            <li class="page_next page_prev">
+                                <a href="$url('/distributor/memberlevel/',ParentId,'/',DistributorList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                    下一页
+                                    <span class="icon"></span>
+                                </a>
+                            </li>
+                            $end
+                        </ul>
+                        <div class="total fl"> 共 $DistributorList.PagesCount 页/$DistributorList.TotalCount条，</div>
+                        <!--<div class="form fl">
+                            <span class="text">跳到</span>
+                            <input class="input J_Input" type="number" aria-label="页码输入框" max="100" min="1" value="2">
+                            <span class="text">页</span>
+                            <span class="btn J_Submit fr" tabindex="0" role="button">跳转</span>
+                        </div>-->
+                    </div>
+                </div>
+                <!-- 分页 结束 -->
+            </div>
+            <!-- 右边 结束 -->
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+</body>
+</html>

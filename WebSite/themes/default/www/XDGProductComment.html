@@ -1,0 +1,79 @@
+﻿$if(commentType == 1)
+    <div class="comment_print">
+        $foreach(item in Comment)
+        <img src="$item.Image" />
+        $end
+    </div>
+$else
+    <div class="com-table-main">
+        $foreach(item in Comment)
+        <div class="comments-item">
+            <div class="com-item-main clearfix">
+                <div class="column column1 fl">
+                    <div class="grade-star g-star5_0$item.Star">
+                    </div>
+                    <div class="comment-day type-item">
+                        收货$GetDateSpan(item.CreationDate, item.ProductOrder_ReceiptDate)天后评论
+                    </div>
+                    <div class="comment-time type-item">
+                        $item.CreationDate
+                    </div>
+                    <div class="comment-name type-item">
+                    </div>
+                    <div class="features type-item">
+                        <ul class="clearfix"></ul>
+                    </div>
+                </div>
+                <div class="column column2 fl">
+                    <div class="p-comment">
+                        $item.Content
+                    </div>
+                    <div class="p-otherFeatures">
+                        <ul class="clearfix"></ul>
+                    </div>
+                    <div class="J-p-show-img p-show-img clearfix">
+                        <ul class="clearfix">
+                            <li>
+                                $foreach(item2 in GetCommentImg(item.Id))
+                                <div class="J-show-more-pic">
+                                    <img alt="" src="$item2.Image" width="50" height="50">
+                                </div>
+                                $end
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column column3">
+                    <div class="user-item clearfix">
+                        <img class="user-ico" width="25px" height="25px" alt="j***6" src="$item.Member_Image">
+                        <div class="user-name">
+                            $item.Member_NickName
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        $end
+    </div>
+$end
+<div class="paging" style="margin:10px auto;height:30px;">
+    <ul>
+        $if(Comment.BeginPage>1)
+        <li class="no"><a href="$PageUrl(Comment.PageIndex-1)">&lt;上一页</a></li>
+        <li><a href="$PageUrl(1)">1</a></li>
+        <li>...</li>
+        $end
+        $for(i=Comment.BeginPage;i<=Comment.EndPage;i++)
+        $if(i==Comment.PageIndex)
+        <li><a href="javascript:void(0)" class="active">$i</a></li>
+        $else
+        <li><a href="$PageUrl(i)">$i</a></li>
+        $end
+        $end
+        $if(Comment.PagesCount>Comment.EndPage)
+        <li>...</li>
+        <li><a href="$PageUrl(Comment.PagesCount)">$Comment.PagesCount</a></li>
+        <li class="no"><a href="$PageUrl(Comment.PageIndex+1)">下一页&gt;</a></li>
+        $end
+    </ul>
+</div>

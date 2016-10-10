@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title></title>
+    $load('inc/comm.html')
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/purchase_cart.css')" />
+<style>
+.bar_nav .way_shopcart{top: .15rem;}
+.Consolidated_payment{background:#ff7300;border-radius:.15rem;}
+</style>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="clearfix bar bar_nav bar-nav col_333">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="javascript:history.go(-1);">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				进货方案详情
+				<div class="way_shopcart">
+					<a href="$url('/cart')" class="external">
+						<div><img src="$res('wap/img2.0/jhb/icon_ShopCart2.png')"><span class="shopcart_num jsCount"></span></div>
+						<div>进货车</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="content native-scroll">
+			<!-- content -->
+			<!-- for tab -->
+            
+			<div id="tab5" class="tab">
+		        <div class="content-block">
+					<!-- for order list -->
+                    $foreach(product in ProductList)
+                    $set(price=product.B.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+		        	<ul class="Purchase_planList">
+		        		<li class="purchaseall_Test">
+		        			<div class="purchaseall_Le">
+                                <a href="$url('/product/info/',cart.B.Id)"  class="external" target="_blank"><img src="$product.B.GetImage()" /></a>
+		        			</div>
+		        			<div class="purchaseall_Con">
+		        				<h3 class="txt_hide2L col_333"><a href="$url('/product/info/',cart.B.Id)" class="external" target="_blank"> $product.B.Title</a></h3>
+		        				<div class="txt_hide2L Coninfo col_999">
+                                    $foreach(item in json(product.B.GetAttributes(this.DataSource)))
+                                    <span> ${item.Value.Name}：${item.Value.Value}</span>
+                                    $end
+		        				</div>
+		        				<div class="txt_hide2L Coninfo col_999 UnitPrice">
+		        					<span>单价：<span class="col_ff7">￥<b class="this_UnitPrice">$price.ToString("f2")</b></span>
+		        				</div>
+		        			</div>
+		        			<div class="purchaseall_Re">
+		        				<span class="purchase_icon place_order_del"></span>
+		        			</div>
+		        		</li>
+						<li class="purchaseall_Sub purchase_complete clearfix">
+
+							<span href="javascript:;" class="fr infoPlus" id="infoPlus" data-min="$product.B.WholesaleCount"></span>
+							<input type="number" value="$product.B.WholesaleCount" data-max="$product.B.Inventory" data-min="$product.B.WholesaleCount"  data-price="$price" data-id="$product.B.Id" class="shop_infoValue fr" />
+							<span href="javascript:;" class="fr infoMinus" data-max="$product.B.Inventory" id="infoMinus"></span>
+		        		</li>
+		        	</ul>
+
+                    $end
+		        	<!-- end for order list -->
+		        </div>
+		  	</div>
+			<!-- end for tab -->
+			<!-- end content -->
+		</div>
+
+		<div class="bar bar-footer purchaseall_merge pad_lr clearfix" style="background:#f3f3f3">
+			<div class="fl" style="font-size:.7rem;display:inline-block;line-height:1.5">
+				<div><b>商品总金额:</b> <span class="col_ff7">¥<b class="purchase_Total">0.00</b></span></div>
+				<div>数量:<span id="jsTotalCount"></span>款</div>
+			</div>
+			<span class="fr"><a class="Consolidated_payment col_fff on" href="javascript:;">一键进货</a></span>
+		</div>
+		<!-- bottom nav -->
+		$load('inc/nav.html')
+		<!-- end bottom  -->
+	</div>
+</div>
+<script>
+$(function(){
+    var totalMoney = 0.0;
+	//当前价格
+    if ($(".shop_infoValue").length > 0) {
+        $(".shop_infoValue").each(function (e) {
+            totalMoney += (parseFloat($(this).data("price")) * parseInt($(this).val())).toFixed(2)
+        })
+        $(".purchase_Total").text(totalMoney);
+        $(".jsTotalCount").text($(".shop_infoValue").length);
+    }
+	//删除
+	$(".place_order_del").on("click", function () {
+	    var del = this;
+	    $.confirm('确认要删除?', function () {
+	        $(del).parents(".Purchase_planList").remove();
+	        payment_submit.Select()
+	    });
+	});
+	//数量增加
+	$(".infoPlus").click(function(){
+		var this_click = $(this);
+		payment_submit.info_Plus(this_click)
+//		payment_submit.Select()
+	});
+	//键盘输入，数量增加
+	$(".shop_infoValue").on("blur",function(){
+		$(".purchase_Total").text(0);
+		var this_click = $(this);
+		payment_submit.blur(this_click)
+	});
+	//数量减少
+	$(".infoMinus").click(function(){
+		var this_click = $(this);
+		payment_submit.infoMinus(this_click)
+	});
+
+	$(".Consolidated_payment").on("click", function () {
+	    var Consolidated = this;
+	    $.confirm('确认将该方案所有商品添加到进货车?', function () {
+	        if ($(Consolidated).hasClass("on")) {
+	            var ids = "";
+	            var counts = "";
+	            if ($(".shop_infoValue").length > 0) {
+	                $(".shop_infoValue").each(function (e) {
+	                    ids += $(this).data("id") + ",";
+	                    counts += $(this).val() + ",";
+	                })
+	                $.ajax({
+	                    type: "Post",
+	                    dataType: "json",
+	                    url: "$url('/cart/add')",
+	                    data: "Id=" + ids + "&Count=" + counts,
+	                    async: false,
+	                    success: function (data) {
+	                        if (data.code == -200) {
+	                            $.confirm('已成功添加到进货车,马上去结算?', function () {
+	                                location.href = "$url('/cart')";
+	                            })
+	                        }
+	                        else {
+	                            ShowBox.ToastByCode(data.code);
+	                        }
+	                    }
+	                })
+	            }
+	            else {
+	                $.toast("您还未选择任何商品！");
+	            }
+	        }
+	    });
+	});
+
+})
+
+var payment_submit = function(){
+	//计算总价
+    this.Select = function(){
+        $(".shop_infoValue").each(function (e) {
+            totalMoney += (parseFloat($(this).data("price")) * parseInt($(this).val())).toFixed(2)
+        })
+        $(".purchase_Total").text(totalMoney);
+        $(".jsTotalCount").text($(".shop_infoValue").length);
+	}
+	//键盘输入添加数量
+	this.blur = function(this_click){
+	    if (this_click.val() < parseInt($(this).data("min"))) {
+	        $.alert('数量不能小于' + $(this).data("min"))
+	        this_click.val(parseInt($(this).data("min")));
+			return false;
+	    }
+	    if (this_click.val() > parseInt($(this).data("max"))) {
+	        $.alert('数量不能大于' + $(this).data("max"))
+	        this_click.val(parseInt($(this).data("max")));
+	        return false;
+	    }
+		this.Select()
+	}
+
+	//数量+1
+	this.info_Plus = function(this_click){
+		//数量
+		var this_click_val = this_click.next(".shop_infoValue");
+		//数量增加
+		this_click_val.val(Number(this_click_val.val())+Number(1));
+		if (this_click.val() > parseInt($(this).data("max"))) {
+		    $.alert('数量不能大于' + $(this).data("max"))
+		    this_click.val(parseInt($(this).data("max")));
+		    return false;
+		}
+		this.Select()
+	},
+	//数量-1
+	this.infoMinus = function(this_click){
+		var this_click_val = this_click.prev(".shop_infoValue");
+		//数量减少
+		this_click_val.val(Number(this_click_val.val()) - Number(1))
+		if (this_click.val() < parseInt($(this).data("min"))) {
+		    $.alert('数量不能小于' + $(this).data("min"))
+		    this_click.val(parseInt($(this).data("min")));
+		    return false;
+		}
+		this.Select()
+	}
+}
+var payment_submit = new payment_submit();
+</script>
+</body>
+</html>

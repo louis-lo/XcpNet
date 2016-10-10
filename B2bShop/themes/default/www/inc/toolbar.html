@@ -1,0 +1,197 @@
+﻿<link rel="stylesheet" type="text/css" href="$res('plugins/toolbar/toolbar-1.0.0.min.css')">
+$set(headImg=res("img2.0/toolbar/ctx.png"))
+$if(this.IsLogin==true)
+
+$end
+<div class="sidebar-nav" style="height: 100%; top: 0px; bottom: auto;">
+    <div class="mods">
+        <div class="middle-items">
+            <div class="mod_head" id="right_login">
+                <a href="$site.SupplierUrl" class="btn_head" title="我的用户中心">
+                    <img src="$headImg" />
+                </a>
+                $if(this.IsLogin!=true)
+                <div class="dropdown" style="display: none; opacity: 1;">
+                    <form id="formLogin" method="post" action="$url('/login/submit')">
+                        <div class="form">
+                            <h2>
+                                <strong>请登录</strong>
+                                <span>
+                                    还没有账号？
+                                    <a href="$passport('/register')" class="right_register">
+                                        立即注册
+                                    </a>
+                                </span>
+                            </h2>
+                            <div class="item">
+                                <span class="label">账号</span>
+                                <div><input id="UserName" name="UserName" type="text" class="text" placeholder="请输入账号" /></div>
+                            </div>
+                            <div class="item">
+                                <span class="label">密码</span>
+                                <div><input type="password" id="Password" name="Password" class="text" placeholder="请输入密码" /></div>
+                            </div>
+                            <div class="item">
+                                <span class="label_t">验证码</span>
+                                <div>
+                                    <input type="text" id="Captcha" name="Captcha" class="text text-1" placeholder="验证码" />
+                                    <label class="img">
+                                        <a id="captchaLink" href="javascript:;" title="点击更换获取验证码">
+                                            <img id="captchaImg" style="vertical-align: middle;cursor: pointer;" alt="验证码" />
+                                        </a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="safety">
+                                    <label class="mar-b">
+                                        <input type="checkbox" name="remember" id="remember" class="checkbox" />记住密码
+                                    </label>
+                                    <a class="forget_password" href="$passport('/password')" target="_blank">忘记密码？</a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div id="errmsg" class="clearfix errmsg"></div>
+                                <input type="submit" name="submit" class="btn-img" id="btnLogin" value="立即登录" />
+                            </div>
+                        </div>
+                    </form>
+                    <span class="cart_arrow" style="background:none;border:none">
+                        <b class="arrow-1"></b>
+                        <b class="arrow-2"></b>
+                    </span>
+                </div>
+                $end
+            </div>
+            <div class="mod online-service J-stie-68">
+                <a href="javascript:;" class="btn">
+                    <table>
+                        <tbody>
+                            <tr><td><i></i><em>销 售</em></td></tr>
+                            <tr><td>在 线<br>销 售</td></tr>
+                        </tbody>
+                    </table>
+                </a>
+                <div class="dropdown" style="display: none; opacity: 1; margin-right: 0px;">
+                    <div class="head clearfix">
+                        <h3 class="grid-c-l">在线销售顾问</h3>
+                    </div>
+                    <div class="button-bar">
+                        <div class="customer_service">
+                            <dl class="sidebar_subdl">
+                                <dd id="qqdd">
+                                    <img src="$res('img2.0/toolbar/web_logo.png')" width="30" height="29" />
+                                    <a style="color:#000000; font-size:14px; margin-left:10px; vertical-align:middle"
+                                       target="_self" href="javascript:chat_online();" alt="点击这里给我发消息" title="点击这里给我发消息">在线客服</a>
+                                </dd>
+                                <dd id="qqdd">
+                                    <img src="$res('img2.0/toolbar/qq1.gif')" width="30" height="29" />
+                                    <a style="color:#000000; font-size:14px; margin-left:10px;" target="_blank" href="javascript:;" alt="点击这里给我发消息" title="点击这里给我发消息">售前咨询</a>
+                                </dd>
+                                <dd id="qqdd">
+                                    <img src="$res('img2.0/toolbar/qq1.gif')" width="30" height="29" />
+                                    <a href="javascript:;" style="color:#000000; font-size:14px; margin-left:10px;" target="_blank" alt="点击这里给我发消息" title="点击这里给我发消息">售前咨询</a>
+                                </dd>
+                                <dd id="qqdd">
+                                    <img src="$res('img2.0/toolbar/qq1.gif')" width="30" height="29" />
+                                    <a style="color:#000000; font-size:14px; margin-left:10px;" target="_blank"
+                                       href="javascript:;" alt="点击这里给我发消息" title="点击这里给我发消息">售前咨询</a>
+                                </dd>
+                                <dd id="qqdd">
+                                    <img src="$res('img2.0/toolbar/qq1.gif')" width="30" height="29" />
+                                    <a style="color:#000000; font-size:14px; margin-left:10px;" target="_blank" href="javascript:;" alt="点击这里给我发消息" title="点击这里给我发消息">售后服务</a>
+                                </dd>
+                            </dl>
+                            <div class="clearbox"></div>
+                        </div>
+                    </div>
+                    <span class="cart_arrow">
+                        <b class="arrow-1"></b>
+                        <b class="arrow-2"></b>
+                    </span>
+                </div>
+            </div>
+
+            <div class="mod reserve" style="height:135px;" id="cartInfo">
+                $if(this.IsLogin!=true)
+                <a href="$passport('/login')" class="btn" style="height:135px; padding-top:5px; color:#fff;" id="shopCart">
+                    <i></i>请<br />先<br />登<br />录<br />
+                    <span style="margin-top:7px;">0</span>
+                </a>
+                $else
+                <a href="$url('/cart')" class="btn" style="height:135px; padding-top:5px; color:#fff;" id="shopCart">
+                    <i></i>购<br />物<br />车<br />
+                    <span style="margin-top:7px;" class="jsCount">0</span>
+                </a>
+                <div class="dropdown" id="flowDrop" style="opacity: 1; margin-right: 0px;display:none; ">
+                    <div class="bar clearfix">
+                        <div class="tip grid-c-l">
+                            共
+                            <span class="count jsCount">0</span>
+                            件宝贝
+                        </div>
+                        <div class="btn-bar grid-c-r">
+                            <a class="submit-btn" href="$url('/cart')">去购物车结算</a>
+                        </div>
+                    </div>
+                    <span class="cart_arrow">
+                        <b class="arrow-1"></b>
+                        <b class="arrow-2"></b>
+                    </span>
+                </div>
+                $end
+            </div>
+        </div>
+    </div>
+    <div class="bottom-items">
+        <div class="mod top disabled" id="backToTop">
+            <a href="javascript:;" class="btn">
+                <table>
+                    <tbody>
+                        <tr><td><i></i></td></tr>
+                        <tr><td>回 到<br>顶 部</td></tr>
+                    </tbody>
+                </table>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="flyItem" class="fly_item"><img src="$res('img2.0/centerHome_goodsPrint.jpg')"></div>
+<script type="text/html" id="tmpl-cartList">
+    {{if data.length>0}}
+    <div class="cart_goods">
+        <div class="cart_goods_list">
+            <ul class="unstyled">
+                {{each data as cart}}
+                <li>
+                    <a href="/product/info/{{cart.b_Id}}.html" target="_blank">
+                        <img src="{{cart.a_Image}}" alt="{{cart.a_Title}}">
+                        <h4>{{cart.a_Title}}</h4>
+                        <span>
+                            {{cart.a_Price.toFixed(2)}}
+                            <strong style="margin:0 7px;">×</strong>
+                            {{cart.a_Count}}
+                        </span>
+                    </a>
+                    <i class="del-btn" title="删除" data-cartid="{{cart.a_Id}}">×</i>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{else}}
+    <div class="empty-tip">
+        <p></p>
+        <p><a href="$Site.Url" rel="nofollow">您的购物车里什么都没有哦，再去看看吧</a></p>
+    </div>
+    {{/if}}
+</script>
+$if(this.IsLogin!=true)
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/scripts/passport.js')"></script>
+$end
+<script type="text/javascript" src="$res('js2.0/lib/artTemplate.min.js')"></script>
+<script type="text/javascript" src="$res('plugins/shoppingcart/shoppingCart-1.0.0.js')"></script>
+<script type="text/javascript" src="$res('js2.0/lib/parabola.min.js')"></script>
+<script type="text/javascript" src="$res('plugins/toolbar/toolbar-1.0.0.js')"></script>

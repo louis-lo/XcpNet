@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+<meta name="viewport" content="width=device-width">
+<title></title>
+<link rel="stylesheet" href="$res('wap/css/wap_shop.css')" />
+<script type="text/javascript" src="$res('wap/js/mobile/zepto.min.js')" ></script>
+<style>
+.shop_banner img{min-width:100%;}
+.col_666{color:#666}.col_999{color:#999}
+.shop_title{border:none;padding:0 4.8rem 0.38rem 3rem;}
+.shop_titleMain{margin-top:0.5rem;}
+.shop_titleRight{width:4.3rem;margin-left:-4.5rem;right:-4.9rem;top:0.48rem;}
+.shop_descCompany{zoom:1;overflow:hidden;padding-left:4.5rem;}
+.shop_descTxt{width:100%;}
+.shop_descName{float:left;width:4rem;margin-left:-100%;position:relative;left:-4.5rem;}
+.shop_more{text-align: center;margin-top:0.5rem;}
+.shop_more h3 a{color:#ffb82f;}
+.shop_moreicon img{width:1rem;padding-left:0.3rem;}
+.shop_license{width:80%;margin:0 auto;text-align: center;}
+#license{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="shop_banner">
+		<img src="$res('wap/css/img/shopdetails_banner.png')" />
+	</div>
+	<div class="shop_title">
+		<div class="shop_titleMain txt_hide">
+			<p class="txt_hide" style="font-size:.85rem">$StoreInfo.StoreName</p>
+			<p class="txt_hide col_999">$StoreInfo.StoreSlogan</p>
+		</div>
+		<div class="shop_titleLeft"><img width="50" height="55" src="$StoreInfo.StoreLogo" /></div>
+		<div class="shop_titleRight">$if(Supplier.Level > 0)优质供应商$else普通供应商$end</div>
+	</div>
+	<div class="shop_line"></div>
+	<div class="shop_deta_title pad_lr">
+		<h3>店铺简介</h3>
+		<p>$StoreInfo.StoreExplain</p>
+	</div>
+	<div class="shop_line"></div>
+	
+	<div class="pad_lr">
+		<div class="shop_descCompany">
+			<div class="shop_descTxt fl txt_hide col_666">$Supplier.Company</div>
+			<div class="shop_descName fl col_333">公司名称</div>
+		</div>
+		<div class="shop_descCompany">
+			<div class="shop_descTxt fl txt_hide col_666">$Supplier.Address</div>
+			<div class="shop_descName fl col_333">所在地区</div>
+		</div>
+		<div class="shop_descCompany">
+			<div class="shop_descTxt fl txt_hide col_666">$Supplier.CreationDate.ToString("yyyy-MM-dd")</div>
+			<div class="shop_descName fl col_333">开店时间</div>
+		</div>
+	</div>
+	<div class="shop_more">
+		<h3><a href="#" onclick="licenseImg()"><span>查询执照</span><span class="shop_moreicon"><img src="$res('wap/css/img/shop_moreicon.png')" /></span></a></h3>
+		<div class="shop_license"><img id="license" style="display:none;" src="$StoreInfo.StoreBusinessLicense" /></div>
+	</div>
+	<div class="shop_line"></div>
+</div>
+<script>
+function licenseImg(){
+    var license = document.getElementById("license");
+	if(license.style.display=='none'){
+		license.style.display='block';
+	}else{
+		license.style.display='none';
+	}
+}
+</script>
+</body>
+</html>

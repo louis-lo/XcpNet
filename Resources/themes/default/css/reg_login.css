@@ -1,0 +1,183 @@
+/* BEGIN header */
+#header {
+	background-color: #FFF;
+	border-bottom:1px solid #E6E6E6;
+}
+#header .content-wrap {
+	height: 70px;
+	line-height: 70px;
+	padding-top: 10px;
+	padding-bottom: 12px;
+}
+.logo,
+.logo a {
+	width: 200px;
+	height: 76px;
+	background-image: url(img/logo.png);
+}
+small {
+	height: 50px;
+	margin-top: 15px;
+	line-height: 50px;
+	padding-left: 35px;
+	margin-left: 35px;
+	font-size: 24px;
+	font-family: '\5FAE\8F6F\96C5\9ED1';
+	border-left: 1px solid #D4D4D4;
+}
+/* END header */
+
+/* BEGIN post-form */
+.post-form {
+	padding: 25px 15px 45px;
+	background-color: #FFF;
+	border: 1px solid #B4B4B2;
+	outline: 7px solid #D6D5D5;
+}
+.post-form h2 {
+	position: relative;
+	height: 30px;
+	padding-left: 75px;
+	border-bottom: 1px solid #E5E5E5;
+}
+.post-form h2 p {
+	position: absolute;
+	top: 1px;
+	width: 260px;
+	padding-bottom: 10px;
+	font-size: 18px;
+	border-bottom: 3px solid #FDBB0B;
+}
+.form-body {
+	width: 350px;
+}
+.form-body p {
+	margin-top: 10px;
+    margin-bottom: 30px;
+}
+.form-body .input-box {
+	/*height: 53px;
+	line-height: 53px;*/
+	height: 40px;
+	line-height: 40px;
+}
+.form-body .input-box label,
+.form-body .input-box input {
+	display: block;
+	float: left;
+	/*font-size: 14px;*/
+	font-size: 12px;
+}
+.form-body .input-box label {
+	width: 85px;
+	text-align: right;
+    position: absolute;
+}
+.form-body .input-box input {
+	width: 348px;
+	/*height: 53px;*/
+	height: 38px;
+	padding: 0 10px;
+    text-indent: 85px;
+	/*line-height: 53px;*/
+	line-height: 38px;
+    border: 1px solid #DEDEDE;
+}
+.form-body .code {
+	position: relative;
+	width:200px;
+}
+.form-body .input-box.code input {
+	width: 178px;
+}
+.form-body .code a,
+.form-body .code a img {
+	width: 138px;
+	height: 38px;
+}
+.form-body .code a {
+	position: absolute;
+	top: 0px;
+	left: 218px;
+	display: block;
+	color: #666;
+	/*line-height: 53px;*/
+	line-height: 38px;
+	text-align: center;
+	background: #EEE;
+}
+.form-body .code a:hover {
+	background: #CCC;
+}
+.form-body .tip_01 {
+	position: relative;
+	margin-top: 25px;
+}
+.form-body .tip_01 input {
+	position: relative;
+	top: 3px;
+}
+.form-body .tip_01 a {
+	color: #0088cc;
+}
+.form-body .tip_01 .last {
+	position: absolute;
+	right: 0;
+    top: 0;
+}
+.form-body .errmsg {
+    color: #dd4b39;
+    height: 20px;
+    line-height: 20px;
+    padding-top: 10px;
+    text-align: center;
+}
+.form-body input[type="submit"] {
+	width: 100%;
+	/*height: 52px;*/
+	height: 38px;
+	margin-top: 15px;
+	font-size: 18px;
+	font-family: '\5FAE\8F6F\96C5\9ED1';
+	/*line-height: 52px;*/
+	line-height: 38px;
+	color:#FFF;
+	border: 1px solid #D59E03;
+	background-color: #FFC718;
+	cursor: pointer;
+}
+.form-body input[type="submit"]:hover {
+	background-color: #D59E03;
+}
+/* END post-form */
+
+/* BEGIN footer */
+#bottom {
+	width: 680px;
+	padding-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	background-color: #F3F3F3;
+}
+#bottom p {
+	padding-top: 5px;
+	text-align: center;
+}
+#bottom a {
+	display: inline;
+	float: none;
+	color: #999;
+}
+#bottom .auth {
+	width: 308px;
+	margin:20px auto 0;
+	text-align: center;
+}
+/* END footer */
+
+.jqx-validator-error-label {
+    height: 20px !important;
+    line-height: 20px !important;
+    text-align: left !important;
+}

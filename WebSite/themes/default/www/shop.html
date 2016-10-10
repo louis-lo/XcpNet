@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="$res('css/shop.css')" />
+    <link rel="stylesheet" href="$res('css/base_02.css')">
+    <link rel="stylesheet" href="$res('css/index_02.css')">
+    <link rel="stylesheet" href="$res('css/goods.css')">
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxrating.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+</head>
+<body>
+    $load("inc/top3.html")
+    <!-- header -->
+    <div class="shop_banner"><img src="$res('css/img/shop_bannerimg.png')" /></div>
+    $foreach(item in StoreCategoryList)
+    <div class="shop_list w1200 clearfix">
+        <div class="shop_listTitle"><span class="shop_listFurn">$item.Name</span><span class="fr"><a href="$url('/product/shoplist/', item.UserId, '/', item.Id)">更多 ></a></span></div>
+        <ul class="mt10">
+            $foreach(item2 in item.GetProductListByStoreCategoryId(this.DataSource))
+            <li>
+                <a href="$url('/product/info/',item2.Id)" target="_blank">
+                    <div class="shop_listImg"><img src="$item2.GetImage()" width="290" height="352" /></div>
+                    <div class="shop_listTxt clearfix" style="margin-top:10px;">
+                        <div class="fl" style="overflow:hidden;height:28px;">$item2.Title</div>
+                        <div class="fr">
+                            $item2.Price.ToString("C2")
+                        </div>
+                    </div>
+                </a>
+            </li>
+            $end
+        </ul>
+    </div>
+    $end
+    $load("inc/footer2.html")
+</body>
+</html>

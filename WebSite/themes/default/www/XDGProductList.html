@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>类别产品</title>
+	<link rel="stylesheet" type="text/css" href="$res('css/township_road_sort.css')">
+    <style>
+        .paging {
+            margin-top: 30px;
+            text-align: right;
+        }
+
+            .paging ul {
+                float: right;
+            }
+
+            .paging li {
+                float: left;
+                height: 38px;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin-right: 5px;
+                line-height: 38px;
+                background-color: #FAFAFA;
+                border: 1px solid #F2F2F2;
+            }
+
+                .paging li.active {
+                    background-color: #FF8C64;
+                }
+
+                    .paging li.active a {
+                        color: #FFF;
+                    }
+
+                .paging li.no {
+                    border: 0;
+                    background-color: #FAF8F8;
+                }
+    </style>
+    <script src="$res('js/jQuery-1.3.2.js')" language="javascript" type="text/javascript"></script>
+</head>
+<body>
+	<!-- 头部开始 -->
+    $load("inc/xdgtop.html")
+	<!-- 头部结束 -->
+
+	<!-- 中间 开始 -->
+	<div class="center_wrap w100">
+		<img src="$XDGInfo.StoreBusinessLicense" height="183" width="100%">
+	</div>
+	<div class="center_wrap_goods w1000">
+		<div class="center_left fl">
+			<div class="center_left_logo">
+			</div>
+			<div class="center_wrap_left">
+                $set(parentCategory = XDGCategory.GetParentCategory(this.DataSource))
+				<div class="present_select">
+					<a>当前选择：$parentCategory.Name</a>
+				</div>
+				<div class="select_sort">
+					<ul>
+                        $foreach(item in parentCategory.GetXDGCategoryTwo(this.DataSource))
+						<li ><a class="sort_one" style="background:url($item.Image) 0 2px no-repeat; background-size:17px 17px;" href="$url('/xdginfo/xdgproductlist/', item.Id)">${item.Name}（${item.GetProductCount(this.DataSource)}）</a></li>
+                        $end
+					</ul>
+				</div>
+			</div>
+			<div class="center_null"></div>
+			<a class="center_left_retrun" href="$url('/xdginfo/xdgdetailpage/', XDGCategory.UserId)">
+				回馆内
+			</a>
+		</div>
+		<div class="center_right_wrap fr">
+			<h2>
+                $XDGCategory.Name
+			</h2>
+			<ul class="clearFix">
+                $foreach(item in ProductList)
+				<li>
+					<a href="$url('/xdginfo/info/', item.Id)">
+						<div class="center_goods_print">
+							<img width="130" height="120" src="$item.GetImage()">
+						</div>
+						<div class="center_goods_describe">
+                            $item.Title
+						</div>
+						<div class="center_goods_pric">
+							<span>$item.Price.ToString("C2")</span>
+							<p>商家：$item.ProductSupplier</p>
+						</div>
+					</a>
+				</li>
+                $end
+			</ul>
+		</div>
+	</div>
+	<!-- 中间 结束 -->
+
+    <div class="paging" style="width:1200px;margin:10px auto;height:30px;">
+        <ul>
+            $if(ProductList.BeginPage>1)
+            <li class="no"><a href="$PageUrl(ProductList.PageIndex-1)">&lt;上一页</a></li>
+            <li><a href="$PageUrl(1)">1</a></li>
+            <li>...</li>
+            $end
+            $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+            $if(i==ProductList.PageIndex)
+            <li><a href="javascript:void(0)" class="active">$i</a></li>
+            $else
+            <li><a href="$PageUrl(i)">$i</a></li>
+            $end
+            $end
+            $if(ProductList.PagesCount>ProductList.EndPage)
+            <li>...</li>
+            <li><a href="$PageUrl(ProductList.PagesCount)">$ProductList.PagesCount</a></li>
+            <li class="no"><a href="$PageUrl(ProductList.PageIndex+1)">下一页&gt;</a></li>
+            $end
+        </ul>
+    </div>
+	<!-- 底部开始 -->
+    $load("inc/xdgbottom.html")
+	<!-- 底部结束 -->
+</body>
+</html>

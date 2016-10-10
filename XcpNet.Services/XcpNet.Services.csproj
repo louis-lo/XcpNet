@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D599A149-909B-4589-A157-F8A44C803E98}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XcpNet.Services</RootNamespace>
+    <AssemblyName>XcpNet.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sms\SendSms.cs" />
+    <Compile Include="Tel\TelAreaQuery.cs" />
+    <Compile Include="Tel\TelOnlineOrder.cs" />
+    <Compile Include="Tel\TelOrderQuery.cs" />
+    <Compile Include="Tel\TelYue.cs" />
+    <Compile Include="Tel\TelQuery.cs" />
+    <Compile Include="Tel\TelCheck.cs" />
+    <Compile Include="Tel\TelRequest.cs" />
+    <Compile Include="Modules\TelRecharge.cs" />
+    <Compile Include="RequestObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Data\Cnaws.Data.csproj">
+      <Project>{CE902B7F-B059-4762-8B53-EECBCB1B831C}</Project>
+      <Name>Cnaws.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Json\Cnaws.Json.csproj">
+      <Project>{1C0696F0-1736-4B61-B581-A038ED1F67E5}</Project>
+      <Name>Cnaws.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Passport\Cnaws.Passport.csproj">
+      <Project>{dbe3b4bf-c373-4a22-a26e-3eac4d6d7ca7}</Project>
+      <Name>Cnaws.Passport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Pay\Cnaws.Pay.csproj">
+      <Project>{131E704C-50CA-4F69-BB87-99CA369BAFE5}</Project>
+      <Name>Cnaws.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Sms\Cnaws.Sms.csproj">
+      <Project>{b59c85e1-a3fd-4250-ab23-63ca29ab64c5}</Project>
+      <Name>Cnaws.Sms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Web\Cnaws.Web.csproj">
+      <Project>{EF5FBD6B-C513-458A-9AA0-19FFA1C64ABA}</Project>
+      <Name>Cnaws.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws\Cnaws.csproj">
+      <Project>{E629A227-782D-47A6-B49B-31FF16CCBEB2}</Project>
+      <Name>Cnaws</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

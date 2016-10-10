@@ -1,0 +1,69 @@
+.wayshow_nav{position:fixed;top:0;height:2.2rem;line-height:2.2rem;width:100%;background:#fff;text-align:center;z-index:999;font-size:.9rem;color:#333;}
+.wayshow_navPosi{position:relative;}
+.wayshow_navLe{position:absolute;top:0.5rem;left:0.3rem;}
+.icon_Firststep{display:inline-block;width:18px;height:18px;background:url(../../img2.0/cph/icon_Firststep.png);background-size:100%;}
+/* end nav*/
+.wechat_logo{width:4.5rem;margin:1.8rem auto;}
+.wecath_logo_img{background:url(../../img2.0/cph/wecath_logo_img.png) no-repeat;display:inline-block;}
+.item-title{text-indent:.75rem;}
+.list-block .item-inner:after{display:block !important;}
+.list-block .item-title.label{width:18%;font-size:.75rem;color:#333;}.list-block .item-input input{font-size:.75rem;}
+.list-block{margin:0 0 15px;}
+.wecath_user_icon,.wecath_password_icon{width:18px;height:18px;background-size:135px 18px;background-position:-20px 0px;vertical-align:middle;}
+.wecath_password_icon{background-position:-42px 0px;}
+.wecath_submit input[type="submit"]{width:100%;height:44px;background:#e01928;border:none;border-radius:.15rem;font-size:.85rem;}
+.register_accounts{margin-top:30px;text-align:center;}
+.register_accounts a{display:inline-block;padding:8px 25px;border:1px solid #e01928;border-radius:.15rem;}
+
+.Send_remind{text-align:center;margin:1rem 0;}
+.again_Obtain{position:absolute;right:.75rem;top:13px;border-left:1px solid #e5e5e5;line-height: 1.2;font-size:.7rem;}
+.again_Obtain input{width:4.9rem;}
+.field-check,.field-radio{
+	-webkit-appearance: none;width: 18px;height:18px;border:1px solid #ccc;text-align: center;vertical-align: middle;outline: 0;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, .125);box-shadow: inset 0 1px 3px rgba(0, 0, 0, .125);margin-right:8px;
+}
+.field-check:checked,.field-radio:checked{border: 0;background:#e01928;color: #fff;}
+.field-check:checked:before {color: #fff;content:url(../../img2.0/cph/checked_icon.png);vertical-align: top;}
+
+
+
+/* regexp */
+.field-tooltipWrap{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 19891014;
+    display: block;
+}
+.field-tooltipInner{
+    pointer-events: none;
+    display: table;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+}
+.field-tooltip{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.field-tooltip .zvalid-resultformat{
+    display: inline-block;
+    position: relative;
+    background-color:rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    pointer-events: auto;
+    animation-name:fieldTipBounceIn;
+    -webkit-animation-name:fieldTipBounceIn;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: .18s;
+    animation-duration: .18s;
+}

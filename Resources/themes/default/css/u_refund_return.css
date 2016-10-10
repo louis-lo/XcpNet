@@ -1,0 +1,132 @@
+/* BEGIN section-01 */
+.section-01 .panel-body {
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 50px;
+}
+.section-01 .state {
+	position: relative;
+	width:720px;
+	height: 85px;
+	padding-bottom: 35px;
+	margin-top: 45px;
+	line-height:85px;
+	margin-left:auto;
+	margin-right:auto;
+	border-bottom: 1px dotted #BBB;
+}
+.section-01 .state ul {
+	position: absolute;
+	width: 800px;
+	left: 0;
+} 
+.section-01 .state li {
+	position: relative;
+	width: 180px;
+	height: 2px;
+	line-height: 2px;
+	float: left;
+	background-color: #EAEAEA;
+}
+.section-01 .state li span {
+	position: absolute;
+	left: 77px;
+	margin-top: -14px;
+	display: block;
+	width: 26px;
+	height: 26px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color: #CCC;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 26px;
+	background-image: url(img/user/step_01.png);
+}
+.section-01 .state li.active {
+	background-color: #FCB98C;
+}
+.section-01 .state li.active span {
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	color: #FFF;
+	background-image: url(img/user/step_02.png);
+}
+
+.section-01 .state li div {
+	position: absolute;
+	top: 28px;
+	left: 0;
+}
+.section-01 .state li div,
+.section-01 .state li div h3,
+.section-01 .state li div p {
+	width: 180px;
+	height: 14px;
+	line-height: 1;
+	text-align: center;
+}
+.section-01 .state li div h3 {
+	font-size: 18px;
+	color: #7f401d;
+}
+.section-01 .state li div p {
+	margin-top: 15px;
+	color: #999;
+}
+/* END section-01 */
+
+/* BEGIN section-02 */
+.section-02 .panel-body {
+	padding-bottom: 65px;
+}
+.section-02 textarea {
+	width: 530px;
+	height: 50px;
+	padding: 5px;
+}
+.section-02 th,
+.section-02 td {
+	padding-top: 15px;
+}
+.section-02 th {
+	width: 150px;
+	text-align: right;
+}
+.section-02 th span {
+	color: #F60;
+}
+.section-02 th p {
+	color: #999;
+}
+/* END section-02 */
+
+/* BEGIN list */
+.list-body .list-item {
+	margin-top: 10px;
+	background-color: #FFF;
+	border: 1px solid #E1E1E1;
+}
+.list-body .list-item thead th {
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	background-color: #EAEAEA;
+}
+.list-body .list-item tbody .w-312 {
+	padding-left:10px;
+}
+.list-body .list-item tbody .w-131 {
+	border-left:1px solid #E1E1E1;
+}
+.list-body .list-item tfoot {
+ 	border-top:1px solid #E1E1E1;
+}
+.list-body .list-item tfoot td {
+	height: 45px;
+	padding: 0 10px;
+	line-height: 45px;
+}
+/* END list */

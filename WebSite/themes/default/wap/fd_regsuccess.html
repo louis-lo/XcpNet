@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width">
+    <title>最帅老爸,报名成功-$Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/sm.min.css')">
+    <style>
+      input[placeholder], [placeholder], *[placeholder] {color:#fff !important;}
+::-webkit-input-placeholder { /* WebKit browsers */ color: #fff; } 
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color: #fff; } 
+.vote_top div{height:2.75rem;line-height:2.75rem}
+.vote_top div:first-child{width:4rem;margin-left:0.5rem;}
+.vote_top div:nth-child(2){width:4rem;position:absolute;left:50%;margin-left:-2rem;}
+.vote_top div:last-child{width:3rem;margin-right:0.5rem;}
+.vote_top div img,.joins_bottom div img{vertical-align: middle;}
+.vote_content{background:url($res('wap/img/vote_bg.png'));background-size:100% 100%;height: auto;overflow: hidden;padding-bottom:2.5rem;}
+
+.vote_succImg{width:80%;height:auto;overflow:hidden;margin:3rem auto 0;color:#4e0800;}
+.vote_succImg .fl,.vote_succImg .fr{width:40%;border:1px solid #4e0800;}
+.vote_succImg .fl{margin-right:3%;}
+.vote_succLiImg{width: 100%;position: relative;padding-bottom: 100%;}
+.vote_succImg .fr{width:55%;padding:5px;box-sizing:border-box;overflow-y: auto;}
+.vote_succImg .fr ul{position: relative;width: 100%;padding-bottom: 100%;}
+.vote_succImg p{font-size:0.65rem;border-bottom:1px dashed #4e0800;}
+.vote_succImg p:last-child{border-bottom:none;}
+
+.vote_succTxt{font-size:1.2rem;color:#f10900;text-align: center;margin-top:1.5rem;}
+.vote_succShop{width:60%;margin:1.5rem auto 0;}
+
+.vote_complete{width:30%;height:auto;overflow:hidden;margin:1.5rem auto 0;}
+
+.vote_bottom{background:#3e3e3e;height:auto;overflow:hidden;}
+.vote_bottom div:first-child{width:4rem;margin-left:0.5rem;margin-top:1rem;}
+.vote_bottom div:nth-child(2){width:5rem;position:absolute;left:50%;margin-left:-2.25rem;margin-top:1rem;}
+.vote_bottom div:last-child{width:3rem;margin-right:0.6rem;margin-top:0.3rem;}
+.vote_bottom div:last-child img{padding:0.2rem;background:#fff;}
+/* iphone 6 */
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2) {
+    .vote_succImg p:first-child,.vote_succImg p:nth-child(2){line-height:1.5rem;}
+}
+/* iphone6 plus */
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3) {
+    .vote_complete{margin:1.5rem auto 9.3rem;}
+}
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="wrap page">
+            <div class="content">
+                <div class="vote_top clearfix">
+                    <div class="fl"><img src="$res('wap/img/vote_logo.png')"></div>
+                    <div class="fl"><img src="$res('wap/img/vote_tel.png')"></div>
+                    <div class="fr"><a href="$url(Site.Url)"><img src="$res('wap/img/vote_gohome.png')"></a></div>
+                </div>
+                <div class="vote_content">
+                    <div class="vote_succImg clearfix">
+                        <div class="fl">
+                            <div class="vote_succLiImg" id="vote_succLeImg" style="background:url(../img/vote_imglist.png);background-size:100% 100%;"></div>
+                        </div>
+                        <div class="fr" id="vote_succReTxt">
+                            <p>姓名：${register.Name}(${register.VoteCount}票)</p>
+                            <p>报名编号：Register.Id.ToString("D5")</p>
+                            <p>最想对爸爸说的一句话：$Register.Content</p>
+                        </div>
+                    </div>
+                    <script>
+				document.getElementById("vote_succReTxt").style.height=document.getElementById("vote_succLeImg").offsetHeight+"px";
+                    </script>
+                    <div class="vote_succTxt"><b>恭喜你！已投票成功!</b></div>
+                    <div class="vote_succShop"><img src="$res('wap/img/vote_shoppingvolume.png')" /></div>
+                    <div class="vote_complete"><a href="$url('/index')"><img src="$res('wap/img/vote_complete.png')" /></a></div>
+                </div>
+                <div class="vote_bottom clearfix">
+                    <div class="fl"><a href="#"><img src="$res('wap/img/joins_botLogo.png')" /></a></div>
+                    <div class="fl"><img src="$res('wap/img/joins_botTel.png')" /></div>
+                    <div class="fr"><img src="$res('wap/img/joins_code.png')" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="jqxLoader" style="display:none;"></div>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type='text/javascript' src="$res('wap/js/mobile/zepto.min.js')" charset='utf-8'></script>
+    <script type='text/javascript' src="$res('wap/js/mobile/sm.min.js')" charset='utf-8'></script>
+    <script type="text/javascript" src="$res('js/jquery.form.js')"></script>
+    <script>
+        ; +(function ($,zepto, doc) {
+            var get = function (id) {
+                return doc.getElementById(id);
+            },
+            stopEvent = function (e) {
+                e.preventDefault();
+                e.stopPropagation()
+            };
+
+            $(function () {
+                var ImageFile = get('ImageFile'),
+                      registerForm = get('registerForm'),
+                      jFormFile = $('#formFile'),
+                      jqxLoader = $('#jqxLoader'),
+                      headImgUrl = get('HeadImgUrl'),
+                      upLoadImg = get('upLoadImg'),
+                      Name = get('Name'),
+                      Mobile = get('Mobile'),
+                      Content = get('Content'),
+                      privewImg = get('privewImg');
+
+                ImageFile.addEventListener('change', function (e) {
+                    if (e.target.files.length > 0) {
+                        jFormFile.ajaxSubmit({
+                            type: "POST",
+                            dataType: "json",
+                            url: jFormFile.attr("action"),
+                            enctype: 'multipart/form-data',
+                            success: function (data) {
+                                if (data.error == 0) {
+                                    headImgUrl.value = data.url;
+                                    privewImg.style.cssText = 'background:url(' + data.url + ');background-size:100% 100%';
+                                }
+                            },
+                            async: true
+                        });
+                    }
+                });
+
+                upLoadImg.addEventListener('click', function () {
+                    ImageFile.click();
+                }, false);
+
+                registerForm.onsubmit = function (e) {
+                    if (!!!headImgUrl.value) {
+                        zepto.alert('请先上传头像');
+                        stopEvent(e);
+                        return false;
+                    }
+                    else if (!!!Name.value) {
+                        zepto.alert('姓名不能为空');
+                        stopEvent(e);
+                        return false;
+                    } else if (!!!Mobile.value) {
+                        zepto.alert('电话不能为空');
+                        stopEvent(e);
+                        return false;
+                    } else if (!!!Content.value) {
+                        zepto.alert('请填写想对父亲说的话');
+                        stopEvent(e);
+                        return false;
+                    }
+                    return true;
+                }
+            })
+        })($,Zepto, document)
+    </script>
+</body>
+</html>

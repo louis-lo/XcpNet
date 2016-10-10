@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Site.Name - 上架审核</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="$res('~/manageres/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/font-awesome.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/switchery/switchery.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/treeview/bootstrap-treeview.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/toastr/toastr.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/extensions/editable/bootstrap-editable.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/animate.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/style.min.css')" rel="stylesheet">
+    <style>
+        .ibox { margin-bottom: 0; }
+        .btn-default *, .btn-default a:hover { color: #676a6c; }
+        .dropdown-menu { left: 0 !important; right: auto !important; }
+        .list-group { border: 0; margin-bottom: 0; }
+            .list-group li { border-radius: 0 !important; }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content height-begin">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <table id="dataTable" data-show-export="true"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="$res('~/manageres/js/jquery.min.js')"></script>
+    <script src="$res('~/manageres/js/bootstrap.min.js')"></script>
+    <script src="$res('~/manageres/js/content.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/toastr/toastr.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/switchery/switchery.js')"></script>
+    <script src="$res('~/manageres/js/plugins/treeview/bootstrap-treeview.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/editable/bootstrap-editable.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="$res('~/manageres/js/cnaws.js')"></script>
+    <script src="$res('~/manageres/js/datatable.js')"></script>
+    <script>
+        var table = null;
+        var allCategory = {
+            'cate_0': { id: 0, name: '根分类', parent: -1, children: [] }
+            //$foreach(it in AllCategory)
+            , 'cate_$it.Id': { id: $it.Id, name: '$it.Name', parent: $it.ParentId, children: [] }
+            //$end
+        };
+        //$foreach(it in AllCategory)
+        allCategory['cate_$it.ParentId'].children.push($it.Id);
+        //$end
+        $().ready(function () {
+            Cnaws.init({
+                urlExt: '$ext',
+                resourcesUrl: '$this.Application.Settings.ResourcesUrl',
+                passportUrl: '$this.Application.Settings.PassportUrl'
+            });
+
+            table = $('#dataTable').DaTab({
+                search: false,
+                idField: 'Id',
+                uniqueId: 'Id',
+                loadUrl: '$url(this.Path,"/list/{page}")',
+                getRowId: function (row) {
+                    return row.Id;
+                },
+                columns: [
+                    {
+                        field: 'Id',
+                        title: 'ID',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'Name',
+                        title: '供应商',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'Company',
+                        title: '公司名',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'CategoryId',
+                        title: '分类',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return allCategory['cate_' + value].name;
+                        }
+                    },
+                    {
+                        field: 'Title',
+                        title: '标题',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'Mappings',
+                        title: '组合',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            var map = [];
+                            for (var i = 0; i < value.length; ++i)
+                                map.push(value[i].Name + '：' + value[i].Value)
+                            return map.join('&nbsp;&nbsp;');
+                        }
+                    },
+                    {
+                        field: 'Image',
+                        title: '图片',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                        formatter: function (value, row, index) {
+                            var imgs = value.split('|');
+                            var html = '<div id="carousel' + row.Id + '" class="carousel slide">';
+                            html += '<ol class="carousel-indicators">';
+                            for (var i = 0; i < imgs.length; ++i) {
+                                html += '<li data-slide-to="' + i + '" data-target="#carousel' + row.Id + '"';
+                                if (i == 0)
+                                    html += ' class="active"';
+                                html += '></li>';
+                            }
+                            html += '</ol>';
+                            html += '<div class="carousel-inner">';
+                            for (var i = 0; i < imgs.length; ++i) {
+                                html += '<div class="item';
+                                if (i == 0)
+                                    html += ' active';
+                                html += '"><img class="img-responsive" src="' + imgs[i] + '"></div>';
+                            }
+                            html += '</div>';
+                            html += '<a data-slide="prev" href="#carousel' + row.Id + '" class="left carousel-control"><span class="icon-prev"></span></a>';
+                            html += '<a data-slide="next" href="#carousel' + row.Id + '" class="right carousel-control"><span class="icon-next"></span></a>';
+                            html += '</div>';
+                            return html;
+                        }
+                    },
+                    {
+                        field: 'CostPrice',
+                        title: '成本价',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'number',
+                            step: 0.01,
+                            validate: function (value) {
+                                if (value < 0)
+                                    return '值必须大于或等于0';
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        field: 'CountyPrice',
+                        title: '县级价',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'number',
+                            step: 0.01,
+                            validate: function (value) {
+                                if (value < 0)
+                                    return '值必须大于或等于0';
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        field: 'DotPrice',
+                        title: '网点价',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'number',
+                            step: 0.01,
+                            validate: function (value) {
+                                if (value < 0)
+                                    return '值必须大于或等于0';
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        field: 'Price',
+                        title: '零售价',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'number',
+                            step: 0.01,
+                            validate: function (value) {
+                                if (value < 0)
+                                    return '值必须大于或等于0';
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        field: 'Inventory',
+                        title: '库存',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'BarCode',
+                        title: '条形码',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'action',
+                        title: '操作',
+                        align: 'center',
+                        valign: 'middle',
+                        events: {
+                            'click .approved': function (e, value, row, index) {
+                                if (window.confirm('确认审核上架？')) {
+                                    Cnaws.ajax({
+                                        method: 'POST',
+                                        url: '$url(this.Path,"/approved")',
+                                        data: { Id: row.Id, CostPrice: row.CostPrice, CountyPrice: row.CountyPrice, DotPrice: row.DotPrice, Price: row.Price },
+                                    }, function (data) {
+                                        if (data.code == -200) {
+                                            Cnaws.showSuccess('审核上架成功');
+                                            table.DaTab('getTable').bootstrapTable('refresh');
+                                        }
+                                        else {
+                                            Cnaws.showError(data.data, '审核上架失败');
+                                        }
+                                    });
+                                }
+                            }
+                        },
+                        formatter: function (value, row, index) {
+                            return [
+                                '<a href="http://${if(this.ProductType>0)}www${else}cdb${end}.xcpnet.com' + Cnaws.getUrl('$url("/product/show/")' + row.Id) + '" target="_blank">预览</a>  ',
+                                '<a class="approved" href="javascript:void(0)">审核</a>'
+                            ].join('');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

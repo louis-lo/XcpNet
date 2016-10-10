@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>信息管理</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.xdg.pc.category.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('plugins/xalert/xalert-1.0.0.min.css')" />
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <style>
+        .center_content {
+            width: 1200px;
+            margin: 0 auto;
+            margin-top: 7px;
+        }
+
+        .center_wrapRight {
+            float: right;
+        }
+
+        .J_Submit {
+            background: #fff none repeat scroll 0 0;
+            border: 1px solid #ededed;
+            border-radius: 2px;
+            cursor: pointer;
+            display: block;
+            height: 21px;
+            line-height: 21px;
+            text-align: center;
+            width: 43px;
+        }
+        .classification {
+            height: auto;
+            line-height: unset !important;
+            margin-bottom: 0px;
+            margin-top: 0px;
+        }
+        tr td {
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/x_top.html")
+    <!-- 头部 第二部分 -->
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div id="content" class="center_wrap w1200 clearFix">
+        $load("inc/x_side.html")
+        <div class="center_wrapRight">
+            <h2>
+                $if(Name != "")
+                $Name
+                $else
+                乡道管分类
+                $end        
+            </h2>
+            <ul class="classification_content">
+                <li class="clearFix first">
+                    <div class="array fl">排列</div>
+                    <div class="classification fl">分类</div>
+                    <div class="images fl">图片</div>
+                    <div class="sort fl">排序</div>
+                    <div class="operation fl">操作</div>
+                </li>
+                $set(index = 1)
+                $foreach(item in StoreCategoryList)
+                <li class="clearFix second">
+                    <form method="post" action="$url('/xdginfo/update')">
+                        <div class="array fl">$index</div>
+                        <div class="classification fl">
+                            <input class="Name" name="Name" placeholder="请输入分类名称" value="$item.Name" />
+                        </div>
+                        <div class="images fl">
+                            <div class="file">
+                                $if(item.Image!="")
+                                <img src="$item.Image" class="img" width="30" height="30" /><a href="javascript:void();" class="updateImg">修改</a>
+                                <input type="hidden" class="Image" name="Image" value="$item.Image" />
+                                $else
+                                <img src="$res('css/img/addimgicon.jpg')" class="img" /><a href="javascript:void();" class="addImg">添加</a>
+                                <input type="hidden" class="Image" name="Image" />
+                                $end
+                            </div>
+                        </div>
+                        <div class="sort fl">
+                            <input class="SortNum" name="SortNum" style="width:50px;height:24px;" value="$item.SortNum" />
+                        </div>
+                        <div class="operation fl">
+                            $if(ParentId == 0)
+                            <a href="$url('/xdginfo/category/', item.Id)">查看子分类</a>
+                            $end
+                            <a href="javascript:void();" class="delete">删除</a>&nbsp;
+                            <a href="javascript:void();" class="update">保存</a>
+                            <input type="hidden" class="Id" name="Id" value="$item.Id" />
+                            <input type="hidden" class="ParentId" name="ParentId" value="$ParentId" />
+                        </div>
+                    </form>
+                </li>
+                $set(index = index + 1)
+                $end
+                $for(i = StoreCategoryList.Count; i < 5; i++)
+                <li class="clearFix second">
+                    <form method="post" action="$url('/xdginfo/add')">
+                        <div class="array fl">${i + 1}</div>
+                        <div class="classification fl">
+                            <input class="Name" name="Name" placeholder="请输入分类名称" />
+                        </div>
+                        <div class="images fl">
+                            <div class="file">
+                                <img src="$res('css/img/addimgicon.jpg')" class="img" /><a href="javascript:void();" class="addImg">添加</a>
+                                <input type="hidden" class="Image" name="Image" />
+                            </div>
+                        </div>
+                        <div class="sort fl">
+                            <input class="SortNum" name="SortNum" style="width:50px;height:24px;" />
+                        </div>
+                        <div class="operation fl">
+                            <a href="javascript:void();" class="add">确定添加</a>
+                            <input type="hidden" class="ParentId" name="ParentId" value="$ParentId" />
+                        </div>
+                    </form>
+                </li>
+                $end
+                <li class="last">
+                                       
+                    <span></span>
+                    $if(Name != "")
+                    <a href="$url('/xdginfo/category')"> 点击返回父分类</a>
+                    $end 
+                    建议添加满五个分类，上传照片最佳尺寸400*400，不得超过200KB
+                </li>
+            </ul>
+        </div>
+    </div>
+   
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    <script>
+        var editor=null;
+        $(document).ready(function () {
+            editor = KindEditor.editor({
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true
+            });
+            $(".delete").click(function () {
+                if (confirm("确认删除？")) {
+                    var li = $(this).parent().parent().parent();
+                    var id = $(this).siblings(".Id").val();
+                    Cnaws.getAjax("$url('/xdginfo/delete/" + id + "')", function (data) {
+                        if (data.code == -200) {
+                            li.remove();
+                            Cnaws.showSuccess('删除成功');
+                        }
+                        else {
+                            Cnaws.showError('删除失败');
+                        }
+                    })
+                }
+            });
+            $(".updateImg,.addImg").click(function () {
+                var img = $(this);
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            $(img).siblings(".img").attr("width", "30").attr("height", "30").attr("src", url);
+                            $(img).siblings(".Image").val(url);
+                            editor.hideDialog();
+                        }
+                    })
+                })
+            })
+            $(".add").click(function () {
+                var form = $(this).parent().parent();
+                var name = $(this).parent().parent().find(".Name").val();
+                if (name.length <= 0) {
+                    $(this).parent().parent().find(".Name").css("border", "1px solid red");
+                }
+                else {
+                    Cnaws.postAjax("$url('/xdginfo/add')", form.serialize(), function (data) {
+                        if (data.code == -200) {
+                            window.location.reload();
+                        }
+                        else {
+                            Cnaws.showError('添加失败');
+                        }
+                    })
+                }
+            })
+
+            $(".update").click(function () {
+                var form = $(this).parent().parent();
+                var name = $(this).parent().parent().find(".Name").val();
+                if (name.length <= 0) {
+                    $(this).parent().parent().find(".Name").css("border", "1px solid red");
+                }
+                else {
+                    Cnaws.postAjax("$url('/xdginfo/update')", form.serialize(), function (data) {
+                        if (data.code == -200) {
+                            Cnaws.showSuccess("修改成功");
+                        }
+                        else {
+                            Cnaws.showError('修改失败');
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+</body>
+</html>

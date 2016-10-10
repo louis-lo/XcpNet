@@ -1,0 +1,80 @@
+/* 中间 右边 开始*/
+.center_wrapRight{width: 995px;}
+.center_wrapRight h2{font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;padding:8px;}
+
+/* 交易提醒 */
+.myTransactionWarn{padding:8px 20px;border: 1px solid #f9dfb2;font-size: 14px;color: #666;margin-top: 10px;background: #ffffdd;}
+.myTransactionWarn ul li{float: left;padding: 0 15px;font-family: "宋体";font-size: 13px;}
+.myTransactionWarn ul li a{color:#666;}
+.myTransactionWarn .pitch a{color:#e31939;}
+.status li span{color:#e31939;}
+
+/* 待发货 开始 */
+.stayShipmentsWrap{margin-top: 10px;}
+.stayShipmentsWrap table{border:1px solid #e2e2e2;}
+.tableTrBottom{margin-bottom: 15px;}
+.stayShipmentsWrap .tableTrHeader{border-bottom: none;}
+.tableTrHeader th:first-child{width: 408px;}
+.tableTrHeader th:nth-child(2){width: 105px;}
+.tableTrHeader th:nth-child(3){width: 102px;}
+.tableTrHeader th:nth-child(4){width: 66px;}
+.tableTrHeader th:nth-child(5){width: 135px;}
+.tableTrTop th{background: #eee;padding:5px 0;}
+.tableTrTwo th{background: #f5f5f5;text-align: left;padding-left: 10px;color:#333;font-weight: normal;}
+.tableTrTwo i,.tableTrLast i{color:#e31939;}
+.tableTrTwo span{margin-left: 10px;}
+.orderGoods_print img{width: 50px;height: 50px;}
+.tableTrThree td{border:1px solid #e2e2e2;text-align: center;padding:12px 8px;}
+.shipmentsGoods_ms{}
+.shipmentsGoods_ms{width: 258px;margin-left: 15px;height: 50px;overflow: hidden;text-align: left;}
+.shipments_heart{width: 395px;}
+.obligationWrap_price{width:90px;}
+.obligationWrap_number{width: 58px;}
+.obligationWrap_hj{width: 104px;}
+.obligationWrap_price span,.shipmentsGoods_state a{color: #e31939;}
+.shipmentsGoods_nature a{color:#e31a22;display: inline-block;width: 67px;height: 27px;border:1px solid #e31a22;border-radius: 5px;line-height: 27px;}
+.tableTrLast td{text-align: right;padding-right: 20px;padding:15px;}
+.tableTrLast span,.tableTrLast a{margin-left: 15px;}
+.tableTrLasti{font-size: 22px;}
+.tableTrLast a{display: inline-block;width: 68px;height: 24px;background: #e31939;color:#fff;text-align: center;line-height: 24px;}
+.tableTrThree .obligationWrap_nature {text-align: left;}
+/* 待发货 结束 */
+/* 商品分页 开始 */
+.center_pageWrap{margin: 30px 0 70px;}
+.center_pageBox{overflow: hidden;}
+.center_pageBox ul li{float: left;background: #fff;}
+.center_pageBox ul li a{font-size: 14px;}
+.page_prev{border:1px solid #e2e2e2;width: 75px;height: 30px;line-height: 30px;text-align: center;margin-left: 10px;}
+.page_prev span{background: url("../../img2.0/cph/TB1Z4WGMpXXXXbyaXXX6sGuHVXX-458-458.png")no-repeat;width: 6px;height: 12px;display: inline-block;vertical-align: middle;}
+/* 上一页 两种状态 灰色*/
+.pageprev_img .unicon{background-position: -158px -422px;}
+.pageprev_unprint{vertical-align: middle;display: table-cell;display: block;color: #999;}
+/* 上一页 两种状态 可以点击*/
+.pageprev_img .icon{background-position: -126px -422px;}
+.pageprev_print{vertical-align: middle;display: table-cell;display: block;color: #333;}
+
+/* 下一页 两种状态 可以点击*/
+.pagenext_img .icon{background-position: -174px -422px;}
+.pageprev_next {color:#333;}
+/* 下一页 两种状态 灰色*/
+.pagenext_img .unicon{background-position: -206px -422px;}
+.pageprev_unnext {color:#999;}
+.page_numer a{height: 30px;line-height: 30px;width: 35px;border:1px solid #e2e2e2;margin-left: -1px;display: block;text-align: center;}
+.itme{margin-left: 10px;}
+.center_pageBox .dot{width: 35px;height: 30px;text-align: center;line-height: 40px;background: none;}
+.text{margin-left: 10px; line-height: 37px; color: #999;}
+.m-page .input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.pagebtn, .input{margin-top: 7px;} .input, .text{color: #999;}
+.pagebtn, .input, .text{margin-left: 5px;}
+.pagebtn{background-clip: padding-box;border: 1px solid #ededed;border-radius: 2px;cursor: pointer;height: 21px;line-height: 21px;text-align: center;width: 43px;display: block;background: #fff;}
+.center_pageBox .page_numer a:hover{background: #e31939 none repeat scroll 0 0; border-color: #e31939; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_pageBox .itme a{background: #e31939 none repeat scroll 0 0; border-color: #e31939; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_mergepay button{border:1px solid #e2e2e2;padding:4px 10px;margin-left: 5px;}
+.center_mergepay input{margin-top: 2px;}
+
+.centerTsWrap{margin-top: 35px;height: 75px;background: url("../../img2.0/cph/ts.png") 117px 0px no-repeat;line-height: 150px;}
+.centerButtonWrap{text-align: center;margin-top: 22px;}
+.tswz{text-align: center;font-size: 14px;font-family: "simsun";}
+/* 商品分页 结束 */
+/* 中间 右边 结束*/

@@ -1,0 +1,428 @@
+﻿$if(isset("Member"))
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title">加盟商信息</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox iboxex float-e-margins">
+                <div class="ibox-title">
+                    <h5>用户信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">用户名：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Member.Name</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">昵称：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Member.NickName</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">手机号码：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Member.Mobile</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电子邮箱：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Member.Email</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox iboxex float-e-margins">
+                <div class="ibox-title">
+                    <h5>加盟商信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">公司名称：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.Company</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">等级：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.GetLevelString()</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">状态：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.GetStateString()</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">证件图片：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">
+                                $foreach(img in Distributor.GetImages())
+                                <img class="img-responsive" src="$img">
+                                $end
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">签约人：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.Signatories</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">签约人联系电话：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.SignatoriesPhone</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">负责人：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.Contact</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">负责人联系电话：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.ContactPhone</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收货人：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.Consignee</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收货人手机号：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.Mobile</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">公司地址：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.Address</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">邮编：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.PostId</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">开始时间：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Distributor.CreationDate.ToString()</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".collapse-link").click(function () {
+            var o = $(this).closest("div.ibox"),
+                e = $(this).find("i"),
+                i = o.find("div.ibox-content");
+            i.slideToggle(200),
+            e.toggleClass("fa-chevron-up").toggleClass("fa-chevron-down"),
+            o.toggleClass("").toggleClass("border-bottom"),
+            setTimeout(function () {
+                o.resize(),
+                o.find("[id^=map-]").resize()
+            }, 50)
+        });
+    </script>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+</div>
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Site.Name - 加盟商管理</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="$res('~/manageres/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/font-awesome.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/switchery/switchery.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/treeview/bootstrap-treeview.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/toastr/toastr.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/animate.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/style.min.css')" rel="stylesheet">
+    <style>
+        .ibox { margin-bottom: 0; }
+        .iboxex { margin-bottom: 25px; }
+        .btn-default *, .btn-default a:hover { color: #676a6c; }
+        .dropdown-menu { left: 0 !important; right: auto !important; }
+        .list-group { border: 0; margin-bottom: 0; }
+            .list-group li { border-radius: 0 !important; }
+        .control-label { text-align: right; }
+        .form-control-static { padding-top: 0; }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content height-begin">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="dataTableToolbar" role="group">
+                                    <div class="btn btn-outline btn-default dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            $GetMenuName(Level)
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            $foreach(item in Menus)
+                                            <li><a href="javascript:viewChild($item.Key,$State)">$item.Value</a></li>
+                                            $end
+                                        </ul>
+                                    </div>
+                                    <div class="btn btn-outline btn-default dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            $GetStateName(State)
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            $foreach(item in States)
+                                            <li><a href="javascript:viewChild($Level,$item.Key)">$item.Value</a></li>
+                                            $end
+                                        </ul>
+                                    </div>
+                                </div>
+                                <table id="dataTable" data-toolbar="#dataTableToolbar" data-show-export="true"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="insertForm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+    <script src="$res('~/manageres/js/jquery.min.js')"></script>
+    <script src="$res('~/manageres/js/bootstrap.min.js')"></script>
+    <script src="$res('~/manageres/js/content.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/toastr/toastr.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/switchery/switchery.js')"></script>
+    <script src="$res('~/manageres/js/plugins/treeview/bootstrap-treeview.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/multiple-search/bootstrap-table-multiple-search.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="$res('~/manageres/js/cnaws.js')"></script>
+    <script src="$res('~/manageres/js/datatable.js')"></script>
+    <script>
+        var table = null;
+        var levels = { '0': '省级加盟商', '1': '县级加盟商', '2': '镇级旗舰店', '3': '镇级中心店', '4': '村级加盟店', '100': '会员加盟店' };
+        var states = { '-1': '已删除', '0': '未审核', '1': '已审核', '2': '审核失败' };
+        function viewChild(l, s) {
+            location.href = Cnaws.getUrl('$url("distributor/index/")' + l + '/' + s);
+        }
+        function initWindow(id) {
+            Cnaws.ajax({
+                method: 'GET',
+                type: 'html',
+                url: Cnaws.getUrl('$url("distributor/info/")' + id)
+            }, function (data) {
+                $('#modal-content').html(data);
+                $('#insertForm').modal('show');
+            });
+        }
+        $().ready(function () {
+            Cnaws.init({
+                urlExt: '$ext',
+                resourcesUrl: '$this.Application.Settings.ResourcesUrl',
+                passportUrl: '$this.Application.Settings.PassportUrl'
+            });
+
+            table = $('#dataTable').DaTab({
+                search: false,
+                //showExport: false,
+                //enableSearchTypes: true,
+                //searchType: Type,
+                //searchTypes: [
+                //    { value: 0, text: '订单号码' },
+                //    { value: 1, text: '供应商账号' },
+                //    { value: 2, text: '用户账号' },
+                //    { value: 3, text: '时间(格式：2016-12-12|2016-12-13)' },
+                //    { value: 4, text: '收货人的姓名' },
+                //    { value: 5, text: '订单金额' }
+                //],
+                idField: 'UserId',
+                uniqueId: 'UserId',
+                loadUrl: Cnaws.getUrl('$url("distributor/list/", Level, "/", State, "/")' + '{page}'),
+                columns: [
+                    {
+                        field: 'UserId',
+                        title: '用户ID',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'UserName',
+                        title: '用户名',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                        formatter: function (value, row, index) {
+                            return types[value];
+                        }
+                    },
+                    {
+                        field: 'UserMobile',
+                        title: '用户手机号',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'Signatories',
+                        title: '签约人',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'SignatoriesPhone',
+                        title: '联系电话',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'Company',
+                        title: '公司名称',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'Address',
+                        title: '公司地址',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'Level',
+                        title: '等级',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return levels[value];
+                        }
+                    },
+                    {
+                        field: 'State',
+                        title: '状态',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return states[value];
+                        }
+                    },
+                    {
+                        field: 'CreationDate',
+                        title: '开始时间',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return (new Date(value * 1000)).format('yyyy-MM-dd hh:mm:ss');
+                        }
+                    },
+                    {
+                        field: 'action',
+                        title: '操作',
+                        align: 'center',
+                        valign: 'middle',
+                        events: {
+                            'click .approved': function (e, value, row, index) {
+                                if (window.confirm('确认审核？')) {
+                                    Cnaws.ajax({
+                                        method: 'POST',
+                                        url: '$url("distributor/approved")',
+                                        data: { Id: row.UserId },
+                                    }, function (data) {
+                                        if (data.code == -200) {
+                                            Cnaws.showSuccess('审核成功');
+                                            table.DaTab('getTable').bootstrapTable('refresh');
+                                        }
+                                        else {
+                                            Cnaws.showError(data.data, '审核失败');
+                                        }
+                                    });
+                                }
+                            },
+                            'click .delete': function (e, value, row, index) {
+                                if (window.confirm('确认删除？')) {
+                                    Cnaws.ajax({
+                                        method: 'POST',
+                                        url: '$url("distributor/delete")',
+                                        data: { Id: row.UserId },
+                                    }, function (data) {
+                                        if (data.code == -200) {
+                                            Cnaws.showSuccess('删除成功');
+                                            table.DaTab('getTable').bootstrapTable('refresh');
+                                        }
+                                        else {
+                                            Cnaws.showError(data.data, '删除失败');
+                                        }
+                                    });
+                                }
+                            }
+                        },
+                        formatter: function (value, row, index) {
+                            var arr = ['<a class="edit" href="javascript:void(0)" onclick="initWindow(' + row.UserId + ')">查看详情</a>'];
+                            if (row.State == 0) {
+                                arr.push(' <a class="approved" href="javascript:void(0)">审核</a>');
+                            }
+                            arr.push(' <a class="delete" href="javascript:void(0)">删除</a>');
+                            return arr.join('');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
+$end

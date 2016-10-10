@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>$Code - $Site.Name</title>
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css/reg_login.css')">
+    <style type="text/css">
+        .main .content-wrap {
+            height: 180px;
+            background: url($res('css/img/404.png')) no-repeat 160px top;
+        }
+        #bottom {
+            background-color: #FFF;
+        }
+    </style>
+</head>
+<body style="background-color: #FFF;">
+    <!-- BEGIN header -->
+    <div id="header">
+        <div class="clearafix content-wrap">
+            <h1 class="f-left logo"><a href="$Site.Url" title="乡城品"></a></h1>
+            <small class="f-left">$Code</small>
+        </div>
+    </div>
+    <!-- END header -->
+    <!-- BEGIN main -->
+    <div class="main" style="background-color:#F3F3F3;">
+        <div class="content-wrap" style="font-family: '微软雅黑';">
+            <div style="margin-left:380px;margin-top:180px;">
+                <p style="font-size:40px;color:#ff5256;">Hi真不巧，页面走丢了！</p>
+                <p style="margin-top:12px;font-size:18px;color:#999;">我想静静，还是回到乡城品首页吧~</p>
+                <a style="display:block;width:170px;height:50px;margin-top:30px;background-color:#FDD443;border:1px solid #FFCC16;font-size:24px;text-align:center;line-height:50px;color:#FFF;border-radius:2px;" href="$Site.Url">返回首页</a>
+            </div>
+        </div>
+    </div>
+    <!-- END main -->
+    <!-- BEGIN bottom -->
+    <div id="bottom">
+        <p>Copyright &copy; $now.Year 广东天行健网络有限公司 All rights reserved</p>
+        <p><a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">$Site.Icp</a></p>
+        <p class="auth">
+            <a href=""><img src="$res('img/bottom_01.jpg')" alt=""></a>
+            <a href=""><img src="$res('img/bottom_02.jpg')" alt=""></a>
+            <a href=""><img src="$res('img/bottom_03.jpg')" alt=""></a>
+        </p>
+    </div>
+    <!-- END bottom -->
+    <!--
+        $if(isset("Error"))
+        $Error.Message
+        $Error.StackTrace
+        $end
+    -->
+</body>
+</html>

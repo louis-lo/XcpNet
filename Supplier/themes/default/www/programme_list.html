@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>进货宝方案管理</title>
+    $load("inc/s_comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.supplierlist.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.programme.css')">
+<script type="text/javascript">
+    /*使用jqzoom*/
+$(function() {
+    $("input[type='text']").focus(function(){
+    	$(this).css("border-color","#ff5820")
+    });
+    $("input[type='text']").blur(function(){
+    	$(this).css("border-color","#ccc")
+    });
+});
+</script>
+</head>
+<body>
+<!-- 头部 开始 -->
+    $load("inc/s_top.html")
+<!-- 头部 第二部分 结束-->
+<!-- 头部 结束 -->
+
+<!-- 中间 开始 -->
+<div class="center_wrap w1200 clearFix">
+	<!-- 左边导航 -->
+    $load("inc/s_side.html")
+	<!-- 左边导航 结束-->
+	
+	<!-- 右边导航-->
+	<div class="fr">
+		<h3 class="ProductShelves">方案管理</h3>
+		
+		<!--添加方案开始-->
+		<div class="programme_top">
+			<div class="top clearFix">
+				<span class="fl">搜索：</span>
+				<select class="fl">
+				    <option $if(Type==-1)selected="selected"$end onclick="window.location.href='$url('/programme/list/','-1','/',Category)'">全部类型</option>
+                    <option $if(Type==0)selected="selected"$end onclick="window.location.href='$url('/programme/list/','0','/',Category)'">新店方案</option>
+                    <option $if(Type==1)selected="selected"$end onclick="window.location.href='$url('/programme/list/','1','/',Category)'">改造店方案</option>
+                    <option $if(Type==2)selected="selected"$end onclick="window.location.href='$url('/programme/list/','2','/',Category)'">综合方案</option>
+				</select>
+				<select class="fl">
+                    <option $if(Category==0)selected ="selected" $end onclick="window.location.href='$url('/programme/list/',Type,'/','0')'">全部行业</option>
+				    $foreach(item in Indutry)
+                    <option $if(Category==item.Id)selected ="selected" $end onclick="window.location.href='$url('/programme/list/',Type,'/',item.Id)'">$item.Name</option>
+                    $end
+                </select>
+                <button class="search_button_condition fl">
+                    <span>精确查询</span>
+                    <img id="image_condition" src="$res('css2.0/img/xia.png')">
+                </button>
+                <span onclick="window.location.href='$url('/programme/edit')'" class="activation fr">添加方案</span>
+			</div>
+			<div class="down search_condition">
+                <form action="$this.Url" method="get">
+                    精确查询：
+                    <input class="down_query" type="text" name="keyword" placeholder="请输入方案名称关键词" />
+                    <input class="sub" type="submit" value="搜索" />
+                </form>
+			</div>
+		</div>
+		<script>
+			$(".search_button_condition").click(function(){
+			var disp=$(".search_condition").css("display");
+			if(disp=="none"){
+				$(".search_condition").fadeToggle("slow");
+				$("#image_condition").attr("src", "$res('css2.0/img/shang.png')");
+			}else{
+				$(".search_condition").fadeToggle("slow");
+				$("#image_condition").attr("src", "$res('css2.0/img/xia.png')");
+			}
+		});
+		</script>
+		<!--方案内容开始-->
+		<ul class="programme">
+			<li class="clearFix">
+				<div class="name fl">方案名称</div>
+				<div class="attribute fl">方案属性</div>
+				<div class="industry fl">行业</div>
+				<div class="state fl">状态</div>
+				<div class="number fl">产品数量</div>
+				<div class="operation fl">操作</div>
+			</li>
+            $foreach(item in ProgrammeList.Data)
+			<li class="clearFix many">
+				<div class="name fl">
+					<img src="$item.Image"/>
+                    $item.Title
+				</div>
+				<div class="attribute fl">$item.GetTypeString()</div>
+				<div class="industry fl">$item.GetCategoryString(this.DataSource)</div>
+				<div class="state fl">$item.GetStateString()</div>
+				<div class="number fl">$item.Count</div>
+				<div class="operation fl">
+					<a href="$url('/programme/edit/',item.Id)" class="left">查看详情</a>
+					<a href="javascript:void(0)" data-id="$item.Id" class="deleteCon">删除</a>
+				</div>
+			</li>
+            $end
+		</ul>
+		<script>
+			$(function(){
+			    $(".programme").on('click',".deleteCon",function(){
+					alert('您确定要删除当前选项吗？');
+					$(this).parent().parent().remove();
+				})
+			})
+		</script>
+		<!--商品分页开始-->
+        <div class="center_pageBox clearFix" style="margin-left:150px;">
+            <ul class="clearFix fl">
+                $if(ProgrammeList.PageIndex==ProgrammeList.BeginPage)
+                <li class="page_prev">
+                    <a href="#" class="pageprev_unprint pageprev_img">
+                        <span class="unicon"></span>
+                        上一页
+                    </a>
+                </li>
+                $else
+                <li class="page_prev">
+                    <a href="$url('/programme/list/',Type,'/',Category,'/',ProgrammeList.PageIndex-1)?keyword=$KeyWord" class="pageprev_print pageprev_img">
+                        <span class="icon"></span>
+                        上一页
+                    </a>
+                </li>
+                $end
+                $if(ProgrammeList.BeginPage>1)
+                $end
+                $for(i=ProgrammeList.BeginPage;i<=ProgrammeList.EndPage;i++)
+                $if(i==ProgrammeList.PageIndex)
+                <li class="page_numer"><a href="$url('/programme/list/',Type,'/',Category,'/',i)?keyword=$KeyWord">$i</a></li>
+                $else
+                <li class="page_numer"><a href="$url('/programme/list/',Type,'/',Category,'/',i)?keyword=$KeyWord">$i</a></li>
+                $end
+                $end
+                $if(ProgrammeList.PagesCount>ProgrammeList.EndPage)
+                <li class="page_numer"><a href="$url('/programme/list/',Type,'/',Category,'/',ProgrammeList.PageIndex+1)?keyword=$KeyWord">...</a></li>
+                <li class="page_numer"><a href="$url('/programme/list/',Type,'/',Category,'/',ProgrammeList.PagesCount)?keyword=$KeyWord">$ProgrammeList.PagesCount</a></li>
+                $end
+                $if(ProgrammeList.PagesCount<=0||ProgrammeList.PageIndex==ProgrammeList.PagesCount)
+                <li class="page_next page_prev">
+                    <a href="#" class="pageprev_unnext pageprev_print pagenext_img">
+                        下一页
+                        <span class="unicon"></span>
+                    </a>
+                </li>
+                $else
+                <li class="page_next page_prev">
+                    <a href="$url('/programme/list/',Type,'/',Category,'/',ProgrammeList.PageIndex+1)?keyword=$KeyWord" class="pageprev_next pageprev_print pagenext_img">
+                        下一页
+                        <span class="icon"></span>
+                    </a>
+                </li>
+                $end
+            </ul>
+            <div class="total fl"> 共 $ProgrammeList.PagesCount 页/$ProgrammeList.TotalCount条，</div>
+            <div class="form fl">
+                <span class="text">到第</span>
+                <input class="input J_Input" type="number" id="PageInput" aria-label="页码输入框" max="$ProgrammeList.PagesCount" min="1" value="1">
+                <span class="text">页</span>
+                <span class="btn J_Submit fr" tabindex="0" onclick="window.location.href = '$url('/programme/list/',Type,'/',Category,'/'," ' + document.getElementById(' PageInput').value + '")' " role=" button">确定</span>
+            </div>
+        </div>
+        <!--商品分页结束-->
+	</div>
+</div>
+<!-- 中间 结束 -->
+
+<!-- 底部 开始 -->
+    $load("inc/bottom.html")
+<!-- 底部 结束 -->	
+</body>
+</html>

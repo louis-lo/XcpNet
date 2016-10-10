@@ -1,0 +1,1243 @@
+﻿$if(this.IsAjax)
+$if(Parent.Id>0)
+$set(series=Parent.GetSerie(this.DataSource))
+<span class="fl">注：修改主图时,会同时修改同颜色的产品主图（只有颜色规格存在才显示主图,若需要单独修改,请点编辑去修改）</span>
+<div class="clearfix fr">
+    <!--<form id="form6" action="$url('/product/',Submit,'/6')" method="post" onsubmit="return addSerie(this)">
+        <label for="SerieName" style="float:left;margin-top:6px">
+            规格名称：
+        </label><input style="float:left" type="text" id="SerieName" name="Name" />
+        <input name="ProductId" type="hidden" value="$Parent.Id" />
+        <input class="btn-post" style="margin-left:10px" type="submit" value="添加规格" />
+    </form>-->
+    $if(series.Count>0)   
+    <form id="form7" action="$url('/product/',Submit,'/7')" method="post" onsubmit="return addGroup(this)">        
+        <input name="Id" type="hidden" value="$Parent.Id" />
+        <input class="btn-post fr" type="submit" value="添加规格商品" />
+    </form>
+    $end
+</div>
+<div class="clearfix" style="text-align:center">
+    <div class="groups">
+        <table cellpadding="2" cellspacing="0" border="0" style="width:100%">
+            <tr>
+                <th align="center">组合</th>
+                $foreach(item in series)
+                $if(item.Name=="颜色")
+                <th align="center">
+                    主图
+                </th>
+                $end
+                <th align="center">$item.Name<!--<a href="javascript:void(0)" onclick="delSerie($item.Id)">删除</a>--></th>
+                $end
+                <th>库存</th>
+                <th>出厂价</th>
+                <th>零售价</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td align="left">$Parent.Title</td>
+                $foreach(item in series)               
+                $set(map=Parent.GetMapping(this.DataSource,item.Id))
+                $if(item.Name=="颜色")
+                <td align="center">
+                    <img src="$Parent.GetImage()" class="Color_$map.Value UploadImg" data-color="$map.Value" data-id="$Parent.Id" width="50" height="50" />
+                </td>
+                $end
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/5')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$Parent.Id" type="hidden" />
+                        <input name="SerieId" value="$item.Id" type="hidden" />
+                        <input name="Name" value="$item.Name" type="hidden" />
+                        <input type="text" autocomplete="off" name="Value" value="$if(map!=null)$map.Value$end" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                $end
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/10')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$Parent.Id" type="hidden" />
+                        <input type="text" autocomplete="off" name="Inventory" value="$Parent.Inventory" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/11')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$Parent.Id" type="hidden" />
+                        <input type="text" autocomplete="off" name="CostPrice" value="$Parent.CostPrice" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/12')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$Parent.Id" type="hidden" />
+                        <input type="text" autocomplete="off" name="Price" value="$Parent.Price" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                <td align="center">
+                    $if(Product.Id!=Parent.Id)
+                    <a href="$url('/product/',Modify,'/',Parent.Id)">编辑</a>
+                    $end
+                </td>
+            </tr>
+            $foreach(child in Parent.GetChildren(this.DataSource))
+            <tr>
+                <td align="left">$child.Title</td>
+                $foreach(item in series)                
+                $set(map=child.GetMapping(this.DataSource,item.Id))
+                $if(item.Name=="颜色")
+                <td align="center">
+                    <img src="$child.GetImage()" class="Color_$map.Value UploadImg" data-color="$map.Value" data-id="$child.Id" width="50" height="50" />
+                </td>
+                $end
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/5')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$child.Id" type="hidden" />
+                        <input name="SerieId" value="$item.Id" type="hidden" />
+                        <input name="Name" value="$item.Name" type="hidden" />
+                        <input type="text" autocomplete="off" name="Value" value="$if(map!=null)$map.Value$end" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                $end
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/10')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$child.Id" type="hidden" />
+                        <input type="text" autocomplete="off" name="Inventory" value="$child.Inventory" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/11')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$child.Id" type="hidden" />
+                        <input type="text" autocomplete="off" name="CostPrice" value="$child.CostPrice" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                <td align="center">
+                    <form action="$url('/product/',Submit,'/12')" method="post" onsubmit="return onSubmit(this)">
+                        <input name="ProductId" value="$child.Id" type="hidden" />
+                        <input type="text" autocomplete="off" name="Price" value="$child.Price" onchange="$(this).parent().submit()" />
+                    </form>
+                </td>
+                <td align="center">
+                    $if(Product.Id!=child.Id)
+                    <a href="$url('/product/',Modify,'/',child.Id)">编辑</a>
+                    <a href="javascript:void(0)" onclick="delProduct($child.Id)">删除</a>
+                    $end
+                </td>
+            </tr>
+            $end
+        </table>
+        </div>
+    </div>
+        $end
+        $else
+        <!DOCTYPE html>
+        <html lang="zh">
+        <head>
+            <meta charset="UTF-8">
+            <title>发布宝贝 - $Site.Name</title>
+            <link rel="stylesheet" href="$res('css/jquery-ui.min.css')">
+            <link rel="stylesheet" href="$res('css/base.css')">
+            <link rel="stylesheet" href="$res('css/u_common.css')">
+            <link rel="stylesheet" href="$res('css/s_common.css')">
+            <style type="text/css">
+                .content .panel {
+                    padding-top: 20px;
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                .content .panel-body {
+                    margin-top: 20px;
+                }
+                /* BEGIN tab */
+                .tab .tab-nav {
+                    border-bottom: 2px solid #ED6C44;
+                }
+
+                    .tab .tab-nav li {
+                        float: left;
+                        height: 28px;
+                        line-height: 28px;
+                        padding-left: 37px;
+                        padding-right: 37px;
+                        margin-left: 3px;
+                        background-color: #EEE;
+                        cursor: pointer;
+                    }
+
+                        .tab .tab-nav li.first {
+                            margin-left: 25px;
+                        }
+
+                        .tab .tab-nav li.active {
+                            color: #FFF;
+                            background-color: #ED6C44;
+                        }
+
+                .tab .tab-content {
+                    padding: 15px;
+                }
+
+                    .tab .tab-content .tab-pane {
+                        display: none;
+                    }
+
+                        .tab .tab-content .tab-pane.active {
+                            display: block;
+                        }
+                /* END tab */
+
+                /* BEGIN content */
+                .w-60 {
+                    width: 60px !important;
+                }
+
+                .Wdate {
+                    width: 150px !important;
+                }
+
+                .tab-pane th,
+                .tab-pane td {
+                    padding-top: 10px;
+                }
+
+                .tab-pane th {
+                    padding-right: 10px;
+                    color: #999;
+                }
+
+                .tab-pane .title-box {
+                    width: 390px;
+                }
+
+                .tab-pane textarea {
+                    width: 390px;
+                    height: 55px;
+                    padding: 5px;
+                    border: 1px solid #DDD;
+                }
+
+                .content-wrap {
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 1050px;
+                }
+                /* END content */
+
+                /* BEGIN upload */
+                .upload li {
+                    float: left;
+                    height: auto;
+                    margin-right: 5px;
+                    line-height: 1;
+                }
+
+                    .upload li img {
+                        width: 96px;
+                        height: 96px;
+                        padding: 2px;
+                        border: 1px solid #E4E4E4;
+                    }
+                /* END upload */
+                .del-img {
+                    position: absolute;
+                    margin: 3px 0 0 -19px;
+                    color: #FFF;
+                    width: 16px;
+                    height: 16px;
+                    text-align: center;
+                    background: #CCC;
+                    font-family: Verdana;
+                    font-size: 14px;
+                    border-radius: 2px;
+                }
+
+                    .del-img:hover {
+                        color: #FFF;
+                        background: #F00;
+                    }
+
+                #groups input[type="text"] {
+                    width: 80px;
+                }
+
+                #groups a, #groups input[type="submit"] {
+                    float: none;
+                    display: block;
+                    margin: 2px 0;
+                }
+
+                #groups th a {
+                    margin-top: 4px;
+                }
+
+                #groups th {
+                    text-align: center;
+                }
+                #groups img {
+            cursor:pointer;
+        }
+                #td-freight span, #td-freight a {
+                    margin-left: 6px;
+                }
+
+                .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+                    background: none;
+                }
+
+                .alretBezel a {
+                    background: rgba(0, 0, 0, 0) url("$res('css2.0/img/jia.jpg')") no-repeat scroll 0 0;
+                    display: inline-block;
+                    height: 28px;
+                    width: 28px;
+                }
+
+                .inputStyle {
+                    border: 1px solid #ccc;
+                    height: 30px;
+                    padding-left: 10px;
+                }
+
+                span {
+                    color: red;
+                }
+
+                .span_basicTrade {
+                    color: #666;
+                    height: 23px;
+                    margin-right: 2px;
+                    min-width: 30px;
+                    padding-right: 21px;
+                    padding-top: 3px;
+                    position: relative;
+                    padding-left: 5px !important;
+                }
+
+                .fl {
+                    float: left;
+                }
+
+                .span_basicTrade em {
+                    background: rgba(0, 0, 0, 0) url("$res('css2.0/img/close.jpg')") no-repeat scroll 0 0;
+                    cursor: pointer;
+                    display: block;
+                    height: 16px;
+                    position: absolute;
+                    right: 3px;
+                    top: 5px;
+                    width: 16px;
+                    z-index: 1;
+                }
+
+                .center_addAddressTitle {
+                    background: #ebebeb none repeat scroll 0 0;
+                    font-family: "simsun";
+                    font-size: 14px;
+                    height: 41px;
+                    line-height: 41px;
+                    text-align: center;
+                }
+
+                .new_addressWrap {
+                    padding: 20px 10px 20px;
+                }
+
+                .jqx-loader {
+                    position: fixed !important;
+                }
+            </style>
+            <link rel="stylesheet" type="text/css" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+            $load("inc/comm.html")
+            $if(Error==false)
+            <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+            <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxbuttons.js')"></script>
+            <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxnumberinput.js')"></script>
+            <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+            <script type="text/javascript" src="$res('/resource/static/datepicker/wdatepicker.js')"></script>
+            <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+            <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+            <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxloader.js')"></script>
+            <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+            <script type="text/javascript">
+        var editor = null;
+        var imgel = null;
+        function formatImage() {
+            var val = '';
+            $('.up-img').each(function (index, value) {
+                if (index > 0)
+                    val += '|';
+                val += $(value).attr('src');
+            });
+            $('#Image').val(encodeURIComponent(val));
+        }
+        function deleteImage(el) {
+            $(el).parent().remove();
+            formatImage();
+        }
+
+        String.prototype.getQuery = function (name) {
+
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+
+            var r = this.substr(this.indexOf("\?") + 1).match(reg);
+
+            if (r != null) return unescape(r[2]); return null;
+
+        }
+
+        function uploadImage() {
+            if (arguments.length > 0) {
+                //imgel = $(arguments[0]).find('img').first();
+                //editor.loadPlugin('image', function () {
+                //    editor.plugin.imageDialog({
+                //        imageUrl: imgel.attr('src'),
+                //        clickFn: function (url, title) {
+                //            imgel.attr('src', url);
+                //            editor.hideDialog();
+                //            formatImage();
+                //        }
+                //    });
+                //});
+            }
+            else {
+                if (editor.dialogs.length <= 0) {
+                    editor.loadPlugin('multiimage', function () {
+                        editor.plugin.multiImageDialog({
+                            clickFn: function (urlList) {
+                                var a = 0;
+                                for (var i = 0; i < urlList.length; i++) {
+                                    $('#imgbtn').before($('<li><a href="javascript:void(0)" onclick="uploadImage(this)"><img class="up-img" src="' + urlList[i].url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></li>'));
+                                    editor.hideDialog();
+                                    formatImage();
+                                }
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                }
+            }
+        };
+
+        function uploadImage1() {
+            if (arguments.length > 0) {
+                imgel = $(arguments[0]).find('img').first();
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: imgel.attr('src'),
+                        clickFn: function (url, title) {
+                            imgel.attr('src', url);
+                            editor.hideDialog();
+                            formatImage();
+                        }
+                    });
+                });
+            }
+            else {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            $('#imgbtn').before($('<li><a href="javascript:void(0)" onclick="uploadImage(this)"><img class="up-img" src="' + url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></li>'));
+                            editor.hideDialog();
+                            formatImage();
+                        }
+                    });
+                });
+            }
+        }
+        function getCate(target, id) {
+            if (!isNaN(id)) {
+                Cnaws.getAjax(Cnaws.getUrl('$url("/category/child/")' + id), function (data, args) {
+                    if (data.code == -200) {
+                        var html = '<option>请选择分类</option>';
+                        for (var i = 0; i < data.data.length; ++i) {
+                            html += '<option value="' + data.data[i].Id + '">' + data.data[i].Name + '</option>';
+                        }
+                        $(target).html(html);
+                    }
+                }, { target: target });
+            }
+        }
+        $(document).ready(function () {
+            getCate('#bigcate', 0);
+            $('#Title').jqxInput({ placeHolder: "请输入产品标题" });
+            editor = KindEditor.create('#Content', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+                width: 670,
+                height: 300
+            });
+            $('#Keywords').jqxInput({ placeHolder: "请输入产品关键字并以英文“,”分割" });
+            $('#Description').jqxInput({ placeHolder: "请输入产品摘要" });
+            $('#BarCode').jqxInput({ placeHolder: "请输入产品条码" });
+            $('#Unit').jqxInput({ placeHolder: "请输入产品单位" });
+            //$('#Inventory').jqxNumberInput({ spinButtons: true });
+            //$('#InventoryAlert').jqxNumberInput({ spinButtons: true });
+            //$('#CostPrice').jqxNumberInput({ symbol: '¥', spinButtons: true });
+            //$('#Price').jqxNumberInput({ symbol: '¥', spinButtons: true });
+            //$('#MarketPrice').jqxNumberInput({ symbol: '¥', spinButtons: true });
+            Cnaws.AreaShort.Init('area', '$url("/country/")', $Location);
+            var urlhash = window.location.hash;
+            if (urlhash != "")
+                $(urlhash).click();
+            $("#Tab li").click(function () {
+                window.location.hash = $(this).prop("id");
+            })
+
+            initGroups();
+            var select = document.getElementById('FreightType');
+            freightChanged(select.options[select.selectedIndex].value);
+            //$if(StoreInfo==null)
+            alert("您还没有设置店铺信息,请选设置店铺信息！");
+            //$if(this.IsSupplier())
+            window.location.href = "$url('/storeinfo/index')";
+            //$else
+            window.location.href = "$url('/xdginfo')";
+            //$end
+            //$end
+            $('#jqxLoader').jqxLoader({ text: "正在提交,请稍后...", width: 150, height: 150, autoOpen: true, imagePosition: 'center', textPosition: 'bottom' });
+
+            $("#groups").on("click", ".UploadImg", function () {
+                var Color = $(this).data("color");
+                var ProductIds = "";
+                $(".Color_" + Color).each(function () {
+                    ProductIds += $(this).data("id") + ",";
+                })
+                
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            editor.hideDialog();
+                            Cnaws.closeAllNotify();
+                            $('#jqxLoader').jqxLoader('open');
+                            $.ajax({
+                                type: "Post",
+                                dataType: "JSON",
+                                anysc: false,
+                                url: "$url('/product/submit/2')",
+                                data: "Image=" + url+"&ProductIds="+ProductIds,
+                                success: function (data) {
+                                    if (data.code == -200) {                                        
+                                        $(".Color_" + Color).prop("src", url);
+                                        Cnaws.closeAllNotify();
+                                        $('#jqxLoader').jqxLoader('close');
+                                        Cnaws.showSuccess('修改成功');
+                                    }
+                                    else {
+                                        Cnaws.closeAllNotify();
+                                        $('#jqxLoader').jqxLoader('close');
+                                        Cnaws.showError('修改失败');
+                                    }
+                                }
+                            })
+                        }
+                    });
+                });                
+            })
+        });
+        var SubmitCheck = true;
+        function onSubmit(el) {
+            if (SubmitCheck) {
+                Cnaws.closeAllNotify();
+                $('#jqxLoader').jqxLoader('open');
+                var form = $(el);
+                form.attr('disabled', true);
+                $('#HContent').val(encodeURIComponent(editor.html()));
+                Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.closeAllNotify();
+                        $('#jqxLoader').jqxLoader('close');
+                        $(form).find('input[type="text"]').removeAttr("style");
+                        Cnaws.showSuccess('修改成功');
+                        SubmitCheck = true;
+                        $if(Product.Id == 0)
+                        setTimeout(function () {
+                            location.href = Cnaws.getUrl('$url("/product/Modify/")' + data.data) + "#attr";
+                        }, 800);
+                        $else
+                        args.form.attr('disabled', false);
+                        $end
+                    }
+                    else if (data.code == -1) {
+                        Cnaws.closeAllNotify();
+                        $('#jqxLoader').jqxLoader('close');
+                        Cnaws.showError('请先保存信息');
+                        SubmitCheck = false;
+                        $if(Product.Id != 0)
+                        $(form).find('input[type="text"]').focus();
+                        $(form).find('input[type="text"]').attr("style", "border:1px solid red");
+                        $end
+                        SubmitCheck = true;
+                        args.form.attr('disabled', false);
+                    }
+                    else if (data.code == -601) {
+                        Cnaws.closeAllNotify();
+                        $('#jqxLoader').jqxLoader('close');
+                        Cnaws.showError('该数据已存在,请修改后重试！');
+                        SubmitCheck = false;
+                        $if(Product.Id != 0)
+                        $(form).find('input[type="text"]').focus();
+                        $(form).find('input[type="text"]').attr("style", "border:1px solid red");
+                        $end
+                        SubmitCheck = true;
+                        args.form.attr('disabled', false);
+                    }
+                    else {
+                        Cnaws.closeAllNotify();
+                        $('#jqxLoader').jqxLoader('close');
+                        Cnaws.showError('信息填写不完整,请检查信息完整性！');
+                        SubmitCheck = false;
+                        $if(Product.Id != 0)
+                        $(form).find('input[type="text"]').focus();
+                        $(form).find('input[type="text"]').attr("style", "border:1px solid red");
+                        $end
+                        SubmitCheck = true;
+                        args.form.attr('disabled', false);
+                    }
+                }, { form: form });
+            }
+            return false;
+        }
+        function initGroups() {
+            $('#groups').empty();
+            $.ajax({
+                type: "GET",
+                url: '$url("/product/",Modify,"/",Product.Id)',
+                dataType: 'html',
+                success: function (data) {
+
+                    $('#groups').append($(data));
+                }
+            });
+        }
+        function addSerie(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                if (data.code == -200) {
+                    Cnaws.closeAllNotify();
+                    Cnaws.showSuccess('修改成功');
+                    initGroups();
+                }
+                else if (data.code == -1) {
+                    Cnaws.closeAllNotify();
+                    Cnaws.showError('请先保存基本信息');
+                }
+                else if (data.code == -2) {
+                    Cnaws.closeAllNotify();
+                    Cnaws.showError('规格名称不能为空');
+                }
+                else {
+                    Cnaws.closeAllNotify();
+                    Cnaws.showError('数据操作失败，请联系管理员');
+                }
+                args.form.attr('disabled', false);
+            }, { form: form });
+            return false;
+        }
+        function addGroup(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+
+                if (data.code == -200) {
+                    Cnaws.showSuccess('修改成功');
+                    initGroups();
+                }
+                else if (data.code == -1) {
+                    Cnaws.showError('请先保存基本信息');
+                }
+                else {
+                    Cnaws.showError('数据操作失败，请联系管理员');
+                }
+                args.form.attr('disabled', false);
+            }, { form: form });
+            return false;
+        }
+        function delSerie(id) {
+            if (window.confirm('警告：删除后不可恢复，确认删除？')) {
+                Cnaws.postAjax("$url('/product/',Submit,'/8')", 'Id=' + id, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('修改成功');
+                        initGroups();
+                    }
+                    else if (data.code == -1) {
+                        Cnaws.showError('请先保存基本信息');
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                }, null);
+            }
+            return false;
+        }
+        function delProduct(id) {
+            if (window.confirm('警告：删除后不可恢复，确认删除？')) {
+                Cnaws.postAjax("$url('/product/',Submit,'/9')", 'Id=' + id, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('修改成功');
+                        initGroups();
+                    }
+                    else if (data.code == -1) {
+                        Cnaws.showError('请先保存基本信息');
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                }, null);
+            }
+            return false;
+        }
+        function freightChanged(v) {
+            if (v == 0) {
+                $('#td-freight').html('<input class="w-60" type="text" id="FreightMoney" name="FreightMoney" value="' + $('#tmp-freight').val() + '"><span>0为包邮</span>');
+            }
+            else {
+                $('#td-freight').html('<select id="FreightTemplate" name="FreightTemplate"></select><a href="' + '$url("/freight/template")' + '" target="_blank">管理运费模板</a><a style="margin-left:5px" href="javascript:;" onclick="freightChanged(1)">刷新</a>');
+                $.ajax({
+                    type: "POST",
+                    url: "$url('/freight/template/',Product.FreightTemplate)",
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#FreightTemplate').html(data);
+                    }
+                });
+            }
+        }
+            </script>
+            $end
+        </head>
+        <body>
+            $load("inc/top.html")
+            <!-- BEGIN main -->
+            <div class="clearfix content-wrap w1000 main">
+                $load("inc/side.html")
+                <div class="content center_wrapRight fr" style="width:995px">
+                    <div class="panel">
+                        $if(Error==false)
+                        <div class="panel-header">
+                            <h2>发布宝贝</h2>
+                        </div>
+                        $end
+                        <div class="panel-body" style="min-height:570px;">
+                            $if(Error)
+                            <div style="text-align:center;font-weight:bold;color:#f00">商品不存在或已上架</div>
+                            $else
+                            <div class="tab">
+                                <ul class="clearfix tab-nav" id="Tab">
+                                    <li id="info" class="first active">基本信息</li>
+                                    <!--<li>图片</li>-->
+                                    $if(Product.Id>0)
+                                    <li id="attr">规格</li>
+                                    <li id="brand">品牌/属性</li>
+                                    <li id="promotion">促销</li>
+                                    $end
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active">
+                                        <form id="form1" action="$url('/product/',Submit,'/1')" method="post" onsubmit="return onSubmit(this)">
+                                            <table>
+                                                <tr>
+                                                    <th><span>*</span><label>分类</label></th>
+                                                    <td>
+                                                        $if(Product.Id>0)
+                                                        $foreach(item in CategoryList)
+                                                        <select disabled="disabled"><option selected="selected">$item.Name</option></select>
+                                                        $end
+                                                        $else
+                                                        <select id="bigcate" onchange="$('#smallcate').html('<option>请选择分类</option>'); getCate('#smallcate', this.options[this.options.selectedIndex].value)"></select>
+                                                        <select id="smallcate" onchange="$('#threecate').html('<option>请选择分类</option>'); getCate('#threecate', this.options[this.options.selectedIndex].value)"><option>请选择分类</option></select>
+                                                        <select id="threecate" name="CategoryId"><option>请选择分类</option></select>
+                                                        $end
+                                                    </td>
+                                                </tr>
+                                                $if(this.IsSupplier())
+                                                <!--<tr>
+                                                    <th>
+                                                        店铺分类
+                                                    </th>
+                                                    <td>
+                                                        <select id="StoreCategoryId" name="StoreCategoryId">
+                                                            <option>请选择分类</option>
+                                                            $foreach(item in StoreCategoryList)
+                                                            $if(Product.Id>0 && Product.StoreCategoryId == item.Id)
+                                                            <option value="$item.Id" selected="selected">$item.Name</option>
+                                                            $else
+                                                            <option value="$item.Id">$item.Name</option>
+                                                            $end
+                                                            $end
+                                                        </select>
+                                                    </td>
+                                                </tr>-->
+                                                $else
+                                                <tr>
+                                                    <th>
+                                                        <span>*</span>乡道馆分类
+                                                    </th>
+                                                    <td>
+                                                        <select id="XDGCategoryId">
+                                                            <option value="-1">请选择分类</option>
+                                                            $foreach(item in StoreCategoryList)
+                                                            <option value="$item.Id">$item.Name</option>
+                                                            $end
+                                                        </select>
+                                                        <select id="XDGTwoCategoryId" name="StoreCategoryId">
+                                                            <option>请选择分类</option>
+                                                        </select>
+                                                        <input type="hidden" id="hiXDGParentCategoryId" value="$XDGParentCategoryId" />
+                                                        <input type="hidden" id="hiXDGCategoryId" value="$Product.StoreCategoryId" />
+                                                    </td>
+                                                </tr>
+                                                $end
+                                                <tr>
+                                                    <th><span>*</span><label for="Title">标题</label></th>
+                                                    <td><input class="title-box" type="text" id="Title" name="Title" value="$Product.Title" style="width:500px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span>展示图片</th>
+                                                    <td>
+                                                        <p style="color:red;margin-bottom:10px;">*第一张图为主图（可拖动排序）<a href="javascript:uploadImage1()" style="padding:0 10px">单张上传</a></p>
+                                                        <ul class="clearfix upload">
+                                                            $foreach(item in Product.GetImages())
+                                                            <li>
+                                                                <a href="javascript:void(0)"><img class="up-img" src="$item"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a>
+                                                            </li>
+                                                            $end
+                                                            <li id="imgbtn"><a href="javascript:void(0)" onclick="uploadImage()"><img src="$res('css/img/upload_btn.png')" alt="添加图片"></a></li>
+                                                        </ul>
+                                                        <input id="Image" name="Image" type="hidden" value="$Product.Image" />
+                                                    </td>
+                                                </tr>
+                                                $if(Product.Id==0)
+                                                <tr id="SerieTr">
+                                                    <th><span>*</span><label for="Title">规格模板</label></th>
+                                                    <td style="padding-bottom:8px">
+                                                        $set(SerieList=clr.Cnaws.Product.Modules.StoreSerie.GetByUser(this.DataSource,this.User.Identity.Id))
+                                                        $if(SerieList.Count>0)
+                                                        <select id="SerieTemplate">
+                                                            $foreach(serie in SerieList)
+                                                            <option $if(serie.IsDefault)selected="selected" $end value="$serie.Id">$serie.Name</option>
+                                                            $end
+                                                        </select>
+                                                        $else
+                                                        暂未设置规格模板,<a href="$url('/storeinfo/serie')" style="color:blue">去设置模板</a>
+                                                        $end
+                                                    </td>
+                                                </tr>
+                                                $end
+                                                <!-- 文本编辑器 -->
+                                                <tr>
+                                                    <th><span>*</span><label for="Content">详情</label></th>
+                                                    <td><textarea id="Content">$Product.Content</textarea><input type="hidden" id="HContent" name="Content" /></td>
+                                                </tr>
+                                                <!-- 文本编辑器 -->
+                                                <tr>
+                                                    <th><label for="Keywords">关键字</label></th>
+                                                    <td><input type="text" id="Keywords" name="Keywords" value="$Product.Keywords" style="width:500px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><label for="Description">摘要</label></th>
+                                                    <td><textarea id="Description" name="Description" style="width:500px">$Product.Description</textarea></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><label for="BarCode">条码</label></th>
+                                                    <td><input type="text" id="BarCode" name="BarCode" value="$Product.BarCode"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span><label for="Unit">单位</label></th>
+                                                    <td>
+                                                        <input type="text" id="Unit" name="Unit" value="$Product.Unit">
+                                                        单位重量<input type="text" class="w-60" id="Weight" name="Weight" value="$Product.Weight">(Kg)
+                                                        单位体积<input type="text" class="w-60" id="Volume" name="Volume" value="$Product.Volume">(m³)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span><label for="Inventory">库存</label></th>
+                                                    <td>
+                                                        <input class="w-60" type="text" id="Inventory" name="Inventory" value="$Product.Inventory">
+                                                        <label for="InventoryAlert">库存预警</label>
+                                                        <input class="w-60" type="text" id="InventoryAlert" name="InventoryAlert" value="$Product.InventoryAlert">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span><label for="Price">零售价</label></th>
+                                                    <td>
+                                                        <input class="w-60" type="text" id="Price" name="Price" value="$Product.Price.ToString('F2')">
+                                                        <!--<label for="MarketPrice">市场价</label>
+                                                        <input class="w-60" type="text" id="MarketPrice" name="MarketPrice" value="$Product.MarketPrice.ToString('F2')">-->
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span><label for="CostPrice">出厂价</label></th>
+                                                    <td>
+                                                        <input class="w-60" type="text" id="CostPrice" name="CostPrice" value="$Product.CostPrice.ToString('F2')">
+                                                        <!--<label>结算方式</label>
+                                                        <select id="Settlement" name="Settlement">
+                                                            <option value="0" ${if(Supplier.Settlement!!0)}selected ="selected" ${end}>固定价格</option>
+                                                            <option value="1" ${if(Supplier.Settlement!!1)}selected ="selected" ${end}>提成</option>
+                                                        </select>
+                                                        <label>提成</label>
+                                                        <input type="text" id="RoyaltyRate" name="RoyaltyRate" value="$Supplier.RoyaltyRate" style="width:30px;" /> %-->
+                                                    </td>
+                                                </tr>
+                                                $if(this.IsDistributor())
+                                                <tr>
+                                                    <th><span>*</span><label for="CostPrice">县级结算价</label></th>
+                                                    <td>
+                                                        <input class="w-60" type="text" id="CountyPrice" name="DotPrice" value="$Product.CountyPrice.ToString('F2')">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span><label for="CostPrice">网点结算价</label></th>
+                                                    <td>
+                                                        <input class="w-60" type="text" id="DotPrice" name="DotPrice" value="$Product.DotPrice.ToString('F2')">
+                                                    </td>
+                                                </tr>
+                                                $end
+                                                <tr>
+                                                    <th><span>*</span><label>所在地址</label></th>
+                                                    <td id="area"></td>
+                                                </tr>
+                                                <tr>
+                                                    $if(this.Supplier.SupplierType==1)
+                                                    $set(SupplierArea=this.Supplier.GetSaleArea(this.DataSource))
+                                                    $end
+                                                    <th>
+                                                        <span>*</span><label>销售区域</label>
+                                                        <input type="hidden" id="SaleArea" name="SaleArea" autocomplete="off" value="$if(this.Supplier.SupplierType==1)$SupplierArea.County$else$foreach(salearea in SaleAreaList)$GetAreaId(salearea.Province,salearea.City,salearea.County),$end$end">
+                                                    </th>
+                                                    <td class="alretBezel">
+                                                        $if(this.Supplier.SupplierType==1)
+                                                        <span class="span_basicTrade inputStyle fl" data-id="$GetAreaId(SupplierArea.Province,SupplierArea.City,SupplierArea.County)">
+                                                            $GetArea(SupplierArea.Province,SupplierArea.City,SupplierArea.County)
+                                                            <!--<em></em>-->
+                                                        </span>
+                                                        $else
+                                                        $foreach(salearea in SaleAreaList)
+                                                        <span class="span_basicTrade inputStyle fl" data-id="$GetAreaId(salearea.Province,salearea.City,salearea.County)">
+                                                            $GetArea(salearea.Province,salearea.City,salearea.County)
+                                                            <em></em>
+                                                        </span>
+                                                        $end
+                                                        <a class="sale_address fl" href="javascript:;"></a>
+                                                        $end
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span><label for="FreightType">运费类型</label></th>
+                                                    <td>
+                                                        <select id="FreightType" name="FreightType" onchange="freightChanged(this.options[this.selectedIndex].value)">
+                                                            <!--<option value="0" ${if(Product.FreightType!!0)}selected ="selected" ${end}>固定运费</option>-->
+                                                            <option value="1" ${if(Product.FreightType!!1)}selected="selected" ${end}>运费模板</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th><span>*</span><label for="FreightMoney">运费</label><input id="tmp-freight" type="hidden" value="$Product.FreightMoney.ToString('F2')" /></th>
+                                                    <td id="td-freight"><input class="w-60" type="text" id="FreightMoney" name="FreightMoney" value="$Product.FreightMoney.ToString('F2')"><span>0为包邮</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><label for="HasReceipt">发票</label></th>
+                                                    <td>
+                                                        <select id="HasReceipt" name="HasReceipt">
+                                                            <option value="0" ${if(Product.HasReceipt!!false)}selected="selected" ${end}>机打发票</option>
+                                                            <option value="1" ${if(Product.HasReceipt)}selected="selected" ${end}>增值税发票</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                $if(this.IsDistributor())
+                                                <tr>
+                                                    <th>产品供应商</th>
+                                                    <td><input type="text" name="ProductSupplier" value="$Product.ProductSupplier" /></td>
+                                                </tr>
+                                                $end
+                                                $if(Product.Id>0)
+                                                <tr>
+                                                    <th>同步修改</th>
+                                                    <td><input type="checkbox" name="Synchro" id="Synchro" autocomplete="off" /><label for="Synchro" style="color:red">是否同步修改该产品对应的所有规格的产品（此操作不涉及修改产品的各价格）</label></td>
+                                                </tr>
+                                                $end
+                                            </table>
+                                            <div class="clearfix" style="text-align:center">
+                                                <input name="Id" type="hidden" value="$Product.Id" />
+                                                <input class="btn-post" type="submit" value="保存信息，请去完善产品规格等内容" style="margin-left:360px;margin-top:20px;width:197px" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--<div class="tab-pane">
+                                        <form id="form2" action="$url('/product/',Submit,'/2')" method="post" onsubmit="return onSubmit(this)">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <p style="color:red;margin-bottom:10px;">*第一张图为主图（可拖动排序）<a href="javascript:uploadImage1()" style="padding:0 10px">单张上传</a></p>
+                                                        <ul class="clearfix upload">
+                                                            $foreach(item in Product.GetImages())
+                                                            <li>
+                                                                <a href="javascript:void(0)"><img class="up-img" src="$item"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a>
+                                                            </li>
+                                                            $end
+                                                            <li id="imgbtn"><a href="javascript:void(0)" onclick="uploadImage()"><img src="$res('css/img/upload_btn.png')" alt="添加图片"></a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="clearfix" style="text-align:center">
+                                                <input name="Id" type="hidden" value="$Product.Id" />
+                                                <input id="Image" name="Image" type="hidden" value="$Product.Image" />
+                                                <input class="btn-post" type="submit" value="保存" style="margin-left:360px;margin-top:20px" />
+                                            </div>
+                                        </form>
+                                    </div>-->
+                            $if(Product.Id>0)
+                            <div class="tab-pane" id="groups">
+                                <!--组合-->
+                                <!--测试-->
+                            </div>
+                            <div class="tab-pane">
+                                <!--规格-->
+                                <form id="form3" action="$url('/product/',Submit,'/3')" method="post" onsubmit="return onSubmit(this)">
+                                    <table>
+                                        <tr>
+                                            <th><label for="BrandId">品牌</label></th>
+                                            <td>
+                                                <select id="BrandId" name="BrandId">
+                                                    <option value="0" ${if(Product.BrandId!!0)}selected="selected" ${end}>请选择品牌</option>
+                                                    $foreach(item in BrandList)
+                                                    <option value="$item.Id" ${if(Product.BrandId!!item.Id)}selected="selected" ${end}>$item.Name</option>
+                                                    $end
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        $foreach(item in AttributeList)
+                                        <tr>
+                                            <th><label>$item.Name</label></th>
+                                            <td><input type="text" name="Attr$item.Id" value="$Product.GetAttribute(ValueList,item.Id)"></td>
+                                        </tr>
+                                        $end
+                                    </table>
+                                    <div class="clearfix" style="text-align:center">
+                                        <input name="Id" type="hidden" value="$Product.Id" />
+                                        <input class="btn-post" type="submit" value="保存" style="margin-left:360px;margin-top:20px" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane">
+                                <!--促销-->
+                                <form id="form4" action="$url('/product/',Submit,'/4')" method="post" onsubmit="return onSubmit(this)">
+                                    <table>
+                                        <th><label for="DiscountPrice">促销状态</label></th>
+                                        <td>
+                                            <select id="DiscountState" name="DiscountState">
+                                                <option value="0" ${if(Product.DiscountState!!0)}selected="selected" ${end}>不促销</option>
+                                                <option value="1" ${if(Product.DiscountState!!1)}selected="selected" ${end}>申请促销</option>
+                                            </select>
+                                        </td>
+                                        <tr>
+                                            <th><label for="DiscountPrice">促销价</label></th>
+                                            <td><input class="w-60" type="text" id="DiscountPrice" name="DiscountPrice" value="$Product.DiscountPrice"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="DiscountBeginTime">开始时间</label></th>
+                                            <td><input type="text" class="Wdate" id="DiscountBeginTime" name="DiscountBeginTime" value="$Product.DiscountBeginTime.ToString()" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="DiscountEndTime">结束时间</label></th>
+                                            <td><input type="text" class="Wdate" id="DiscountEndTime" name="DiscountEndTime" value="$Product.DiscountEndTime.ToString()" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="Wholesale">网货节</label></th>
+                                            <td>
+                                                <input type="checkbox" id="Wholesale" name="Wholesale" ${if(Product.Wholesale!!true)}checked="checked" ${end} />
+                                                <label for="Wholesale">是否参加网货节</label>
+                                                <label for="WholesalePrice">网货节价格</label>
+                                                <input class="w-60" type="text" id="WholesalePrice" name="WholesalePrice" value="$Product.WholesalePrice.ToString('F2')">
+                                                <label for="WholesaleCount">起订数</label>
+                                                <input class="w-60" type="text" id="WholesaleCount" name="WholesaleCount" value="$Product.WholesaleCount">
+                                            </td>
+                                        </tr>
+                                        <tr><th></th><td>（注意：设置开启网货节后,产品销售价以网货节价格销售！）</td></tr>
+                                    </table>
+                                    <div class="clearfix" style="text-align:center">
+                                        <input name="Id" type="hidden" value="$Product.Id" />
+                                        <input class="btn-post" type="submit" value="保存" style="margin-left:360px;margin-top:20px" />
+                                    </div>
+                                </form>
+                            </div>
+                            $end
+                        </div>
+                    </div>
+                    $end
+                </div>
+            </div>
+</div>
+</div>
+<!-- END main -->
+    $load("inc/bottom.html")
+    $load("inc/xalert.html")
+<script type="text/html" id="tmpl-address">
+    <div class="center_addAddressTitle">选择销售地点</div>
+    <div class="new_addressWrap clearFix">
+        <form id="addForm">
+            <div class="new_addressWrap clearFix">
+                <div class="new_addressLeft fl">
+                    <span class="expressName">添加区域：</span>
+                </div>
+                <div class="new_addressRint fl">
+                    <div class="expressNumber" id="saleareaSelect">
+                    </div>
+                    <div class="expressNumber">
+                        (不选则为全国销售)
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+<!-- 弹出层结束-->
+<script src="$res('js/jquery-ui.min.js')"></script>
+<script type="text/javascript">
+        $('.tab .tab-nav li').click(function () {
+            var that = $(this),
+				index = that.index();
+            tabPane = that.parents('.tab').find('.tab-content .tab-pane');
+            that.addClass('active').siblings().removeClass('active');
+            $(tabPane[index]).addClass('active').siblings().removeClass('active');
+        });
+
+
+        //arrList.splice(jQuery.inArray('b', arrList), 1)
+
+        $(function () {
+            $(".alretBezel").on("click", ".span_basicTrade em", function () {
+                if ($("#SaleArea").val() != "") {
+                    var areaArr = $("#SaleArea").val().trim(',').split(',');
+                    if ($.inArray($(this).parent().data("id") + '', areaArr) != -1) {
+                        areaArr.splice($.inArray($(this).parent().data("id")+'', areaArr), 1)
+                        $("#SaleArea").val(areaArr.join(','))
+                        $(this).parent().remove();
+                    }
+                }
+                else {
+                    $(this).parent().remove();
+                }
+            });
+
+            $('.sale_address').xalert({
+                tmpl: '#tmpl-address',
+                height: '188px',
+                width: '618px',
+                left:'25%',
+                onShow: function () {
+                    Cnaws.AreaShort.Init('saleareaSelect', '$url("/country/")')
+                },
+                callback: function (xalert) {
+                    var areaid = 0;
+                    var areaname="全国"
+                    if($("#saleareaSelect_counties").length>0&&$("#saleareaSelect_counties").val()>0){
+                        areaid = $("#saleareaSelect_counties").val();
+                        areaname = $("#saleareaSelect_cities option:selected").text() + '/' + $("#saleareaSelect_counties option:selected").text();
+                    }
+                    else if ($("#saleareaSelect_cities").length > 0 && $("#saleareaSelect_cities").val() > 0) {
+                        areaid = $("#saleareaSelect_cities").val();
+                        areaname = $("#saleareaSelect_cities option:selected").text();
+                    }
+                    else {
+                        areaid = $("#saleareaSelect_provinces").val();
+                        if(areaid!=0)
+                            areaname = $("#saleareaSelect_provinces option:selected").text();
+                    }
+
+                    if ($("#SaleArea").val() != "") {
+                        var areaArr = $("#SaleArea").val().trim(',').split(',');
+                        if ($.inArray(areaid, areaArr) == -1) {
+                            areaArr.push(areaid);
+                            $("#SaleArea").val(areaArr.join(','));
+                            $(xalert.target).before('<span class="span_basicTrade inputStyle fl" data-id="'+areaid+'">' + areaname + '<em></em></span>');
+                        }
+                        else {
+                            Cnaws.showWarning("已存在销售区域中,请勿重复添加！");
+                        }
+
+                    }
+                    else {
+                        $("#SaleArea").val(areaid);
+                        $(xalert.target).before('<span class="span_basicTrade inputStyle fl" data-id="' + areaid + '">' + areaname + '<em></em></span>');
+                    }
+                    xalert.close();
+                }
+
+            })
+            if($("#SerieTemplate").length > 0)
+            {
+                $("#SerieTemplate").change(function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        dataType: "Html",
+                        url: "$url('/storeinfo/getattributebyajax/', '" + id + "')",
+                        success: function (data) {
+                            if ($("#AttrValueTr").length > 0)
+                                $("#AttrValueTr").remove();
+                            $("#SerieTr").after(data);
+                        }
+                    })
+                });
+
+                $("#SerieTemplate").change();
+            }
+
+
+        })
+
+
+        $(".upload").sortable({
+            items: 'li:not(#imgbtn)',
+            update: function () {
+            var newSortImg = [];
+            $(this).children('li.ui-state-default').each(function () {
+                newSortImg.push($(this).find('img').attr('src'));
+            });
+            formatImage();
+            }
+        });
+
+        $(function () {
+            $("#XDGCategoryId").change(function () {
+                var id = $(this).val();
+                Cnaws.getAjax("$url('/product/getxdgtwocategory/', '" + id + "')", function (data) {
+                    if (data.code == -200) {
+                        var html = '<option>请选择分类</option>';
+                        for (var i = 0; i < data.data.length; ++i) {
+                            html += '<option value="' + data.data[i].Id + '">' + data.data[i].Name + '</option>';
+                        }
+                        $("#XDGTwoCategoryId").html(html);
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                })
+            })
+
+            if ($("#hiXDGParentCategoryId").val() != undefined && $("#hiXDGParentCategoryId").val() > 0) {
+                $("#XDGCategoryId").val($("#hiXDGParentCategoryId").val());
+                var id = $("#hiXDGParentCategoryId").val();
+                Cnaws.getAjax("$url('/product/getxdgtwocategory/', '" + id + "')", function (data) {
+                    if (data.code == -200) {
+                        var html = '<option>请选择分类</option>';
+                        for (var i = 0; i < data.data.length; ++i) {
+                            html += '<option value="' + data.data[i].Id + '">' + data.data[i].Name + '</option>';
+                        }
+                        $("#XDGTwoCategoryId").html(html);
+                        $("#XDGTwoCategoryId").val($("#hiXDGCategoryId").val());
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                })
+            }
+        })
+</script>
+<div id="jqxLoader" style="display:none;"></div>
+</body>
+</html>
+$end

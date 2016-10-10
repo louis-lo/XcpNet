@@ -1,0 +1,386 @@
+﻿$if(this.IsAjax)
+$foreach(item in ProductList)
+$set(product=clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetById(this.DataSource,item.DistributorProduct_Id))
+<li class="purchaseall_Test bg_fff">
+    <a href="$url('/product/info/',item.DistributorProduct_Id)" class="external">
+        <div class="purchaseall_Le">
+            <img src="$product.GetImage()" class="load-img">
+        </div>
+    </a>
+    <div class="purchaseall_Con">
+        <a href="$url('/product/info/',item.DistributorProduct_Id)" class="external">
+            <h3 class="txt_hide2L col_333">$item.DistributorProduct_Title</h3>
+            <p class="txt_hide2L Coninfo col_333">批发价：<span class="col_ff7">$product.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</span></p>
+            <p class="txt_hide2L Coninfo col_999">建议零售价：<span class="col_ff7">$item.DistributorProduct_Price.ToString("c2")/$item.DistributorProduct_RetailUnit</span></p>
+            <p class="txt_hide2L Coninfo col_999">${product.Norms}<span class="col_ff7">(${product.WholesaleCount}${product.Unit}起定)</span></p>
+        </a>
+    </div>
+    <div class="purchaseall_Re">
+        <span class="purchase_icon purchase_addCartIcon open-about" onclick="javascript: window.location.href = '$url('/product/info/',item.DistributorProduct_Id)';"></span>
+    </div>
+</li>
+$end
+<script>
+    pageIndex = $ProductList.PageIndex;
+    $.pullToRefreshDone('.pull-to-refresh-content');
+    if (pageIndex < $ProductList.PagesCount) {
+        $.attachInfiniteScroll($('.infinite-scroll'));
+        $('.infinite-scroll-preloader').show();
+        $.refreshScroller();
+    }
+    else {
+        $.detachInfiniteScroll($('.infinite-scroll'));
+        $('.infinite-scroll-preloader').hide();
+    }
+    //$(".load-img").scaling(4.73333, 4.73333, errPic, '#wrapper', 'rem');
+</script>
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <!--<script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>-->
+    <!--<script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>-->
+    $load('inc/comm.html')
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/purchase.css')" />
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current" id="page-infinite-scroll-bottom">
+            <!-- nav -->
+            $load('inc/header.html')
+            <!--<div class="bar bar_shopcart clearfix">
+                <div class="bar_shopcart_icon fr"></div>
+                <div class="bar_shopcartBg mt10">
+                    <div class="col_fff">商品成功搬进货车</div>
+                    <div class="bar_shopcartTxt"><a href="#" class="col_fff">去进货车</a></div>
+                </div>
+            </div>-->
+            <!-- / nav -->
+            <div class="city_list_sort bar bar-nav" style="top:2.2rem">
+                <ul class="clearfix">
+                    <li><a href="$OrderUrl(0)">综合<span class="purchase_icon city_comprehensiveIcon"></span></a></li>
+                    <li class="$if(Filter.OrderBy!!5)on$elseif(Filter.OrderBy!!6)descending$end"><a href="$if(Filter.OrderBy!!5)$OrderUrl(6)$else$OrderUrl(5)$end">价格<span class="purchase_icon city_comprehensiveIcon"></span></a></li>
+                    <li class="$if(Filter.OrderBy!!1)on$elseif(Filter.OrderBy!!2)descending$end"><a href="$if(Filter.OrderBy!!1)$OrderUrl(2)$else$OrderUrl(1)$end">销量<span class="purchase_icon city_comprehensiveIcon"></span></a></li>
+                </ul>
+            </div>
+            <!-- end screen -->
+            <!-- bottom nav -->
+            $load('inc/nav.html')
+            <!-- end bottom  -->
+            <!-- content -->
+            <div class="native-scroll order_content content pull-to-refresh-content infinite-scroll infinite-scroll-bottom" data-ptr-distance="55" data-distance="100" style="top:2.0rem">
+                <div class="city_list">
+                    <div class="pull-to-refresh-layer">
+                        <div class="preloader"></div>
+                        <div class="pull-to-refresh-arrow"></div>
+                    </div>
+                    <ul id="temp">
+                        <!-- for goods -->
+                        $foreach(item in ProductList)
+                        $set(product=clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetById(this.DataSource,item.DistributorProduct_Id))
+                        <li class="purchaseall_Test bg_fff">
+                            <a href="$url('/product/info/',item.DistributorProduct_Id)" class="external">
+                                <div class="purchaseall_Le">
+                                    <img src="$product.GetImage()" class="load-img">
+                                </div>
+                            </a>
+                            <div class="purchaseall_Con">
+                                <a href="$url('/product/info/',item.DistributorProduct_Id)" class="external">
+                                    <h3 class="txt_hide2L col_333">$item.DistributorProduct_Title</h3>
+                                    <p class="txt_hide2L Coninfo col_333">批发价：<span class="col_ff7">$product.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</span></p>
+                                    <p class="txt_hide2L Coninfo col_999">建议零售价：<span class="col_ff7">$item.DistributorProduct_Price.ToString("c2")/$item.DistributorProduct_RetailUnit</span></p>
+                                    <p class="txt_hide2L Coninfo col_999">${product.Norms}<span class="col_ff7">(${product.WholesaleCount}${product.Unit}起定)</span></p>
+                                </a>
+                            </div>
+                            <div class="purchaseall_Re">
+                                <span class="purchase_icon purchase_addCartIcon open-about" onclick="javascript: window.location.href = '$url('/product/info/',item.DistributorProduct_Id)';"></span>
+                            </div>
+                        </li>
+                        $end
+                    </ul>
+                    <div class="infinite-scroll-preloader">
+                        <div class="preloader"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- end content -->
+        </div>
+
+        $load('inc/search.html')
+        <style>
+            #CategoryPages .buttons-tab .button {
+                border: none;
+                display: block;
+                padding: 0;
+                text-align: center;
+                height: 1.8rem;
+                line-height: 1.8rem;
+                color: #333;
+                font-size: .7rem;
+            }
+
+            #CategoryPages .tab .content-block {
+                margin: 0;
+                padding: 0;
+            }
+
+            #CategoryPages .buttons-tab:after {
+                height: 0;
+            }
+
+            #CategoryPages .buttons-tab {
+                display: block;
+            }
+
+                #CategoryPages .buttons-tab .button.active {
+                    color: #93b044;
+                }
+
+            .buttons-row .button:first-child, .buttons-row .button:last-child {
+                border-radius: 0;
+                border-left-width: 0px;
+            }
+
+            #CategoryPages .buttons-tab {
+                background: #fff;
+            }
+
+            .content-block .tabs {
+                background: #fff;
+                width: 70%;
+            }
+
+            #CategoryPages .buttons-tab .button.active {
+                background: #f5f5f5;
+                color: #ff7300;
+            }
+
+            #CategoryPages .city_goods_list h3 {
+                padding: 5px 10px;
+                margin-bottom: 1px;
+            }
+
+            #CategoryPages .city_goods_list ul {
+                padding: 8px 0 4px;
+            }
+
+                #CategoryPages .city_goods_list ul li {
+                    float: left;
+                    width: 30%;
+                    margin-left: 2.5%;
+                }
+
+            #CategoryPages .city_goods_img {
+                line-height: 0;
+            }
+
+                #CategoryPages .city_goods_img img {
+                    width: 100%;
+                    height: 100%;
+                    max-height: 300px;
+                    max-width: 300px;
+                }
+
+            #CategoryPages .city_goods_txt {
+                line-height: 1.5rem;
+                text-align: center;
+            }
+        </style>
+        <div id="CategoryPages" style="display:none;position:absolute; width:100%; height:100%; background:#f3f3f3; top:0; left:0;z-index:11 ">
+            <header class="bar bar-nav">
+                <div class="nav_main" style="padding:0 3rem 0 1.8rem;position:relative;">
+                    <div class="bar_navre">
+                        <label class="icon_search"></label>
+                        <input type="search" id="search" onclick="search()" placeholder="搜索进货产品" />
+                    </div>
+                    <div class="wayshow_navLe fl" onclick="CategoryPages_none()">
+                        <a href="javascript:;">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    <div class="way_shopcart">
+                        <a href="$url('/cart')" class="external">
+                            <div><img src="$res('wap/img2.0/jhb/icon_ShopCart2.png')"><span class="shopcart_num">0</span></div>
+                            <div>进货车</div>
+                        </a>
+                    </div>
+                </div>
+            </header>
+            <!-- content -->
+            $set(AllCategory=clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetAll(this.DataSource, 0))
+            <div class="content native-scroll order_content bg_fff" style="top:2.2rem;width:25%;left:0;">
+                <div class="buttons-tab">
+                    $foreach(item in AllCategory)
+                    <a href="#tab$item.Id" class="tab-link button  $if(isset('TopCategory'))$if(TopCategory.Id==item.Id) active $end$elseif(foreachIndex==1)active$end">$item.Name</a>
+                    $end
+                </div>
+            </div>
+            <!-- end content -->
+            <!-- content -->
+            <div class="content native-scroll order_content" style="top:2.2rem;width:72%;left:auto;right:0;">
+                <div class="tabs">
+                    <!-- tab content -->
+                    $foreach(item in AllCategory)
+                    <div id="tab$item.Id" class="tab $if(isset('TopCategory'))$if(TopCategory.Id==item.Id) active $end$elseif(foreachIndex==1)active$end">
+                        <div class="content-block city_goods_list">
+                            <!-- class -->
+                            <div class="mt10">
+                                <!--<h3 class="txt_hide bg_fff">手提包</h3>-->
+                                $set(childCategorys=clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetAll(this.DataSource, item.Id))
+                                <ul class="clearfix bg_fff">
+                                    <!-- for class goods -->
+                                    <li>
+                                        <a href="$url('/category/list/',item.Id)">
+                                            <div class="city_goods_img"><img class="goods_img" src="http://res.xcpnet.com/uploads/image/20160905/20160905023732_9891.png" /></div>
+                                            <div class="city_goods_txt txt_hide">
+                                                全部分类
+                                            </div>
+                                        </a>
+                                    </li>
+                                    $foreach(child in childCategorys)
+                                    <li>
+                                        <a href="$url('/category/list/',child.Id)">
+                                            <div class="city_goods_img"><img class="goods_img" src="$if(child.Image!!'')http://res.xcpnet.com/uploads/image/20160905/20160905023732_9891.png$else$child.Image$end" /></div>
+                                            <div class="city_goods_txt txt_hide">
+                                                $child.Name
+                                            </div>
+                                        </a>
+                                    </li>
+                                    $end
+                                    <!-- end for class goods -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    $end
+                    <!-- end tab content -->
+                </div>
+            </div>
+            <!-- end content -->
+        </div>
+
+        <script type="text/javascript">
+
+            function CategoryPages() {
+                document.getElementById("CategoryPages").style.display = "block";
+            };
+            function CategoryPages_none() {
+                document.getElementById("CategoryPages").style.display = "none";
+            };
+            var scroll = null;
+            var pageIndex = 1;
+            var pageCount = $ProductList.PagesCount;
+            var loading = false;
+            var errPic = '$res("img/load_image.png")';
+
+            var url = "$PageUrl(1)";
+            var endurl = url.substring(15, url.length);
+            var startUrl = url.substring(0, 15) + endurl.substring(0, endurl.indexOf('/')) + '/';
+            endurl = endurl.substring(endurl.indexOf('/') + 1, endurl.length);
+            endurl = endurl.substring(endurl.indexOf('/'), endurl.length);
+
+            $(function () {
+                $(document).on('refresh', '.pull-to-refresh-content', function (e) {
+                    $.ajax({
+                        cache: false,
+                        type: 'get',
+                        dataType: 'html',
+                        url: '$PageUrl(1)',
+                        success: function (result) {
+                            $("#temp").html(result);
+                        }
+                    });
+                });
+
+                $(document).on("pageInit", "#page-infinite-scroll-bottom", function (e, id, page) {
+                    $(page).on('infinite', function () {
+                        if (loading) return;
+                        loading = true;
+                        $.ajax({
+                            type: "GET",
+                            url: startUrl + (++pageIndex) + endurl,
+                            dataType: 'html',
+                            success: function (result) {
+                                $("#temp").append(result);
+                                loading = false;
+                            }
+                        });
+                    });
+                });
+
+                $.init();
+
+                if (pageIndex >= $ProductList.PagesCount) {
+                    $.detachInfiniteScroll($('.infinite-scroll'));
+                    $('.infinite-scroll-preloader').hide();
+                }
+                //$(".load-img").scaling(4.73333, 4.73333, errPic, '#wrapper', 'rem');
+                //$("img.lazy").lazyload({ placeholder: errPic });
+            });
+
+            $(function () {
+                $(".AddShop_SpecliRe span").click(function () {
+                    var this_val = $(this);
+                    addshopcart.Specifications(this_val)
+                });
+                $("#infoMinus").click(function () { addshopcart.infoMinus() });
+                $("#infoPlus").click(function () { addshopcart.infoPlus() });
+                $(".screen_submit").click(function () {
+                    addshopcart.screen_submit()
+                    var this_val = $(this);
+                    addshopcart.addto_shopcart(this_val)
+                });
+
+            })
+            var infoValue = document.getElementById("shop_infoValue");
+            var addshopcart = function () {
+                //数量+1
+                this.infoPlus = function () {
+                    infoValue.value++
+                },
+                //数量-1
+                this.infoMinus = function () {
+                    if (infoValue.value <= 1) {
+                        return false
+                    }
+                    infoValue.value--
+                },
+                //添加购物车动画
+                this.screen_submit = function () {
+                    var new_shopcart_num = $(".shopcart_num").text();
+                    $(".shopcart_num").text(Number(infoValue.value) + Number(new_shopcart_num))
+                    $(".bar_shopcart").addClass("bar_shopcartOn");
+                    setTimeout(function () {
+                        $(".bar_shopcart").removeClass("bar_shopcartOn")
+                    }, 2500)
+                },
+                this.addto_shopcart = function (this_val) {
+                    var shopcart_num = $(".shopcart_num").text();
+                    var asd = this_val.parent(".Submit_ShoppingCart").prev(".AddShop_Specilifications").children(".AddShop_SpecNumber").children(".infoTxt").children(".shop_infoValue").val();
+                    console.log(asd)
+                },
+                this.Specifications = function (this_val) {
+                    if (this_val.attr('data-off')) {
+                        return false;
+                    }
+                    this_val.parent(".AddShop_SpecliRe").children("span").removeClass("on");
+                    this_val.addClass("on");
+                    var this_value = this_val.text();
+                    this_val.parent().attr('data-value', this_value);
+                }
+
+            }
+            var addshopcart = new addshopcart()
+        </script>
+
+    </div>
+    <!-- search -->
+
+</body>
+</html>
+$end

@@ -1,0 +1,155 @@
+﻿<style>
+    /* 头部分 */
+    .header_wrap {
+        background: #f5f5f5;
+    }
+
+    .header_top_left {
+        height: 32px;
+        line-height: 33px;
+    }
+
+        .header_top_left ul li a {
+            color: #777;
+        }
+
+        .header_top_left ul li {
+            float: left;
+            margin-right: 30px;
+            color: #777;
+            font-size: 12px;
+        }
+
+    .home_img {
+        background: url("$res('img2.0/home_img.png')")no-repeat scroll 0 9px;
+    }
+
+    .header_top_right {
+        height: 32px;
+        line-height: 33px;
+    }
+
+        .header_top_right ul li {
+            padding-left: 30px;
+            float: left;
+        }
+
+            .header_top_right ul li a {
+                color: #777;
+            }
+
+    .home_print {
+        margin-left: 20px;
+    }
+
+    /* 头部第二部分 开始*/
+    .headerBottom_wrap {
+        background: #ff7300;
+        line-height: 60px;
+    }
+
+    .header_bottom .img {
+        width: 141px;
+        height: 50px;
+        margin-top: 8px;
+    }
+
+    .header_bottom span {
+        font-size: 18px;
+        padding-left: 20px;
+        color: #f5f5f5;
+        text-align: center;
+    }
+
+        .header_bottom span b {
+            margin-right: 60px;
+        }
+
+    .header_bottom a {
+        width: 62px;
+        height: 60px;
+        margin-right: 58px;
+        color: #fff;
+        font-size: 16px;
+        display: inline-block;
+    }
+
+        .header_bottom a.current {
+            background: url($res('img2.0/headerBottom_bg.png')) no-repeat;
+            color: #ffc261;
+        }
+
+    .header_search {
+        margin-top: 17px;
+        height: 29px;
+        line-height: 28px;
+        background: #fff;
+        padding-left: 0px;
+    }
+
+        .header_search input {
+            width: 250px;
+            height: 28px;
+            padding-left: 10px;
+        }
+
+        .header_search button {
+            width: 69px;
+            height: 28px;
+            background: #f5f5f5;
+            color: #999;
+            border-left: 1px solid #e2e2e2;
+        }
+    /* 头部第二部分 结束*/
+    /* 头部分 结束 */
+</style>
+<div class="header_wrap">
+    <div class="w1200 clearFix">
+        <div class="header_top_left fl">
+            <ul class="clearFix">
+                <li class="home_img">
+                    <a href="$site.Url" class="home_print" target="_blank">乡城品首页</a>
+                </li>
+                <li>
+                    <a href="$passport('/ucenter')" target="_blank">我的乡城品</a>
+                </li>
+                <li>
+                    <a href="$Site.B2bShopUrl" target="_blank">进货宝首页</a>
+                </li>
+            </ul>
+        </div>
+        <div class="header_top_right fr">
+            <ul class="clearFix">
+                <li>
+                    <a href="$url('/supplier')" target="_blank">$this.Member.GetName()</a>
+                </li>
+                <li>
+                    <a href="/">加盟商后台首页</a>
+                </li>
+                <li>
+                    <a href="$passport('/logout')?target=http://$this.Request.Url.Host.ToString()">退出</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 头部 第二部分 -->
+<div class="headerBottom_wrap w100">
+    <div class="header_bottom w1200 clearFix">
+        <div class="img fl"><a href="/"><img src="$res('img2.0/order_logo.png')"></a></div>
+        <span class=" fl">
+            <b>加盟商后台</b>
+            <a href="$url('/')">加盟</a>
+            $if(this.Distributor.Level<=1)
+            <a href="javascript:;" class="current">乡道</a>
+            <a href="$url('/supplier/list')">供应</a>
+            $end
+        </span>
+        <div class="header_search fr">
+            <input type="text" />
+            <button type="button">搜进货</button>
+        </div>
+    </div>
+</div>
+<!-- 头部 第二部分 结束-->
+<!-- 头部 结束 -->

@@ -1,0 +1,60 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+table{border-collapse:collapse;border-spacing:0;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.w1000{ width:1200px; height:auto; overflow:hidden; margin:0 auto;}
+.mt{margin-top:10px;}
+input,button {outline:none;border: 0;background: #fff;}
+button{cursor: pointer;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+img{display: block;}.mt10{margin-top: 10px;}.mt25{margin-top: 25px;}.pr10{padding-right: 20px;}
+
+/* END reset */
+/* 中间 开始*/
+/* 中间 右边 开始*/
+.center_wrapRight{width: 995px;margin: auto; min-height:680px}
+/*欢迎头部 开始 */
+.center_welcome{height: 87px;background: #fafafa;border:1px solid #e2e2e2;}
+.center_welcome{background: url("../../img2.0/supplier/welcomePrint.png")no-repeat;background-position:1% 50%;}
+.welcomeName_time{margin:22px 60px;}
+.welcomeName_time p{color: #666;}
+.welcomeName_time span{margin-left: 10px;}
+/*欢迎头部 结束 */
+
+/* 交易提醒 */
+.myTransactionWarn{padding:8px 10px 15px 20px;border: 1px solid #e2e2e2;font-size: 14px;color: #666;margin-top: 10px;}
+.myTransactionWarn h2{border-bottom:2px solid #ff7300;font-size: 13px;width: 70px;text-align: center;}
+.center_goodsLeft{width: 685px;}
+.status{margin-top:10px;}
+.status ul li{float: left;font-size: 12px;margin-right: 50px;width: 178px;text-align: left;}
+.status ul li:nth-child(3n+3){margin-right: 0;}
+.status ul li i{font-style: normal;color: #ff7300;margin-left: 20px;font-weight: bold;}
+.status ul li i a{font-style: normal;color: #ff7300;margin-left: 20px;font-weight: bold;}
+.joinSetBooks_wrap{margin-top: 20px;padding: 10px 10px 40px;border:1px solid #e2e2e2;background: #fbfbfb;}
+.joinSetBooks_print{background: url("../../img2.0/supplier/joinSetBooks_print.png")no-repeat;height: 26px;}
+.joinSetBooks_print h2{margin-left: 40px;color: #555;}
+.aboutAndRule ul{border-bottom: 1px solid #ddd;padding: 10px 0px 22px 0px;}
+.aboutAndRule ul .aboutMe{float:left;cursor: pointer;border-bottom: 1px solid red;font-size: 13px;color: #666;}
+.aboutAndRule ul .rule{float: left;cursor: pointer;margin-left:20px;font-size: 13px;color: #666;}
+.aboutAndRule .aboutMe_div{padding-top: 5px;}
+.aboutAndRule .rule_div{padding-top: 5px;display:none;}
+.propertyCentre_wrap{border:1px solid #e2e2e2;margin-top:10px;}
+.propertyCentre{width: 295px;height: 48px;line-height: 48px;text-align: center;background: #fafafa;color: #555;}
+.propertyCentre_bottom{border-top:1px solid #e2e2e2;padding:0 10px;}
+.propertyCentre_center{background: url("../../img2.0/supplier/propertyCentre_01.png")no-repeat;margin:10px;}
+.propertyCentre_center span{margin-left: 35px;}
+.propertyCentre_center .propertyCentre_price{color: #ff7300;}
+.propertyCentre_two{background: url("../../img2.0/supplier/propertyCentre_02.png")no-repeat;}
+.propertyCentre_three{background: url("../../img2.0/supplier/propertyCentre_03.png")no-repeat;}
+.propertyCentre_four{background: url("../../img2.0/supplier/propertyCentre_04.png")no-repeat;}
+.propertyCentre_five{background: url("../../img2.0/supplier/propertyCentre_05.png")no-repeat;}
+/* 中间 结束*/
+
+

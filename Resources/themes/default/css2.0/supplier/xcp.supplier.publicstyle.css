@@ -1,0 +1,71 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{width:100%; height:auto;}
+.w1000{width:1200px; height:auto; margin:0 auto;}
+.mt{margin-top:10px;}
+input{outline:none;border: 0;background: #fff;}
+button{border:0;outline:none;}em{cursor: pointer;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+
+
+/* 头部分 */
+.header_wrap{background: #f5f5f5;}
+.header_top_left{height: 32px;line-height: 33px;}
+.header_top_left ul li a{color: #777;}
+.header_top_left ul li{float: left;margin-right: 30px;color: #777;font-size: 12px;}
+.home_img{background:url("../../img2.0/supplier/home_img.png")no-repeat scroll 0 9px;}
+.header_top_right{height: 32px;line-height: 33px;}
+.header_top_right ul li{padding-left: 30px;float: left;}
+.header_top_right ul li a{color: #777;}
+.home_print{margin-left: 20px;}
+
+/* 头部第二部分 开始*/
+.headerBottom_wrap{background: #FE500B;padding: 7px 0;}
+.header_bottom img{width: 141px;height: 50px;}
+.header_bottom span{font-size: 18px;padding: 14px 0 0 20px;color: #f5f5f5;}
+/* 头部第二部分 结束*/
+/* 头部分 结束 */
+
+/* 中间 左边导航栏 开始*/
+.center_wrap{margin-top:20px;}
+
+/* 城品惠产品管理 */
+.Countylevel_JoinImg{background:url(../../img2.0/supplier/Countylevel_JoinImg.png) 0px 2px no-repeat; vertical-align:middle; margin-top:-3px;}
+.County_JoinLe{width:197px;border-top:2px solid #ff500a;font-family:"宋体";}
+.County_JoinLe_nav{border:1px solid #e5e5e5;border-bottom:none;}
+.County_JoinLe_nav h3{height:43px;line-height:43px;font-weight:normal;font-size:14px;text-indent:40px;color:#335b64;position:relative;background:url(../../img2.0/supplier/Countylevel_JoinImg.png) 0px -17px #e6e6e6 no-repeat;cursor:pointer;}
+.County_JoinLe_nav h3 .JoinLe_openIcon{position:absolute;right:14px;top:16px;width:8px;height:8px;background-position:-127px -3px;}
+.County_JoinLe_nav h3.on .JoinLe_openIcon{background-position:-148px -3px;}
+
+.County_JoinLe_nav ul{display:none;}
+.County_JoinLe_nav h3.on~ul{display:block;}
+.County_JoinLe_nav ul li{height:32px;line-height:32px;text-indent:55px;background:url(../../img2.0/supplier/Countylevel_JoinImg.png) 0px -28px #f5f5f5 no-repeat;}
+.County_JoinLe_nav ul li a{font-size:12px;color:#335b64;display:block;}
+.County_JoinLe_nav ul li a:hover,.County_JoinLe_nav ul li a.on{color:#ff500a;}
+.JoinLe_navIcon{display:inline-block;width:14px;height:14px;margin-right:5px;}
+/* 城品惠产品管理结束 */
+.Countylevel_JoinImg01{background-position:-20px 0;}
+.Countylevel_JoinImg02{background-position:-20px 0;}
+.Countylevel_JoinImg03{background-position:-40px 0;}
+.Countylevel_JoinImg04{background-position:-63px 0;}
+.Countylevel_JoinImg05{background-position:-84px 0;}
+.Countylevel_JoinImg06{background-position:-108px 0;}
+
+/* 底部 开始 */
+.bottom_box{background: #fafafa;border-top:1px solid #e2e2e2;padding-bottom: 30px;margin-top: 32px;}
+.bottom_foot_box{margin-top: 43px;}
+.bottom_foot_box ul{width: 472px;margin: 0 auto;}
+.bottom_foot_box ul li{border-right: 1px solid #999;float: left;padding: 0 12px;height: 13px;line-height: 13px;}
+.bottom_foot_box ul li a{color: #666;}
+.bottom_foot_box ul li:last-child{border-right:0px;}
+.bottom_section_last{text-align: center;margin-top: 8px;}
+.bottom_section_last p{color:#999;margin-bottom: 2px;}
+/* 底部 结束 */

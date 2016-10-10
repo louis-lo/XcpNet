@@ -1,0 +1,69 @@
+/* 中间 开始 */
+.center_targetWrap{padding:10px 0;background:url("../../img2.0/cph/home_img.png") 10px 12px no-repeat;}
+.center_targetWrap a:hover{color:#ff7300;text-decoration: underline;}
+.center_targetWrap .center_targetOne{margin-left: 35px;}
+.center_targetWrap i{background: url("../../img2.0/cph/targetRint.png")no-repeat;display: inline-block;width: 6px;height: 9px;background-size: 100% 100%;margin-left: 2px;}
+
+/* 右边 开始 */
+.centerMiddel_wrap{width: 732px;}
+.centerMiddel_top{padding:30px 45px 0;border:1px solid #e2e2e2;border-left: none;height: 125px;}
+.centerMiddel_print img{width: 88px;height: 88px;}
+
+.centerMiddel_information{font-size: 15px;line-height: 31px;margin-left: 40px;}
+.risk{color: #f52f2f;}
+.riskBox{width: 130px;height: 12px;margin: 11px 14px;border-radius:8px;background: #f2f2f2;box-shadow: 0.5px 2px #c0c0c0 inset;overflow: hidden;}
+.riskLimit{height: 12px;background: #e4561f;width: 60%;
+    background: -webkit-linear-gradient(left, #dc2d20 , #ed5920); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #dc2d20, #ed5920); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #dc2d20, #ed5920); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #dc2d20 , #ed5920); /* 标准的语法（必须放在最后） */
+}
+.center_topRight{width: 1010px;}
+
+/* 交易提醒 */
+.myTransactionWarn{padding:15px 10px 12px 20px;border-bottom: 1px solid #e2e2e2;border-right: 1px solid #e2e2e2;font-size: 14px;color: #666;}
+.myTransactionWarn b{line-height: 18px;height: 18px;border-left: 4px solid #fd6760;padding-left: 8px;margin-top: 4px;}
+.myTransactionWarn ul li{float: left;padding: 0 5px;font-family: "宋体";font-size: 13px;line-height: 28px;margin-left: 20px;}
+.myTransactionWarn ul li a{color:#666;}
+.myTransactionWarn .pitch a{color:#ff7300;}
+.myTransactionWarn .check_order{margin-left: 31px;font-size: 12px;color:#666;font-family: "宋体";line-height: 28px;}
+.status li span{color:#e31939;}
+.center_goodsLeft{width: 685px;}
+.center_goodsInformation{border:1px solid #e2e2e2;border-top: none;border-left: none;padding-top: 25px;height:249px;}
+.center_goodsInformation ul li{height: 68px;margin-bottom: 15px;overflow: hidden;}
+.goodsIformation_print img{vertical-align: middle;display: table-cell;margin-left: 60px;width: 50px;height: 50px;}
+.goodsIformation_ms{margin-left: 70px;color:#666;font-size: 13px;overflow: hidden;width: 212px;height: 66px;overflow: hidden;}
+.goodsIformation_nature{margin-left: 80px;width: 130px;height: 66px;overflow: hidden;}
+.goodsIformation_handle{margin-left: 70px;line-height: 66px;}
+.goodsIformation_handle a{color:#ff7300;}
+
+.center_rightWrap{width: 278px;}
+.center_rightTop ul{margin-top: 42px;}
+.center_rightTop{border:1px solid #e2e2e2;border-left: none;font-size: 19px;height: 155px;}
+.center_rightTop ul li{float: left;text-align: center;width: 136px;overflow: hidden;}
+.center_rightTop ul li p{color: #e31939;margin-top:20px;font-size: 21px;width: 136px;height: 30px;overflow: hidden;}
+
+.center_myCart{padding-right:0px;}
+.stock_cartGoods{overflow: auto;margin-top: 12px;height: 219px;}
+
+.stock_cartGoodsPrint img{max-width: 63px;max-height: 63px;}
+.stock_cartGoodsMs{width: 137px;font-size: 12px;margin-left: 15px;}
+.myCart_bottom a{margin-top: 15px;border-top:1px dotted #e2e2e2;height: 34px;line-height: 47px;text-align: center;display: block;padding-right: 10px;}
+.stock_cartGoodsMs i{color:#e31939;}
+.center_bottomRight{width: 1009px;border-right:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;}
+.center_bottomRight .goodsTj{display:inline-block;font-size: 15px;border-left: 4px solid #fd6760;height: 18px;line-height: 18px;margin: 15px 20px;padding-left: 10px;}
+
+.center_bottomRight ul {padding:0 20px;}
+.center_bottomRight .checkGd{padding-top: 15px;font-family: "宋体";margin-right: 20px;}
+.center_bottomRight ul li{float: left;margin-right: 36px;}
+.center_bottomRight ul li:last-child{margin-right: 0;}
+.center_bottomRight ul li a{display: inline-block;width: 165px;height: 275px;text-align: center;}
+.centerHome_goodsPrint img{width: 165px;height: 165px;}
+.centerHome_goodsMs{text-align: left;width: 160px;height:42px;overflow: hidden;font-size: 13px;}
+.centerHome_goodsprice{text-align: left;margin-top: 10px;background: url("../img/printmain.png") 137px -817px no-repeat;height: 30px;line-height: 30px;}
+.centerHome_goodsprice span{color:#e9394e;font-size: 15px;}
+.stock_cartGoods ul li{margin-left:0;}
+.stock_cartGoods ul li a{display: block;}
+
+/* 右边 结束 */
+/* 中间 结束 */

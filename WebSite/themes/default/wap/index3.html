@@ -1,0 +1,538 @@
+﻿$set(page=this.Request.QueryString["page"])
+$if(clr.System.String.IsNullOrEmpty(page)==false)
+$set(products=clr.Cnaws.Product.Modules.Product.GetMonthHotPage(this.DataSource,clr.System.Int32.Parse(page),10,11))
+$foreach(product in products)
+<li>
+    <a href="$url('/product/info/',product.Id)">
+        <img class="load-img-$page" data-original="$product.GetImage()">
+        <p class="title">$product.Title</p>
+        <p>$product.GetSalePrice().ToString("C2")</p>
+    </a>
+</li>
+$end
+<script type="text/javascript">
+    //$if(products.PageIndex == products.PagesCount)
+    endPage = true;//$end
+    $(".load-img-$page").scaling(310, 310, errPic);
+</script>
+$else
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$Site.Name</title>
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/swiper.min.css')">
+    <style type="text/css">
+        /* BEGIN slide */
+        .page {
+            padding-bottom: 59px !important;
+        }
+
+        .swiper-container {
+            width: 640px;
+            height: 408px;
+        }
+
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .swiper-pagination-bullet {
+            width: 11px;
+            height: 11px;
+            background-color: #FFF;
+            opacity: 10;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: #A8531D;
+        }
+        /* END slide */
+
+        /* BEGIN header */
+        #header {
+            top: 0px;
+            z-index: 2;
+            position: fixed;
+            width: 640px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #FFF;
+        }
+
+            #header .logo {
+                width: 142px;
+                padding-top: 5px;
+                margin-left: 18px;
+            }
+
+            #header input {
+                width: 318px;
+                height: 24px;
+                line-height: 24px;
+                margin-left: 18px;
+                border: 0;
+                padding: 0;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 56px;
+                padding-right: 10px;
+                margin-top: 6px;
+                font-size: 24px;
+                border-radius: 30px;
+                background: #FFF url($res('wap/css/img/search_01.jpg')) no-repeat 16px center;
+                border: 1px solid #BDBDBD;
+            }
+
+            #header .login {
+                width: 76px;
+                height: 54px;
+                line-height: 54px;
+                text-align: center;
+                color: #666;
+            }
+        /* END header */
+
+        /* BEGIN index-nav */
+        .index-nav {
+            padding-top: 39px;
+            padding-bottom: 22px;
+            background-color: #FFF;
+            border-top: 1px solid #E3E3E3;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+            .index-nav li {
+                float: left;
+                width: 160px;
+                height: 106px;
+            }
+
+                .index-nav li a {
+                    display: block;
+                    width: 100%;
+                    /*height: 72px;*/
+                    height: 14px;
+                    padding-top: 88px;
+                    font-size: 18px;
+                    color: #333;
+                    text-align: center;
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                }
+
+                .index-nav li.index-nav-01 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_01.jpg'));
+                }
+
+                .index-nav li.index-nav-02 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_02.jpg'));
+                }
+
+                .index-nav li.index-nav-03 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_03.jpg'));
+                }
+
+                .index-nav li.index-nav-04 a {
+                    background-image: url($res('wap/css/img/index/index_nav_01_04.jpg'));
+                }
+        /* END index-nav */
+
+        /* BEGIN section-01 */
+        .section-01 {
+            margin-top: 4px;
+        }
+
+            .section-01 li {
+                float: left;
+                width: 212px;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                margin-left: 2px;
+                background-color: #FFF;
+            }
+
+                .section-01 li:first-child {
+                    margin-left: 0;
+                }
+
+            .section-01 img {
+                width: 150px;
+                height: 150px;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+
+            .section-01 p {
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-top: 15px;
+            }
+
+            .section-01 .title, .section-02 li p.title {
+                height: 62px;
+                color: #333;
+                line-height: 1.3;
+                overflow: hidden;
+            }
+
+            .section-01 .price {
+                color: #f15353;
+            }
+        /* END section-01 */
+
+        /* BEGIN section-02 */
+        .section-02 {
+            width: 640px;
+            margin-top: 4px;
+            background-color: #FFF;
+        }
+
+            .section-02 li {
+                width: 310px;
+                float: left;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                margin-left: 5px;
+                margin-right: 5px;
+                background-color: #FFF;
+            }
+
+                .section-02 li p {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    margin-top: 10px;
+                }
+
+                    .section-02 li p.price {
+                        color: #f15353;
+                    }
+
+            .section-02 img {
+                display: block;
+                width: 310px;
+                height: 310px;
+            }
+        /* END section-02 */
+
+        /* BEGIN thumbnail */
+        .thumbnail {
+            padding-bottom: 20px;
+            margin-top: 1px;
+            background-color: #FFF;
+        }
+
+            .thumbnail li {
+                float: left;
+                width: 310px;
+                margin-top: 15px;
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+
+                .thumbnail li img {
+                    display: block;
+                    width: 310px;
+                    height: 310px;
+                    border-radius: 4px;
+                }
+
+                .thumbnail li a {
+                    color: #333;
+                }
+
+                .thumbnail li p {
+                    margin-top: 10px;
+                }
+
+                    .thumbnail li p.title {
+                        height: 48px;
+                        overflow: hidden;
+                    }
+
+                .thumbnail li a p:last-child {
+                    color: #f15353;
+                    padding-top: 5px;
+                    border-top: 1px solid #CFCFCF;
+                }
+        /* END thumbnail */
+
+        /* BEGIN click */
+        .click {
+            height: 60px;
+            font-size: 24px;
+            line-height: 60px;
+            color: #333;
+            text-align: center;
+            background-color: #F3F5F7;
+            border-top: 1px solid #D7D8DA;
+            border-bottom: 1px solid #D7D8DA;
+        }
+        /* END click */
+
+        /* BEGIN  footer-nav */
+        .footer-nav {
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            background-color: #F8F8F8;
+            border-top: 2px solid #FFF;
+            border-bottom: 2px solid #FFF;
+        }
+
+            .footer-nav a {
+                display: inline-block;
+                margin-left: 25px;
+                margin-right: 25px;
+                color: #666;
+            }
+        /* END footer-nav */
+
+        /* BEGIN copyright */
+        .copyright {
+            height: 60px;
+            line-height: 60px;
+            font-size: 20px;
+            text-align: center;
+            background-color: #F8F8F8;
+            border-top: 2px solid #FFF;
+        }
+        /* END copyright */
+
+        /* BEGIN site-nav */
+        .site-nav {
+            padding: 20px;
+            background-color: #F6F6F6;
+            border-top: 2px solid #DCDCDC;
+            border-bottom: 2px solid #DCDCDC;
+        }
+
+            .site-nav li {
+                width: 33%;
+                text-align: center;
+                float: left;
+            }
+
+                .site-nav li img {
+                    display: block;
+                    margin-bottom: 5px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .site-nav li a {
+                    color: #666;
+                }
+        /* END site-nav */
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxbuttons.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var curPage = 1;
+        var endPage = false;
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            $('#banner').jqxScrollView({ width: 640, height: 408, buttonsOffset: [0, 0], slideShow: false, moveThreshold: 0.1 });
+            window.setInterval(function () {
+                var banner = $('#banner');
+                var max = $('.jqx-scrollview-page').length;
+                if (max > 1) {
+                    if (banner.jqxScrollView('currentPage') < (max - 1)) {
+                        banner.jqxScrollView('forward');
+                    }
+                    else {
+                        banner.jqxScrollView('changePage', 0);
+                    }
+                }
+            }, 5000);
+            $(".load-img").scaling(310, 310, errPic);
+            $(".load-img2").scaling(310, 310, errPic);
+            $(".load-img3").scaling(150, 150, errPic);
+            $(".load-img4").lazyload();
+        });
+        function loadPage() {
+            if (!endPage) {
+                ++curPage;
+                $.ajax({
+                    type: "GET",
+                    url: '$url("/")?page=' + curPage,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#pages').append($(data));
+                    }
+                });
+            }
+            else {
+                Cnaws.showInfo('已到最后一页');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="top" class="page">
+        <div class="clearfix" id="header">
+            <form id="form" action="$url('/search')" method="get" onsubmit="return onSearch()">
+                <a class="logo f-left" href="$Site.Url"><img style="display:block;" src="$res('wap/css/img/logo_03.png')" height="54" width="142"></a>
+                <input class="f-left" type="text" id="q" name="q" placeholder="乡品进城 城品下乡">
+                <a href="javascript:void(0)" onclick="$('#form').submit()" class="f-right login">搜索</a>
+            </form>
+        </div>
+
+        $load("inc/nav.html")
+
+        <!-- BEGIN slider -->
+        <div class="swiper-container" style="margin-top:79px;">
+            <div id="banner">
+                $foreach(row in clr.Cnaws.Banner.Modules.Banner.GetAll(this.DataSource))
+                <div><a href="$row.Url"><div class="swiper-slide" style="background-image:url($row.Image);background-size:640px 408px"></div></a></div>
+                $end
+            </div>
+        </div>
+        <!-- END slider -->
+        <!-- BEGIN index-nav -->
+        <ul class="clearfix index-nav">
+            <li class="index-nav-01"><a href="$url('/channel/cates')">全部分类</a></li>
+            <li class="index-nav-02"><a href="$passport('/bought')">物流查询</a></li>
+            <li class="index-nav-03"><a href="$passport('/cart')">购物车</a></li>
+            <li class="index-nav-04"><a href="$passport('/ucenter')">我的乡城品</a></li>
+        </ul>
+        <!-- END index-nav -->
+        <!-- BEGIN full_ad_01 -->
+        <a style="display:block;margin-top:1px;" href="$url('/channel/promotions')"><img src="$res('wap/img/full_ad_06.jpg')" height="126" width="640" style="display:block;"></a>
+        <a style="display:block;margin-top:1px;" href="javascript:void(0)"><img src="$res('wap/img/full_ad_01.jpg')" height="121" width="640" style="display:block;"></a>
+        <!-- END full_ad_01 -->
+        <!-- BEGIN section-01 -->
+        <ul class="clearfix section-01">
+            $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopRecommend(this.DataSource,3))
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img3" data-original="$product.GetImage()">
+                    <p class="title">$product.Title</p>
+                    <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                </a>
+            </li>
+            $end
+        </ul>
+        <!-- END section-01 -->
+        <!-- BEGIN full_ad_02 -->
+        <a style="display:block;margin-top:5px;" href="$url('/channel/promotions')"><img src="$res('wap/img/full_ad_02.jpg')" height="188" width="640" style="display:block;"></a>
+        <!-- END full_ad_02 -->
+        <!-- BEGIN section-02 -->
+        $set(products=clr.Cnaws.Product.Modules.Product.GetBySupplierStateOrState(this.DataSource,215,1,3,1,6,11).Data)
+        <ul class="clearfix section-01">
+            $for(i=0;i<clr.System.Math.Min(3,products.Count);i++) $set(product=products[i])
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img3" data-original="$product.GetImage()">
+                    <p class="title">$product.Title</p>
+                    <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                </a>
+            </li>
+            $end
+        </ul>
+        <ul class="clearfix section-01" style="margin-top: 1px;">
+            $for(i=3;i<clr.System.Math.Min(6,products.Count);i++) $set(product=products[i])
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img3" data-original="$product.GetImage()">
+                    <p class="title">$product.Title</p>
+                    <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                </a>
+            </li>
+            $end
+        </ul>
+        <!-- END section-02 -->
+        <!-- BEGIN full_ad_03 -->
+        <a style="display:block;width:640px;background-color: #FFF;padding-top:10px;padding-bottom:10px;margin-left: auto;margin-right: auto;" href="$url('/channel/discount')"><img style="display:block;" src="$res('wap/img/full_ad_03.jpg')" height="145" width="640"></a>
+        <!-- END full_ad_03 -->
+        $set(products=clr.Cnaws.Product.Modules.Product.GetTopDiscount(this.DataSource,7))
+        <!-- BEGIN section-01 -->
+        <ul class="clearfix section-01" style="margin-top: 0;">
+            $for(i=0;i<clr.System.Math.Min(3,products.Count);i++) $set(product=products[i])
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img3" data-original="$product.GetImage()">
+                    <p class="title">$product.Title</p>
+                    <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                </a>
+            </li>
+            $end
+        </ul>
+        <!-- END section-01 -->
+        <!-- BEGIN section-02 -->
+        <ul class="clearfix section-02">
+            $for(i=3;i<clr.System.Math.Min(7,products.Count);i++) $set(product=products[i])
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img2" data-original="$product.GetImage()">
+                    <p class="title">$product.Title</p>
+                    <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                </a>
+            </li>
+            $end
+        </ul>
+        <!-- END section-02 -->
+        <!-- BEGIN section-03 -->
+        <h2 style="margin-top:5px;font-size: 24px;color:#f25353;background-color: #FFF;height:47px;line-height:47px;text-indent:15px;font-weight: normal;">我的乡城品</h2>
+        <!-- BEGIN section-02 -->
+        $foreach(cate in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+        <ul class="clearfix section-02">
+            <li><a class="load-img4" data-original="$res('img/index/floor_aside_',foreachIndex,'.jpg')" style="display:block;width:100%;height:416px;padding-bottom:0;background-repeat:no-repeat;background-position:left top;"></a></li>
+            $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopBestByCategory(this.DataSource,3,cate.Id))
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img2" data-original="$product.GetImage()">
+                    <p class="title">$product.Title</p>
+                    <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                </a>
+            </li>
+            $end
+        </ul>
+        $end
+        <!-- END section-02 -->
+        <!-- END section-03 -->
+        <!-- BEGIN section-04 -->
+        <h2 style="margin-top:5px;font-size: 24px;color:#ff8400;background-color: #FFF;height:47px;line-height:47px;text-indent:15px;font-weight: normal;">大家都在买</h2>
+        <ul id="pages" class="clearfix thumbnail">
+            $set(products=clr.Cnaws.Product.Modules.Product.GetMonthHotPage(this.DataSource,1,10,11))
+            $foreach(product in products)
+            <li>
+                <a href="$url('/product/info/',product.Id)">
+                    <img class="load-img" data-original="$product.GetImage()">
+                    <p class="title">$product.Title</p>
+                    <p class="price">$product.GetSalePrice().ToString("C2")</p>
+                </a>
+            </li>
+            $end
+        </ul>
+        <!-- END section-04 -->
+        <!-- BEGIN click -->
+        <p class="click" onclick="loadPage()">点击继续加载</p>
+        <!-- END click -->
+    </div>
+    $if(products.PageIndex==products.PagesCount)
+    <script type="text/javascript">
+        endPage = true;
+    </script>
+    $end
+
+    $load("inc/footer.html")
+</body>
+</html>
+$end

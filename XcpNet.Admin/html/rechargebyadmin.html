@@ -1,0 +1,158 @@
+﻿$if(isset("UserList"))
+<table class="table list" border="1" cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            <th>用户名</th>
+            <th>昵称</th>
+            <th>真实姓名</th>
+            <th>联系电话</th>
+            <th>邮箱</th>
+            <th>可用预存额</th>
+            <th>冻结预存额</th>
+            <th>登陆次数</th>
+            <th>锁定状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    $foreach(item in UserList)
+    <tr>
+        <td>$item.Name</td>
+        <td>$item.NickName</td>
+        <td>$item.RealName</td>
+        <td>$item.Mobile</td>
+        <td>$item.Email</td>
+        <td>$item.Money</td>
+        <td>$item.FreezeMoney</td>
+        <td>$item.LockNum</td>
+        <td>$if(item.Locked)<span style="color:red">已锁定</span>$else正常$end</td>
+        <td><input id="btn_$item.Id" type="button" value="用户充值" onclick="showAdd($item.Id)" /></td>
+    </tr>
+    $end
+</table>
+$else
+<div>
+    <div>
+        <form id="form" action="$url('rechargebyadmin/search')" method="post" onsubmit="return doSearch()">
+            <label for="Users">用户名：</label>
+            <input type="text" id="Users" placeholder="请输入用户名或手机号码或登陆邮箱" name="Users" class="text" style="width:500px" />
+            <span>多个用户名用“,”分隔</span>
+            <input type="submit" class="submit" value="查询" />
+        </form>
+    </div>
+    <div id="suppliers" style="margin-top:10px;"></div>
+</div>
+<div id="recharge" style="display:none;">
+    <div><span>用户充值</span></div>
+    <div>
+        <form id="frlform" action="" method="post">
+            <div style="margin-bottom:6px;">
+                <table border="0" cellpadding="0" cellspacing="0" class="table">
+                    <tr>
+                        <td>充值类型</td>
+                        <td>
+                            <select id="RechargeType" name="RechargeType">
+                                <option value="3" selected>系统充值</option>
+                                <option value="4">1元抢开奖</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="ViewTr">
+                        <td>开奖期数</td>
+                        <td>
+                            <input type="text" class="text" name="targetId" id="targetId" placeholder="必须是数字" onkeyup="value = value.replace(/[^\d]/g, '')" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>充值金额</td>
+                        <td><input type="text" class="text" name="Money" id="Money" placeholder="必须大于0.01元" onkeyup="value = value.replace(/[^\-\d\.]/g, '')" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right;padding:10px;">
+                <input type="hidden" id="rid" name="rid" value="0" />
+                <input type="button" id="ok" value="确定" class="submit" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function doSearch() {
+        var form = $('#form');
+        form.attr('disabled', true);
+        if (form.jqxValidator('validate')) {
+            $.ajax({
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                dataType: 'html',
+                success: function (data) {
+                    $('#suppliers').html(data)
+                    $('#form').attr('disabled', false);
+                }
+            });
+        }
+        else {
+            form.attr('disabled', false);
+        }
+        return false;
+    }
+    $('#form').jqxValidator({
+        rules: [
+            { input: '#Users', message: '查询内容不能为空!', action: 'blur', rule: 'required' }
+        ]
+    });
+
+    function validate(form, rid) {
+        $('#frlform').jqxValidator({
+            rules:
+                [
+                { input: '#Money', message: '充值金额不能为空!', action: 'blur', rule: 'required' },
+                {
+                    input: '#targetId', message: '开奖期数必须大于0!', action: 'blur', rule: function (input, commit) {
+                        if ($("#RechargeType option:selected").val() == 4) {
+                            if (input.val().length > 0) {
+                                if (parseInt(input.val()) > 0) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+                ]
+        });
+        return form.jqxValidator('validate');
+    }
+    var mainWindow = initWindow('recharge', 'frlform', null, "rid", validate, null, function () {
+        $("#ViewTr").hide();
+        $("#RechargeType").change(function () {
+            if ($("#RechargeType option:selected").val() == 4) {
+                $("#ViewTr").show();
+            }
+            else if ($("#RechargeType option:selected").val() == 3) {
+                $("#ViewTr").hide();
+            }
+        });
+    },
+    null, function (form) {
+        if (confirm("是否确认给该用户充值？")) {
+            postAjax('$url("rechargebyadmin/recharge")', form.serialize(), function (data, args) {
+                if (showResult(data, '充值成功', '充值失败,如果是1元抢请检查开将人是否与充值人一致', null)) {
+                    doSearch();
+                }
+                mainWindow.close();
+                mainWindow.end();
+            }, null);
+        }
+    });
+    function showAdd(id) {
+        $("#rid").val(id);
+        $('#recharge').jqxWindow('open');
+    }
+
+
+</script>
+$end

@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Site.Name - 用户管理</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="$res('~/manageres/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/font-awesome.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/switchery/switchery.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/treeview/bootstrap-treeview.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/toastr/toastr.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/extensions/editable/bootstrap-editable.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/animate.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/style.min.css')" rel="stylesheet">
+    <style>
+        .ibox { margin-bottom: 0; }
+        .iboxex { margin-bottom: 25px; }
+        .btn-default *, .btn-default a:hover { color: #676a6c; }
+        .dropdown-menu { left: 0 !important; right: auto !important; }
+        .list-group { border: 0; margin-bottom: 0; }
+            .list-group li { border-radius: 0 !important; }
+        .control-label { text-align: right; }
+        .form-control-static { padding-top: 0; }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content height-begin">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="dataTableToolbar" role="group">
+                                    <div class="btn btn-outline btn-default dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            $GetMenuName(Type)
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            $foreach(item in Menus)
+                                            <li><a href="javascript:viewChild($item.Key)">$item.Value</a></li>
+                                            $end
+                                        </ul>
+                                    </div>
+                                </div>
+                                <table id="dataTable" data-toolbar="#dataTableToolbar" data-show-export="true"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="insertForm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">用户充值</h4>
+                </div>
+                <form class="form-horizontal" id="submitForm" method="post" onsubmit="return doSubmit()">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="Title">标题：</label>
+                            <div class="col-sm-8">
+                                <input id="Title" name="Title" class="form-control" type="text" placeholder="充值说明，默认为“系统充值”">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="Rights">金额：</label>
+                            <div class="col-sm-8">
+                                <input id="Money" name="Money" class="form-control" type="number" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input id="Id" name="Id" type="hidden" value="0">
+                        <button class="btn btn-primary" type="submit" id="submit">提交</button>
+                        <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="$res('~/manageres/js/jquery.min.js')"></script>
+    <script src="$res('~/manageres/js/bootstrap.min.js')"></script>
+    <script src="$res('~/manageres/js/content.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/toastr/toastr.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/switchery/switchery.js')"></script>
+    <script src="$res('~/manageres/js/plugins/treeview/bootstrap-treeview.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/editable/bootstrap-editable.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="$res('~/manageres/js/cnaws.js')"></script>
+    <script src="$res('~/manageres/js/datatable.js')"></script>
+    <script>
+        var table = null;
+        var validator = null;
+        function viewChild(id) {
+            location.href = Cnaws.getUrl('$url("memberlist/index/")' + id);
+        }
+        function initWindow(i) {
+            $('#submit').prop('disabled', true);
+            $('#Id').val(i);
+            $('#Title').val('');
+            $('#Money').val(0)
+            $('#submit').prop('disabled', false);
+            $('#insertForm').modal('show');
+            validator.resetForm();
+        }
+        function doSubmit() {
+            $('#submit').prop('disabled', true);
+            var form = $('#submitForm');
+            if (form.valid()) {
+                Cnaws.ajax({
+                    method: 'POST',
+                    url: '$url("memberlist/recharge")',
+                    data: '#submitForm'
+                }, function (data) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('用户充值成功');
+                        table.DaTab('getTable').bootstrapTable('refresh');
+                        $('#insertForm').modal('hide');
+                    }
+                    else {
+                        Cnaws.showError('用户充值失败');
+                    }
+                    $('#submit').prop('disabled', false);
+                });
+            }
+            return false;
+        }
+        function doSubmitRow(params) {
+            var row = table.DaTab('getTable').bootstrapTable('getRowByUniqueId', params.pk);
+            row[params.name] = params.value;
+            var d = new $.Deferred;
+            Cnaws.ajax({
+                method: 'POST',
+                url: '$url("memberlist/mod")',
+                data: row,
+                args: d
+            }, function (data, args) {
+                if (data.code == -200)
+                    args.resolve();
+                else
+                    args.reject('修改失败');
+            });
+            return d.promise();
+        }
+        $().ready(function () {
+            Cnaws.init({
+                urlExt: '$ext',
+                resourcesUrl: '$this.Application.Settings.ResourcesUrl',
+                passportUrl: '$this.Application.Settings.PassportUrl'
+            });
+
+            validator = $('#submitForm').validate();
+
+            table = $('#dataTable').DaTab({
+                search: true,
+                idField: 'Id',
+                uniqueId: 'Id',
+                loadUrl: Cnaws.getUrl('$url("memberlist/list/", Type, "/")' + '{page}/{search}'),
+                columns: [
+                    {
+                        field: 'Id',
+                        title: 'ID',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'Name',
+                        title: '用户名',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'NickName',
+                        title: '昵称',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'RealName',
+                        title: '真实姓名',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'Mobile',
+                        title: '手机号',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'VerMob',
+                        title: '验证手机',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                        formatter: function (value, row, index) {
+                            return value ? '已验证' : '未验证';
+                        }
+                    },
+                    {
+                        field: 'Email',
+                        title: '电子邮箱',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'VerMail',
+                        title: '验证邮箱',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                        formatter: function (value, row, index) {
+                            return value ? '已验证' : '未验证';
+                        }
+                    },
+                    {
+                        field: 'Password',
+                        title: '密码',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                        editable: {
+                            type: 'password',
+                            validate: function (value) {
+                                value = $.trim(value);
+                                if (!value) {
+                                    return '密码不能为空';
+                                }
+                                return '';
+                            },
+                            url: function (params) {
+                                return doSubmitRow(params);
+                            }
+                        }
+                    },
+                    {
+                        field: 'Money',
+                        title: '帐户余额',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'FreezeMoney',
+                        title: '冻结余额',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'CreationDate',
+                        title: '注册日期',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false,
+                        formatter: function (value, row, index) {
+                            return (new Date(value * 1000)).format('yyyy-MM-dd hh:mm:ss');
+                        }
+                    },
+                    {
+                        field: 'Approved',
+                        title: '审核',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'checkbox',
+                            formatter: function (value) {
+                                return value ? '已审核' : '未审核';
+                            },
+                            url: function (params) {
+                                return doSubmitRow(params);
+                            }
+                        }
+                    },
+                    {
+                        field: 'Locked',
+                        title: '锁定',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'checkbox',
+                            formatter: function (value) {
+                                return value ? '已锁定' : '未锁定';
+                            },
+                            url: function (params) {
+                                return doSubmitRow(params);
+                            }
+                        }
+                    },
+                    {
+                        field: 'action',
+                        title: '操作',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            var arr = [
+                                '<a class="edit" href="javascript:void(0)" onclick="initWindow(\'' + row.Id + '\')">充值</a>'
+                            ];
+                            return arr.join('');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

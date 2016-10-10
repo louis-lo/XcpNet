@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>修改性别</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/citygoods_list.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <style>
+        .purchasemy_icon { background: url($res('wap/img2.0/cph/admin_img.png')) no-repeat; }
+    </style>
+</head>
+<body bgcolor="#f6f6f6">
+    <div class="page-group">
+        <form id="form" action="$url('/security/SubmitSetGender')" method="post" onsubmit="return onSubmit()">
+            <div class="page page-current">
+                <div class="clearfix bar bar-nav col_333 bg_fff">
+                    <div class="wayshow_navPosi">
+                        <div class="wayshow_navLe fl">
+                            <a href="javascript:window.history.go(-1)">
+                                <span class="icon_Firststep fl"></span>
+                            </a>
+                        </div>
+                        修改性别
+                        <input class="Determine_modification" type="submit" value="确定" />
+                        <input type="hidden" name="gender" id="gender" />
+                    </div>
+                </div>
+
+                <div class="content native-scroll">
+                    <div class="returngoods_option bg_fff">
+                        <ul class="returngoods_optionLi">
+                            <li ${if(Member.Sex!!1)}class ="clearfix pad_lr on" ${else}class="clearfix pad_lr" ${end}v="Boy">
+                                <span>男</span>
+                                <span class="fr purchasemy_icon"></span>
+                            </li>
+                            <li ${if(Member.Sex!!2)}class ="clearfix pad_lr on" ${else}class="clearfix pad_lr" ${end}v="Girl">
+                                <span>女</span>
+                                <span class="fr purchasemy_icon"></span>
+                            </li>
+                            <li ${if(Member.Sex!!0)}class ="clearfix pad_lr on" ${else}class="clearfix pad_lr" ${end} v="Unkown">
+                                <span>保密</span>
+                                <span class="fr purchasemy_icon"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- / content -->
+            </div>
+        </form>
+    </div>
+    <script>
+        $(function () {
+            $("#gender").val('$Member.Sex');
+
+            $(".returngoods_optionLi li").click(function () {
+                var v = $(this).attr("v");
+                $("#gender").val(v);
+                $(".returngoods_optionLi li").removeClass("on");
+                $(this).addClass("on");
+            })
+        })
+
+        function onSubmit() {
+            var form = $('#form');
+            form.attr('disabled', true);
+            if ($("#gender").val() != '') {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: form.serialize(),
+                    url: form.attr('action'),
+                    success: function (result) {
+                        if (result.code == -200) {
+                            $.alert('修改成功', function () {
+                                $set(target = this.Request.QueryString["target"])
+                                $if(clr.System.String.IsNullOrEmpty(target))
+                                window.location.href = '$url("/ucenter")';
+                                $else
+                                window.location.href = '$target';
+                                $end
+                            });
+                        } else if (result.code == -1002) {
+                            $.alert("请选择正确的选项");
+                        } else {
+                            $.alert("修改失败，请重试");
+                        }
+                    }
+                });
+                form.attr('disabled', true);
+            }
+            else {
+                $.alert("请选择选项");
+            }
+            return false;
+        }
+    </script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

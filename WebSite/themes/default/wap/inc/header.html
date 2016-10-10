@@ -1,0 +1,108 @@
+<nav class="nav-01">
+    <ul class="clearfix">
+        <li ${if(this.Application.Action.Equals('index.index'))}class="active" ${end}>
+            <a href="$url('/')">城品惠</a>
+        </li>
+        <li ${if(this.Application.Action.Equals('channel.way'))}class="active" ${end}>
+            <a href="$url('/xdginfo/xdghomePage')">乡道馆</a>
+        </li>
+        <li ${if(this.Application.Action.Equals('channel.goods'))}class="active" ${end}>
+            <a href="$url('/channel/goods')">进货宝</a>
+        </li>
+        <li ${if(this.Application.Action.Equals('channel.activities'))}class="active" ${end}>
+            <a href="$url('/channel/activities')">活动区</a>
+        </li>
+        <li>
+            <a href="$passport('/ucenter')">我的</a>
+        </li>
+    </ul>
+</nav>
+<header class="header-01">
+    <div class="hide-box"></div>
+    <ul class="clearfix">
+        <li><h1><a href="javascript:void(0)" onclick="return goBack()">乡城品</a></h1></li>
+        <li><input onfocus="return showSearch()" type="text" placeholder="搜索商品名..."></li>
+        <li><a href="$passport('/cart')">购物车<span class="cart-count">0</span></a></li>
+    </ul>
+</header>
+<style type="text/css">
+    #search{display:none;position:absolute;z-index:9999;background:#FFF;}
+	#search .wrapper{top:1.346667rem;bottom:0;background-color:#FFF;}
+	#search .card{border:0;}
+	#search .card-block a{display:block;float:left;padding-left: 0.6rem;padding-right: 0.6rem;height:1.0rem;margin-top:0.293333rem;margin-left:0.293333rem;color:#333;text-align:center;line-height:1.0rem;background-color:#F2F2F2;border:1px solid #F4F4F4;}
+	#search .card-block a.active{color:#F3930D;}
+	#search .section-01 .card-header{background:url($res('wap/css/img/section_01_header.png')) no-repeat 0.373333rem center;background-size:16px 16px;}
+	#search [data-dpr="2"] .section-01 .card-header{background-size:32px 32px;}
+	#search [data-dpr="3"] .section-01 .card-header{background-size:48px 48px;}
+	#search .section-02 .card-header{background:url($res('wap/css/img/section_02_header.png')) no-repeat 0.373333rem center;background-size:16px 16px;}
+	#search [data-dpr="2"] .section-02 .card-header{background-size:32px 32px;}
+	#search [data-dpr="3"] .section-02 .card-header{background-size:48px 48px;}
+	#search .section-02{margin-top:0.506667rem;border-top:1px solid #F0F0F0;}
+	#search .section-02 .card-header a{display:block;width:0.466667rem;height:0.466667rem;margin-top:0.306667rem;background:url($res('wap/css/img/del.png')) no-repeat left top;background-size:0.466667rem 0.466667rem;text-indent:-9999px;}
+</style>
+<script type="text/javascript">
+    function showSearch() {
+        if (!$("#search").is(":visible")) {
+            $('#q').html('');
+            $('#search').show();
+            $('#q').focus();
+        }
+        else {
+            $('#search').hide();
+        }
+        return false;
+    }
+</script>
+<div id="search" class="app">
+    <header class="header-02">
+        <a class="back" href="javascript:void(0)" onclick="return showSearch()"></a>
+        <div class="search">
+            <form id="form" action="$url('/search')" method="get" onsubmit="return onSearch()">
+                <input id="q" name="q" type="text">
+                <a href="javascript:void(0)" onclick="$('#form').submit()">搜索</a>
+            </form>
+        </div>
+    </header>
+    <!-- BEGIN wrapper -->
+    <div class="wrapper">
+        <!-- BEGIN content -->
+        <div class="content scroller">
+            <!-- BEGIN section-01 -->
+            <section class="card section-01">
+                <div class="card-header"><h2>热门搜索</h2></div>
+                <div class="clearfix card-block">
+                    $foreach(item in clr.Cnaws.Statistic.Modules.StatisticTag.GetTop(this.DataSource,20,7))
+                    <a href="$url('/search')?q=$urlencode(item.Name)">$item.Name</a>
+                    $end
+                </div>
+            </section>
+            <!-- END section-01 -->
+            <!-- BEGIN section-02 -->
+            <!--<section class="card section-02">
+                <div class="card-header">
+                    <h2>最近搜索</h2>
+                    <a href="">删除</a>
+                </div>
+                <div class="clearfix card-block">
+                    <a class="active" href="">美的空调</a>
+                    <a href="">4K 电视</a>
+                </div>
+            </section>-->
+            <!-- END section-02 -->
+
+        </div>
+        <!-- END content -->
+    </div>
+    <!-- END wrapper -->
+</div>
+<script type="text/javascript">
+    function goBack() {
+        if (window.history.length > 0) {
+            window.history.go(-1);
+        }
+        else {
+            window.location.href = '$url("/")';
+        }
+        return false;
+    }
+</script>

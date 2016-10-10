@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+<style>
+.bar{font-size:.8rem;}
+.wayshow_navPosi,.wayshow_nav{line-height:2.2rem;}
+.wayshow_nav{height:2.2rem;}
+.wayshow_navLe{left:.75rem}
+.bar-nav~.content{top: 2.2rem;bottom:2.5rem;}
+.bar.nav_bottom{height:2.5rem;}
+.bar.Purchase_plan_Sub{background:#fff;bottom:0;height:2.5rem;line-height:2.5rem;text-align:left;padding:0 0.75rem;}
+.Purchase_plan_Sub a{background:#e01928;display:inline-block;height:1.8rem;line-height:1.8rem;width:5rem;margin:.35rem 0;border-radius:.15rem;text-align:center;}
+.payment_infoicon{background: url($res('img2.0/payment_icon.png')) no-repeat;display:inline-block;}
+.payment_payment{background:#fff;}
+.purchaseall_payment h3{text-align:center;position:relative;font-weight:600;line-height:1.9rem;}
+/*.purchaseall_paymentDesc .paymentback_icon{position:absolute;left:.5rem;top:.5rem;display:inline-block;width:1rem;height:1rem;background:url(../img/paymentback_icon.png) center no-repeat;background-size:70%;}*/
+.purchaseall_paypurchaseall_paymentDescment ul{margin:0 0 .5rem;}
+.purchaseall_paymentDesc ul li{line-height:2.25rem;border-bottom:1px solid #e5e5e5;padding:0 15px;position:relative;}
+.purchaseall_paymentDesc ul li:last-child{border:none;}
+.purchaseall_paymentDesc ul li span{display:inline-block;}
+.purchaseall_paymentDesc ul li .paymentmode_icon{position:absolute;right:.75rem;top:.65rem;width:20px;height:20px;background-size:216px 28px;background-position:-93px -3px;display:none;}
+.purchaseall_paymentDesc ul li.on .paymentmode_icon{display:block;}
+.balance_icon{width:24px;height:24px;background-size:199px 24px;background-position:0px 0px;vertical-align:middle;margin-right:.5rem;}
+.wechat_icon{width:24px;height:24px;background-size:199px 24px;background-position:-28px 0px;vertical-align:middle;margin-right:.5rem;}
+.alipay_icon{width:24px;height:24px;background-size:199px 24px;background-position:-56px 0px;vertical-align:middle;margin-right:.5rem;}
+.hdfk_icon{width:24px;height:24px;background-size:199px 24px;background-position:-168px 0px;vertical-align:middle;margin-right:.5rem;}
+.business{line-height:1.8rem;}
+.payment_order_id{background:#fff;}
+.payment_order_id ul li{line-height:1.6rem;border-bottom:1px solid #f3f3f3;}
+.payment_order_id ul li:last-child{border:none;}
+.payment_payment h3{font-weight:600;line-height:1.5rem;}
+.Paymentfailure{display:inline-block;background:#ff7300;width:5.2rem;height:1.8rem;line-height:1.8rem;border-radius:.15rem;font-size:.8rem;}
+.no_goods{position:relative}
+.no_goods_icon{position:absolute;top:.75rem;left:.75rem;display:inline-block;width:2.5rem;height:2.5rem;text-align:center;line-height:2.5rem;background:rgba(0,0,0,.4);border-radius:50%;font-size:.8rem;font-weight:600;}
+.no_goodsBg{height:100%;background:rgba(0,0,0,.35);z-index:90;display:none;}
+.no_goodsTxt{z-index:92;width:90%;height:9.5rem;left:5%;top:50%;margin-top:-5rem;padding:0;display:none;}
+.no_goodsBg.on,.no_goodsTxt.on{display:block;}
+.no_goodsTxt:after{height:0;}
+.no_goodsAll{position:relative;width:100%;height:100%;}
+.no_goodsTop{line-height:2rem;text-align:center;font-size:.8rem;position:absolute;top:0;left:0;width:100%;-webkit-backface-visibility: hidden;backface-visibility: hidden;}
+.no_goodsTop:after{content:'';position:absolute;left:0;bottom:0;right:auto;top:auto;height: 1px;width:100%;
+background-color:#e7e7e7;display:block;z-index:15;-webkit-transform-origin:50% 100%;transform-origin:50% 100%;}
+.no_goodsReturn.bar:before{height:0;}
+.no_goodsList{position:absolute;left:0;right:0;top:2rem;bottom:2rem;overflow:auto;-webkit-overflow-scrolling:touch;height:60%;}
+.payment_close{position:absolute;right:5px;top:5px;z-index:99;width:20px;height:20px;background-size:232px 30px;background-position:-131px -6px;}
+.no_goodsReturn{height:2rem;font-size:.8rem;position:absolute;bottom:0;left:0;width:100%;text-align:center;}
+.no_goodsReturn input{background:#e01928;padding:0.25rem 2rem;border:none;border-radius:.15rem;margin-top:0;}
+.payment_content{margin-top:1.25rem;}
+.payment_password{border:1px solid #e5e5e5;width:100%;background:none;line-height:1.3rem;border-radius:0;}
+.password_prompt{position:relative;text-align:right;font-size:.65rem;line-height:1.5rem;}
+.password_promptTxt{position:absolute;left:50%;top:0;margin-left:-2.5rem;width:5rem;text-align:center;opacity:0;transition:opacity 2s;}
+.payment_prompticon{width:18px;height:18px;vertical-align:middle;background-size:256px 34px;background-position:-182px -9px;margin-right:.15rem;}
+.password_promptTxt.off{opacity:1;}
+</style>
+</head>
+<body bgcolor="#f3f3f3">
+<div class="page-group">
+	<div class="page page-current">
+		<div class="wayshow_nav bar bar_nav clearfix">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="javascript:history.go(-1)">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				付款
+			</div>
+		</div>
+		<!-- end nav -->
+		<div class="bar bar-nav no_goodsBg"></div>
+		<div class="bar bar-nav no_goodsTxt bg_fff">
+			<div class="no_goodsAll">
+				<form>
+				<div class="payment_infoicon payment_close"></div>
+				<div class="no_goodsTop bar bar-nav col_333">请输入支付密码</div>
+				<div class="content native-scroll" style="top:2rem;bottom:2rem;">
+                    $if(HasPayPassword==true)
+					<div class="payment_content pad_lr"><input class="payment_password" id="RePayPassword" name="RePayPassword" type="password" /></div>
+					<div class="mt10 pad_lr password_prompt">
+						<span style="color:#ff7300;">忘记密码？</span>
+						<span class="password_promptTxt col_e01928"><span class="payment_infoicon payment_prompticon"></span>支付密码错误</span>
+					</div>
+                    $else
+                    <div class="mt10 pad_lr password_prompt">
+                        <span style="color:#ff7300;"></span>
+                        <span class="off col_e01928" style="opacity:1; left:20%; width:auto;margin-left:-2.5rem; position:absolute;top:0.5rem; transition:opacity 2s ease 0s"><span class="payment_infoicon payment_prompticon"></span>您还未设置支付密码,<a href="$url('/security/paypassword')?target=$url('/buy/payment/',OrderId)">去设置</a> </span>
+                    </div>
+                    $end
+				</div>
+                    $if(HasPayPassword==true)
+				<div class="no_goodsReturn bar bar-footer"><input type="submit" id="password_verification" class="col_fff" value="确定" /></div>
+                    $end
+				</form>
+			</div>
+		</div>
+		
+		<div class="content native-scroll">
+			<div class="payment_payment">
+				<h3 class="pad_lr col_333">支付方式</h3>
+				<div class="purchaseall_paymentDesc">
+                    <form id="GoPay" action="$url('/buy/submit/balance')" onsubmit="return false" method="post">
+                        <ul>
+                            <li class="clearfix on"><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon balance_icon"></span><span>余额支付</span><span class="col_999 fr" style="margin-right:1.2rem;font-size:.7rem;">账户可用余额$Money.ToString("c2")</span></li>
+                            <li class="wechat" style="display:none;"><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon wechat_icon"></span><span>微信支付</span></li>
+                            <li class="alipay" style="display:none;"><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon alipay_icon"></span><span>支付宝支付</span></li>
+                            <li class="cashondelivery" style=""><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon hdfk_icon"></span><span>货到付款</span></li>
+                        </ul>
+                        <input type="hidden" name="Id" value="$OrderId" />
+                        <input type="hidden" id="PayPassword" name="PayPassword" />
+                    </form>
+				</div>
+			</div>
+			<div class="business pad_lr">
+				<span class="fr">商家</span>
+				订单号 
+			</div>
+			<div class="payment_order_id">
+				<ul>
+                    $foreach(order in OrderList)
+					<li class="pad_lr clearfix"><span class="fr">$order.GetStoreName(this.DataSource)</span>$order.Id</li>
+                    $end
+				</ul>
+			</div>
+		</div>
+
+		<div class="bar Purchase_plan_Sub bar-footer pad_lr">
+			<a href="#" class="col_fff fr" id="payment_sub">确认付款</a>
+			待付款:<span class="col_e01928"><b>$TotalMoney.ToString("c2")</b></span>
+		</div>
+	</div>
+</div>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+<script>
+$(function(){
+	payment_submit.iswechat();
+	$(".payment_submit").click(function(){
+		var this_click = $(this);
+		payment_submit.payment(this_click)
+	});
+//	$(".paymentback_icon").click(function(){
+//		$(".purchaseall_payment").css("bottom","100%")
+//	})
+	$(".purchaseall_paymentDesc ul li").click(function(){
+		var this_click = $(this);
+		payment_submit.purchaseall_paymentDesc(this_click)
+	});
+	//密码验证
+	$("#password_verification").click(function () {
+	    if ($(".payment_password").val() === '') {
+	        $(".password_promptTxt").addClass("off");
+	        $(".payment_password").val('')
+	        setTimeout(function () {
+	            $(".password_promptTxt").removeClass("off");
+	        }, 2500)
+	    }
+	    else {
+	        $.ajax({
+	            type: "Post",
+	            dataType: "json",
+	            url: "$url('/security/chkpaypwd')",
+	            data: "PayPassword=" + $(".payment_password").val(),
+	            async: false,
+	            success: function (data) {
+	                if (data.code == -200) {
+	                    $("#PayPassword").val($(".payment_password").val());
+	                    payment_submit.gopay();
+	                }
+	                else {
+	                    $(".password_promptTxt").addClass("off");
+	                    $(".payment_password").val('')
+	                    setTimeout(function () {
+	                        $(".password_promptTxt").removeClass("off");
+	                    }, 2500)
+	                }
+	            }
+	        });
+	    }
+		return false;
+	});
+	//确定
+	$("#payment_sub").click(function(){
+	    payment_submit.showpassport()
+	});
+	//
+	$(".payment_close").click(function(){
+		$(".no_goodsBg,.no_goodsTxt").removeClass("on")
+	})
+
+})
+var payment_submit = function () {
+    this.gopay = function () {
+        if ($(".purchaseall_paymentDesc ul li").eq(0).hasClass("on")) {
+            $("#GoPay").prop("action", "$url('/buy/submit/balance')");
+        }
+        else if ($(".purchaseall_paymentDesc ul").find(".wechat").hasClass("on")) {
+            $("#GoPay").prop("action", "$url('/buy/submit/wxpay')");
+        }
+        else if ($(".purchaseall_paymentDesc ul").find(".alipay").hasClass("on")) {
+            $("#GoPay").prop("action", "$url('/buy/submit/alipaydirect')");
+        }
+        else if ($(".purchaseall_paymentDesc ul").find(".cashondelivery").hasClass("on")) {
+            $("#GoPay").prop("action", "$url('/buy/submit/cashondelivery')");
+        }
+        $("#GoPay").submit();
+    }
+//	this.click = function(){
+//		var this_click = $(this)
+//	},
+	this.payment = function(this_click){
+		var this_Price = this_click.parent(".purchaseall_Sub").prev(".purchaseall_Txt").children('.col_ff7').children(".this_Price").text();
+		$(".purchaseall_Price").text(this_Price);
+		$(".purchaseall_payment").css("bottom","0");
+	},
+	this.purchaseall_paymentDesc = function(this_click){
+		$(".purchaseall_paymentDesc ul li").removeClass("on");
+		this_click.addClass("on")
+	},
+	//判断 is 微信
+	this.iswechat = function(){
+		var ua = navigator.userAgent.toLowerCase();
+	    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+	    	$(".wechat").css("display","block")
+	        return true;
+	    }else{
+	    	$(".alipay").css("display","block")
+	        return false;
+	    }
+	},
+	//余额付款
+	this.showpassport = function(){
+		if($(".purchaseall_paymentDesc ul li").eq(0).hasClass("on")){
+			$(".no_goodsBg,.no_goodsTxt").addClass("on")
+		}
+		else if ($(".purchaseall_paymentDesc ul").find(".cashondelivery").hasClass("on")) {
+		    $(".no_goodsBg,.no_goodsTxt").addClass("on")
+		}
+		else {
+		    this.gopay();
+		}
+	}
+}
+var payment_submit = new payment_submit();
+</script>
+
+</body>
+</html>

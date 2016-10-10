@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>物流信息</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.productlogistics.css')">
+    $load("inc/s_comm.html")
+</head>
+
+<body>
+    <!-- 头部 开始 -->
+    $if(this.Distributor.Level<=1)
+    $load("inc/x_top.html")
+    $else
+    $load("inc/d_top.html")
+    $end
+    <!-- 头部 第二部分 -->
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        
+        $if(this.Distributor.Level<=1)
+        $load("inc/x_side.html")
+        $else
+        $load("inc/d_side.html")
+        $end
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="center_wrapRight fr">
+            <h2>物流信息</h2>
+            <table align="center" border="0" width="100%" class="tableTrHeader">
+                <tr>
+                    <th class="heartTh">宝贝</th>
+                    <th>单价（元）</th>
+                    <th class="numberTh">数量</th>
+                    <th>订单状态</th>
+                    <th>实收款（元）</th>
+                    <th>交易操作</th>
+                </tr>
+            </table>
+            <!-- if begin -->
+            <table align="center" border="0" width="100%" class="heartDelivInf">
+                <tr class="tableTrTop">
+                    <td colspan="6">订单号：$Order.Id<span>付款时间：$Order.CreationDate.toString("yyyy-MM-dd HH:mm:ss")</span></td>
+                </tr>
+                $set(maps=Order.GetMapping(this.DataSource))
+                $set(orderCount=0)
+                $foreach(map in maps)
+                $set(info=json(map.ProductInfo))
+                $set(orderCount=orderCount+map.Count)
+                <tr>
+                    <td class="tableTd">
+                        <div class="heartInformation">
+                            $if(OrderType==0)
+                            <a href="$Site.Url$url('/product/show/',map.ProductId)" target="_blank" class="clearFix">
+                            $elseif(OrderType==1)
+                            <a href="$Site.B2bShopUrl$url('/product/show/',map.ProductId)" target="_blank" class="clearFix">
+                            $end
+                                    <div class="heartDelivImg fl">
+                                        <img src="$map.GetImage(info.Image)">
+                                    </div>
+                                    <div class="heartDelivMs fl">
+                                        $info.Title
+                                        <!--<p>适合身高：3/6码66CM<span>颜色：奶白色</span></p>-->
+                                        $foreach(attr in info.Series)
+                                        <p>$attr.Key：$attr.Value</p>
+                                        $end
+                                        <p>买家留言：</p>
+                                    </div>
+                                </a>
+                        </div>
+                    </td>
+                    <td class="pricTd">$map.Price.ToString("c2")</td>
+                    <td class="numberTd">1</td>
+                    <td class="stutasTd">$Order.GetStateInfo()<p><a href="$url('/shop/supplierstatus/',Order.Id)" target="_blank">订单详情</a></p></td>
+                    <td class="receiptTd">$Order.TotalMoney.ToString("c2")<p>含邮费（$Order.FreightMoney.ToString("c2")）</p></td>
+                    <td rowspan="2" class="stockTd"><a href="#" class="change"></a></td>
+                </tr>
+                $end
+                $set(addr=json(Order.Address))
+                <tr>
+                    <td colspan="4" class="merchantTd">
+                        买家信息：<span> $addr.Consignee</span>
+                        <span> $addr.Mobile</span>
+                        <span>邮编： $addr.PostId</span>
+                        <span>地址：$addr.Province$addr.City$addr.County$addr.Address</span>
+                        <span>买家留言：$Order.Message</span>
+                    </td>
+                    <td class="receiptTd"></td>
+                </tr>
+            </table>
+            <!-- if end -->
+            <!-- 你的包裹已被签收 开始 -->
+            <div class="packageSign_title">
+                你的包裹的物流信息
+            </div>
+            <div class="packageSign_wrap">
+                <div class="package-status">
+                    <div class="status-box" id="status_list">
+                        <ul id="J_listtext2" class="status-list">
+                            $if(isset("ExpressInfo") && ExpressInfo.message == "ok")
+                            $set(expTime="")
+                            $foreach(item in ExpressInfo.data)
+                            <li>
+                                $set(bgtime=GetDay(expTime))
+                                $set(endtime=GetDay(item.time))
+                                $if(bgtime!=endtime)
+                                <span class="date">
+                                    $GetDay(item.time)
+                                </span>
+                                <span class="week">
+                                    $GetWeek(item.time)
+                                </span>
+                                $else
+                                <span class="date"></span><span class="week"></span>
+                                $end
+                                $set(expTime=item.time)
+                                <span>
+                                    $GetTime(item.time)
+                                </span>
+                                <span>$item.context</span>
+                            </li>
+                            $end
+                            $else
+                            抱歉！暂时未找到相关信息
+                            $end
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 你的包裹已被签收 结束 -->
+            <!-- 你的包裹已被签收 结束 -->
+            <div class="orderAddress_wrap">
+                运单编号：<span class="orderLeft fb">$Logistics.BillNo</span>
+                物流公司：<span class="orderLeft fb">$Logistics.ProviderName</span>
+
+            </div>
+            <div class="Address_wrap clearFix">
+                <div class="addressLeft fl">
+                    <span>收货地址：</span>
+                    <span>收件人：</span>
+                    <span>联系电话：</span>
+                </div>
+                <div class="addressRight fl">
+                    <span>$addr.Province$addr.City$addr.County$addr.Address <i class="orderLeft fb"> $addr.PostId</i></span>
+                    <span class="fb"> $addr.Consignee</span>
+                    <span class="fb"> $addr.Mobile</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 分类弹窗开始 -->
+    <!-- 弹出层模板-->
+    $load("inc/xalert.html")
+    <!-- 弹出层结束-->
+    <!-- 分类弹窗结束 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+</body>
+</html>

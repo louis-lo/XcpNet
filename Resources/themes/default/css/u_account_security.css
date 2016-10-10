@@ -1,0 +1,39 @@
+.section-01 .panel-header{
+	padding-left: 38px;
+	background: url(img/user/account_security/section_01_header.jpg) no-repeat 15px 19px;
+}
+.section-01 .panel-body {
+	padding-top:50px;
+	padding-bottom: 50px;
+	text-align:center;
+}
+.section-01 ul {
+	width:577px;
+	margin: 18px auto 0;
+}
+.section-01 ul li {
+	float: left;
+	width: 98px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.section-02 {
+	padding: 10px 50px 105px;
+}
+.section-02 p {
+	position: relative;
+	height: 75px;
+	line-height: 75px;
+	text-indent: 38px;
+	background-repeat: no-repeat;
+	background-position: left 25px;
+	border-bottom: 1px dotted #DDD;
+}
+.section-02 p a {
+	/*display: block;*/
+	position: absolute;
+	right: 0;
+	padding-right: 25px;
+	background: #FFF url(img/right_arrow.png) no-repeat right 30px;
+}

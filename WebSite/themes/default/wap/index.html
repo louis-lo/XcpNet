@@ -1,0 +1,244 @@
+﻿$set(page=this.Request.QueryString["page"])
+$if(clr.System.String.IsNullOrEmpty(page)==false)
+$set(products=clr.Cnaws.Product.Modules.Product.GetPageTopRecommend(this.DataSource,clr.System.Int32.Parse(page),10,11))
+$foreach(product in products)
+<li>
+    <a href="$url('/product/info/',product.Id)">
+        <img class="load-img-$page" data-original="$product.GetImage()">
+        <p>$product.Title</p>
+        <p><ins><strong>$product.GetSalePrice().ToString("C2")</strong></ins><span onclick="return addCart($product.Id)">加收藏</span></p>
+    </a>
+</li>
+$end
+<script type="text/javascript">
+    pageIndex = $products.PageIndex;
+    pageCount = $products.PagesCount;
+    $(".load-img-$page").scaling(4.73333, 4.73333, errPic, '#wrapper', 'rem');
+</script>
+$else
+$set(products=clr.Cnaws.Product.Modules.Product.GetPageTopRecommend(this.DataSource,1,10,11))
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <title>$Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/swiper-3.3.1.min.css')">
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/index.css')">
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/styles/scroll.css')">
+    <style>
+        #infoNotify,#warningNotify,#successNotify,#errorNotify,#jqxNotificationDefaultContainer-top-right{
+            /*left:50%!important;
+            top:50%!important;*/
+            z-index:9999!important;
+        }
+    </style>
+    $load("inc/head.html")
+    <script type="text/javascript" src="$res('js/swiper-3.3.1.jquery.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/scroll.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var scroll = null;
+        var pageIndex = $products.PageIndex;
+        var pageCount = $products.PagesCount;
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            scroll = $('#wrapper').scrolling(pageIndex, pageCount, function () {
+                if (scroll.hasNext() && !scroll.isLocked()) {
+                    scroll.lock();
+                    Cnaws.getAjax('$url("/")?page=' + scroll.nextPage(), function (data, args) {
+                        $('#pages').append($(data));
+                        scroll.update(pageIndex, pageCount);
+                        scroll.unlock();
+                    }, null, true, 'html');
+                }
+            }, null, function () {
+                var _appHeader = $('.header-01');
+                var _hideBox = _appHeader.find('.hide-box'),
+                    dis = _appHeader.height() + this.y;
+                if (dis >= 0) {
+                    _hideBox.stop().animate({ opacity: 0 }, 'fast');
+                } else {
+                    _hideBox.stop().animate({ opacity: 0.75 }, 'fast');
+                }
+            });
+            new Swiper('.index-banner', { loop: true, autoplay: 3000, pagination: '.swiper-pagination', paginationClickable: true });
+            new Swiper('.news-flash .swiper-container', { direction: 'vertical', loop: true, autoplay: 3000 });
+            new Swiper('.new-arrivals .swiper-container', { slidesPerView: 'auto', loop: true });
+            initCart();
+            $(".load-img").scaling(2.22667, 2.22667, errPic, '#top-recom', 'rem');
+            $(".load-img2").scaling(4.73333, 4.73333, errPic, '#wrapper', 'rem');
+            $("img.lazy").lazyload({ placeholder: errPic });
+        });
+    </script>
+</head>
+<body>
+    <!-- BEGIN app -->
+    <div class="app">
+        $load("inc/header.html")
+        <!-- BEGIN wrapper -->
+        <div id="wrapper" class="wrapper">
+            <!-- BEGIN content -->
+            <div class="content scroller" id="scroller">
+                <!-- BEGIN swiper-container -->
+                <section class="swiper-container index-banner">
+                    <div class="swiper-wrapper">
+                        $foreach(row in clr.Cnaws.Banner.Modules.Banner.GetAll(this.DataSource))
+                        <div class="swiper-slide"><a href="$row.Url"><img src="$row.Image"></a></div>
+                        $end
+                    </div>
+                    <!-- 分页器 -->
+                    <div class="swiper-pagination"></div>
+                </section>
+                <!-- END swiper-container -->
+                <!-- BEGIN app-nav -->
+                <ul class="clearfix app-nav">
+                    <li>
+                        <a href="$url('/channel/cates')">
+                            <img src="$res('wap/img/index/site_nav_01.png')">
+                            全部分类
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$passport('/bought')">
+                            <img src="$res('wap/img/index/site_nav_02.png')">
+                            订单管理
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$passport('/cart')">
+                            <img src="$res('wap/img/index/site_nav_03.png')">
+                            购物车
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$passport('/ucenter')">
+                            <img src="$res('wap/img/index/site_nav_04.png')">
+                            我的乡城品
+                        </a>
+                    </li>
+                </ul>
+                <!-- END app-nav -->
+                <!-- BEGIN news-flash -->
+                <dl class="clearfix news-flash">
+                    <dt><img src="$res('wap/css/img/news_flash_title.png')"></dt>
+                    <dd class="swiper-container">
+                        <!-- BEGIN swiper-container -->
+                        <ul class="swiper-wrapper" style="display:block;">
+                            $foreach(it in clr.Cnaws.Article.Modules.Article.GetTop(this.DataSource,1,10))
+                            <li class="swiper-slide"><a href="//waphelp.xcpnet.com$url('/article/info/',it.Id)">$it.Title</a></li>
+                            $end
+                        </ul>
+                        <!-- END swiper-container -->
+                    </dd>
+                </dl>
+                <!-- END news-flash -->
+                <!-- BEGIN section-01 -->
+                <section class="clearfix section-01">
+                    <a class="section-01-img-01" href="$url('/channel/discount')"><img class="lazy" data-original="$res('wap/img/index/section_01_img_01.jpg')"></a>
+                    <div class="section-01-right">
+                        <a class="section-01-img-02" href="$url('/channel/one')"><img class="lazy" data-original="$res('wap/img/index/section_01_img_02.jpg')"></a>
+                        <div class="clearfix section-01-right-bottom">
+                            <a class="section-01-img-03" href="$url('/channel/promotions')"><img class="lazy" data-original="$res('wap/img/index/section_01_img_03.jpg')"></a>
+                            <a class="section-01-img-04" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_01_img_04.jpg')"></a>
+                        </div>
+                    </div>
+                </section>
+                <!-- END section-01 -->
+
+                <!--<a class="full-ad full-ad-01" href="$url('/channel/promotions')"><img class="lazy" data-original="$res('wap/img/full_ad_02.jpg')"></a>-->
+
+                <!-- BEGIN section-02 -->
+                <section class="clearfix section-02">
+                    <a class="section-02-img-01" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_02_img_01.jpg')"></a>
+                    <div class="section-02-right">
+                        <a class="section-02-img-02" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_02_img_02.jpg')"></a>
+                        <a class="section-02-img-03" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_02_img_03.jpg')"></a>
+                    </div>
+                </section>
+                <!-- END section-02 -->
+                <!-- BEGIN new-arrivals -->
+                <section class="card new-arrivals">
+                    <div class="card-header">
+                        <h2>新品推荐</h2>
+                        <!--<a href="">更多推荐 ></a>-->
+                    </div>
+                    <div class="card-block swiper-container">
+                        <ul id="top-recom" class="clearfix swiper-wrapper" style="display:block;">
+                            $foreach(product in clr.Cnaws.Product.Modules.Product.GetTopRecommend(this.DataSource,10,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                            <li class="swiper-slide">
+                                <a href="$url('/product/info/',product.Id)">
+                                    <div>
+                                        <img class="img-main load-img" data-original="$product.GetImage()">
+                                        <img class="img-aside" src="$res('wap/css/img/recommend_block.png')">
+                                    </div>
+                                    <ins>$product.GetSalePrice().ToString("C2")</ins>
+                                    <des>$product.MarketPrice.ToString("C2")</des>
+                                </a>
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+                </section>
+                <!-- END new-arrivals -->
+                <!-- BEGIN category -->
+                <section class="card category">
+                    <div class="card-header">
+                        <h2>商品分类</h2>
+                    </div>
+                    <div class="clearfix card-block">
+                        $foreach(cate in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+                        <a href="$url('/category/list/',cate.Id)"><img class="lazy" data-original="$res('wap/img/index/category_img_',cate.Id,'.png')"></a>
+                        $end
+                    </div>
+                </section>
+                <!-- END category -->
+                <!-- BEGIN goods-recommend -->
+                <section class="card goods-recommend">
+                    <div class="card-header">
+                        <h2><span>为你推荐</span></h2>
+                    </div>
+                    <div class="clearfix card-block">
+                        <ul id="pages">
+                            $foreach(product in products)
+                            <li>
+                                <a href="$url('/product/info/',product.Id)">
+                                    <img class="load-img2" data-original="$product.GetImage()">
+                                    <p>$product.Title</p>
+                                    <p><ins><strong>$product.GetSalePrice().ToString("C2")</strong></ins><span onclick="return addCart($product.Id)">加收藏</span></p>
+                                </a>
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+                </section>
+                <!-- END goods-recommend -->
+
+            </div>
+            <!-- END content -->
+        </div>
+        <!-- END wrapper -->
+    </div>
+    <!-- END app -->
+    <script type='text/javascript'>
+    (function(m, ei, q, i, a, j, s) {
+        m[a] = m[a] || function() {
+            (m[a].a = m[a].a || []).push(arguments)
+        };
+        j = ei.createElement(q),
+            s = ei.getElementsByTagName(q)[0];
+        j.async = true;
+        j.charset = 'UTF-8';
+        j.src = i + '?v=' + new Date().getUTCDate();
+        s.parentNode.insertBefore(j, s);
+    })(window, document, 'script', '//static.meiqia.com/dist/meiqia.js', '_MEIQIA');
+    _MEIQIA('entId', 19309);
+    </script>
+</body>
+</html>
+$end

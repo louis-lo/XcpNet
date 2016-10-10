@@ -1,0 +1,199 @@
+.main .panel-body {
+	padding: 10px;
+	padding-bottom: 65px;
+}
+.main .panel-body h3 {
+	font-size: 14px;
+}
+/* BEGIN section-01 */
+.section-01 {
+	padding-top: 15px;
+}
+.section-01 ul {
+	margin-top: 20px;
+}
+.section-01 li {
+	float: left;
+	width: 210px;
+	height: 152px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 11.6px;
+	background:  url(img/user/address_bg.png);
+}
+.section-01 li.active {
+ 	background: url(img/user/address_bg_active.png);
+ }
+ .section-01 li.active p:first-child {
+ 	width: 130px;
+ }
+  .section-01 li.add-address{
+  	background: url(img/user/add_address_bg.png);
+  }
+ .section-01 li.add-address a {
+ 	display: block;
+ 	margin-top: 105px;
+ 	text-align: center;
+ 	font-size: 14px;
+ 	color: #333;
+ }
+.section-01 li p{
+	height: 30px;
+	padding-left: 32px;
+	padding-right: 25px;
+	line-height: 30px;
+	background-position: 10px 8px;
+	background-repeat: no-repeat;
+	border-bottom: 1px dotted #ECECEC;
+}
+.section-01 li p.address,
+.section-01 li p.bottom {
+	border-bottom: 0;
+}
+.section-01 li p.address {
+	padding-top: 10px;
+	height: 48px;
+	line-height: 1.5;
+}
+.section-01 li p.bottom a {
+	display: block;
+	float: left;
+	width: 50%;
+	text-indent: 10px;
+	color: #7f401d;
+}
+.section-01 .footer {
+	display: block;
+	margin-top: 20px;
+	margin-left: 12px;
+	color: #005ea7;
+}
+/* END section-01 */
+
+/* BEGIN section-02 */
+.section-02 {
+	padding-top: 25px;
+	margin-top: 25px;
+	border-top: 1px solid #E1E1E1;
+}
+.section-02 div {
+	margin-top: 15px;
+}
+.section-02 a {
+	display: block;
+	float: left;
+	width: 142px;
+	margin-left: 12px;
+	text-align: center;
+	height: 26px;
+	line-height: 26px;
+	color: #666;
+	border: 2px solid #D5D4D4;
+}
+.section-02 a.active {
+	color: #ffc414;
+	background: url(img/user/pay_type_aactive.png) no-repeat 127px top;
+	border-color: #FFBF15;
+}
+/* END section-02 */
+
+/* BEGIN section-03 */
+.section-03 {
+	padding-top: 20px;
+	margin-top: 25px;
+	border-top: 1px solid #E1E1E1;
+}
+.section-03 .order-02 {
+	width: 100%;
+}
+.section-03 .order-02 th,
+.section-03 .order-02 td {
+	text-align: center;
+}
+.section-03 .order-02 th {
+	padding-top: 20px;
+	padding-bottom: 8px;
+	font-weight: bold;
+}
+.section-03 .order-02 tbody,
+.section-03 .order-02 tfoot {
+	background-color: #FFF0E4;
+	border-left: 1px solid #FDE4CF;
+	border-right: 1px solid #FDE4CF;
+}
+.section-03 .order-02 tbody {
+	border-top: 1px solid #FDE4CF;
+}
+.section-03 .order-02 tbody td {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px dotted #FDE4CF;
+}
+.section-03 .order-02 tfoot {
+	height: 75px;
+	line-height: 75px;
+	border-top: 1px solid #FDE4CF;
+	border-bottom: 1px solid #FDE4CF;
+}
+.section-03 .order-02 tfoot .f-left {
+	width:70%;
+}
+.section-03 .order-02 tfoot .f-right{
+	width:29%;
+	height: 55px;
+	padding-top: 20px;
+	line-height: 1.5;
+	text-align: left;
+	border-left:1px solid #FDE4CF;
+}
+.section-03 .order-02 tfoot input {
+	width: 530px;
+}
+.section-03 .order-02 tfoot label {
+	display: inline-block;
+	width: 80px;
+	text-align: right;
+}
+/* END section-03 */
+
+/* BEGIN order-03 */
+.order-03 {
+	width: 225px;
+	margin-left: 750px;
+}
+.order-03 th,
+.order-03 td {
+	padding-top: 15px;
+}
+.order-03 th {
+	width: 100px;
+	padding-right: 80px;
+	text-align: right;
+}
+.order-03 td {
+	font-weight: bold;
+}
+.order-03 .total {
+	font-size: 18px;
+	color: #f5b803;
+	font-family: '\5FAE\8F6F\96C5\9ED1';
+	text-align: right;
+}
+.order-03 .total strong {
+	font-size: 24px;
+}
+.order-03 .postform a {
+	float: right;
+	display: block;
+	width: 130px;
+	height: 35px;
+	padding: 0;
+	line-height: 35px;
+	color: #FFF;
+	font-size: 18px;
+	font-family: '"\5FAE\8F6F\96C5\9ED1';
+	text-align: center;
+	background-color: #FAC017;
+	border-radius: 2px;
+}
+/* END order-03 */

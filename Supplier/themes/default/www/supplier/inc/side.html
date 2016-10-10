@@ -1,0 +1,101 @@
+﻿
+<!-- 左边导航 -->
+<div class="County_JoinLe fl">
+    <!--城品惠交易管理-->
+    <div class="County_JoinLe_nav">
+        <h3 $if(this.Application.ControllerName!!"Order"||this.Application.ControllerName!!"AfterSales")class="on"$end><span class="Countylevel_JoinImg JoinLe_navIcon"></span>城品惠交易管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul ><!--class="on"-->
+            <li><a href="$url('/order/list/payment')">待付款的宝贝</a></li>
+            <li><a href="$url('/order/list/delivery')">待发货的宝贝</a></li>
+            <li><a href="$url('/order/list/all')">交易中的宝贝</a></li>
+            <li><a href="$url('/order/list/finished')">已卖出的宝贝</a></li>
+            <li><a href="$url('/aftersales/list')">售后管理</a></li>
+        </ul>
+    </div>
+    <!--城品惠交易管理结束-->
+    <!--进货宝交易管理-->
+    <div class="County_JoinLe_nav">
+        <h3 $if(this.Application.ControllerName!!"DistributorOrder")class="on"$end><span class="Countylevel_JoinImg JoinLe_navIcon"></span>进货宝交易管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul >
+            <li><a href="$url('/distributororder/list/payment')">待付款的宝贝</a></li>
+            <li><a href="$url('/distributororder/list/delivery')">待发货的宝贝</a></li>
+            <li><a href="$url('/distributororder/list/all')">交易中的宝贝</a></li>
+            <li><a href="$url('/distributororder/list/finished')">已卖出的宝贝</a></li>
+            <li><a href="$url('/aftersales/distributorlist')">售后管理</a></li>
+        </ul>
+    </div>
+    <!--进货宝交易管理结束-->
+    <!--城品惠宝贝管理-->
+    <div class="County_JoinLe_nav">
+        <!--class="on"--><h3 $if(this.Application.ControllerName!!"Product")class="on"$end><span class="Countylevel_JoinImg Countylevel_JoinImg02 JoinLe_navIcon"></span>城品惠宝贝管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/product/index')">发布宝贝</a></li>
+            <li><a href="$url('/product/list/saved')">仓库中的宝贝</a></li>
+            <li><a href="$url('/product/list/sale')">已上架的宝贝</a></li>
+        </ul>
+    </div>
+    <!--城品惠宝贝管理结束-->
+    <!--进货宝宝贝管理-->
+    <div class="County_JoinLe_nav">
+        <h3 $if(this.Application.ControllerName!!"DistributorProduct")class="on"$end><span class="Countylevel_JoinImg Countylevel_JoinImg02 JoinLe_navIcon"></span>进货宝宝贝管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul >
+            <li><a href="$url('/distributorproduct/index')">发布宝贝</a></li>
+            <li><a href="$url('/distributorproduct/list/saved')">仓库中的宝贝</a></li>
+            <li><a href="$url('/distributorproduct/list/sale')">已上架的宝贝</a></li>
+        </ul>
+    </div>
+    <!--进货宝宝贝管理结束-->
+    <!--店铺管理-->
+    <div class="County_JoinLe_nav">
+        <h3 $if(this.Application.ControllerName!!"StoreInfo")class="on"$end><span class="Countylevel_JoinImg Countylevel_JoinImg03 JoinLe_navIcon"></span>店铺管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/storeinfo/index')">店铺信息</a></li>
+            <li><a href="$url('/storeinfo/serie')">规格模板</a></li>
+        </ul>
+    </div>
+    <!--店铺管理结束-->
+    <!--退换货管理-->
+    <div class="County_JoinLe_nav">
+        <h3 $if(this.Application.ControllerName!!"ReturnAddress")class="on"$end><span class="Countylevel_JoinImg Countylevel_JoinImg04 JoinLe_navIcon"></span>退换货管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/returnaddress/index')">退货地址</a></li>
+        </ul>
+    </div>
+    <!--退换货管理结束-->
+    <!--财务中心-->
+    <div class="County_JoinLe_nav">
+        <h3><span class="Countylevel_JoinImg Countylevel_JoinImg05 JoinLe_navIcon"></span>财务中心<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/supplier/money')">我的收益</a></li>
+            <li><a href="$url('/bank/drawmoney')">申请提现</a></li>
+            <li><a href="$url('/bank/drawmoneyhistory')">提现记录</a></li>
+        </ul>
+    </div>
+    <!--财务中心结束-->
+    <!--账户管理-->
+    <div class="County_JoinLe_nav">
+        <h3 class="on"><span class="Countylevel_JoinImg Countylevel_JoinImg06 JoinLe_navIcon"></span>账户管理<span class="Countylevel_JoinImg JoinLe_openIcon"></span></h3>
+        <ul>
+            <li><a href="$url('/supplier/index')">基本信息</a></li>
+            <li><a href="$url('/freight/template')">运费模板</a></li>
+        </ul>
+    </div>
+    <!--账户管理结束-->
+</div>
+<!-- 左边导航 结束-->
+<script>
+    $(".span_basicTrade em").click(function(){
+        $(this).parent().remove();
+    });
+
+    $(function(){
+           $(".County_JoinLe_nav h3").click(function(){
+        if($(this).hasClass("on")){
+            $(this).removeClass()
+            console.log(1)
+        }else{
+            $(this).addClass("on")
+        }
+    })
+    })
+</script>

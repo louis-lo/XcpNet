@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>订单结算页</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.pc.payment.css')">
+    $load("inc/comm.html")
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="headerBottom_wrap w100">
+        <div class="header_bottom w1000 clearFix">
+            <img src="$res('img2.0/order_logo.png')" class="fl">
+        </div>
+    </div>
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap">
+        $set(orderCount=0)
+        <div class="center_wrapBox w1000 clearFix">
+            <div class="center_wrapBoxLeft fl">
+                请你及时付款，以便订单尽快处理！共$Count笔订单
+            </div>
+            <div class="center_wrapBoxRight center_wrapBoxLeft fl">
+                应付金额：<i>$Order.TotalMoney.ToString("c2")</i>元
+            </div>
+        </div>
+        <table align="center" border="0" width="100%" class="order_hao ">
+            <tr class="trOne">
+                <td class="tdOne">
+                    订单号：
+                </td>
+                <td class="">
+                    商家
+                </td>
+                <td class="">
+                    商品数量
+                </td>
+                <td class="">
+                    金额
+                </td>
+            </tr>
+            $set(maps=Order.GetMapping(this.DataSource))          
+            $foreach(map in maps)
+             $set(orderCount=orderCount+map.Count)
+            $set(info=json(map.ProductInfo))
+            <tr>
+                <td class="tableOne">
+                    $Order.Id
+                </td>
+                <td class="tableOne">
+                   $info.Title
+                </td>
+                <td class="tableOne">
+                    $map.Count$info.Unit
+                </td>
+                <td class="tableOne">
+                    $map.TotalMoney.ToString("c2")
+                </td>
+            </tr>
+            $end
+        </table>
+        <div class="center_orderPage w1000 ">
+            <ul class="clearFix">
+                <li class="un"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 支付方式 开始 -->
+    <div class="center_payWayBox w1000 ">
+        <h2 class="fl">支付方式</h2>
+        <a href="#" class="fr">返回</a>
+        <!-- 支付方式 -->
+        <div class="pay_mode center_address">
+            <ul class="clearFix">
+                <li class="clearFix">
+                    <div>
+                        <input type="radio" name="payRadio" class="fl" checked="checked" />
+                        <span class="yepayWay">
+                            <i class="ye"></i>余额支付
+                        </span>
+                        <div class="ablemoney_span">
+                            <span>可用余额<i>￥9860.00</i></span>
+                            <span class="fr">支付<i>￥9860.00</i></span>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="clearFix">
+                    <div>
+                        <input type="radio" name="payRadio" class="fl" />
+                        <span class="yepayWay"><i class="wx ye"></i>微信扫码支付</span>
+                        <div class="ablemoney_spantwo ablemoney_span">
+                            <span class="fr">支付<i>￥9860.00</i></span>
+                        </div>
+                    </div>
+                </li>
+                <li class="clearFix">
+                    <div>
+                        <input type="radio" name="payRadio" class="fl" />
+                        <span class="yepayWay"><i class="zfb ye"></i>支付宝支付</span>
+                        <div class="ablemoney_spantwo ablemoney_span">
+                            <span class="fr">支付<i>￥9860.00</i></span>
+                        </div>
+                    </div>
+                </li>
+                <!--<li class="clearFix">
+                    <div>
+                        <input type="radio" name="payRadio" class="fl" />
+                        <span class="yepayWay"><i class="zz ye"></i>转账支付</span>
+                        <div class="ablemoney_spantwo ablemoney_span">
+                            <span class="fr">支付<i>￥9860.00</i></span>
+                        </div>
+                    </div>
+                </li>-->
+            </ul>
+            <div class="center_payPrice fb">支付：<i>￥9860.00</i></div>
+            <div class="center_payPassword">
+                <input type="text" placeholder="请输入支付密码">
+                <div class="center_payTs">
+                    <span>密码错误</span>
+                    <a class="fb" href="#">忘记密码？</a>
+                </div>
+
+            </div>
+            <div class="cart_button clearFix">
+                <button class="fb" type="button">确认支付</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- 支付方式 结束 -->
+    <!-- 中间 结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    <script>
+	$(function(){
+	   $(".pay_mode ul li").click(function(){
+
+	   	  $(this).find("input:radio").attr("checked",true);
+	   	  var index=$(this).parent().find("li").index(this);
+	   	  if(index==0){
+	   	  	$(this).attr("id","border_li").siblings().attr("id","");
+	   	  	$(this).find(".ablemoney_span").show().find(".ablemoney_spantwo").show();
+	   	  	$(this).siblings().find(".ablemoney_spantwo").hide();
+	   	  	$(".center_payPassword").show();
+
+	   	  }else{
+	   	  	$(this).find(".ablemoney_spantwo").show();
+	   	  	$(this).siblings().find(".ablemoney_spantwo").hide();
+	   	  	$(this).parent().find("li").eq(0).find(".ablemoney_span").hide();
+	   	  	$(".center_payPassword").hide();
+            $(this).attr("id","border_li").siblings().attr("id","");
+	   	  }
+	   });
+	});
+    </script>
+</body>
+</html>

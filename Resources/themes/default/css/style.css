@@ -1,0 +1,22 @@
+li,ul{ list-style:none; margin:0px; border:0px; padding:0px;}
+#intro{width:100%;overflow:hidden;}
+#intro div{float:left;}
+.introShow{width:420px;float: left;margin-top: 13px;}
+.introShow .mainShow{width:400px;height:315px;padding:10px;border: 1px solid #ccc;}
+.mainShow img{width:400px;height:315px;}
+.introShow .scroll{margin-top:30px;width:420px;height:65px;overflow:hidden;}
+.scroll img{width:60px;height:60px;}
+.scroll a span{display:none;}
+.scroll a:hover{text-decoration:none;}
+.scroll .prevView, .scroll .nextView, .scroll .prevView.prevStop, .scroll .nextStop{float:left;margin-top:25px;width:7px;height:12px;background:url(../img/bgimg.gif) no-repeat -132px -17px;}
+.scroll .prevView{background-position:-139px -17px;}
+.scroll .prevStop, #main .scroll .prevView.prevStop:hover{background-position:-132px -17px;cursor:default;}
+#main .scroll .nextView.nextStop:hover{cursor:default;}
+.scroll .nextView, .scroll .nextStop{float:right;background-position:-160px -17px;}
+.scroll .prevView:hover{background-position:-146px -17px;}
+.scroll .nextView:hover{background-position:-167px -17px;}
+.scroll .nextStop, .scroll .nextStop:hover{background-position:-153px -17px;}
+.scroll ul{float:left;margin:0 6px 0 6px;width:365px;height:70px;overflow:hidden;}
+.scroll li{float:left; font-style:none;margin-bottom:2px;}
+.scroll li a{display:block;margin:0px 4px 0 5px;border:1px solid #ededed;padding:1px;}
+.scroll ul li a:hover{border:1px solid #f60;}

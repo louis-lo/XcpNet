@@ -1,0 +1,45 @@
+﻿$foreach(item in CommentList)
+$set(info=json(item.ProductInfo))
+<div class="clearfix media">
+    <div class="media-left">
+        <img class="media-object" src="$item.UserImage">
+    </div>
+    <div class="media-body">
+        <div class="clearfix star" star-data="$item.Star"></div>
+        <p class="media-body-top">$item.GetUserName()</p>
+        <p class="media-body-middle">
+            $foreach(key in item.GetKeywords(this.DataSource))
+            <label>$key.Keyword</label>
+            $end
+        </p>
+        <p class="media-body-middle">$item.Content</p>
+        <p class="media-body-bottom">
+            $foreach(attr in info.Series)
+            $attr.Key：$attr.Value&nbsp;
+            $end
+            <span>$item.CreationDate.ToString()</span>
+        </p>
+    </div>
+</div>
+$end
+<div class="clearfix pagination">
+    <ul>
+        $if(CommentList.BeginPage>1)
+        <li class="no"><a href="javascript:void(0)" onclick="return loadCP($CommentList.PageIndex - 1)">&lt;上一页</a></li>
+        <li><a href="javascript:void(0)" onclick="return loadCP(1)">1</a></li>
+        <li>...</li>
+        $end
+        $for(i=CommentList.BeginPage;i<=CommentList.EndPage;i++)
+        $if(i==CommentList.PageIndex)
+        <li><a href="javascript:void(0)" class="active">$i</a></li>
+        $else
+        <li><a href="javascript:void(0)" onclick="return loadCP($i)">$i</a></li>
+        $end
+        $end
+        $if(CommentList.PagesCount>CommentList.EndPage)
+        <li>...</li>
+        <li><a href="javascript:void(0)" onclick="return loadCP($CommentList.PagesCount)">$CommentList.PagesCount</a></li>
+        <li class="no"><a href="javascript:void(0)" onclick="return loadCP($CommentList.PageIndex+1)">下一页&gt;</a></li>
+        $end
+    </ul>
+</div>

@@ -1,0 +1,550 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>立即充值</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    $load("inc/header.html")
+    <style>
+        .bar {
+            font-size: .8rem;
+        }
+
+        .wayshow_navPosi, .wayshow_nav {
+            line-height: 2.2rem;
+        }
+
+        .wayshow_nav {
+            height: 2.2rem;
+        }
+
+        .wayshow_navLe {
+            left: .75rem;
+        }
+
+        .bar-nav ~ .content {
+            top: 2.2rem;
+            bottom: 2.5rem;
+        }
+
+        .bar.nav_bottom {
+            height: 2.5rem;
+        }
+
+        .bar.Purchase_plan_Sub {
+            background: #fff;
+            bottom: 0;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            text-align: left;
+            padding: 0 0.75rem;
+        }
+
+        .Purchase_plan_Sub a {
+            background: #e01928;
+            display: inline-block;
+            height: 44px;
+            line-height: 44px;
+            width: 100%;
+            margin: .5rem 0;
+            border-radius: .15rem;
+            text-align: center;
+            font-weight: .8rem;
+        }
+
+        .payment_infoicon {
+            background: url($res('wap/img2.0/cph/payment_icon.png')) no-repeat;
+            display: inline-block;
+        }
+
+        .payment_payment {
+            background: #fff;
+        }
+
+        .purchaseall_payment h3 {
+            text-align: center;
+            position: relative;
+            font-weight: 600;
+            line-height: 1.9rem;
+        }
+
+        .purchaseall_paypurchaseall_paymentDescment ul {
+            margin: 0 0 .5rem;
+        }
+
+        .purchaseall_paymentDesc ul li {
+            line-height: 2.25rem;
+            border-bottom: 1px solid #f3f3f3;
+            padding: 0 15px;
+            position: relative;
+        }
+
+            .purchaseall_paymentDesc ul li:last-child {
+                border: none;
+            }
+
+            .purchaseall_paymentDesc ul li span {
+                display: inline-block;
+            }
+
+            .purchaseall_paymentDesc ul li .paymentmode_icon {
+                position: absolute;
+                right: .75rem;
+                top: .65rem;
+                width: 20px;
+                height: 20px;
+                background-size: 216px 32px;
+                background-position: -121px -5px;
+                display: none;
+            }
+
+            .purchaseall_paymentDesc ul li.on .paymentmode_icon {
+                display: block;
+            }
+
+        .balance_icon {
+            width: 24px;
+            height: 24px;
+            background-size: 150px 24px;
+            background-position: 0px 0px;
+            vertical-align: middle;
+            margin-right: .5rem;
+        }
+
+        .wechat_icon {
+            width: 24px;
+            height: 24px;
+            background-size: 147px 24px;
+            background-position: -26px 0px;
+            vertical-align: middle;
+            margin-right: .5rem;
+        }
+
+        .alipay_icon {
+            width: 24px;
+            height: 24px;
+            background-size: 147px 24px;
+            background-position: -53px 0px;
+            vertical-align: middle;
+            margin-right: .5rem;
+        }
+
+        .business {
+            line-height: 1.8rem;
+        }
+
+        .payment_order_id {
+            background: #fff;
+        }
+
+            .payment_order_id ul li {
+                line-height: 1.6rem;
+                border-bottom: 1px solid #f3f3f3;
+            }
+
+                .payment_order_id ul li:last-child {
+                    border: none;
+                }
+
+        .payment_payment h3 {
+            font-weight: 600;
+            line-height: 1.5rem;
+        }
+
+        .Paymentfailure {
+            display: inline-block;
+            background: #ff7300;
+            width: 5.2rem;
+            height: 1.8rem;
+            line-height: 1.8rem;
+            border-radius: .15rem;
+            font-size: .8rem;
+        }
+
+        .no_goods {
+            position: relative;
+        }
+
+        .no_goods_icon {
+            position: absolute;
+            top: .75rem;
+            left: .75rem;
+            display: inline-block;
+            width: 2.5rem;
+            height: 2.5rem;
+            text-align: center;
+            line-height: 2.5rem;
+            background: rgba(0,0,0,.4);
+            border-radius: 50%;
+            font-size: .8rem;
+            font-weight: 600;
+        }
+
+        .no_goodsBg {
+            height: 100%;
+            background: rgba(0,0,0,.35);
+            z-index: 90;
+            display: none;
+        }
+
+        .no_goodsTxt {
+            z-index: 92;
+            width: 90%;
+            height: 9.5rem;
+            left: 5%;
+            top: 50%;
+            margin-top: -5rem;
+            padding: 0;
+            display: none;
+        }
+
+            .no_goodsBg.on, .no_goodsTxt.on {
+                display: block;
+            }
+
+            .no_goodsTxt:after {
+                height: 0;
+            }
+
+        .no_goodsAll {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .no_goodsTop {
+            line-height: 2rem;
+            text-align: center;
+            font-size: .8rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+            .no_goodsTop:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                right: auto;
+                top: auto;
+                height: 1px;
+                width: 100%;
+                background-color: #e7e7e7;
+                display: block;
+                z-index: 15;
+                -webkit-transform-origin: 50% 100%;
+                transform-origin: 50% 100%;
+            }
+
+        .no_goodsReturn.bar:before {
+            height: 0;
+        }
+
+        .no_goodsList {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 2rem;
+            bottom: 2rem;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            height: 60%;
+        }
+
+        .payment_close {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            z-index: 99;
+            width: 20px;
+            height: 20px;
+            background-size: 232px 36px;
+            background-position: -171px -8px;
+        }
+
+        .no_goodsReturn {
+            height: 2rem;
+            font-size: .8rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+            .no_goodsReturn input {
+                background: #e01928;
+                padding: 0.25rem 2rem;
+                border: none;
+                border-radius: .15rem;
+                margin-top: 0;
+            }
+
+        .payment_content {
+            margin-top: 1.25rem;
+        }
+
+        .payment_password {
+            border: 1px solid #e5e5e5;
+            width: 100%;
+            background: none;
+            line-height: 1.3rem;
+            border-radius: 0;
+        }
+
+        .password_prompt {
+            position: relative;
+            text-align: right;
+            font-size: .65rem;
+            line-height: 1.5rem;
+        }
+
+        .password_promptTxt {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            margin-left: -2.5rem;
+            width: 5rem;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 2s;
+        }
+
+        .payment_prompticon {
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+            background-size: 256px 40px;
+            background-position: -240px -12px;
+            margin-right: .15rem;
+        }
+
+        .password_promptTxt.off {
+            opacity: 1;
+        }
+        /*Withdrawals_balanceData*/
+        .Withdrawals_balaData {
+            background: #ee4653;
+            text-align: center;
+            padding: .75rem 0;
+        }
+
+        .Withdrawals_balaLe, .Withdrawals_balaRe {
+            width: 50%;
+        }
+
+        .withdrawals_Profit {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: url($res('wap/img2.0/cph/withdrawals_Profit.png')) no-repeat;
+            background-size: 100%;
+        }
+
+        .withdrawals_balance {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: url($res('wap/img2.0/cph/withdrawals_balance.png')) no-repeat;
+            background-size: 100%;
+        }
+
+        .withdrawals_Number h3 {
+            margin: .5rem 0;
+            font-weight: 600;
+        }
+
+        .withdrawals_Number .list-block {
+            margin: .25rem 0;
+        }
+
+            .withdrawals_Number .list-block .withdrawals_Quota {
+                background: #fff;
+                padding: 0 .75rem;
+            }
+
+        .content .business {
+            margin-top: .5rem;
+        }
+
+        .content .payment_content {
+            margin: .5rem 0;
+        }
+
+            .content .payment_content .payment_password {
+                line-height: 1.6rem;
+                border: none;
+                background: #fff;
+            }
+    </style>
+    <script type="text/javascript">
+        function onSubmit() {
+            var form = $('#form');
+            form.attr('disabled', true);
+            var mn = $("#Money").val();
+            var pat = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+            if (mn=='') {
+                $.alert("请输入正确的充值金额");
+            } else if (parseInt(mn)<10) {
+                $.alert("充值金额不能小于10元");
+            }
+            else if (mn.match(pat)) {
+                form.attr('disabled', false);
+                $(form).submit();
+                $.alert("验证通过");
+            }
+        }
+
+        //function onSubmit() {
+        //    var form = $('#form');
+        //    form.attr('disabled', true);
+        //    if (false) {
+        //        form.attr('disabled', false);
+        //        return true;
+        //    }
+        //    else {
+        //        form.attr('disabled', false);
+        //    }
+        //    return false;
+        //}
+    </script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar_nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    立即充值
+                </div>
+            </div>
+            <!-- end nav -->
+            <div class="bar bar-nav no_goodsBg"></div>
+            <div class="bar bar-nav no_goodsTxt bg_fff">
+                <div class="no_goodsAll">
+                    <form>
+                        <div class="payment_infoicon payment_close"></div>
+                        <div class="no_goodsTop bar bar-nav col_333">请输入支付密码</div>
+                        <div class="content native-scroll" style="top:2rem;bottom:2rem;">
+                            <div class="payment_content pad_lr"><input class="payment_password" type="password" /></div>
+                            <div class="mt10 pad_lr password_prompt">
+                                <span class="col_ff7">忘记密码？</span>
+                                <span class="password_promptTxt col_e01928"><span class="payment_infoicon payment_prompticon"></span>密码错误</span>
+                            </div>
+                        </div>
+                        <div class="no_goodsReturn bar bar-footer"><input type="submit" id="password_verification" class="col_fff" value="确定" /></div>
+                    </form>
+                </div>
+            </div>
+            <form id="form" action="$url('recharge/submit/',this.PayProvider)" method="post">
+                <div class="content native-scroll">
+                    <div class="Withdrawals_balaData col_fff clearfix" style="padding: 3rem 0;height: 170px;">
+                        <div class="fl Withdrawals_balaLe">
+                            <div><span class="withdrawals_balance"></span></div>
+
+                            <div>可用余额：$Member.Money.ToString("C2")</div>
+                        </div>
+                        <div class="fl Withdrawals_balaRe">
+                            <div><span class="withdrawals_Profit"></span></div>
+                            <div>冻结金额：$Member.FreezeMoney.ToString("C2")</div>
+                        </div>
+                    </div>
+                    <div class="payment_payment">
+                        <div class="purchaseall_paymentDesc">
+                            <ul style="display:none;">
+                                <li class="clearfix on"><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon balance_icon"></span><span>余额支付</span><span class="col_666 fr" style="margin-right:2rem;font-size:.6rem">账户可用余额$Member.Money.ToString("C2")</span></li>
+                                <li class="wechat" style="display:none;"><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon wechat_icon"></span><span>微信扫码支付</span></li>
+                                <li class="alipay" style="display:none;"><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon alipay_icon"></span><span>支付宝扫码支付</span></li>
+                            </ul>
+                            <ul>
+                                <li class="alipay"><span class="payment_infoicon paymentmode_icon"></span><span class="payment_infoicon alipay_icon"></span><span>支付宝支付</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="business pad_lr col_333">请输入充值金额 </div>
+                    <div class="payment_content pad_lr"><input class="payment_password" type="number" id="Money" name="Money" value="10" placeholder="请输入充值金额" /></div>
+                    <div class="Purchase_plan_Sub pad_lr">
+                        <a style="display:none;" href="#" class="col_fff" id="payment_sub">确认</a>
+                        <a href="javascript:void(0);" class="col_fff" onclick="onSubmit()" >确认</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+    <!--<script>
+        $(function () {
+            payment_submit.iswechat();
+            $(".payment_submit").click(function () {
+                var this_click = $(this);
+                payment_submit.payment(this_click)
+            });
+            $(".purchaseall_paymentDesc ul li").click(function () {
+                var this_click = $(this);
+                payment_submit.purchaseall_paymentDesc(this_click)
+            });
+            //密码验证
+            $("#password_verification").click(function () {
+                if ($(".payment_password").val() != 1) {
+                    $(".password_promptTxt").addClass("off");
+                    $(".payment_password").val('')
+                    setTimeout(function () {
+                        $(".password_promptTxt").removeClass("off");
+                    }, 1500)
+                    return false;
+                }
+            });
+            //余额
+            $("#payment_sub").click(function () {
+                payment_submit.balance()
+            });
+            //
+            $(".payment_close").click(function () {
+                $(".no_goodsBg,.no_goodsTxt").removeClass("on")
+            })
+        })
+        var payment_submit = function () {
+            this.payment = function (this_click) {
+                var this_Price = this_click.parent(".purchaseall_Sub").prev(".purchaseall_Txt").children('.col_ff7').children(".this_Price").text();
+                $(".purchaseall_Price").text(this_Price);
+                $(".purchaseall_payment").css("bottom", "0");
+            },
+            this.purchaseall_paymentDesc = function (this_click) {
+                $(".purchaseall_paymentDesc ul li").removeClass("on");
+                this_click.addClass("on")
+            },
+            //判断 is 微信
+            this.iswechat = function () {
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                    $(".wechat").css("display", "block")
+                    return true;
+                } else {
+                    //$(".alipay").css("display","block")
+                    return false;
+                }
+            },
+            //余额付款
+            this.balance = function () {
+                if ($(".purchaseall_paymentDesc ul li").eq(0).hasClass("on")) {
+                    $(".no_goodsBg,.no_goodsTxt").addClass("on")
+                }
+            }
+        }
+        var payment_submit = new payment_submit();
+    </script>-->
+
+    
+</body>
+</html>

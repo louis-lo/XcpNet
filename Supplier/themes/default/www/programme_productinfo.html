@@ -1,0 +1,43 @@
+﻿$if(this.IsAjax)
+$foreach(item in ProductList)
+<li class="clearFix second">
+    <div class="specifications add_class save fl" style="width:280px;padding-left:20px">
+        $set(attrs=item.GetAttributes(this.DataSource))        
+        $set(infos=json(attrs))
+        $if(infos.Count>0)
+        $for(i=0;i<infos.Count;i++)
+        <span>
+            $infos[i].Name：$infos[i].Value
+        </span>&nbsp;
+        $end
+        $else
+        无参数
+        $end
+    </div>
+
+    <div class="price fl">
+        $item.GetSalePrice(this.DataSource,this.Distributor.Province,this.Distributor.City,this.Distributor.County).ToString("C2")
+    </div>
+    <div class="stock fl">
+        $item.Inventory
+    </div>
+    <div class="number save fl">
+        <input type="text" id="Count_$item.Id" value="$item.WholesaleCount" min="$item.WholesaleCount" max="$item.Inventory" name="Count" placeholder="数量" />
+    </div>
+    <div class="material save fl" id="Exists_$item.Id">
+        $if(ExistsProgramme(item.Id)!=false)
+        <span style="color:green">存在</span>
+        $else
+        <span style="color:red">不存在</span>
+        $end
+    </div>
+    <div class="operation fl">
+        $if(ExistsProgramme(item.Id)==false)
+        <a href="javascript:;" data-id="$item.Id" class="saveScheme">添加</a>
+        $else
+        <a href="javascript:;" data-id="$item.Id" class="delScheme">删除</a>
+        $end
+    </div>
+</li>
+$end
+$end

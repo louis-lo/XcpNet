@@ -1,0 +1,131 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){
+body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+table{border-spacing:0;border-collapse:collapse;}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.w1000{ width:1200px; height:auto; overflow:hidden; margin:0 auto;}
+.w1001{ padding-top: 2px;overflow:hidden;position: absolute;}
+.mt{margin-top:10px;}
+input,button {outline:none;border: 0;background: #fff;}
+i{font-style: normal;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto; min-height:680px}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:100px;border-bottom:2px solid #ff3f08;text-align: center;font-size: 16px;}
+
+
+.seachWrap {
+    background: #fafafa none repeat scroll 0 0;
+    border: 1px solid #e5e5e5;
+    height: 82px;
+    padding: 18px 10px;
+}
+.seachWrap input {
+    border: 1px solid #e5e5e5;
+    padding: 5px;
+    width: 135px;
+}
+.seachWrap span {
+    margin-left: 15px;
+}
+.seachWrap select {
+    border: 1px solid #e5e5e5;
+    height: 29px;
+    width: 115px;
+}
+.hunt {
+    display: none;
+    margin-top: 20px;
+}
+.hunt a {
+    background: #fe500b none repeat scroll 0 0;
+    color: #fff;
+    display: inline-block;
+    font-family: "simsun";
+    font-size: 13px;
+    height: 24px;
+    line-height: 25px;
+    text-align: center;
+    width: 66px;
+}
+
+.hunt input {
+    background: #fe500b none repeat scroll 0 0;
+    color: #fff;
+    display: inline-block;
+    font-family: "simsun";
+    font-size: 13px;
+    text-align: center;
+    width: 86px;
+}
+
+.tableTrHeader{border:1px solid #e5e5e5;margin-top: 15px;height: 35px;background: #fafafa;}
+.heartTh{width:365px;}
+.tableTrTop td{text-align: left;background: #f1f1f1;height: 42px;padding-left: 20px;}
+.tableTrTop span{margin-left: 40px;color:#666;}
+.heartDelivInf{border:1px solid #e5e5e5;text-align: center;font-family: "simsun";margin-bottom: 42px;}
+.heartInformation a{display: block;padding:15px 20px;}
+.heartDelivMs{width: 230px;margin-left: 10px;color: #000;height: 85px;overflow: hidden;text-align: left;}
+.heartDelivMs p{color: #666;font-family: "simsun";}
+.numberTh{width: 100px;}
+
+.tableTd{width: 365px;}
+.pricTd{width: 143px;}
+.numberTd{width: 92px;}
+.stutasTd{width: 120px;}
+.receiptTd{width: 152px;border-left: 1px solid #e5e5e5;}
+.stockTd{border-left: 1px solid #e5e5e5;}
+.stockTd a{ padding: 8px 30px;border:1px solid #e2e2e2;border-radius: 3px;background: #f5f5f5;}
+.stockTd a:hover{background: #fff;border:1px solid #ff340d;color: #ff340d;transition: 0.5s;}
+.merchantTd{text-align: left;border-top:  1px solid #e5e5e5;height: 25px;padding-left: 24px;color: #666;}
+.merchantTd span{margin-left: 22px;}
+/* 商品分页 开始 */
+.center_pageWrapT{margin-top:10px;}
+.center_pageWrap{margin: 30px 0 70px;}
+.center_pageBox{overflow: hidden;}
+.center_pageBox ul li{float: left;background: #fff;margin-bottom: 10px;}
+.center_pageBox ul li a{font-size: 14px;}
+.page_prev{border:1px solid #e2e2e2;width: 75px;height: 30px;line-height: 30px;text-align: center;margin-left: 10px;}
+.page_prev span{background: url("../../img2.0/TB1Z4WGMpXXXXbyaXXX6sGuHVXX-458-458.png")no-repeat;width: 6px;height: 12px;display: inline-block;vertical-align: middle;}
+/* 上一页 两种状态 灰色*/
+.pageprev_img .unicon{background-position: -158px -422px;}
+.pageprev_unprint{vertical-align: middle;display: table-cell;display: block;color: #999;}
+/* 上一页 两种状态 可以点击*/
+.pageprev_img .icon{background-position: -126px -422px;}
+.pageprev_print{vertical-align: middle;display: table-cell;display: block;color: #333;}
+
+/* 下一页 两种状态 可以点击*/
+.pagenext_img .icon{background-position: -174px -422px;}
+.pageprev_next {color:#333;}
+/* 下一页 两种状态 灰色*/
+.pagenext_img .unicon{background-position: -206px -422px;}
+.pageprev_unnext {color:#999;}
+.page_numer a{height: 30px;line-height: 30px;width: 35px;border:1px solid #e2e2e2;margin-left: -1px;display: block;text-align: center;}
+.itme{margin-left: 10px;}
+.center_pageBox .dot{width: 35px;height: 30px;text-align: center;line-height: 40px;background: none;}
+.pagetext{margin-left: 10px; line-height: 37px; color: #999;}
+.m-page .input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.input{border: 1px solid #ededed;height: 21px;text-align: center;width: 35px;}
+.pagebtn, .input{margin-top: 7px;} .input, .pagetext{color: #999;}
+.pagebtn, .input, .pagetext{margin-left: 5px;}
+.pagebtn{background-clip: padding-box;border: 1px solid #ededed;border-radius: 2px;cursor: pointer;height: 21px;line-height: 21px;text-align: center;width: 43px;display: block;background: #fff;}
+.center_pageBox .page_numer a:hover{background: #ff340d none repeat scroll 0 0; border-color: #ff340d; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_pageBox .itme a{background: #ff340d none repeat scroll 0 0; border-color: #ff340d; color: #fff; cursor: pointer; position: relative; text-decoration: none; z-index: 1;}
+.center_mergepay button{border:1px solid #e2e2e2;padding:4px 10px;margin-left: 5px;}
+.center_mergepay input{margin-top: 2px;}
+/* 商品分页 结束 */
+.center_addAddressTitle{background: #ebebeb;height: 41px;text-align: center;font-family: "simsun";line-height: 41px;font-size: 13px;}
+.new_addressWrap{padding:15px 10px;}
+.new_addressLeft span{display: block;}
+.new_addressRint .checkWidth{width: 292px;height: 30px;margin-bottom: 20px;border:1px solid #e2e2e2;}
+.expressName{margin-top: 2px;}
+.expressN{margin-top: 30px;}
+.new_addressRint{margin-left: 5px;}
+.heartDelivImg img{width: 80px;height: 72px;}

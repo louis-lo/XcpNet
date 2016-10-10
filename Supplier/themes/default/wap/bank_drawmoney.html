@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>申请提现</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/withdrawals.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    提现
+                    <div class="navRe">
+                        <a href="$url('/bank/drawmoneyhistory')" class="col_666">提现记录</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <div class="withdrawals clearfix">
+                    <div class="fl withdrawals_Le">
+                        <div class="col_fff">￥$WithdrawalMoney.ToString("c2")</div>
+                        <div class="col_fff">累计提现</div>
+                    </div>
+                    <div class="fl withdrawals_Con">
+                        <div class="withdrawals_ConTop">
+                            <div class="col_fff">￥$NotaccountMoney.ToString("c2")</div>
+                            <div class="col_fff">未到账收益</div>
+                        </div>
+                        <div class="withdrawals_ConBom">
+                            <div class="col_fff">￥$FreezeMoney.ToString("c2")</div>
+                            <div class="col_fff">提现审核中</div>
+                        </div>
+                    </div>
+                    <div class="fl withdrawals_Re">
+                        <div class="withdrawals_ConTop">
+                            <div class="col_fff">￥$TotalMoney.ToString("c2")</div>
+                            <div class="col_fff">已到帐收益</div>
+                        </div>
+                        <div class="withdrawals_ConBom">
+                            <div class="col_fff">￥$FreezeMoney.ToString("c2")</div>
+                            <div class="col_fff">转账中</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bank_list">
+                    <ul>
+                        $if(DefaultBank!=null)
+                        <li class="on">
+                            <div class="bank_listMain fl">
+                                <h3 class="col_333">$DefaultBank.A.AccountName</h3>
+                                <div class="col_999">$DefaultBank.B.BankName（$DefaultBank.A.BankCard）</div>
+                            </div>
+                            <div class="bank_listLe fl"><img src="$DefaultBank.B.Icon" /></div><!--$res('wap/img2.0/ccb_icon.png')-->
+                            <span class="withdrawals_icon bank_opction"></span>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+
+                <div class="bank_submit">
+                    <a href="$url('/bank/drawmoneytocard')" class="col_fff">提现至银行卡</a>
+                    <a href="$url('/bank/drawmoneytobalance')" class="col_fff">提现至余额</a>
+                </div>
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>
+

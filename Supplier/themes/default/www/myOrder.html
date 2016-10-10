@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/stockTreasure.css')">
+    $load("inc/s_comm.html")
+    <meta charset="utf-8" />
+</head>
+<body>
+    $load("inc/d_top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/d_side.html")
+        <!-- 左边导航 结束-->
+        <div class="center_wrapRight fr clearFix">
+            <h2>我的订单</h2>
+            <!-- 待付款  开始 -->
+            <div class="status_goodsWrap">
+                <!-- 未付款 开始 -->
+                <div class="obligationWrap">
+                    <ul class="obligationUl clearFix">
+                        <li class="obligationWrap_heart">宝贝</li>
+                        <li class="obligationWrap_nature">属性</li>
+                        <li class="obligationWrap_price">单价（元）</li>
+                        <li class="obligationWrap_number">数量</li>
+                        <li class="obligationWrap_hj">合计</li>
+                        <li class="obligationWrap_state ">状态</li>
+                    </ul>
+                </div>
+                $foreach(order in OrderList)
+                <div class="obligation_orderBh obligationWrap">
+                    订单编号：<span>$order.Id</span>
+                    成交时间：$order.CreationDate.toString("yyyy-MM-dd HH:mm:ss")
+                </div>
+                <table align="center" border="0" width="100%" class="order_dataList">
+                    <tbody>
+                        $set(orderCount=0)
+                        $set(maps=order.GetMapping(this.DataSource))
+                        $foreach(product in maps)
+                        $set(info=json(product.ProductInfo))
+                        $set(orderCount=orderCount+product.Count)
+                        <tr>
+                            <td class="shipments_heart obligationWrap_heart ">
+                                <a href="$Site.Url$url('/product/show/',product.ProductId)" target="_blank">
+                                    <div class="orderGoods_print fl">
+                                        <img src="$GetImage(info.Image)">
+                                    </div>
+                                    <div class="shipmentsGoods_ms orderGoods_ms fl">
+                                        $info.Title
+                                    </div>
+                                </a>
+                            </td>
+                            <td class="obligationWrap_nature goods_nature">
+                                $foreach(attr in info.Series)
+                                <p>$attr.Key：$attr.Value&nbsp;</p>
+                                $end
+                            </td>
+                            <td class="obligationWrap_price goods_price">
+                                <span class="fb">$product.Price.ToString("c2")</span>
+                            </td>
+                            <td class="obligationWrap_number">
+                                $product.Count$info.Unit
+                            </td>
+                            <td class="obligationWrap_hj">
+                                $product.TotalMoney.ToString("c2")
+                            </td>
+                            $if(foreachIndex==1)
+                            <td class="shipmentsGoods_nature obligationWrap_nature" rowspan="$maps.Count">
+                                $if(order.State==6)
+                                <!--<a id="button1" class="new_address " onclick="ShowDiv('MyDiv3','fade')" data-target="#feedback" data-toggle="modal" href="#">申请售后</a>-->
+                                $end
+                                $order.GetStateInfo()
+                            </td>
+                            <td class="shipmentsGoods_state goods_state" rowspan="$maps.Count">
+                                <p><a href="$url('/shop/status/',order.Id)">查看详情</a></p>
+                            </td>
+                            $end
+                        </tr>
+                        $end
+                    </tbody>
+                </table>
+                $end
+                <!-- 未付款 结束 -->
+            </div>
+            <!-- 未付款  结束 -->
+            <!-- 分页 开始 -->
+            <div class="center_pageWrap">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+                        $if(OrderList.PageIndex==OrderList.BeginPage)
+                        <li class="page_prev">
+                            <a href="#" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/shop/myorder/',UserId,'/',OrderList.PageIndex-1)" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+
+                        $if(OrderList.BeginPage>1)
+                        $end
+                        $for(i=OrderList.BeginPage;i<=OrderList.EndPage;i++)
+                        $if(i==OrderList.PageIndex)
+                        <li class="page_numer itme">
+                            <a href="$url('/shop/myorder/',UserId,'/',i)">$i</a>
+                        </li>
+                        $else
+                        <li class="page_numer">
+                            <a href="$url('/shop/myorder/',UserId,'/',i)">$i</a>
+                        </li>
+                        $end
+                        $end
+                        $if(OrderList.PagesCount>OrderList.EndPage)
+                        <li class="page_numer"><a href="$url('/shop/myorder/',UserId,'/',OrderList.PageIndex+1)">...</a></li>
+                        <li class="page_numer"><a href="$url('/shop/myorder/',UserId,'/',OrderList.PagesCount)">$OrderList.PagesCount</a></li>
+                        $end
+                        $if(OrderList.PageIndex==OrderList.EndPage)
+                        <li class="page_next page_prev">
+                            <a href="#" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/shop/myorder/',UserId,'/',OrderList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                    <div class="total fl"> 共 $OrderList.PagesCount 页/$OrderList.TotalCount条，</div>
+                    <!--<div class="form fl">
+                        <span class="text">跳到</span>
+                        <input class="input J_Input location_number" type="number" aria-label="页码输入框" max="100" min="1" value="2">
+                        <span class="text">页</span>
+                        <span class="btn J_Submit fr location_href" tabindex="0" role="button">跳转</span>
+                    </div>-->
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".location_href").click(function () {
+                var location_number = $(".location_number").val();
+                var UserId = $UserId;
+                var location_href = '/shop/myorder/'+UserId+'/' + location_number +'.html';
+                window.location.href = location_href;             
+            })
+        })         
+    </script>
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+</body>
+</html>

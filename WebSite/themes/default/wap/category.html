@@ -1,0 +1,758 @@
+﻿$if(this.IsAjax)
+$foreach(item in ProductList)
+<li>$load("temp/product.html")</li>
+$end
+<script type="text/javascript">
+    pageIndex = $ProductList.PageIndex;
+    pageCount = $ProductList.PagesCount;
+    $(".load-img-$ProductList.PageIndex").scaling(300, 300, errPic, '#wrapper');
+</script>
+$else
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$Category.Name-$Site.Name</title>
+    <meta name="keywords" content="$Category.Name,$Site.Keywords">
+    <meta name="description" content="$Category.Name分类,$Site.Description">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/common.css')">
+    <link rel="stylesheet" href="$res('css/swiper-3.3.1.min.css')">
+    $if(this.Application.Action.StartsWith("category."))
+    $set(Channel=CategoryList[0].Id)
+    $elseif(this.Application.Action.StartsWith("discount."))
+    $set(Channel=-2)
+    $else
+    $set(Channel=-1)
+    $end
+    <style type="text/css">
+        .header {
+            background-color: #FFF !important;
+            color: #333;
+        }
+
+            .header a {
+                background-image: url($res('wap/css/img/back.png')) !important;
+            }
+
+        $if(Channel==1) .nav li.xp a {
+            color: #82451e;
+            background-image: url($res('wap/css/img/xp_active.png')) !important;
+        }
+
+        $elseif(Channel==2) .nav li.cp a {
+            color: #82451e;
+            background-image: url($res('wap/css/img/cp_active.png')) !important;
+        }
+
+        $elseif(Channel==3) .nav li.yp a {
+            color: #82451e;
+            background-image: url($res('wap/css/img/yp_active.png')) !important;
+        }
+
+        $end .order, .content {
+            margin-top: 0;
+            position: fixed;
+            top: 105px;
+            height: 100%;
+        }
+
+        #wrapper {
+            position: absolute;
+            z-index: 1;
+            top: 285px;
+            bottom: 84px;
+            width: 640px;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        #wrapper {
+            top: 25.346667rem;
+            bottom: 0;
+            background-color: #FFF;
+        }
+
+        #pullDown, #pullUp {
+            height: 80px;
+            line-height: 80px;
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #888;
+            text-align: center;
+        }
+
+            #pullDown .pullDownIcon, #pullUp .pullUpIcon {
+                display: block;
+                float: left;
+                margin-left: 180px;
+                width: 80px;
+                height: 80px;
+                background: url($res('/resource/static/iscroll/pull-icon.png')) 0 0 no-repeat;
+                background-size: 80px 160px;
+                -webkit-transition-property: -webkit-transform;
+                -webkit-transition-duration: 250ms;
+            }
+
+            #pullDown .pullDownIcon, #pullUp.flip .pullUpIcon {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+
+            #pullUp .pullUpIcon, #pullDown.flip .pullDownIcon {
+                -webkit-transform: rotate(-180deg) translateZ(0);
+            }
+
+            #pullDown .pullDownLabel, #pullUp .pullUpLabel {
+                display: block;
+                float: left;
+            }
+
+            #pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+                background-position: 0 100%;
+                -webkit-transform: rotate(0deg) translateZ(0);
+                -webkit-transition-duration: 0ms;
+                -webkit-animation-name: loading;
+                -webkit-animation-duration: 2s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+            }
+
+        @-webkit-keyframes loading {
+            from {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg) translateZ(0);
+            }
+        }
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript" src="$res('js/swiper-3.3.1.jquery.min.js')"></script>
+    <script type="text/javascript">
+        var locked = false;
+        var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
+        var pageIndex = $ProductList.PageIndex;
+        var pageCount = $ProductList.PagesCount;
+        var errPic = '$res("img/load_image.png")';
+        function pullDownAction() {
+            if (!locked) {
+                locked = true;
+                $.ajax({
+                    type: "GET",
+                    url: '$url("/category/list/", Category.Id, "/1")',
+                    dataType: 'html',
+                    success: function (data) {
+                        $.ajax({
+                            type: "GET",
+                            url: '$url("/category/brandlist/", Category.Id, "/1")',
+                            dataType: 'html',
+                            success: function (data) {
+                                $('#SwiperList').html($(data));
+                                locked = false;
+
+                                new Swiper('.new-arrivals .swiper-container', {
+                                    slidesPerView: 'auto', loop: false
+                                });
+                                myScroll.refresh();
+                            }
+                        });
+                        $('#list').html(data);
+                        locked = false;
+                        myScroll.refresh();
+                    }
+                });
+            }
+        }
+        function pullUpAction() {
+            if (!locked) {
+                locked = true;
+                $.ajax({
+                    type: "GET",
+                    url: Cnaws.getUrl('$url("/category/list/", Category.Id, "/")' + (pageIndex + 1)),
+                    dataType: 'html',
+                    success: function (data) {
+                        $.ajax({
+                            type: "GET",
+                            url: '$url("/category/brandlist/", Category.Id, "/")' + (pageIndex + 1) + ".html",
+                            dataType: 'html',
+                            success: function (data) {
+                                $('#SwiperList').html($(data));
+                                locked = false;
+                                new Swiper('.new-arrivals .swiper-container', {
+                                    slidesPerView: 'auto', loop: false
+                                });
+                                myScroll.refresh();
+
+                            }
+                        });
+                        $('#list').append($(data));
+                        locked = false;
+                        myScroll.refresh();
+                    }
+                });
+            }
+            if (!locked) {
+                locked = true;
+            }
+        }
+        $(document).ready(function () {
+            $(".header-01 li:first").append($("#title-header").html());
+            $.ajax({
+                type: "GET",
+                url: '$url("/category/brandlist/", Category.Id, "/1")',
+                dataType: 'html',
+                success: function (data) {
+                    if ($(data).length <= 0) {
+                        $('#SwiperList').parent().parent().hide();
+						$("#wrapper").attr("style","top: 4.346667rem");
+                    }
+					else{
+					$("#wrapper").attr("style","top: 25.946667rem");
+                    $('#SwiperList').html($(data));
+                    locked = false;
+                    new Swiper('.new-arrivals .swiper-container', {
+                        slidesPerView: 'auto', loop: false
+                    });
+					}
+                    myScroll.refresh();
+                }
+            });
+            pullDownEl = document.getElementById('pullDown');
+            if (pullDownEl != null) {
+                pullDownOffset = pullDownEl.offsetHeight;
+            }
+            else {
+                pullDownOffset = 0;
+            }
+            pullUpEl = document.getElementById('pullUp');
+            if (pullUpEl != null) {
+                pullUpOffset = pullUpEl.offsetHeight;
+            }
+
+            myScroll = new IScroll('#wrapper', {
+                scrollbars: true,
+                mouseWheel: true,
+                interactiveScrollbars: true,
+                shrinkScrollbars: 'scale',
+                fadeScrollbars: true,
+                probeType: 3,
+                startY: -pullDownOffset,
+                click: true
+            });
+            myScroll.beginDown = 0;
+            myScroll.beginUp = 0;
+            myScroll.on('scroll', function () {
+                if (!locked) {
+                    if (this.y > 5) {
+                        if (pullDownEl != null) {
+                            if (this.beginDown == 0) {
+                                this.beginDown = 1;
+                                pullDownEl.className = 'flip';
+                                pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+                            }
+                        }
+                    }
+                    else if (this.y < (this.maxScrollY - 5)) {
+                        if (pullUpEl != null) {
+                            if (this.beginUp == 0) {
+                                this.beginUp = 1;
+                                pullUpEl.className = 'flip';
+                                pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+                            }
+                        }
+                    }
+                }
+                $('#wrapper').trigger('scroll');
+            });
+            myScroll.on('scrollEnd', function () {
+                if (this.beginDown == 1) {
+                    if (!locked) {
+                        this.beginDown = 2;
+                        pullDownEl.className = 'loading';
+                        pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+                        pullDownAction();
+                    }
+                    else {
+                        this.beginDown = 0;
+                    }
+                }
+                if (this.beginUp == 1) {
+                    if (!locked) {
+                        if (pageIndex < pageCount) {
+                            this.beginUp = 2;
+                            pullUpEl.className = 'loading';
+                            pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+                            pullUpAction();
+                        }
+                        else {
+                            this.beginUp = 0;
+                            pullUpEl.className = '';
+                            pullUpEl.querySelector('.pullUpLabel').innerHTML = '已到最后一页';
+                        }
+                    }
+                    else {
+                        this.beginUp = 0;
+                    }
+                }
+            });
+            myScroll.on('refresh', function () {
+                if (this.beginDown == 2) {
+                    this.beginDown = 0;
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                    if (this.y < 5) {
+                        this.scrollTo(this.x, this.options.startY);
+                    }
+                }
+                if (this.beginUp == 2) {
+                    this.beginUp = 0;
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                }
+            });
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+            $(".load-img").scaling(300, 300, errPic, '#wrapper');
+        });
+    </script>
+</head>
+<body>
+    <style type="text/css">
+        .nav-01 {
+            display: none;
+        }
+
+        /*header*/
+        .header-01 {
+            position: fixed;
+            top: 0;
+            z-index: 9999;
+            width: 640px;
+            height: 101px;
+            background-color: #ffffff;
+        }
+
+            .header-01 ul {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 640px;
+                height: 101px;
+            }
+
+            .header-01 li {
+                float: left;
+                height: 101px;
+            }
+
+                .header-01 li:nth-child(1) {
+                    width: 350px;
+                }
+
+                    .header-01 li:nth-child(1) h1 {
+                        padding: 0;
+                        margin: 0;
+                        font-size: 0;
+                        display: inline-block;
+                        width: 50px;
+                        float: left;
+                    }
+
+                    .header-01 li:nth-child(1) a {
+                        display: block;
+                        width: 100%;
+                        height: 101px;
+                        text-indent: -9999px;
+                        background-image: url($res('wap/css/img/back.png')) !important;
+                        background-size: 20px;
+                        background-position: 20px 50% !important;
+                        background-repeat: no-repeat;
+                    }
+
+                .header-01 li:nth-child(2) {
+                    width: 240px;
+                }
+
+                .header-01 li:nth-child(3) {
+                    width: 100px;
+                    display: none;
+                }
+
+                .header-01 li input {
+                    width: 200px;
+                    height: 50px;
+                    padding: 0;
+                    padding-left: 50px;
+                    margin-top: 25px;
+                    background: #E7E9E6 url($res('wap/css/img/search.png')) no-repeat 10px center;
+                    background-size: 30px;
+                    border: 0;
+                    border-radius: 5px;
+                }
+
+
+
+        .header-02 {
+            position: fixed;
+            width: 640px;
+            height: 101px;
+            background-color: #FFF;
+            border-bottom: 1px solid #E5E5E5;
+        }
+
+            .header-02 h1 {
+                display: block;
+                width: 540px;
+                height: 101px;
+                margin: 0 auto;
+                font-size: 16px;
+                color: #333;
+                line-height: 101px;
+                text-align: center;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .header-02 a.back {
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: block;
+                width: 50px;
+                height: 101px;
+                text-indent: -9999px;
+                background-image: url($res('wap/css/img/back.png')) !important;
+                background-size: 20px;
+                background-position: 20px 50% !important;
+                background-repeat: no-repeat;
+            }
+
+        [data-dpr="2"] .header-02 h1 {
+            font-size: 32px;
+        }
+
+        [data-dpr="3"] .header-02 h1 {
+            font-size: 48px;
+        }
+
+        .header-02 .search {
+            margin-top: 25px;
+            margin-left: 60px;
+        }
+
+            .header-02 .search input {
+                width: 430px;
+                height: 50px;
+                padding: 0;
+                padding-left: 50px;
+                background: #E7E9E6 url($res('wap/css/img/search.png')) no-repeat 10px center;
+                background-size: 30px;
+                border: 0;
+                border-radius: 5px;
+            }
+
+            .header-02 .search a {
+                padding-left: 0.16rem;
+                padding-right: 0.16rem;
+                font-size: 24px;
+                color: #333;
+            }
+
+        /*header*/
+
+
+        .app {
+            width: 640px;
+            height: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #search .wrapper {
+            top: 101px !important;
+            height: 100%;
+            padding-top: 111px;
+        }
+
+        .card.section-01 {
+            background: #ffffff;
+        }
+
+        #search .card-block a {
+            padding-left: 30px !important;
+            padding-right: 30px !important;
+            margin-top: 15px !important;
+            margin-left: 15px !important;
+            line-height: 60px !important;
+            height: 60px !important;
+        }
+
+            #search .card-block a.active {
+                color: #F3930D;
+            }
+
+        #search .section-01 .card-header {
+            background-position: 20px center !important;
+            background-size: 36px !important;
+            height: 60px;
+            line-height: 60px;
+            padding-left: 73px;
+        }
+    </style>
+    <div class="page">
+        <div class="app">
+            $load("inc/header.html")
+        </div>
+        <!--<div class="header">
+            <a href="javascript:history.go(-1)" class="back">返回</a>
+            $Category.Name
+        </div>-->
+        <div id="title-header" style="display:none;">
+            <span style="margin-top:38px; display:block; width:298px; text-align:center; float:left">
+                $Category.Name
+            </span>
+        </div>
+        <div class="content">
+            <style type="text/css">
+                .thumbnail {
+                    margin-top: 0;
+                }
+
+                .filter.tab {
+                    margin-bottom: 10px;
+                }
+
+                /*.filter ul {
+                    height: 80px;
+                    padding-right: 88px;
+                    color: #333;
+                    text-align: center;
+                    background-color: #FFF;
+                    border-top: 1px solid #E8E8E8;
+                    border-bottom: 1px solid #E8E8E8;
+                }
+                .filter li {
+                    float: left;
+                    width: 92px;
+                }
+                .filter li a {
+                    display: inline-block;
+                    height: 74px;
+                    line-height: 74px;
+                    color: #333;
+                    border-bottom: 6px solid #fff;
+                }
+                .filter li.active a {
+                    color: #febf17;
+                    border-bottom-color: #febf17;
+                }
+                .filter div {
+                    margin-top: 14px;
+                }
+                .filter div a {
+                    float: left;
+                    display: inline-block;
+                    width: 142px;
+                    height: 74px;
+                    margin-bottom: 14px;
+                    line-height: 74px;
+                    color: #333;
+                    margin-left: 14px;
+                    text-align: center;
+                    background-color: #FFF;
+                }*/
+            </style>
+            <div class="filter tab" style="width:640px;background-color:#FFF;">
+
+
+                <!-- BEGIN news-flash -->
+                <style>
+                    .card {
+                        background-color: #F0F0F0;
+                    }
+
+                        .card a {
+                            color: #333;
+                        }
+
+                    .card-header {
+                        height: 26px;
+                        line-height: 26px;
+                        padding-left: 20px;
+                        padding-right: 20px;
+                    }
+
+                        .card-header h2 {
+                            float: left;
+                            color: #333;
+                        }
+
+                        .card-header a {
+                            float: right;
+                            color: #999;
+                        }
+
+                    .card img {
+                        display: inline-block;
+                        width: 200px !important;
+                        height: 200px !important;
+                        margin: 0 auto;
+                    }
+
+                    .swiper-slide {
+                        width: 213px !important;
+                        text-align: center;
+                        float: left !important;
+                        padding-bottom: 10px;
+                    }
+
+                        .swiper-slide div, .swiper-slide p {
+                            margin-bottom: 10px;
+                        }
+
+                        .swiper-slide p {
+                            width: 90%;
+                            height: 26px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            line-height: 26px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .swiper-slide ins {
+                            color: #ff3300;
+                            font-weight: 700;
+                        }
+
+                        .swiper-slide des {
+                            color: #999;
+                            text-decoration: line-through;
+                            font-size: 18px;
+                        }
+                </style>
+                <section class="card new-arrivals">
+                    <div class="clearfix card-header" style="height:50px;line-height:50px;background-color:#FFF;">
+                        <h2>品牌特供</h2>
+                        <!--<a href="">更多推荐 ></a>-->
+                    </div>
+                    <div class="swiper-container" style="margin-top:10px;background-color:#FFF;">
+                        <ul class="clearfix swiper-wrapper" id="SwiperList"></ul>
+                    </div>
+                </section>
+                <!-- END news-flash -->
+                <!--<ul class="clearfix tab-header">
+                    #foreach(item in BigCategoryList)
+                    <li #{if(item.Id==CategoryList[1].Id)}class="active"#{end}><a href="#url('/category/list/',item.Id)">#item.Name</a></li>
+                    #end
+                </ul>
+                <div class="clearfix">
+                    #foreach(item in SmallCategoryList)
+                    <li #{if(item.Id==Category.Id)}class="active"#{end}><a href="#url('/category/list/',item.Id)">#item.Name</a></li>
+                    #end
+                </div>-->
+            </div>
+            <!-- BEGIN thumbnail -->
+            <style>
+                #list li {
+                    width: 100%;
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    padding-bottom: 0 !important;
+                }
+
+                .media-left,
+                .media-left img {
+                    width: 200px !important;
+                    height: 200px !important;
+                    padding: 0 !important;
+                }
+
+                .media-body {
+                    width: 410px;
+                    margin-left: 10px;
+                }
+
+                .media-left,
+                .media-body {
+                    float: left;
+                }
+
+                .media-body {
+                    padding-top: 36px;
+                }
+
+                    .media-body p {
+                        margin-top: 20px;
+                    }
+
+                    .media-body h3,
+                    .media-body h3 a {
+                        height: 26px;
+                        line-height: 26px;
+                    }
+
+                    .media-body a {
+                        width: 100%;
+                        display: inline-block;
+                        color: #333 !important;
+                        text-align: left;
+                        line-height: 26px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+            </style>
+            $if(ProductList.Data.Count>0)
+            <h2 style="width:640px;height:50px;line-height:50px;background-color:#FFF;text-indent:20px;color:#333;">厂家直销</h2>
+            $end
+            <div id="wrapper" style="margin-top:10px;">
+                <div id="scroller">
+                    $if(ProductList.Data.Count>0&&ProductList.PagesCount>1)
+                    <div id="pullDown">
+                        <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+                    </div>
+                    $end
+                    <ul id="list" class="clearfix thumbnail">
+                        $foreach(item in ProductList)
+                        <li class="clearfix">
+                            <a class="media-left" href="$url('/product/info/',item.A.Id)"><img class="load-img" data-original="$item.A.GetImage()" alt="$item.A.Title"></a>
+                            <div class="media-body">
+                                <h3><a href="$url('/product/info/',item.A.Id)">$item.A.Title</a></h3>
+                                <p>
+                                    <ins>$item.A.GetSalePrice().ToString("C2")</ins>
+                                    <des>$item.A.MarketPrice.ToString("C2")</des>
+                                </p>
+                                <p class="clearfix thumbnail-footer">
+                                    <span class="ensure-01">已交保证金</span>
+                                    <span class="ensure-02">品质保障</span>
+                                </p>
+                            </div>
+
+                        </li>
+                        $end
+                    </ul>
+                    $if(ProductList.Data.Count>0&&ProductList.PagesCount>1)
+                    <div id="pullUp">
+                        <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                    </div>
+                    $end
+                </div>
+            </div>
+            <!-- END thumbnail -->
+        </div>
+    </div>
+    $load("inc/footer.html")
+</body>
+</html>
+$end

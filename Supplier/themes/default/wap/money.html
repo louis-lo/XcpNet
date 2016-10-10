@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>我的收益</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/withdrawals.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+    <style>
+        .list-block {
+            margin: 0;
+            border-bottom: 15px solid #f3f3f3;
+        }
+
+        .bar-footer {
+            line-height: 2.2rem;
+        }
+
+        .col_ffc {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    我的收益
+                    <div class="navRe">
+                        <a href="$url('/distributor/searchmoney')" class="col_ff7">查询</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bar bar-standard bar-footer bg_fff col_333" style="text-align:right;font-size:.8rem">
+                <b>合计：</b>　总金额：￥<b>500</b>　总收益：￥<b>500</b>
+            </div>
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <div class="withdrawals clearfix">
+                    <div class="fl withdrawals_Le">
+                        <div class="col_fff">$Member.Money.ToString("C2")</div>
+                        <div class="col_fff">累计提现</div>
+                    </div>
+                    <div class="fl withdrawals_Con">
+                        <div class="withdrawals_ConTop">
+                            <div class="col_fff">$Profit.HoustonFreeze.ToString("C2")</div>
+                            <div class="col_fff">未到账收益</div>
+                        </div>
+                        <div class="withdrawals_ConBom">
+                            <div class="col_fff">$Profit.FreezeMoney.ToString("C2")</div>
+                            <div class="col_fff">提现审核中</div>
+                        </div>
+                    </div>
+                    <div class="fl withdrawals_Re">
+                        <div class="withdrawals_ConTop">
+                            <div class="col_fff">$Member.Money.ToString("C2")</div>
+                            <div class="col_fff">已到帐收益</div>
+                        </div>
+                        <div class="withdrawals_ConBom">
+                            <div class="col_fff">$Profit.FreezeMoney.ToString("C2")</div>
+                            <div class="col_fff">转账中</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- for -->
+                $foreach(item in MoneyList.Data.Data)
+                <div class="list-block myRecommend">
+                    <ul>
+                        <li class="col_333" style="background:#eee">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益时间：</div>
+                                    <div class="item-input col_999" style="text-align:right;padding-right:.75rem">$item.CreateDate.ToString("yyyy-MM-dd HH:mm:ss")</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">公司名：</div>
+                                    <div class="item-input">天盛金城科技有限公司</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">状态：</div>
+                                    <div class="item-input col_ff7">已到帐</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">来源订单：</div>
+                                    <div class="item-input">15412365498745</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">总金额：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                $end
+                <!-- end for -->
+                <!-- for -->
+                <div class="list-block myRecommend">
+                    <ul>
+                        <li class="col_333" style="background:#eee">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益时间：</div>
+                                    <div class="item-input col_999" style="text-align:right;padding-right:.75rem">2015-06-02 15:30</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">公司名：</div>
+                                    <div class="item-input">天盛金城科技有限公司</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">状态：</div>
+                                    <div class="item-input col_999">未到账</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">来源订单：</div>
+                                    <div class="item-input">15412365498745</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">总金额：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end for -->
+                <!-- for -->
+                <div class="list-block myRecommend">
+                    <ul>
+                        <li class="col_333" style="background:#eee">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益时间：</div>
+                                    <div class="item-input col_999" style="text-align:right;padding-right:.75rem">2015-06-02 15:30</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">公司名：</div>
+                                    <div class="item-input">天盛金城科技有限公司</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">状态：</div>
+                                    <div class="item-input col_ff7">转账中</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">来源订单：</div>
+                                    <div class="item-input">15412365498745</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">总金额：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end for -->
+                <!-- for -->
+                <div class="list-block myRecommend">
+                    <ul>
+                        <li class="col_333" style="background:#eee">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益时间：</div>
+                                    <div class="item-input col_999" style="text-align:right;padding-right:.75rem">2015-06-02 15:30</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">公司名：</div>
+                                    <div class="item-input">天盛金城科技有限公司</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">状态：</div>
+                                    <div class="item-input col_ffc">审核中</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">来源订单：</div>
+                                    <div class="item-input">15412365498745</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">总金额：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col_333">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">收益：</div>
+                                    <div class="item-input col_ff7">￥500</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end for -->
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

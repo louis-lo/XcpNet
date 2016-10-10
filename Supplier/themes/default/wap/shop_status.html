@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>订单详情</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+    <style>
+        .receipt_detaTop {
+            border-bottom: 1px solid #e5e5e5;
+            line-height: 2rem;
+        }
+
+        .receipt_detaContacts {
+            padding: .5rem .75rem;
+        }
+
+            .receipt_detaContacts h3 {
+                line-height: 1.5rem;
+                color: #333;
+                font-size: .7rem;
+                font-weight: normal;
+            }
+
+            .receipt_detaContacts .choice_icon {
+                background-position: -22px 0;
+                margin-right: .3rem;
+            }
+
+        .receipt_detainfo {
+            zoom: 1;
+            overflow: hidden;
+            padding-left: 1.2rem;
+        }
+
+        .receipt_detaCon_main {
+            width: 100%;
+        }
+
+        .receipt_detaCon_Le {
+            width: 200px;
+            margin-left: -100%;
+            position: relative;
+            left: -1.2rem;
+        }
+
+        .purchase_ReceiptBottom {
+            position: fixed;
+            bottom: 0;
+            background: #fff;
+            height: 2.5rem;
+            width: 100%;
+            line-height: 2.5rem;
+            box-sizing: border-box;
+        }
+
+        .purchase_ReceiptTest {
+            padding: .5rem .75rem;
+        }
+
+        .content-block {
+            padding: 0;
+            margin: 0;
+        }
+
+            .content-block ul li {
+                border-bottom: 1px solid #f3f3f3;
+                line-height: 1.5rem;
+                padding: 0 .75rem;
+            }
+
+        .purchaseall_Txt, .purchaseall_Sub {
+            text-align: right;
+        }
+
+        .content-block ul li.purchaseall_order {
+            color: #666;
+        }
+
+        .purchaseall_Txt span:last-child {
+            ;
+            margin-left: .5rem;
+        }
+
+        .purchaseall_Sub a {
+            border: 1px solid #e5e5e5;
+            padding: .3rem 0.5rem;
+            font-size: .7rem;
+            border-radius: .15rem;
+        }
+
+            .purchaseall_Sub a:last-child {
+                background: #ff7300;
+                border: 1px solid #ff7300;
+                margin-left: .5rem;
+            }
+
+        .content-block ul li.purchase_complete a {
+            color: #ff7300;
+            border-color: #ff7300;
+            background: none;
+        }
+
+        .content-block ul .purchaseall_Test {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-box;
+            display: -o-box;
+            display: box;
+            box-sizing: border-box;
+            padding: .3rem .75rem;
+        }
+
+        .purchaseall_Le {
+            width: 4rem;
+            height: 4rem;
+            margin-right: .293rem;
+            overflow: hidden;
+            background: #fff;
+            -webkit-box-pack: center;
+            -moz-box-pack: center;
+            -ms-box-pack: center;
+            -o-box-pack: center;
+            box-pack: center;
+            -webkit-box-align: center;
+            -moz-box-align: center;
+            -ms-box-align: center;
+            -o-box-align: center;
+            box-align: center;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-box;
+            display: -o-box;
+            display: box;
+        }
+
+            .purchaseall_Le img {
+                height: 4rem;
+                width: 4rem;
+            }
+
+        .purchaseall_Con {
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            -ms-box-flex: 1;
+            -o-box-flex: 1;
+            box-flex: 1;
+            line-height: 1.4;
+        }
+
+            .purchaseall_Con h3 {
+                font-size: .7rem;
+            }
+
+            .purchaseall_Con .Coninfo {
+                font-size: .6rem;
+                margin-top: .3rem;
+            }
+
+        .purchaseall_Re {
+            width: 3.5rem;
+            text-align: right;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-box;
+            display: -o-box;
+            display: box;
+            -webkit-box-orient: vertical;
+        }
+
+        .address_opction {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-size: 310px 225px;
+            background-position: -232px -104px;
+            vertical-align: middle;
+            margin: -2px .5rem 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        $set(a=clr.System.String.Concat("http://",this.Request.UrlReferrer.Host,"/"))
+                        <a href="$if(a==passport('/'))$url('/shop/order')${else}javascript:history.go(-1)$end">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    订单详情
+                </div>
+            </div>
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <div class="receipt_detaTop pad_lr"><div class="order_Txt col_333"><span class="fr col_ff7"> $Order.GetStateInfo()</span>订单号：$Order.Id</div></div>
+                $set(address=json(Order.Address))
+                <div class="receipt_detaContacts">
+                    <h3>收货人：$address.Consignee$address.Mobile</h3>
+                    <div class="receipt_detainfo">
+                        <div class="receipt_detaCon_main fl col_999">  $address.Province $address.City $address.County $address.Address</div>
+                        <div class="receipt_detaCon_Le fl"><span class="withdrawals_icon address_opction"></span></div>
+                    </div>
+                </div>
+                <div class="way_line"></div>
+                <div class="content-block">
+                    <ul>
+                        <li><div class="order_Txt">下单时间： $Order.CreationDate.toString("yyyy-MM-dd HH:mm:ss")</div></li>
+                        <!-- for goods list  -->
+                        $set(maps=Order.GetMapping(this.DataSource))
+                        $set(orderCount=0)
+                        $foreach(map in maps)
+                        $set(info=json(map.ProductInfo))
+                        $set(orderCount=orderCount+map.Count)
+                        <li class="purchaseall_Test">
+                            <div class="purchaseall_Le">
+                                <img src="$info.Image">
+                            </div>
+                            <div class="purchaseall_Con">
+                                <h3 class="txt_hide2L col_333"> $info.Title</h3>
+                                $foreach(attr in info.Series)
+                                <p class="txt_hide2L Coninfo col_999">$attr.Key：$attr.Value&nbsp;</p>
+                                $end
+                            </div>
+                            <div class="purchaseall_Re">
+                                <p>$map.Price.ToString("c2")</p>
+                                <p>X $map.Count</p>
+                            </div>
+                        </li>
+                        $end
+                        <!-- end for goods list  -->
+                        <!-- for goods list  -->
+                        <!--<li class="purchaseall_Test">
+                            <div class="purchaseall_Le">
+                                <img src="$res('wap/img2.0/Withdrawals_balance.png')">
+                            </div>
+                            <div class="purchaseall_Con">
+                                <h3 class="txt_hide2L col_333">乡城品优品 夏季条纹休闲连衣裙瘦半身裙子</h3>
+                                <p class="txt_hide2L Coninfo col_999">颜色：白象牙见识拍  规格：XL</p>
+                            </div>
+                            <div class="purchaseall_Re">
+                                <p>￥120.00</p>
+                                <p>X1</p>
+                            </div>
+                        </li>-->
+                        <!-- end for goods list  -->
+
+                        <li class="purchaseall_Txt">
+                            <span class="col_999">共$orderCount款商品</span>
+                            <span class="col_ff7">实付：<b class="this_Price">$Order.TotalMoney.ToString("c2")</b></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="purchase_ReceiptTest">
+                    <h3 class="col_333">价格信息</h3>
+                    <ul class="col_999">
+                        <li>订单总金额：<b> $Order.TotalMoney.ToString("c2")</b></li>
+                        $if(Order.State>2)
+                        <li>
+                            已节省：<b>
+                                $set(SaveMoney=Order.TotalMoney-Order.TotalMoney)
+                                $SaveMoney.ToString("c2")
+                            </b>
+                        </li>
+                        <li>实际支付： <b>  $Order.TotalMoney.ToString("c2")</b></li>
+                        <li>支付方式：$Order.GetPayTypeName()</li>
+                        $end
+                    </ul>
+                </div>
+                <div class="way_line"></div>
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

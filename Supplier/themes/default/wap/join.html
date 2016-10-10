@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>加入进货宝</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/citygoods.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/citygoods_admin.css')">
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+    $load("inc/header.html")
+</head>
+<body>
+    <div class="wrap">
+        <header class="bar bar-nav">
+            <h1 class="title">加入进货宝</h1>
+        </header>
+        <div class="content native-scroll">
+            <form id="form" action="$url('/joinus/submit')" method="post" onsubmit="return false">
+                <div class="list-block">
+
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">店铺名称</div>
+                                    <div class="item-input">
+                                        <input type="text" name="Company" id="Company" required="required" value="" placeholder="请输入店铺名称">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Text inputs -->
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">联系人</div>
+                                    <div class="item-input">
+                                        <input type="text" name="Consignee" id="Consignee" required="required" value="" placeholder="请输入联系人姓名">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-email"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">联系电话</div>
+                                    <div class="item-input">
+                                        <input type="text" required="required" pattern="[1]{1}[0-9]{10}" id="Mobile" name="Mobile" value="" placeholder="请输入联系人电话">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-password"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">区域</div>
+                                    <div class="item-input">
+                                        <input type="text" id="city-picker" data-id="" readonly placeholder="请选择" autocomplete="off" required="required" pattern="((?!\u8bf7\u9009\u62e9).)*" data-required="true" data-descriptions="provincial_city" value="请选择">
+                                        <input type="hidden" id="area_provinces" name="area_provinces" />
+                                        <input type="hidden" id="area_cities" name="area_cities" />
+                                        <input type="hidden" id="area_counties" name="area_counties" />
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-form-gender"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-title label">详细地址</div>
+                                    <div class="item-input">
+                                        <input type="text" required="required" id="Address" name="Address" value="" placeholder="请输入详细地址">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <div class="row">
+                        <div class="col-100">
+                            <input type="submit" class="button button-big button-fill button-success" value="提交" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+    <script src="$res('wap/js2.0/sm-city-picker.js')"></script>
+    <script>
+        $("#city-picker").cityPicker({
+            toolbarTemplate: '<header class="bar bar-nav">\
+		<button class="button button-link pull-right close-picker">确定</button>\
+		<h1 class="title">选择地区</h1>\
+		</header>'
+        });
+
+        $("#form").submit(function () {
+            var areaid = $("#city-picker").attr("data-id").split(',');
+            if (areaid.length > 1) {
+                $("#area_provinces").val(areaid[0]);
+                $("#area_cities").val(areaid[1]);
+                $("#area_counties").val(areaid[2]);
+                var form = $('#form');
+                form.attr('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (data) {
+                        if (data.code == -200) {
+                            $.alert('提交成功！', function () {
+                                $set(target = this.Request.QueryString["target"])
+                                $if(clr.System.String.IsNullOrEmpty(target))
+                                window.location.href = '$url("/index")';
+                                $else
+                                window.location.href = '$target';
+                                $end
+                            });
+                        }
+                        else {
+                            $.alert("提交失败，请重试");
+                        }
+                        form.attr('disabled', false);
+                    }
+                });
+            }
+            else {
+                $.toast("请选择区域！");
+            }
+            return false;
+        });
+    </script>
+</body>
+</html>

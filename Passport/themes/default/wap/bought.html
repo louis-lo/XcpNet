@@ -1,0 +1,426 @@
+﻿$if(this.IsAjax)
+    $if(OrderList.Data.Count>0)
+    <div class="order_all">
+    $foreach(order in OrderList)
+    <!-- order for -->
+    <ul>
+        <li><a href="$url('/buy/status/',order.Id)" class="external"><div class="order_Txt"><span class="fr col_e01928">$order.GetStateInfo()</span>订单号：$order.Id</div></a></li>
+        <!-- M for -->
+        $set(orderCount=0)
+        $set(maps=order.GetMapping(this.DataSource))
+        $foreach(product in maps)
+        $set(info=json(product.ProductInfo))
+        $set(orderCount=orderCount+product.Count)
+        <li class="purchaseall_Test">
+            <div class="purchaseall_Le">
+                <img src="$product.GetImage(info.Image)" />
+            </div>
+            <div class="purchaseall_Con">
+                <h3 class="txt_hide2L col_333"><a class="external" href="$url('/buy/status/',order.Id, '/', product.ProductId)">$info.Title</a></h3>
+                <p class="txt_hide2L Coninfo col_999">
+                    $foreach(attr in info.Series)
+                    $attr.Key：$attr.Value&nbsp;
+                    $end
+                </p>
+            </div>
+            <div class="purchaseall_Re">
+                <p class="col_999">$product.Price.ToString("c2")</p>
+                <p class="col_999">X$product.Count$info.Unit</p>
+            </div>
+        </li>
+        <li class="purchaseall_Sub purchase_complete">
+            $if(order.State==6)
+            <a href="$passport('/service/addservice/',order.Id,'/',product.ProductId)" class="payment_submit col_666">申请售后</a>
+            $if(product.Evaluation.ToString()=='true')
+            <a href="javascript:void(0);" onclick="location.href = '$url('/comment/set/',product.ProductId,'/',order.Id,'/',1)'" class="payment_submit">查看评价</a>
+            $elseif(product.Evaluation.ToString()=='false')
+            <a href="javascript:void(0);" onclick="location.href = '$url('/comment/set/',product.ProductId,'/',order.Id,'/',0)'" class="payment_submit">立即评价</a>
+            $end
+            $elseif(order.State==3||order.State==5)
+            <a href="$passport('/service/addservice/',order.Id,'/',product.ProductId)" class="payment_submit">申请退款</a>
+            $end
+        </li>
+        $end
+        <!-- end M for -->
+        <li class="purchaseall_Txt">
+            <span class="col_666">共$orderCount款商品</span>
+            <span class="col_e01928">实付：￥<b class="this_Price">$order.TotalMoney.ToString("c2")</b></span>
+        </li>
+        $if(order.State>5)
+        <li class="purchaseall_Sub purchase_complete">
+            <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+        </li>
+        $end
+        $if(order.State==1)
+        <li class="purchaseall_Sub purchase_complete">
+            <a class="payment_submit col_666 external" id="cancelOrder" data-id="$order.Id" href="javascript:void(0)" onclick="return delOrder('$order.Id')">取消订单</a>
+            <a class="payment_submit col_fff external" href="$passport('/buy/perfect/',item.Id)">立即支付</a>
+        </li>
+        $elseif(order.State==2)
+        <li class="purchaseall_Sub purchase_complete">
+            <a class="payment_submit col_666 external" id="cancelOrder" data-id="$order.Id" href="javascript:void(0)" onclick="return delOrder('$order.Id')">取消订单</a>
+            <a class="payment_submit col_fff external" href="$passport('/buy/payment/',order.Id)">立即支付</a>
+        </li>
+        $elseif(order.State==3)
+        <li class="purchaseall_Sub purchase_complete">
+            <a href="javascript:reminderDelivery('$order.Id')" data-id="$order.Id" class="payment_submit col_666 external">提醒发货</a>
+        </li>
+        $elseif(order.State==4)
+        <li class="purchaseall_Sub purchase_complete">
+            <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+            <a href="javascript:void(0)" onclick="doReceipt($order.Id)" data-id="$order.Id" class="payment_submit col_fff external">确认收货</a>
+        </li>
+        $elseif(order.State==5)
+        <li class="purchaseall_Sub purchase_complete">
+            <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+            <a href="javascript:reminderDelivery('$order.Id')" data-id="$order.Id" class="payment_submit col_fff external">提醒发货</a>
+        </li>
+        $else
+
+        $end
+    </ul>
+    <!-- end order for -->
+    $end
+</div>
+    $end
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/swiper.min.css?v=1')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <script type="text/javascript">
+        $(function () {
+            var dataCount = parseInt('$OrderList.Data.Count');
+            if (dataCount<4) {
+                $('.infinite-scroll-preloader').remove();
+            }
+        });
+
+        function delOrder(id) {
+            if (window.confirm('取消后不可恢复，确认取消？')) {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '$url("/buy/cancel")',
+                    data: 'Id=' + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.reload();
+                        } else {
+                            $.alert("操作失败！");
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function doReceipt(id) {
+            if (window.confirm('确认收货？')) {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '$url("/buy/receipt")',
+                    data: 'Id=' + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.href = '$url("/bought/list")';
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function reminderDelivery(orderId) {
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: '$url("/ReminderDelivery/Reminder/", "' + orderId + '")',
+                success: function (result) {
+                    if (result.code == -200) {
+                        $.alert("提醒成功");
+                    }
+                    else {
+                        $.alert("今日已成功提醒过商家，请等待商家发货");
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current" id="page-infinite-scroll-bottom">
+            <div class="clearfix bar bar-nav col_333 bg_fff">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    全部订单
+                </div>
+            </div>
+
+            <div class="bar bar-nav bg_fff" style="top:2.2rem">
+                <div class="order_nav clearfix">
+                    <!-- Swiper -->
+                    <div class="swiper-container fl">
+                        <div class="swiper-wrapper">
+                            <div ${if(State=="_")}class="swiper-slide on"${else}class="swiper-slide"${end}><a href="$url('/bought/list/','_')" >全部</a></div>
+                            <div ${if(State=="Payment")}class="swiper-slide on"${else}class="swiper-slide"${end}><a href="$url('/bought/list/','Payment')">待付款</a></div>
+                            <div ${if(State=="Delivery" )}class="swiper-slide on" ${else}class="swiper-slide" ${end}><a href="$url('/bought/list/','Delivery')">待发货</a></div>
+                            <div ${if(State=="OutWarehouse")}class="swiper-slide on"${else}class="swiper-slide"${end}><a href="$url('/bought/list/','OutWarehouse')">出库中</a></div>
+                            <div ${if(State=="Receipt")}class="swiper-slide on"${else}class="swiper-slide"${end}><a href="$url('/bought/list/','Receipt')">待收货</a></div>
+                            <div ${if(State=="Finished")}class="swiper-slide on"${else}class="swiper-slide"${end}><a href="$url('/bought/list/','Finished')">已完成</a></div>
+                            <div class="swiper-slide"><a href="$url('/service/servicelist')">售后</a></div>
+                        </div>
+                    </div>
+                    <div class="fr purchasemy_icon ordermore_icon"></div>
+                </div>
+            </div>
+
+            <!-- order more nav -->
+            <div class="bar bar-nav bg_fff ordermore_nav" style="top:2.2rem;border:none;z-index: 999999;">
+                <div class="ordermore_navTop clearfix">
+                    <div class=" fl col_666">选择状态</div>
+                    <div class="fr purchasemy_icon ordermore_icon ordermore_iconS"></div>
+                </div>
+                <div class="ordermore_navList">
+                    <ul class="clearfix">
+                        <li ${if(State=="_")}class="on"${end}><a href="$url('/bought/list/','_')" name="tabOrder" v="_">全部订单</a></li>
+                        <li ${if(State=="Payment")}class="on"${end}><a href="$url('/bought/list/','Payment')" name="tabOrder"  v="Payment">待付款</a></li>
+                        <li ${if(State=="Delivery" )}class="on" ${end}><a href="$url('/bought/list/','Delivery')" name="tabOrder" v="Delivery">待发货</a></li>
+                        <li ${if(State=="OutWarehouse")}class="on"${end}><a href="$url('/bought/list/','OutWarehouse')" name="tabOrder" v="OutWarehouse">出库中</a></li>
+                        <li ${if(State=="Receipt")}class="on"${end}><a href="$url('/bought/list/','Receipt')" name="tabOrder" v="Receipt">待收货</a></li>
+                        <li ${if(State=="Finished")}class="on"${end}><a href="$url('/bought/list/','Finished')" name="tabOrder" v="Finished">已完成</a></li>
+                        <li><a href="$url('/service/servicelist')">售后</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- / order more nav -->
+            <!-- content -->
+            <!--<div class="content native-scroll">-->
+            <!--$load("inc/xalert.html")-->
+            <div class="content pull-to-refresh-content infinite-scroll infinite-scroll-bottom" data-ptr-distance="55" data-distance="100">
+                <!-- 默认的下拉刷新层 -->
+                <div class="pull-to-refresh-layer">
+                    <div class="preloader"></div>
+                    <div class="pull-to-refresh-arrow"></div>
+                </div>
+                <div id="temp">
+                    $if(OrderList.Data.Count>0)
+                    <div class="order_all">
+                        $foreach(order in OrderList)
+                        <!-- order for -->
+                        <ul>
+                            <li><a href="$url('/buy/status/',order.Id)" class="external"><div class="order_Txt"><span class="fr col_e01928">$order.GetStateInfo()</span>订单号：$order.Id</div></a></li>
+                            <!-- M for -->
+                            $set(orderCount=0)
+                            $set(maps=order.GetMapping(this.DataSource))
+                            $foreach(product in maps)
+                            $set(info=json(product.ProductInfo))
+                            $set(orderCount=orderCount+product.Count)
+                            <li class="purchaseall_Test">
+                                <div class="purchaseall_Le">
+                                    <img src="$product.GetImage(info.Image)" />
+                                </div>
+                                <div class="purchaseall_Con">
+                                    <h3 class="txt_hide2L col_333"><a class="external" href="$url('/buy/status/',order.Id, '/', product.ProductId)">$info.Title</a></h3>
+                                    <p class="txt_hide2L Coninfo col_999">
+                                        $foreach(attr in info.Series)
+                                        $attr.Key：$attr.Value&nbsp;
+                                        $end
+                                    </p>
+                                </div>
+                                <div class="purchaseall_Re">
+                                    <p class="col_999">$product.Price.ToString("c2")</p>
+                                    <p class="col_999">X$product.Count$info.Unit</p>
+                                </div>
+                            </li>
+                            <li class="purchaseall_Sub purchase_complete">
+                                $if(order.State==6)
+                                <a href="$passport('/service/addservice/',order.Id,'/',product.ProductId)" class="payment_submit col_666 external">申请售后</a>
+                                $if(product.Evaluation.ToString()=='True')
+                                <a href="javascript:void(0);" onclick="location.href = '$url('/comment/ViewComment/',product.ProductId,'/',order.Id)'" class="payment_submit external">查看评价</a>
+                                $elseif(product.Evaluation.ToString()=='False')
+                                <a href="javascript:void(0);" onclick="location.href = '$url('/comment/set/',product.ProductId,'/',order.Id,'/',0)'" class="payment_submit external">立即评价</a>
+                                $end
+                                $elseif(order.State==3||order.State==5)
+                                <a href="$passport('/service/addservice/',order.Id,'/',product.ProductId)" class="payment_submit external">申请退款</a>
+                                $end
+                            </li>
+                            $end
+                            <!-- end M for -->
+
+                            <li class="purchaseall_Txt">
+                                <span class="col_666">共$orderCount款商品</span>
+                                <span class="col_e01928">实付：￥<b class="this_Price">$order.TotalMoney.ToString("c2")</b></span>
+                            </li>
+                            $if(order.State>5)
+                            <li class="purchaseall_Sub purchase_complete">
+                                <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+                            </li>
+                            $end
+                            $if(order.State==1)
+                            <li class="purchaseall_Sub purchase_complete">
+                                <a class="payment_submit col_666 external" id="cancelOrder" data-id="$order.Id" href="javascript:void(0)" onclick="return delOrder('$order.Id')">取消订单</a>
+                                <a class="payment_submit col_fff external" href="$passport('/buy/perfect/',item.Id)">立即支付</a>
+                            </li>
+                            $elseif(order.State==2)
+                            <li class="purchaseall_Sub purchase_complete">
+                                <a class="payment_submit col_666 external" id="cancelOrder" data-id="$order.Id" href="javascript:void(0)" onclick="return delOrder('$order.Id')">取消订单</a>
+                                <a class="payment_submit col_fff external" href="$passport('/buy/payment/',order.Id)">立即支付</a>
+                            </li>
+                            $elseif(order.State==3)
+                            <li class="purchaseall_Sub purchase_complete">
+                                <a href="javascript:reminderDelivery('$order.Id')" data-id="$order.Id" class="payment_submit col_666 external">提醒发货</a>
+                            </li>
+                            $elseif(order.State==4)
+                            <li class="purchaseall_Sub purchase_complete">
+                                <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+                                <a href="javascript:void(0)" onclick="doReceipt($order.Id)" data-id="$order.Id" class="payment_submit col_fff external">确认收货</a>
+                            </li>
+                            $elseif(order.State==5)
+                            <li class="purchaseall_Sub purchase_complete">
+                                <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+                                <a href="javascript:reminderDelivery('$order.Id')" data-id="$order.Id" class="payment_submit col_fff external">提醒发货</a>
+                            </li>
+                            $else
+
+                            $end
+                        </ul>
+                        <!-- end order for -->
+                        $end
+                    </div>
+                    $else
+                    <!-- 暂无订单  -->
+                    <div class="no_order">
+                        <div class="purchasemy_icon no_orderIcon"></div>
+                        <div class="order_noresultTxt">
+                            <h3 class="col_666">暂无订单</h3>
+                            <a href="$url('/')" class="col_fff">去首页逛逛</a>
+                        </div>
+                    </div>
+                    <!-- end 暂无订单  -->
+                    $end
+                </div>
+                <!-- 加载提示符 -->
+                <div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>
+                <!-- 加载提示符 -->
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+    <!-- Swiper JS -->
+    <script type="text/javascript" src="$res('wap/js2.0/cph/swiper.min.js')"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        var num = 1;
+        var idx = 0;
+        var maxnum = parseInt('$OrderList.EndPage');
+        var state = '$State';
+
+        $(function () {
+            
+            if (state == '_') {
+                idx = 0;
+            }
+            else if (state == 'Payment') {
+                idx = 1;
+            } else if (state == 'Delivery') {
+                idx = 2;
+            } else if (state == 'OutWarehouse') {
+                idx = 3;
+            } else if (state == 'Receipt') {
+                idx = 4;
+            } else if (state == 'Finished') {
+                idx = 5;
+            } else {
+                idx = 6;
+            }
+
+            var swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                //从第几个开始
+                initialSlide: idx,
+                slidesPerView: 4.5,
+                spaceBetween: 10,
+                breakpoints: {
+                    1024: {
+                        slidesPerView: 4.5,
+                        spaceBetween: 10
+                    },
+                    768: {
+                        slidesPerView: 4.5,
+                        spaceBetween: 10
+                    },
+                    640: {
+                        slidesPerView: 4.5,
+                        spaceBetween: 10
+                    },
+                    320: {
+                        slidesPerView: 4.5,
+                        spaceBetween: 10
+                    }
+                }
+            });
+            $(".ordermore_icon").click(function () {
+                if ($(".ordermore_nav").hasClass("ordermore_navS")) {
+                    $(".ordermore_nav").removeClass("ordermore_navS")
+                } else {
+                    $(".ordermore_nav").addClass("ordermore_navS")
+                }
+
+            })
+        })
+
+        function refresh() {
+            num = 1;
+            $.ajax({
+                cache: false,
+                type: 'get',
+                dataType: 'html',
+                url: '$url("' + state + '/1")',
+                success: function (result) {
+                    $("#temp").html(result);
+                }
+            });
+        }
+
+        function loadData() {
+            num++;
+            if (num>maxnum) {
+                //$("#temp").append('');
+                // 加载完毕，则注销无限加载事件，以防不必要的加载
+                $.detachInfiniteScroll($('.infinite-scroll'));
+                // 删除加载提示符
+                $('.infinite-scroll-preloader').remove();
+            }else{
+                var url = '$url("' + state + '/' + num + '")';
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: 'html',
+                    success: function (result) {
+                        $("#temp").append(result);
+                    }
+                });
+            }
+        }
+    </script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+    <script type="text/javascript" src="$res('wap/js2.0/cph/demos.js')"></script>
+</body>
+</html>
+$end

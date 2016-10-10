@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>乡道馆商品详情</title>
+    <link rel="stylesheet" href="$res('wap/css/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css/waylistshow.css')" />
+    <script src="$res('wap/js/zepto.min.js')"></script>
+    $load("inc/xdgcomm.html")
+    <style>
+        #mynav {
+            width: 100%;
+            height: 40px;
+            background: #fff;
+            border-bottom: 1px solid #fff;
+            position: relative;
+            z-index: 99;
+            color: #fff;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form" action="$passport('/buy')" method="post" onsubmit="return buyProduct()">
+        <div class="wrap content" style="padding-bottom:3rem;">
+            <!-- nav -->
+            <div class="wayshow_nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                            <span class="fl">返回</span>
+                        </a>
+                    </div>
+                    乡道馆-商品详情
+                </div>
+            </div>
+
+            <!-- / nav -->
+            <!-- content -->
+            <!-- banner -->
+            <div class="ban_Left">
+                <div id="slideBox" class="slideBox">
+                    <div class="bd">
+                        <ul>
+                            <!-- for nav -->
+                            $foreach(item in Product.GetImages())
+                            <li>
+                                <div style="width:100%;height:100%;background:url($item) no-repeat;background-size:100% 100%;"></div>
+                            </li>
+                            $end
+                            <!-- end for nav -->
+                        </ul>
+                    </div>
+                    <div class="hd">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            <!-- / banner -->
+            <div class="wayshow_top">
+                <div class="wayshow_title pad_lr">$Product.Title</div>
+                <p class="wayshow_desc pad_lr">$Product.Description</p>
+                <div class="wayshow_price pad_lr clearfix">
+                    <div class="fl">$Product.GetSalePrice().ToString("C2")</div>
+                    <div class="fr col_999">
+                        <span class="icon icon_quality"></span>
+                        <span>品质保障</span>
+                    </div>
+
+                </div>
+                <div class="wayshow_supplier pad_lr">供应商：$Product.ProductSupplier</div>
+                <div class="way_line"></div>
+            </div>
+
+            <div class="wayshow_detailed pad_lr">
+                <ul>
+                    <li>
+                        <div class="wayshow_detaMain fl">
+                            <div class="clearfix">
+                                <div class="wayshow_detaAddr fl"></div>
+                                <input type="text" id='city-picker' class="fl" data-id="440000,441900,441903" value="广东省 东莞市 东城区" />
+                            </div>
+                        </div>
+                        <div class="wayshow_detaLe fl txt_hide">送至</div>
+                    </li>
+                    <li class="clearfix">
+                        <div id="yunfei" class="wayshow_detaMain fl txt_hide wayshow_freight"></div>
+                        <div class="wayshow_detaLe fl col_999">运费</div>
+
+                    </li>
+
+                    $if(Product.DiscountState==2)
+                    <li class="clearfix">
+                        <div id="timeInfo" class="wayshow_detaMain fl txt_hide">距特卖结束：$Product.GetDiscountCountdown().FormatString("d 天 h 时 m 分 s 秒")</div>
+                        <div class="wayshow_detaLe fl col_999">促销</div>
+                    </li>
+                    $end
+
+                    $foreach(item in Series)
+                    $set(index=foreachIndex-1)
+                    <li id="s-$item.Id" class="clearfix">
+                        <div class="wayshow_detaMain  fl">
+                            $foreach(map in item.GetMappings(this.DataSource))
+                            $set(active=false)
+                            $foreach(tmp in Mapping)
+                            $if(item.Id==tmp.SerieId&&map.Value==tmp.Value)
+                            $set(active=true)
+                            $end
+                            $end
+                            $if(active)
+                            <span class="on" s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">
+                                $map.Value
+                            </span>
+                            $else
+                            <span s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">
+                                $map.Value
+                            </span>
+                            $end
+                            $end
+                        </div>
+                        <div class="wayshow_detaLe fl col_999">$item.Name</div>
+                    </li>
+                    $end
+
+                    <li class="clearfix">
+                        <div class="wayshow_detaMain fl">
+                            <div class="shop_goodsCon clearfix">
+                                <div class="shop_infoMinus fl">
+                                    <a href="javascript:;" id="infoMinus"></a>
+                                </div>
+                                <div class="fl">
+                                    <input class="shop_infoValue" id="shop_infoValue" name="Count" value="1" />
+                                </div>
+                                <div class="shop_infoPlus fl">
+                                    <a href="javascript:;" id="infoPlus"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wayshow_detaLe fl col_999">数量</div>
+                    </li>
+                </ul>
+            </div>
+            $if(Comment != null)
+            <div class="way_line"></div>
+            <div class="wayshow_evaluate">
+                <div class="wayshow_evalTitle pad_lr clearfix">
+                    <span class="col_666">评价</span>
+                    <a href="$url('/xdginfo/showcomment/', Product.Id)">
+                        <span class="icon_arrow_right fr"></span>
+                        <span class="wayshow_evalMTitle fr col_999">共$allCommentCount评论</span>
+                    </a>
+                </div>
+                <div class="wayshow_evalname clearfix">
+                    <span class="col_333 fl">$Comment.B.NickName</span>
+                    <span class="wayshow_evalStar fl">
+                        <!-- for star -->
+                        $for(i = 1; i <= Comment.A.Star; i++)
+                        <img src="$res('wap/img/wayshow_evalicon.png')" />
+                        $end
+                        <!-- end for star -->
+                    </span>
+                    <span class="wayshow_evaltime fr col_999">$Comment.A.CreationDate</span>
+                </div>
+                <div class="wayshow_evaluate pad_lr">
+                    <div class="col_666">$Comment.A.Content</div>
+                </div>
+            </div>
+            $end
+            <div class="way_line"></div>
+            <!-- parameter -->
+            <div class="wayshow_parameter">
+                <div class="content-block">
+                    <div class="buttons-row">
+                        <div>
+                            <a href="#tab1-1" class="tab-link button active">商品详情</a>
+                        </div>
+                        <div>
+                            <a href="#tab1-2" class="tab-link button">商品参数</a>
+                        </div>
+                    </div>
+                    <div class="tabs">
+                        <div class="tab active" id="tab1-1">
+                            $Product.Content
+                        </div>
+                        <div class="tab" id="tab1-2">
+                            <div class="wayshow_paraList">
+                                <ul>
+                                    $foreach(item in Attributes)
+                                    <li>
+                                        <div class="wayshow_paraMain fl">$item.A.Name</div>
+                                        <div class="wayshow_parale fl">$item.B.Value</div>
+                                    </li>
+                                    $end
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="way_line"></div>
+            <!-- end content -->
+            <!-- nav_bottom -->
+            <div class="nav_bottom">
+                <ul class="clearfix">
+                    <li>
+                        <a href="$passport('/cart')">
+                            <div class="shopcart_posi"><img src="$res('wap/img/icon_ShopCart.png')" /><span class="shopcart_num cart-count"></span></div>
+                            <div class="col_666">购物车</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" id="add_shopcart">加入购物车</a>
+                    </li>
+                    <li>
+                        <a href="javascript:$('#form').submit();">立即购买</a>
+                    </li>
+
+                </ul>
+                <input type="hidden" id="ProductId" name="Id" value="$Product.Id" />
+                <input type="hidden" id="ext" value="$ext" />
+            </div>
+            <div class="shopcart_addnum">+1</div>
+        </div>
+    </form>
+    <script type="text/javascript" src="$res('wap/js/TouchSlide.1.1.js')"></script>
+    <script>
+        TouchSlide({
+            slideCell: "#slideBox",
+            titCell: ".hd ul",
+            mainCell: ".bd ul",
+            effect: "leftLoop",
+            autoPage: true,
+            autoPlay: true
+        });
+        $(function () {
+            // 规格颜色选择
+            $(".wayshow_detaMain span").click(function () {
+                var this_val = $(this);
+                new_way.way_detaMain(this_val)
+            })
+            $("#city-picker").cityPicker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+		<button class="button button-link pull-right close-picker">确定</button>\
+		<h1 class="title">选择收货地址</h1>\
+		</header>'
+            });
+            $("#add_shopcart").click(function () {
+                new_way.add_shopcart();
+                addCart($Product.Id, 1);
+            })
+            $("#infoMinus").click(function () { new_way.infoMinus() })
+            $("#infoPlus").click(function () { new_way.infoPlus() })
+
+            $.get("$url('/xdginfo/GetFreight/北京/北京市/', '" + $("#ProductId").val() + "')", function (data) {
+                $("#yunfei").text(data);
+            })
+            clock();
+        })
+        //倒计时
+        var int = self.setInterval("clock()", 1000)
+        function clock() {
+            var endTime = new Date('$Product.DiscountEndTime');
+            var beginTime = new Date('$Product.DiscountBeginTime');
+            var span = $('#timeInfo');
+            var nowTime = new Date();
+            var timeSpan = (endTime - nowTime) / 1000;
+
+
+            var day = 0,
+            hour = 0,
+            minute = 0,
+            second = 0;//时间默认值
+            if (timeSpan > 0) {
+                day = Math.floor(timeSpan / (60 * 60 * 24));
+                hour = Math.floor(timeSpan / (60 * 60)) - (day * 24);
+                minute = Math.floor(timeSpan / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(timeSpan) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            var balanceTime = new Date(timeSpan);
+            if (endTime < nowTime) {
+                span.text("特卖已结束");
+            }
+            else {
+                var a = balanceTime.getDay();
+
+                span.text(
+            day + '天' +
+            hour + '时' +
+            minute + '分' +
+            second + '秒');
+
+            }
+            //window.clearInterval(int);
+        }
+
+
+        // goods number
+        var infoValue = document.getElementById("shop_infoValue");
+        var way = function () {
+            //数量+1
+            this.infoPlus = function () {
+                infoValue.value++
+            },
+            //数量-1
+            this.infoMinus = function () {
+                if (infoValue.value <= 1) {
+                    return false
+                }
+                infoValue.value--
+            },
+            //数量加入购物车
+            this.add_shopcart = function () {
+                var shopcart_number = Number($("#shop_infoValue").val()) + Number($(".shopcart_num").text());
+                $(".shopcart_num").text(shopcart_number);
+                this.way_addnum()
+            },
+            //选择参数
+            this.way_detaMain = function (this_val) {
+                if (this_val.attr('data-off')) {
+                    return false;
+                }
+                this_val.parent(".wayshow_detaMain").children("span").removeClass();
+                this_val.addClass("on");
+                var this_value = this_val.text();
+                this_val.parent().attr('data-value', this_value);
+            },
+            //添加购物车动画
+            this.way_addnum = function () {
+                $(".shopcart_addnum").text("+" + $("#shop_infoValue").val());
+                $(".shopcart_addnum").addClass("shopcart_addnum_on");
+                setTimeout(function () {
+                    $(".shopcart_addnum").removeClass("shopcart_addnum_on")
+                }, 1000)
+            },
+            //运费 new_way.way_freight()
+            this.way_freight = function () {
+                $(".wayshow_freight").text("￥" + "运费");
+            }
+        }
+        var new_way = new way();
+
+        var initc = false;
+        var curstate = 0;
+        var curstar1 = 0;
+        var curstar2 = 0;
+        var full = new Array();//$foreach(map in Mappings)
+        full.push({ 'p': '$map.ProductId', 's': '$map.SerieId', 'v': '$map.Value' });//$end
+        var mappings = new Array();//$foreach(item in Series)
+        mappings['$item.Id'] = new Array();//$foreach(map in Mappings)$if(map.SerieId==item.Id)
+        if (mappings['$item.Id']['$map.Value'] == undefined) {
+            mappings['$item.Id']['$map.Value'] = new Array();
+        }
+        mappings['$item.Id']['$map.Value'].push('$map.ProductId');//$end//$end//$end
+        var series = new Array();// $foreach(item in Series)
+        series['$item.Id'] = null;//$end
+        function hasValue(s, v, map) {
+            if (map != undefined) {
+                var arr = mappings[s][v];
+                if (arr != undefined) {
+                    for (var i = 0; i < map.length; ++i) {
+                        for (var j = 0; j < arr.length; ++j) {
+                            if (map[i] == arr[j]) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        function initElements(s, v) {
+            var map = mappings[s][v];
+            for (var key in series) {
+                if (key != s) {
+                    $('#s-' + key).find('span').each(function (index, value) {
+                        if (hasValue(key, $(value).attr("v-data"), map)) {
+                            $(value).removeAttr('data-off');
+                        }
+                        else {
+                            $(value).removeClass('on');
+                            $(value).attr("data-off", "off");
+                        }
+                    });
+                }
+            }
+        }
+        function activeElement(e) {
+            var s = $(e).attr("s-data");
+            var v = $(e).attr("v-data");
+            $('#s-' + s).find('span').each(function (index, value) {
+                if (value != e) {
+                    $(value).removeClass('on');
+                }
+                else {
+                    $(value).addClass('on');
+                }
+            });
+            initElements(s, v);
+        }
+        function initSeries() {
+            for (var key in series) {
+                series[key] = null;
+            }
+            for (var key in series) {
+                $('#s-' + key).find('span').each(function (index, value) {
+                    if ($(value).attr("data-off") != "off" && $(value).hasClass('on')) {
+                        series[$(value).attr('s-data')] = $(value).attr('v-data');
+                    }
+                });
+            }
+        }
+        function initMaps() {
+            for (var key in series) {
+                $('#s-' + key).find('span').each(function (index, value) {
+                    $(value).removeAttr('data-off');
+                });
+            }
+            for (var key in series) {
+                if (series[key] != null) {
+                    initElements(key, series[key]);
+                }
+            }
+        }
+        function selectSeries(e) {
+            var el = $(e);
+            if (el.attr("data-off") != "off") {
+                if (!el.hasClass('on')) {
+                    activeElement(e);
+                    initSeries();
+                    var p;
+                    var tmp;
+                    var ok = true;
+                    var arr = new Array();
+                    for (var key in series) {
+                        if (series[key] == null) {
+                            ok = false;
+                            break;
+                        }
+                        tmp = mappings[key][series[key]];
+                        if (tmp == undefined) {
+                            ok = false;
+                            break;
+                        }
+                        for (var i = 0; i < tmp.length; ++i) {
+                            p = tmp[i];
+                            if (arr[p] == undefined) {
+                                arr[p] = 1;
+                            }
+                            else {
+                                arr[p] = arr[p] + 1;
+                            }
+                        }
+                    }
+                    if (ok) {
+                        p = null;
+                        for (var k in arr) {
+                            if (arr[k] == $Series.Count) {
+                                p = k;
+                                break;
+                            }
+                        }
+                        if (p != null) {
+                            window.location.href = '$url("/xdginfo/",this.Application.ActionName,"/", "' + p + '")';
+                        }
+                    }
+                }
+                else {
+                    el.removeClass('on')
+                    initSeries();
+                    initMaps();
+                }
+            }
+        }
+        function buyProduct() {
+            $if(this.IsLogin)
+            try {
+                return parseInt($('#shop_infoValue').val()) > 0;
+            }
+            catch (e) { }
+            $else
+            window.location.href = '$passport("/login")';
+            $end
+            return false;
+        }
+        initCart();
+    </script>
+    <script src="$res('wap/js/sm.min.js')"></script>
+    <script src="$res('wap/js/sm-city-picker.js')"></script>
+</body>
+</html>

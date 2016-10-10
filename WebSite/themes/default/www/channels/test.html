@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcore.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxnotification.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/areaChange.css')" />
+    <script type="text/javascript" src="$res('js2.0/lib/AreaChange.js')"></script>
+    <script>
+        $(document).ready(function () {
+            var areaChangeFrom = new areaSelectChange("areaSelect",{
+                hasHot: false,
+                hideName: {
+                    provinceName: "Province",
+                    cityName: "City",
+                    countyName: "County"
+                }
+            },function () {
+                alert($("#County").val());
+            });
+            $("#search-submit").click(function () {
+                var begincity = 0, endcity = 0;
+                if ($("#startCounty").length > 0 && $("#startCounty").val() != 0) {
+                    begincity = $("#startCounty").val();
+                }
+                else if ($("#startCity").length > 0 && $("#startCity").val() != 0) {
+                    begincity = $("#startCity").val();
+                }
+                else if ($("#startProvince").length > 0 && $("#startProvince").val() != 0) {
+                    begincity = $("#startProvince").val();
+                }
+
+                if ($("#endCounty").length > 0 && $("#endCounty").val() != 0) {
+                    endcity = $("#endCounty").val();
+                }
+                else if ($("#endCity").length > 0 && $("#endCity").val() != 0) {
+                    endcity = $("#endCity").val();
+                }
+                else if ($("#endProvince").length > 0 && $("#endProvince").val() != 0) {
+                    endcity = $("#endProvince").val();
+                }
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="lj_select" id="areaSelect" data-pid="" data-cid="" data-tid="">
+        <div class="area_name">
+            <span class="area_title">
+                <font style="color:#ccc">选择城市名</font>
+            </span><span class="arrow"></span>
+        </div>
+        <div class="city_content">
+            <div class="select_tab clear">
+                <a href="javascript:;" class="first current" data-to="province_list">省份</a>
+                <a href="javascript:;" data-to="city_list">城市</a>
+                <a href="javascript:;" data-to="county_list">县区</a>
+            </div>
+            <div class="area_list province_list"></div>
+            <div class="area_list city_list"></div>
+            <div class="area_list county_list"></div>
+        </div>
+    </div>
+</body>
+</html>

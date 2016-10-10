@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户登录-$Site.Name</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/reg_login.css')">
+    <style>
+        .jqx-validator-error-label {
+            color: red;
+        }
+    </style>
+    $load("inc/u_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcheckbox.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/passport.js')"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Cnaws.Passport.Init({
+                targetUrl: '$Target'
+            });
+            $('#UserName').jqxInput({ placeHolder: "请输入用户名/手机/邮箱" });
+            $('#Password').jqxInput({ placeHolder: "请输入密码" });
+            $('#form').jqxValidator({
+                hintType: 'label',
+                animationDuration: 0,
+                rules: [
+                    { input: '#UserName', message: '用户名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Password', message: '密码不能为空', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+        });
+    </script>
+</head>
+<body>
+	<div class="page">
+        <a href="javascript:history.go(-1);" class="back">返回</a>
+		<div class="post-form">
+			<div class="header">
+				<h1>用户登录</h1>
+			</div>
+			<form id="form" action="$url('/login/submit')" method="post" onsubmit="return Cnaws.Passport.login(this, '#errmsg', '')">
+				<p class="clearfix text-box uname first">
+					<span>用户名</span>
+					<input type="text" id="UserName" name="UserName">
+				</p>
+				<p class="clearfix pwd text-box">
+					<span>密码</span>
+					<input type="password" id="Password" name="Password">
+				</p>
+                <p id="errmsg" style="color:red"></p>
+				<a class="submit" onclick="Cnaws.Passport.login(document.getElementById('form'), '#errmsg', '')">登录</a>
+				<p class="bottom">
+					<a href="$url('/register')?target=$Target">账户注册</a>
+					<a class="forget-pwd" href="$url('/password')?target=$Target">忘记密码</a>
+				</p>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>进货宝方案管理</title>
+    $load("inc/s_comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.supplierlist.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.programme.css')">
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <link rel="stylesheet" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <script type="text/javascript">
+        /*使用jqzoom*/
+        $(function() {
+            $("input[type='text']").focus(function(){
+                $(this).css("border-color","#ff5820")
+            });
+            $("input[type='text']").blur(function(){
+                $(this).css("border-color","#ccc")
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/s_top.html")
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/s_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="fr">
+            <h3 class="ProductShelves">方案管理</h3>
+
+            <!--添加方案开始-->
+            <div class="addingScheme">
+                <!--顶部开始-->
+                <form id="ProgrammeForm" action="$url('/programme/submit')" method="post" onsubmit="return false">
+                    <ul class="top">
+                        <li class="one clearFix">
+                            <div class="left fl">方案名称：</div>
+                            <input class="company fl" id="Title" name="Title" value="$Programme.Title" type="text" placeholder="请输入公司名称" />
+                        </li>
+                        <li class="two clearFix">
+                            <div class="left fl">方案类型：</div>
+                            <p class="fl">
+                                <input type="radio" id="NewStore" $if(Programme==null||Programme.Type ==0)checked ="checked" $end value="NewStore" name="Type" />
+                                <label for="NewStore">新开店方案</label>
+                            </p>
+                            <p class="fl">
+                                <input type="radio" id="ReformStore" $if(Programme.Type==1)checked ="checked" $end value="ReformStore" name="Type" />
+                                <label for="ReformStore">改造店方案</label>
+                            </p>
+                            <p class="fl">
+                                <input type="radio" id="PublicProgramme" $if(Programme.Type==2)checked ="checked" $end value="PublicProgramme" name="Type" />
+                                <label for="PublicProgramme">综合方案</label>
+                            </p>
+                        </li>
+                        <li class="one clearFix">
+                            <div class="left fl">行业类型：</div>
+                            <select class="fl" id="CategoryId" name="CategoryId">
+                                $foreach(item in Indutry)
+                                <option value="$item.Id" $if(item.Id==Programme.CategoryId)selected ="selected" $end>$item.Name</option>
+                                $end
+                            </select>
+                        </li>
+                        <li class="two clearFix">
+                            <div class="left fl">方案状态：</div>
+                            <p class="fl">
+                                <input type="radio" name="State" $if(Programme==null||Programme.State ==0)checked ="checked" $end id="Saved" value="Saved" />
+                                <label for="Saved">草案（下架）</label>
+                            </p>
+                            <p class="fl">
+                                <input type="radio" name="State" $if(Programme.State==1)checked ="checked" $end id="Sale" value="Sale" />
+                                <label for="Sale">正式（上架）</label>
+                            </p>
+                        </li>
+                        <li class="last clearFix">
+                            <div class="left fl">上传图片：</div>
+                            <div class="right fl">
+                                <img id="UploadFile" width="78" height="72" src="$if(Programme.Image=="")$res('css2.0/img/head_portrait.png')$else$Programme.Image$end" />
+                                <input type="hidden" id="Image" name="Image" value="$Programme.Image" />
+                            </div>
+                        </li>
+                        <li>
+                            <div class="addingScheme_preservation">
+                                <input type="hidden" id="Id" name="Id" value="$Programme.Id" />
+                                <input type="submit" id="SubmitForm" value="保存方案" />
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+                <!--底部开始-->
+                <div class="down">
+                    <div class="down_top clearFix">
+                        <h3 class="fl">方案产品管理</h3>
+                        <div class="fr right" id="AddProduct">添加产品</div>
+                    </div>
+                    <div>
+                        <ul class="down_down">
+                            <li class="first clearFix">
+                                <div class="one fl"></div>
+                                <div class="two fl ">ID</div>
+                                <div class="three fl">产品名称</div>
+                                <div class="four fl">属性</div>
+                                <div class="five fl">单位</div>
+                                <div class="six fl">价格</div>
+                                <div class="seven fl">
+                                    <div class="state">
+                                        状态
+                                        <span></span>
+                                    </div>
+                                    <ul>
+                                        <li class="current" onclick="location.href='$url('/programme/edit/',Id,'/','-1')'">全部</li>
+                                        <li onclick="location.href='$url('/programme/edit/',Id,'/','1')'">已上架</li>
+                                        <li onclick="location.href='$url('/programme/edit/',Id,'/','0')'">已下架</li>
+                                    </ul>
+                                </div>
+                                <div class="eight fl">库存</div>
+                                <div class="nine fl">数量</div>
+                                <div class="ten fl">操作</div>
+                            </li>
+                            $foreach(item in ProgrammeProduct.Data)
+                            <li class="last clearFix">
+                                <div class="one fl">
+                                    <input class="pitchDel" value="$item.B.Id" type="checkbox" name="DelSelect" />
+                                </div>
+                                <div class="two fl ">$item.A.ProductId</div>
+                                <div class="three fl">
+                                    <a href="$Site.B2bShopUrl$url('/product/view/',item.A.ProductId)" target="_blank">$item.B.Title</a> 
+                                </div>
+                                <div class="four fl">
+                                    $set(attrs=item.B.GetAttributes(this.DataSource))
+                                    $set(infos=json(attrs))
+                                    $for(i=0;i<infos.Count;i++)
+                                    <span>
+                                        $infos[i].Name：$infos[i].Value
+                                    </span>
+                                    $end
+                                </div>
+                                <div class="five fl">$item.B.Unit</div>
+                                <div class="six fl">$item.B.GetSalePrice(this.DataSource,this.Distributor.Province,this.Distributor.City,this.Distributor.County).ToString("C2")</div>
+                                <div class="seven fl">$item.B.GetStateString()</div>
+                                <div class="eight fl">$item.B.Inventory</div>
+                                <div class="nine fl">
+                                    <input type="text" class="ProgrammeCount" data-value="$item.A.Count" value="$item.A.Count" data-id="$item.B.Id" />
+                                </div>
+                                <div class="ten fl">
+                                    <a href="javascript:void(0)" data-id="$item.B.Id" class="deleteCon">删除</a>
+                                </div>
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+
+                    <div class="clearFix">
+                        <!--添加方案-批量删除按钮-->
+                        <div class="addingScheme_delete fl">批量删除</div>
+                        <!--商品分页开始-->
+                        <div class="center_pageBox addingScheme_delete_right clearFix fl">
+                            <ul class="clearFix fl">
+                                $if(ProgrammeProduct.PageIndex==1)
+                                <li class="page_prev">
+                                    <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                        <span class="unicon"></span>
+                                        上一页
+                                    </a>
+                                </li>
+                                $else
+                                <li class="page_prev">
+                                    <a href="$url('/programme/edit/',Id,'/',State,'/',ProgrammeProduct.PageIndex-1)" class="pageprev_unprint pageprev_img">
+                                        <span class="icon"></span>
+                                        上一页
+                                    </a>
+                                </li>
+                                $end
+                                $if(ProgrammeProduct.BeginPage>1)
+                                $end
+                                $for(i=ProgrammeProduct.BeginPage;i<=ProgrammeProduct.EndPage;i++)
+                                $if(i==ProgrammeProduct.PageIndex)
+                                <li class="page_numer itme">
+                                    <a href="$url('/programme/edit/',Id,'/',State,'/',i)">$i</a>
+                                </li>
+                                $else
+                                <li class="page_numer">
+                                    <a href="$url('/programme/edit/',Id,'/',State,'/',i)">$i</a>
+                                </li>
+                                $end
+                                $end
+                                $if(ProgrammeProduct.PagesCount>ProgrammeProduct.EndPage)
+                                <li class="page_numer"><a href="$url('/programme/edit/',Id,'/',State,'/',ProgrammeProduct.PageIndex+1)">...</a></li>
+                                <li class="page_numer"><a href="$url('/programme/edit/',Id,'/',State,'/',ProgrammeProduct.PagesCount)">$ProgrammeProduct.PagesCount</a></li>
+                                $end
+
+
+                                $if(ProgrammeProduct.PagesCount<=0||ProgrammeProduct.PageIndex==ProgrammeProduct.PagesCount)
+                                <li class="page_next page_prev">
+                                    <a href="javascript:;" class="pageprev_next pageprev_print pagenext_img">
+                                        下一页
+                                        <span class="unicon"></span>
+                                    </a>
+                                </li>
+                                $else
+                                <li class="page_next page_prev">
+                                    <a href="$url('/programme/edit/',Id,'/',State,'/',ProgrammeProduct.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                        下一页
+                                        <span class="icon"></span>
+                                    </a>
+                                </li>
+                                $end
+                            </ul>
+                            <div class="total fl"> 共 $ProgrammeProduct.PagesCount 页/$ProgrammeProduct.TotalCount条，</div>
+                            <div class="form fl">
+                                <span class="text">到第</span>
+                                <input class="input J_Input" type="number" id="PageInput" aria-label="页码输入框" max="$ProgrammeProduct.PagesCount" min="1" value="1">
+                                <span class="text">页</span>
+                                <span class="btn J_Submit fr" tabindex="0" onclick="window.location.href='$url("/programme/edit/",Id,"/",State,"/","'+Math.min(parseInt(document.getElementById('PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value))+'")'" role="button">确定</span>
+                            </div>
+                        </div>
+                        <!--商品分页结束-->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    <script>
+        var editor = null;
+        $(function(){
+            editor = KindEditor.editor({
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+            });
+            $("#ProgrammeForm").on("click", "#UploadFile", function () {
+                if (editor.dialogs.length <= 0 && $(".photo .images").length<3) {
+                    editor.loadPlugin('image', function () {
+                        editor.plugin.imageDialog({
+                            clickFn: function (url, title) {
+                                $("#ProgrammeForm #UploadFile").attr("src",url);
+                                $("#ProgrammeForm #Image").val(url);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                }
+            })
+            $('#ProgrammeForm').jqxValidator({
+                rules: [
+                    { input: '#Title', message: '方案名称不能为空', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+            $("#ProgrammeForm").submit(function(){
+                $(this).attr('disabled', true);
+                $.ajax({
+                    type:"Post",
+                    dataType:"Json",
+                    url:'$url("/programme/submit")',
+                    data:$(this).serialize(),
+                    success:function(data){
+                        if (data.code == -200) {
+                            Cnaws.showSuccess("编辑成功");
+                            setTimeout(function () {
+                                location.href = Cnaws.getUrl('$url("/programme/edit/")'+data.data);
+                            }, 2000);
+                        }
+                        else
+                            Cnaws.showError("抱歉,编辑失败！请检查数据");
+                    }
+                });
+                $(this).attr('disabled', false);
+                return false;
+            });
+
+            $(".deleteCon").on('click',function(){
+                if(confirm("是否确定删除该数据?")){
+                    $.ajax({
+                        type:"Post",
+                        dataType:"Json",
+                        url:'$url("/programme/delproduct/",Programme.Id)',
+                        data:"ProductId="+$(this).data("id"),
+                        success:function(data){
+                            if (data.code == -200) {
+                                Cnaws.showSuccess("删除成功");
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000);
+                            }
+                            else
+                                Cnaws.showError("抱歉,编辑失败！请检查数据");
+                        }
+                    });
+
+                }
+            })
+
+            $(".addingScheme_delete").on('click',function(){
+                if(confirm("是否确定删除该数据?")){
+                    var parentid="";
+                    $("input[name^='DelSelect']:checked").each(function(i){
+                        //input[name^='selected']"意思是匹配input的name以selected开头的表单。
+                        if(parentid=="")
+                            parentid=$(this).val();
+                        else
+                            parentid+=","+$(this).val();
+                    });
+                    if(parentid!=""){
+                        $.ajax({
+                            type:"Post",
+                            dataType:"Json",
+                            url:'$url("/programme/delproduct/",Programme.Id)',
+                            data:"ProductId="+parentid,
+                            success:function(data){
+                                if (data.code == -200) {
+                                    Cnaws.showSuccess("删除成功");
+                                    $("input[name='DelSelect']").each(function(){
+                                        $(this).attr("checked",false);
+                                    });  
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 2000);
+                                }
+                                else
+                                    Cnaws.showError("抱歉,编辑失败！请检查数据");
+                            }
+                        });
+                    }
+                    else{
+                        Cnaws.showError("抱歉,删除失败！请选择要删除的项");
+                    }
+                }
+            });
+
+            $(".ProgrammeCount").change(function(){
+                if(confirm("是否确定更新当前数量？")){
+                    var input=$(this);
+                    $.ajax({
+                        type:"Post",
+                        dataType:"Json",
+                        url:Cnaws.getUrl('$url("/programme/editcount/",Programme.Id,"/")'+$(this).data("id")),
+                        data:"Count="+$(this).val(),
+                        async:false,
+                        success:function(data){
+                            if (data.code == -200) {
+                                input.data("value",input.val());
+                                Cnaws.showSuccess("修改成功");                                
+                            }
+                            else
+                                Cnaws.showError("抱歉,修改失败！请检查数据");
+                        }
+                    });
+                    
+                }
+                else{
+                    $(this).val($(this).data("value"));
+                }
+            })
+            $("#AddProduct").click(function(){
+                if($Programme.Id!=0&&$Programme.Id!="")
+                {
+                    location.href='$url("/programme/addproduct/",Programme.Id)';
+                }
+                else{
+                    Cnaws.showError("请先保存当前方案！");
+                }
+            
+            })
+        });
+
+    </script>
+</body>
+</html>

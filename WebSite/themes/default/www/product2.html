@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>$Product.Title - $Site.Title</title>
+    <meta name="keywords" content="$Product.Title,$Product.Keywords">
+    <meta name="description" content="$Product.Title,$Product.Description">
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css/common.css')">
+    <link rel="stylesheet" href="$res('css/goods.css')">
+    $load("inc/comm.html")
+    <script type="text/javascript">
+        function addCount(c) {
+            var v = parseInt($('#buycount').val()) + c;
+            if (v >= $Product.Inventory) {
+                v = $Product.Inventory;
+                $('#buyright').removeClass('add')
+                $('#buyright').addClass('remove')
+            }
+            else {
+                $('#buyright').removeClass('remove')
+                $('#buyright').addClass('add')
+            }
+            if (v <= 1) {
+                v = 1;
+                $('#buyleft').removeClass('add')
+                $('#buyleft').addClass('remove')
+            }
+            else {
+                $('#buyleft').removeClass('remove')
+                $('#buyleft').addClass('add')
+            }
+            $('#buycount').val(v);
+        }
+        function buyProduct() {
+            $if(this.IsLogin)
+            try {
+                return parseInt($('#buycount').val()) > 0;
+            }
+            catch (e) { }
+            $else
+            window.location.href = '$passport("/login")';
+            $end
+            return false;
+        }
+    </script>
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    $load("inc/nav.html")
+
+    <!-- BEGIN main -->
+    <div class="main">
+        <div class="content-wrap">
+            <!-- BEGIN breadcrumb -->
+            <div class="site-nav">
+                <a href="$Site.Url">首页</a>
+                $foreach(item in CategoryList)
+                >
+                $if(foreachIndex==CategoryList.Count)
+                $item.Name
+                $else
+                <a href="$url('/category/list/',item.Id)">$item.Name</a>
+                $end
+                $end
+            </div>
+            <!-- END breadcrumb -->
+            <!-- BEGIN section-00 -->
+            <div class="clearfix section-00" style="margin-top:15px;">
+                <div class="f-left">
+                    <!-- BEGIN 图片放大 -->
+                    <div class="jqzoom-wrap">
+                        <!-- 大图begin -->
+                        <div id="preview" class="spec-preview">
+                            <span class="jqzoom"><img style="width:400px;height:400px" jqimg="$Product.GetImage()" src="$Product.GetImage()" /></span>
+                        </div>
+                        <!-- 大图end -->
+                        <!-- 缩略图begin -->
+                        <div class="spec-scroll">
+                            <a class="prev iconfont iconfont-prev">&#xe600;</a>
+                            <a class="next iconfont iconfont-next">&#xe600;</a>
+                            <div class="items">
+                                <ul>
+                                    $foreach(img in Product.GetImages())
+                                    <li><img bimg="$img" src="$img" onmousemove="preview(this);"></li>
+                                    $end
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 缩略图end -->
+                    </div>
+                    <!-- END 图片放大 -->
+                </div>
+                <div class="f-left content">
+                    <h2>$Product.Title</h2>
+                    <p class="summary">$Product.Description</p>
+                    $if(Product.DiscountState==2)
+                    <div class="countDown">
+                        <p>距特卖结束：$Product.GetDiscountCountdown().FormatString("d 天 h 时 m 分 s 秒")</p>
+                    </div>
+                    $end
+                    <p class="mt18">
+                        <label class="f-left" style="height:27px;line-height:27px;">特卖价</label>
+                    <p><span style="margin-right:10px;font-size:24px;color: #F40;font-family:arial;">$Product.GetSalePrice().ToString("C2")</span>平台价<del style="margin-right:10px;">$Product.Price.ToString("C2")</del><!--市场价<del>$Product.MarketPrice.ToString("C2")</del>--></p>
+                    </p>
+                    <div class="clearfix freight mt18">
+                        <label class="f-left">运费</label>
+                        $if(Product.FreightType==0)
+                        $if(Product.FreightMoney.Equals(0))
+                        <p class="f-left">包邮</p>
+                        $else
+                        <p class="f-left">$Product.FreightMoney.ToString("C2")</p>
+                        $end
+                        $end
+                    </div>
+                    <!--<div class="clearfix color mt18">
+                        <label class="f-left">颜色</label>
+                        <ul class="f-left">
+                            <li><img src="img/product/section_00_01.png" alt=""></li>
+                            <li><img src="img/product/section_00_01.png" alt=""></li>
+                            <li><img src="img/product/section_00_01.png" alt=""></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix size mt18">
+                        <label class="f-left">尺码</label>
+                        <ul class="f-left">
+                            <li>M</li>
+                            <li>XL</li>
+                            <li>L</li>
+                            <li>S</li>
+                        </ul>
+                    </div>-->
+                    <form id="form" action="$passport('/buy')" method="post" onsubmit="return buyProduct()">
+                        <div class="clearfix num mt18">
+                            <label class="f-left">数量</label>
+                            <div class="f-left">
+                                <div class="f-left num-wrap">
+                                    <span class="f-left remove" id="buyleft" href="javascript:void(0)" onclick="addCount(-1)">-</span>
+                                    <input class="f-left text" id="buycount" name="Count" type="text" value="1" />
+                                    <span class="f-left ${if(Product.Inventory<2)}remove${else}add${end}" id="buyright" href="javascript:void(0)" onclick="addCount(1)">+</span>
+                                </div>
+                                <p class="f-left tip">${Product.Unit}(库存$Product.Inventory$Product.Unit)</p>
+                            </div>
+                        </div>
+                        <p class="clearfix mt30">
+                            <input name="Id" type="hidden" value="$Product.Id" />
+                            <input type="submit" class="f-left btn btn-buynow mr-20" value="立即购买"/>
+                            <a href="javascript:void(0)" onclick="addCart($Product.Id)" title="加入购物车" class="f-left btn btn-addCart">加入购物车</a>
+                        </p>
+                    </form>
+                    <!--<p class="mt18"><strong>324</strong>人评价 <strong>23</strong>人晒单</p>-->
+                </div>
+            </div>
+            <!-- END section-00 -->
+            <!-- BEGIN section-01 -->
+            <!--<div class="tab section-01">
+                <div class="tab-header">
+                    <ul class="clearfix">
+                        <li>商品详情</li>
+                    </ul>
+                </div>
+                <div class="tab-content-wrap">
+                    <div class="tab-content" style="display:block;"></div>
+                </div>
+            </div>-->
+            <!-- END section-01 -->
+            <!-- BEGIN section-02 -->
+            <div class="clearfix section-02">
+
+                <!-- BEGIN aside-goods  -->
+                <div class="aside-goods">
+                    <div class="panel">
+                        <div class="clearfix panel-header">
+                            <h2 class="f-left">宝贝推荐</h2>
+                            <!--<a class="f-right" href="" title="更多">更多</a>-->
+                        </div>
+                        <div class="panel-body">
+                            $foreach(item in RecommendList)
+                            <a href="$url('/product/info/',item.Id)" target="_blank">
+                                <img class="img" src="$item.GetImage()" alt="$item.Title">
+                                <h3 class="title">$item.Title</h3>
+                                <p>$item.GetSalePrice().ToString("C2")</p>
+                            </a>
+                            $end
+                        </div>
+                    </div>
+                </div>
+                <!-- BEGIN aside-goods  -->
+
+                <div class="f-right content">
+                    <div class="tab">
+                        <div class="tab-header">
+                            <ul class="clearfix">
+                                <li class="active">商品详情</li>
+                                <li>商品规格</li>
+                                <li>评价(0)</li>
+                            </ul>
+                        </div>
+                        <div class="tab-content-wrap">
+                            <div class="tab-content" style="display:block;">
+               
+                                $Product.Content
+                            </div>
+                            <div class="tab-content">
+                                <!-- BEGIN para -->
+                                <ul class="clearfix goods-para">
+                                    $foreach(item in Attributes)
+                                    <li>$item.A.Name：$item.B.Value</li>
+                                    $end
+                                </ul>
+                                <!-- END para -->
+                            </div>
+                            <div class="tab-content">
+                                <!-- BEGIN comment-list 循环table -->
+                                <!--<table class="comment-list">
+                                    <tr>
+                                        <td class="face"><img src="img/product/aside_img.jpg" alt=""></td>
+                                        <td class="des">宝贝不错，衣服特别可爱，门店价比现在要贵很多，服务非常好，非常满意！</td>
+                                        <td class=" spec" rowspan="2">颜色：黑色<br />尺码：L</td>
+                                        <td rowspan="2"><div class="clearfix raty" data-score="4"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>181******33</td>
+                                        <td class="date">2015-12-14 12：12:12</td>
+                                    </tr>
+                                </table>-->
+                                <!-- END comment-list -->
+
+                                <!-- BEGIN pagination -->
+                                <!--<div class="clearfix pagination">
+                                    <ul>
+                                        <li class="active"><a href="" title="1">1</a></li>
+                                        <li><a href="#" title="2">2</a></li>
+                                        <li><a href="#" title="3">3</a></li>
+                                        <li class="no">...</li>
+                                        <li><a href="#" title="999">999</a></li>
+                                        <li><a href="#" title="1000">1000</a></li>
+                                    </ul>
+                                </div>-->
+                                <!-- END pagination -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END section-02 -->
+
+        </div>
+    </div>
+    <!-- END main -->
+    $load("inc/footer.html")
+    $load("inc/bottom.html")
+
+    <script src="$res('js/jquery.jqzoom.js')"></script>
+    <script src="$res('js/jquery.raty.min.js')"></script>
+
+    <script type="text/javascript">
+        $('.tab .tab-header li').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            $($(this).parents('.tab').find('.tab-content')[$(this).index()]).show().siblings().hide();
+        });
+
+        $.fn.raty.defaults.path = '$res("css/img/")';
+        $('.raty').raty({
+            width: 150,
+            number: 5,
+            score: function () {
+                return $(this).attr('data-score');
+            },
+            readOnly: true
+        });
+    </script>
+</body>
+</html>

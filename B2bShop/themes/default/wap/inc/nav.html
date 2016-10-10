@@ -1,0 +1,30 @@
+﻿<!-- bottom nav -->
+<div class="bar nav_bottom bar-footer" style="z-index:12">
+    <ul class="clearfix">
+        <li ${if(this.Application.ControllerName!!'Index'&&this.Application.ActionName!!'Index' )}class="on"${end}>
+            <a href="${if(this.Application.ControllerName!!'Index'&&this.Application.ActionName!!'Index' )}javascript:;${else}/${end}" class="external">
+                <div><img src="${if(this.Application.ControllerName!!'Index'&&this.Application.ActionName!!'Index' )}$res('wap/img2.0/jhb/xpc_purchaseOn.png')$else$res('wap/img2.0/jhb/xpc_purchase.png')${end}" /></div>
+                <div>进货宝</div>
+            </a>
+        </li>
+        <li ${if(this.Application.ControllerName!!'Programme')}class="on"${end}>
+            <a href="${if(this.Application.ControllerName!!'Programme'&&this.Application.ActionName!!'Index' )}javascript:;${else}$url('/programme')${end}" class="external">
+                <div><img src="${if(this.Application.ControllerName!!'Programme')}$res('wap/img2.0/programmeOn.png')$else$res('wap/img2.0/programme.png')${end}" /></div>
+                <div>进货方案</div>
+            </a>
+        </li>
+        <li ${if(this.Application.ControllerName!!'Cart'||this.Application.ControllerName!!'Buy' )}class="on"${end}>
+            <a href="${if(this.Application.ControllerName!!'Cart'&&this.Application.ActionName!!'Index' )}javascript:;${else}$url('/cart')${end}" class="external">
+                <div><img src="${if(this.Application.ControllerName!!'Cart'||this.Application.ControllerName!!'Buy')}$res('wap/img2.0/cartOn.png')$else$res('wap/img2.0/cart.png')${end}" /></div>
+                <div>进货车</div>
+            </a>
+        </li>
+        <li>
+            <a href="$Site.SupplierUrl" class="external">
+                <div><img src="$res('wap/img2.0/jhb/xcp_my.png')" /></div>
+                <div>我的</div>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- end bottom  -->

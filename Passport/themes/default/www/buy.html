@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车结算 - $Site.Name</title>
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    $load("inc/comm.html")
+    <link rel="stylesheet" href="$res('css2.0/xcp.cph.pc.buy.min.css')">
+</head>
+<body>
+    $load("inc/top.html")
+    $set(hasInvalid=false)
+    <style>
+        .header_logo {
+            padding: 25px 0 20px;
+        }
+    </style>
+    <div class="header_zhongBoxWrap w100">
+        <div class="header_zhongBox w1000 clearFix">
+            <a href="$url(Site.Url)">
+                <div class="header_logo fl">
+                    <div class="fl">
+                        <img src="$res('img2.0/logo.png')">
+                    </div>
+                    <div class="header_logo_right fr">
+                        <span>乡品进城</span>
+                        <p>城品下乡</p>
+                    </div>
+                </div>
+            </a>
+            <div class="header_right_logo">
+                <div>
+                    <span class="span_one">查看购物车</span>
+                    <span class="span_two">拍下商品</span>
+                    <span class="span_three">付款</span>
+                    <span class="span_four">确认收货</span>
+                    <span class="span_four">评价</span>
+                </div>
+                <div>
+                    <img src="$res('img2.0/passport/cart_cg.png')" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="center_wrap w1000">
+        <div class="center_address">
+            <h2>1 地址选择</h2>
+            $if(AddressList.Count>0)
+            <div class="center_addressSelect clearFix">
+                $foreach(item in AddressList)
+                <a class="fl jsAdr-switch" href="$url('/buy/perfect/',OrderId,'/',item.Id)" $if(item.IsDefault) id="default_A" $end
+                   data-addressid="$item.Id"
+                   data-postid="$item.PostId"
+                   data-county="$item.County"
+                   data-address="$item.Address">
+                    <span class="jsAdr-name">$item.Consignee</span>
+                    <input type="button" class="xiugai_button jsAdr-Del" value="删除">
+                    <input type="button" class="xiugai_button jsAdr-Edit" value="修改">
+                    <p class="jsAdr">$item.GetAddress()</p>
+                    <p class="jsAdr-mobile">$item.Mobile</p>
+                </a>
+                $end
+            </div>
+            <a href="javascript:;" class="new_address " id="btnNewAddress">
+                <span></span> 使用新的地址
+            </a>
+            $else
+            <form id="adrsForm" action="$url('/shippingaddress/submit')" method="post">
+                <div class="new_addressWrap clearFix">
+                    <div class="new_addressLeft fl">
+                        <span><i>*</i> 收件人</span>
+                        <span class="address"><i>*</i> 所在地区</span>
+                        <span class="rode"><i>*</i> 街道地址</span>
+                        <span class="yb rode"> 邮编</span>
+                        <!--<span class="yb rode"> 电子邮件</span>-->
+                        <span class="tell email"><i>*</i> 手机号码</span>
+                    </div>
+                    <div class="new_addressRint fl">
+                        <input type="text" id="Consignee" name="Consignee" />
+                        <div class="new_addressSelect" id="area">
+                        </div>
+                        <div class="new_addressRoad">
+                            <input type="text" id="Address" name="Address" />
+                        </div>
+                        <div class="new_addressEmail new_addressRoad">
+                            <input type="text" id="PostId" name="PostId" />
+                        </div>
+                        <!--<div class="new_addressEmail new_addressRoad">
+                            <input type="text" id="Email" name="Email" />
+                        </div>-->
+                        <div class="new_addressTell  clearFix">
+                            <input type="text" class="fl" id="Mobile" name="Mobile" />
+                        </div>
+                        <button class="verify" type="submit">确认</button>
+                    </div>
+                </div>
+            </form>
+            $end
+        </div>
+        <form id="form" action="$url('/buy/onperfect')" method="post">
+            <div class="center_cartGoods center_address">
+                <h2>2 商品清单</h2>
+
+                $foreach(order in OrderList)
+                <div class="center_cartGoodsTable" data-orderid="$order.Id">
+                    <ul class="center_cartGoodsUl clearFix">
+                        <li>产品</li>
+                        <li class="goodsTop_two">单价</li>
+                        <li class="goodsTop_three">数量</li>
+                        <li class="goodsTop_five">总额</li>
+                    </ul>
+                    <div class="centerShop fb">店铺：$order.GetStoreName(this.DataSource)</div>
+                    <div class="goods_box">
+                        <ul class="clearFix">
+                            $set(mappings=order.GetMapping(this.DataSource))
+                            $foreach(map in mappings)
+                            $set(info=json(map.ProductInfo))
+                            <li class="clearFix">
+                                <div class="goods_print fl"><a href="$Site.Url$url('/product/info/',map.ProductId)" target="_blank"><img src="$map.GetImage(info.Image)"></a></div>
+                                <div class="goods_msNorms fl">
+                                    <span class="goods_ms"><a href="$Site.Url$url('/product/info/',map.ProductId)" target="_blank">$info.Title</a></span>
+                                    $foreach(attr in info.Series)
+                                    <span>
+                                        $attr.Key：$attr.Value&nbsp;
+                                    </span>
+                                    $end
+                                </div>
+                                <div class="goods_pricColor goods_pric fl ">
+                                    <span class="fb">
+                                        $map.GetSalePrice(this.DataSource,DefaultAdrs.Province,DefaultAdrs.City,DefaultAdrs.County).ToString("c2")
+                                    </span>/$info.Unit
+                                </div>
+                                $if(map.GetSaleArea(this.DataSource,DefaultAdrs.Province,DefaultAdrs.City,DefaultAdrs.County))
+                                <div class="goods_number fl">$map.Count</div>
+                                <div class="goods_total goods_pric fl fb"><span>$map.TotalMoney.ToString("c2")</span></div>
+                                $else
+                                $set(hasInvalid=true)
+                                <div class="goods_number fl">$map.Count</div>
+                                <div class="goods_total goods_pric fl fb"><span>此商品在该地区无货</span></div>
+                                $end
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+                    <!-- 留言 -->
+                    <div class="center_cartLeave clearFix">
+                        <h2><em></em>订单附言</h2>
+                        <div class="order_cartLeave">
+                            <span class="fl">订单附言：</span>
+                            <div class="order_textarea fl"><textarea name="Message"></textarea></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="centerSum centerPricTotal">
+                    共<span> $mappings.Count </span>件商品，总商品金额：$order.GetTotalMoney(this.DataSource).ToString("c2")
+                    <p>
+                        <i></i>运费：<span class="jsFreight">
+                            $clr.Cnaws.Product.Modules.ProductOrder.GetStaticFreight(this.DataSource,order.Id,order.SupplierId,DefaultAdrs.Province,DefaultAdrs.City,order.TotalMoney).ToString("c2")
+                        </span>
+                    </p>
+                </div>
+                $end
+
+
+                <!-- 总价 -->
+                <div class="cart_grossPrice centerSum ">
+                    应付总额：<i id="TotalMoney">$TotalMoney.ToString("c2")</i>
+                    <!--<p>寄至：<font id="postTo"></font>  收货人：<font id="recName"></font></p>-->
+                </div>
+                <div class="cart_button clearFix">
+                    <button class="fl" id="btnBack">返回修改购物车</button>
+                    <button class="verifybutton fr" type="submit" id="btnSubmit">确认订单</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    $load("inc/xlaert.html")
+    <script type="text/html" id="tmpl-address">
+        <div class="center_addAddressTitle">使用新地址</div>
+        <div class="new_addressWrap clearFix">
+            <form id="adrsForm" action="$url('/shippingaddress/submit')" method="post">
+                <input type="hidden" name="Id" />
+                <div class="new_addressWrap clearFix">
+                    <div class="new_addressLeft fl">
+                        <span><i>*</i> 收件人</span>
+                        <span class="address"><i>*</i> 所在地区</span>
+                        <span class="rode"><i>*</i> 街道地址</span>
+                        <span class="yb rode"> 邮编</span>
+                        <!--<span class="yb rode"> 电子邮件</span>-->
+                        <span class="tell email"><i>*</i> 手机号码</span>
+                    </div>
+                    <div class="new_addressRint fl">
+                        <input type="text" id="Consignee" name="Consignee" />
+                        <div class="new_addressSelect" id="area">
+                        </div>
+                        <div class="new_addressRoad">
+                            <input type="text" id="Address" name="Address" />
+                        </div>
+                        <div class="new_addressEmail new_addressRoad">
+                            <input type="text" id="PostId" name="PostId" />
+                        </div>
+                        <!--<div class="new_addressEmail new_addressRoad">
+                            <input type="text" id="Email" name="Email" />
+                        </div>-->
+                        <div class="new_addressTell  clearFix">
+                            <input type="text" class="fl" id="Mobile" name="Mobile" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <script type="text/javascript" src="$url('/Country/alljson')"></script>
+    <script type="text/javascript" src="$res('js2.0/xcp.cph.pc.buy.js')"></script>
+    <script>
+        $(function () {
+            Buy({
+                orderId: '$OrderId',
+                adrsId:$DefaultAdrs.Id,
+                location: $Location,
+                hasInvalid: '$hasInvalid'
+            });
+        })
+    </script>
+</body>
+</html>

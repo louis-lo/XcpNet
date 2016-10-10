@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width">
+    <title>最帅老爸,父亲节为最爱的老爸投上一票-$Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/sm.min.css')">
+    <style>
+        input[placeholder], [placeholder], *[placeholder] {
+            color: #fff !important;
+        }
+
+        ::-webkit-input-placeholder { /* WebKit browsers */
+            color: #fff;
+        }
+
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #fff;
+        }
+
+        .vote_top div {
+            height: 2.75rem;
+            line-height: 2.75rem;
+        }
+
+            .vote_top div:first-child {
+                width: 4rem;
+                margin-left: 0.5rem;
+            }
+
+            .vote_top div:nth-child(2) {
+                width: 4rem;
+                position: absolute;
+                left: 50%;
+                margin-left: -2rem;
+            }
+
+            .vote_top div:last-child {
+                width: 3rem;
+                margin-right: 0.5rem;
+            }
+
+            .vote_top div img, .joins_bottom div img {
+                vertical-align: middle;
+            }
+
+        .vote_content {
+            background: url($res('wap/img/vote_bg.png'));
+            background-size: 100% 100%;
+            height: auto;
+            overflow: hidden;
+            padding-bottom: 2.5rem;
+        }
+
+        .vote_conNum {
+            color: #351e0b;
+            font-size: 1.3rem;
+            width: 90%;
+            margin: 2rem auto 1rem;
+        }
+
+        .vote_conNumBg {
+            background: url($res('wap/img/vote_number.png'));
+            background-size: 100% 100%;
+            width: 4rem;
+            height: 1.4rem;
+            line-height: 1.5rem;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .vote_conTxtimg {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .vote_conList {
+            width: 75%;
+            height: auto;
+            overflow: hidden;
+            margin: 1rem auto;
+        }
+
+            .vote_conList li {
+                width: 30%;
+                margin: 0 auto;
+            }
+
+                .vote_conList li div {
+                    position: relative;
+                    width: 100%;
+                    padding-bottom: 100%;
+                    border: 1px solid #fff;
+                }
+
+        .vote_Butupload {
+            width: 68%;
+            height: auto;
+            overflow: hidden;
+            margin: 1rem auto 0.5rem;
+            position: relative;
+        }
+
+            .vote_Butupload input {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                opacity: 0;
+            }
+
+            .vote_Butupload a {
+                display: block;
+                background: rgba(6,6,6,0.2);
+                color: #fff;
+                border: 2px solid rgba(255,255,255,0.3);
+                text-align: center;
+                font-size: .95rem;
+            }
+
+        .vote_form {
+            width: 68%;
+            height: auto;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+            .vote_form ul {
+                border-top: 2px solid rgba(255,255,255,0.3);
+            }
+
+                .vote_form ul li {
+                    border: 2px solid rgba(255,255,255,0.3);
+                    color: #fff;
+                    zoom: 1;
+                    overflow: hidden;
+                    padding: 5px 0 5px 3.5rem;
+                }
+
+                .vote_form ul li {
+                    border-top: none;
+                }
+
+        .vote_formMain {
+            float: left;
+            width: 100%;
+        }
+
+        .vote_formLeft {
+            float: left;
+            width: 3.5rem;
+            margin-left: -100%;
+            position: relative;
+            left: -3.5rem;
+            border-right: 2px solid rgba(255,255,255,0.3);
+            text-indent: 6px;
+        }
+
+        .vote_formInp {
+            display: block;
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 0 6px;
+            color: #fff;
+            line-height: 1.2rem;
+            font-size: 0.85rem;
+        }
+
+        .vote_formTxtarea {
+            background: none;
+            border: none;
+            resize: none;
+            color: #fff;
+            font-size: 0.85rem;
+            padding: 0 6px;
+            width: 100%;
+            box-sizing: border-box;
+            height: 75px;
+        }
+
+        .vote_ButSum {
+            width: 40%;
+            height: auto;
+            overflow: hidden;
+            margin: 1rem auto 0;
+        }
+
+            .vote_ButSum input {
+                width: 100%;
+                background: rgba(6,6,6,0.2);
+                color: #fff;
+                border: 2px solid rgba(255,255,255,0.3);
+                line-height: 1.5rem;
+                border-radius: 0.5rem;
+                font-size: 0.85rem;
+            }
+
+        .vote_ButTxt {
+            text-align: center;
+        }
+
+            .vote_ButTxt a {
+                color: #fff;
+                font-size: 0.6rem;
+            }
+
+        .vote_bottom {
+            background: #3e3e3e;
+            height: auto;
+            overflow: hidden;
+        }
+
+            .vote_bottom div:first-child {
+                width: 4rem;
+                margin-left: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            .vote_bottom div:nth-child(2) {
+                width: 5rem;
+                position: absolute;
+                left: 50%;
+                margin-left: -2.25rem;
+                margin-top: 1rem;
+            }
+
+            .vote_bottom div:last-child {
+                width: 3rem;
+                margin-right: 0.6rem;
+                margin-top: 0.3rem;
+            }
+
+                .vote_bottom div:last-child img {
+                    padding: 0.2rem;
+                    background: #fff;
+                }
+
+        #jqxLoader {
+            position: fixed !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="wrap page">
+            <div class="content">
+                <div class="vote_top clearfix">
+                    <div class="fl"><img src="$res('wap/img/vote_logo.png')"></div>
+                    <div class="fl"><img src="$res('wap/img/vote_tel.png')"></div>
+                    <div class="fr"><a href="$url(Site.Url)"><img src="$res('wap/img/vote_gohome.png')"></a></div>
+                </div>
+
+                <div class="vote_content">
+                    $if(HasRegister==true)
+                    <div class="vote_conNum">编号：<span class="vote_conNumBg">$MaxNo</span></div>
+                    <div class="vote_conTxtimg"><img src="$res('wap/img/vote_theme.png')" /></div>
+                    <div class="vote_conList">
+                        <ul>
+                            <li><div id="privewImg" style="background:url($res('wap/img/default-headimg.jpg'));background-size:100% 100%"></div></li>
+                        </ul>
+                    </div>
+                    <div class="vote_Butupload">
+                        <a href="javascript:;" id="upLoadImg">上传照片</a>
+                        <form id='formFile' name='formFile' method="post" action="http://res.xcpnet.com/wapfilemanager/upload.html?token=$Token" target='frameFile' enctype="multipart/form-data">
+                            <input type="file" name="imgFile" class="hidden" id="ImageFile" />
+                        </form>
+                    </div>
+                    <form id="registerForm" method="post">
+                        <input type="hidden" name="HeadImgUrl" class="hidden" id="HeadImgUrl" />
+                        <div class="vote_form">
+                            <ul>
+                                <li class="clearfix">
+                                    <div class="vote_formMain"><input class="vote_formInp" id="Name" name="Name" type="text" placeholder="请输入名称" /></div>
+                                    <div class="vote_formLeft">姓名:</div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="vote_formMain"><input class="vote_formInp" id="Mobile" name="Mobile" type="number" placeholder="请输入手机号码" /></div>
+                                    <div class="vote_formLeft">手机:</div>
+                                </li>
+                                <li class="clearfix">
+                                    <div class="vote_formMain"><textarea id="Content" name="Content" class="vote_formTxtarea" placeholder="请输入最想对爸爸说的一句话"></textarea></div>
+                                    <div class="vote_formLeft">最想对爸爸说的一句话:</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="vote_ButSum"><input type="submit" value="点击提交" /></div>
+                        <div class="vote_ButTxt"><a href="#">《了解更多上乡城品》</a></div>
+                    </form>
+                    $else
+                    <div class="vote_ButSum" style="height:400px">
+                        <input type="button" onclick="window.location.href='$url('/fathersday/index')'" value="您己报名,返回" />
+                    </div>
+                    $end
+                </div>
+                <div class="vote_bottom clearfix">
+                    <div class="fl"><a href="$url(Site.Url)"><img src="$res('wap/img/joins_botLogo.png')" /></a></div>
+                    <div class="fl"><img src="$res('wap/img/joins_botTel.png')" /></div>
+                    <div class="fr"><img src="$res('wap/img/joins_code.png')" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="jqxLoader" style="display:none;"></div>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type='text/javascript' src="$res('wap/js/mobile/zepto.min.js')" charset='utf-8'></script>
+    <script type='text/javascript' src="$res('wap/js/mobile/sm.min.js')" charset='utf-8'></script>
+    <script type="text/javascript" src="$res('js/jquery.form.js')"></script>
+    <script>
+        ; +(function ($,zepto, doc) {
+            var get = function (id) {
+                return doc.getElementById(id);
+            },
+            stopEvent = function (e) {
+                e.preventDefault();
+                e.stopPropagation()
+            };
+
+            $(function () {
+
+
+                var ImageFile = get('ImageFile'),
+                      registerForm = get('registerForm'),
+                      jFormFile = $('#formFile'),
+                      jqxLoader = $('#jqxLoader'),
+                      headImgUrl = get('HeadImgUrl'),
+                      upLoadImg = $('upLoadImg'),
+                      Name = get('Name'),
+                      Mobile = get('Mobile'),
+                      Content = get('Content'),
+                      privewImg = get('privewImg');
+                var imglock=false;
+                //$("#upLoadI").click(function(){
+                //    var formData = new FormData($( "#formFile" )[0]);
+                //    $.ajax({
+                //        url: jFormFile.attr("action") ,
+                //        type: 'POST',
+                //        data: formData,
+                //        dataType: "json",
+                //        async: true,
+                //        cache: false,
+                //        contentType: false,
+                //        processData: false,
+                //        success: function (data) {
+                //            if(data.code==-200){
+                //                data=data.data;
+                //                if (data.error == 0) {
+                //                    headImgUrl.value = data.url;
+                //                    privewImg.style.cssText = 'background:url(' + data.url + ');background-size:100% 100%';
+                //                    imglock=false;
+                //                }
+                //            }
+                //        },
+                //        error:function(responseStr) {
+                //            alert("失败:" + JSON.stringify(responseStr));//将    json对象    转成    json字符串。
+                //        }
+                //    });
+                //});
+                ImageFile.addEventListener('change', function (e) {
+                    if(!imglock){
+                        imglock=true;
+                        var formData = new FormData($( "#formFile" )[0]);
+                        if (e.target.files.length > 0) {
+                            var formData = new FormData($( "#formFile" )[0]);
+                            $.ajax({
+                                url: jFormFile.attr("action") ,
+                                type: 'POST',
+                                data: formData,
+                                dataType: "json",
+                                async: true,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function (data) {
+                                    if(data.code==-200){
+                                        data=data.data;
+                                        if (data.error == 0) {
+                                            headImgUrl.value = data.url;
+                                            privewImg.style.cssText = 'background:url(' + data.url + ');background-size:100% 100%';
+                                            imglock=false;
+                                        }
+                                    }
+                                },
+                                error:function(responseStr) {
+                                    alert("失败:" + JSON.stringify(responseStr));//将    json对象    转成    json字符串。
+                                }
+                            });
+                        }
+                    }
+                });
+                $("#upLoadImg").click(function () {
+                    $("#ImageFile").click();
+                });
+                //upLoadImg.addEventListener('click', function () {
+                //    ImageFile.click();
+                //}, false);
+
+                registerForm.onsubmit = function (e) {
+                    if (!!!headImgUrl.value) {
+                        zepto.alert('请先上传头像');
+                        stopEvent(e);
+                        return false;
+                    }
+                    else if (!!!Name.value) {
+                        zepto.alert('姓名不能为空');
+                        stopEvent(e);
+                        return false;
+                    } else if (!!!Mobile.value) {
+                        zepto.alert('电话不能为空');
+                        stopEvent(e);
+                        return false;
+                    } else if (!!!Content.value) {
+                        zepto.alert('请填写想对父亲说的话');
+                        stopEvent(e);
+                        return false;
+                    }
+
+                    return true;
+                }
+            })
+        })($,Zepto, document)
+    </script>
+</body>
+</html>

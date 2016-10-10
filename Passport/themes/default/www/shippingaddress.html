@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>城品惠-新增收获地址</title>
+    $load("inc/comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-personageAddress.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-userCenter.css')">
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jtemplates.js')"></script>
+    <script type="text/javascript" src="$url('/Country/alljson')"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Cnaws.Area.Init('area', '$url("/country/")', $this.Location.CountyId);
+            $("#form").jqxValidator({
+                rules: [
+                    { input: '#Consignee', message: '请输入收货人姓名', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Address', message: '请输入街道名称或小区名称', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Mobile', message: '请输入联系电话', action: 'keyup, blur', rule: 'required' },
+                    //{ input: '#PostId', message: '请输入邮政编码', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Address', message: '请输入街道名称或小区名称', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+            loadData();
+            initUI();
+        });
+        var defautAddress;
+        function loadData() {
+            Cnaws.getAjax('$url("shippingaddress/list")', function(data, args) {
+                if (data.code == -200) {
+                    $("#list").setTemplateElement("template", null, { filter_data: false });
+                    $("#list").processTemplate(data.data);
+                    defautAddress=$('input[name="IsDefault"]:checked');
+                }
+            }, null);
+        }
+
+        function onSubmit() {
+            var form = $('#form');
+            form.attr('disabled', true);
+            if (form.jqxValidator('validate')) {
+                Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('修改成功');
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                    args.form.attr('disabled', false);
+                }, { form: form });
+            }
+            else {
+                form.attr('disabled', false);
+            }
+            return false;
+        }
+
+        function getCityName(val) {
+            try{
+                return AreaAll[val.toString()]['name'];
+            }
+            catch (e) {
+                return '';
+            }
+        }
+
+        function onModify(id) {
+            Cnaws.getAjax(Cnaws.getUrl("$url('shippingaddress/get/')" + id), function (data, args) {
+                if (data.code == -200) {
+                    $('#Id').val(data.data.Id);
+                    $('#Consignee').val(data.data.Consignee);
+                    $('#Address').val(data.data.Address);
+                    $('#Mobile').val(data.data.Mobile);
+                    $('#PostId').val(data.data.PostId);
+                    document.getElementById('IsDefault').checked = data.data.IsDefault;
+                    Cnaws.Area.Init('area', '$url("/country/")', data.data.County);
+                }
+            }, null);
+        }
+
+        function onDelete(id) {
+            if (window.confirm('删除后不可恢复，确认删除？')) {
+                Cnaws.postAjax("$url('shippingaddress/delete')", 'Id=' + id, function (data, args) {
+                    if (data.code == -200) {
+                        loadData();
+                    }
+                }, null);
+            }
+        }
+
+        function validate(form) {
+            form.jqxValidator('hide');
+            form.jqxValidator({
+                hintType: 'label',
+                animationDuration: 0,
+                rules: [
+                    { input: '#Consignee', message: '收货人不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#area_counties', message: '县、区不能为空', action: 'keyup, blur', rule: function (input, commit) {
+                        var value = input.val();
+                        if (value != '') {
+                            return parseInt(value) > 0;
+                        }
+                    }
+                    },
+                    { input: '#Address', message: '详细地址不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Mobile', message: '手机号码不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Mobile', message: '手机号码无效', action: 'keyup, blur', rule: function(input){
+                        var value = input.val();
+                        var _emp = /^\s*|\s*$/g;
+                        value = value.replace(_emp, "");
+                        var _d = /^1[3578][01379]\d{8}$/g;//电信
+                        var _l = /^1[34578][01256]\d{8}$/g;//联通
+                        var _y = /^(134[012345678]\d{7}|1[34578][012356789]\d{8})$/g;//移动
+
+                        if (_d.test(value) || _l.test(value) || _y.test(value)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } },
+                    { input: '#PostId', message: '邮政编码不能为空', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+            return form.jqxValidator('validate');
+        }
+
+        function initUI(){
+            document.getElementById('form').onsubmit=function(e){
+                e.preventDefault();
+                e.stopPropagation();
+
+                var form = $('#form');
+                form.attr('disabled', true);
+                if (validate(form)) {
+                    Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                        if (data.code == -200) {
+                            $set(target=this.Request.QueryString["target"])
+                            $if(clr.System.String.IsNullOrEmpty(target))
+                            Cnaws.showSuccess($('#Id').val() == '0' ? '添加成功' : '修改成功');
+                            loadData();
+                            $else
+                            window.location.href = '$target';
+                            $end
+                        }
+                        else {
+                            Cnaws.showError('数据操作失败，请联系管理员');
+                        }
+                        $('#Id').val('0');
+                        $('#Consignee').val('');
+                        $('#Address').val('');
+                        $('#Mobile').val('');
+                        $('#PostId').val('');
+                        document.getElementById('IsDefault').checked = false;
+                        args.form.attr('disabled', false);
+                    }, { form: form });
+                }
+                else {
+                    form.attr('disabled', false);
+                }
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左侧边栏  -->
+        $load("inc/leftaside.html")
+
+        <!--内容 -->
+        <div class="center_wrapRight fr">
+            <h2>新增收货地址</h2>
+            <form id="form" action="$url('shippingaddress/submit')" method="post" onsubmit="return onSubmit(e)">
+                <div class="address_content clearFix">
+                    <div class="new_addressLeft fl">
+                        <span><i>*</i> 收件人</span>
+                        <span class="address"><i>*</i> 所在地区</span>
+                        <span class="rode"><i>*</i> 街道地址</span>
+                        <span class="yb rode"> 邮编</span>
+                        <span class="tell email"><i>*</i> 手机号码</span>
+                    </div>
+                    <div class="new_addressRint fl">
+                        <input type="text" id="Consignee" name="Consignee" />
+                        <div class="new_addressSelect" id="area">
+                        </div>
+                        <div class="new_addressRoad">
+                            <input type="text" id="Address" name="Address" style="width:305px;" />
+                        </div>
+                        <div class="new_addressYb new_addressTell">
+                            <input type="text" id="PostId" name="PostId" />
+                        </div>
+                        <div class="new_addressTell  clearFix">
+                            <input type="text" id="Mobile" name="Mobile" class="fl"/>
+                        </div>
+                        <div class="default_div clearFix">
+                            <div class="defaultT fl"><input id="IsDefault" name="IsDefault" type="checkbox"></div>
+                            <span class="fl">设为默认收货地址</span>
+                        </div>
+                        <input type="hidden" id="Id" name="Id" value="0" />
+                        <button class="verify" type="submit">确认</button>
+                        <button class="verify_cancel" type="button">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="center_wrapRight fr">
+            <h2>已保存的地址</h2>
+            <textarea id="template" style="display:none">
+                {#foreach _T as record}
+                <tr>
+                    <td><input type="radio" name="IsDefault" onclick="setDefault(this,{_T.record.Id})" {#if _T.record.IsDefault}checked="checked" {#/if}/></td>
+                    <td>{_T.record.Consignee}</td>
+                    <td style="text-align:left;padding-left:10px;padding-right:10px;">{getCityName(_T.record.Province)} {getCityName(_T.record.City)} {getCityName(_T.record.County)}</td>
+                    <td style="text-align:left;padding-left:10px;padding-right:10px;">{_T.record.Address}</td>
+                    <td>{_T.record.PostId}</td>
+                    <td>{_T.record.Mobile}</td>
+                    <td style="color:#f47912;">
+                        <a href="javascript:void(0)" onclick="onModify({_T.record.Id})" style="color:#f47912;">修改</a> |
+                        <a href="javascript:void(0)" onclick="onDelete({_T.record.Id})" style="color:#f47912;">删除</a>
+                    </td>
+                </tr>
+                {#/for}
+            </textarea>
+            <table class="address_table">
+                <thead>
+                    <tr>
+                        <th width="7%">默认地址</th>
+                        <th width="9%">收货人</th>
+                        <th width="18%">所在区域</th>
+                        <th width="35%">街道地址</th>
+                        <th width="7%">邮编</th>
+                        <th width="12%">联系电话</th>
+                        <th width="12%">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="list">
+                    <!--<tr>
+                        <td><input type="checkbox" checked></td>
+                        <td>廖起床</td>
+                        <td>广东省 东莞市 南城区</td>
+                        <td>洪福路口5号</td>
+                        <td>518000</td>
+                        <td>18575667777</td>
+                        <td>
+                            <a href="#" class="handle_a">修改</a>
+                            <a href="#" class="handle_a">删除</a>
+                        </td>
+                    </tr>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--右边侧栏-->
+    $load("inc/toolbar.html")
+    <!-- 底部  -->
+    $load("inc/bottom.html")
+</body>
+</html>

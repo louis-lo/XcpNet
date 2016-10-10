@@ -1,0 +1,64 @@
+/* BEGIN common */
+.panel {
+	padding: 11px 15px 22px;
+	background-color: #FFF;
+	border: 1px solid #E1E1E1;
+}
+.panel .panel-header {
+	height: auto;
+	padding: 0;
+	line-height: 1;
+	border-bottom: 0;
+}
+.panel .panel-header h2 {
+	padding: 0;
+	padding-left: 15px;
+	font-size: 12px;
+	color: #666;
+	text-align: left;
+	font-weight: bold;
+	border-left: 3px solid #ED6C44;
+}
+.panel .panel-body {
+	padding: 0;
+}
+/* END common */
+
+.header small {
+	margin-left: 25px;
+	font-size: 24px;
+	font-family: '\5FAE\8F6F\96C5\9ED1';
+	color: #FFF;
+}
+
+/* BEGIN aside */
+.aside {
+	width: 150px;
+}
+.aside dt {
+	font-size: 12px;
+	color: #ed6c44;
+}
+.aside-title-01 {
+	background: url(img/seller/aside_title_01.png) no-repeat 12px 8px;
+}
+.aside-title-02 {
+	background: url(img/seller/aside_title_02.png) no-repeat 12px 6px;
+}
+.aside-title-03 {
+	background: url(img/seller/aside_title_03.png) no-repeat 12px 8px;
+}
+.aside-title-04 {
+	background: url(img/seller/aside_title_04.png) no-repeat 12px 8px;
+}
+.aside-title-05 {
+	background: url(img/seller/aside_title_05.png) no-repeat 12px 8px;
+}
+/* END aside */
+
+
+/* BEGIN content */
+.content {
+	width: 835px;
+}
+/* END content */

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>物流信息</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/swiper.min.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    $load("inc/header.html")
+    <style>
+        .bar-nav ~ .content { top: 2.2rem; }
+        h3 { font-weight: normal; }
+        .logistics_title { line-height: 2rem; }
+        .purchaseall_logiLe { width: 9%; }
+        .purchaseall_logiRe { width: 91%; }
+            .purchaseall_logiRe h3 { line-height: 1.5; font-size: .75rem; }
+        .purchaseall_logistics .choice_icon { background-position: -126px -3px; }
+        .purchaseall_logistics ul li { background: url($res("wap/img2.0/cph/route_descIconBg.jpg")) .45rem 0 repeat-y; padding-bottom: .5rem; }
+            .purchaseall_logistics ul li:last-child { background: none; }
+                .purchaseall_logistics ul li:last-child .choice_icon { background-position: -103px 0px; }
+            .purchaseall_logistics ul li h3 { color: #666; }
+            .purchaseall_logistics ul li:first-child h3 { color: #333; }
+        .logistics_icon { display: inline-block; width: 20px; height: 24px; vertical-align: middle; background-size: 514px 290px; background-position: -213px -155px; }
+            .logistics_icon.on { background-size: 430px 257px; background-position: -148px -133px; }
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="clearfix bar bar-nav col_333 bg_fff">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    查看物流
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="content native-scroll">
+                <div class="pad_lr">
+                    <h3 class="logistics_title col_333 ">订单号：$Order.Id</h3>
+                    <div class="purchaseall_logistics">
+                        <ul>
+                            $if(isset("ExpressInfo") && ExpressInfo.message == "ok")
+                            $set(expTime="")
+                            $foreach(item in ExpressInfo.data)
+                            <li class="clearfix">
+                                <div class="fl purchaseall_logiLe">
+                                    <span class="purchasemy_icon logistics_icon ${if(foreachIndex!!1)}on${end}"></span>
+                                </div>
+                                <div class="fl purchaseall_logiRe">
+                                    <h3>$item.context</h3>
+                                    <div class="col_999">$GetDay(item.time)</div>
+                                </div>
+                            </li>
+                            $end
+                            $else
+                            <li class="clearfix">
+                                抱歉！暂时未找到相关信息
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

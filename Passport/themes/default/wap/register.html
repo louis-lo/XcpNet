@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户注册-$Site.Name</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/reg_login.css')">
+	<style>
+        .jqx-validator-error-label {
+            color: red;
+        }
+        .jqx-tabs {
+            border: none !important;
+        }
+        .jqx-widget-content {
+            background: none !important;
+        }
+        .jqx-widget-header {
+            background: none !important;
+            border: 0 !important;
+            width: auto !important;
+            margin-bottom: 30px !important;
+        }
+        .jqx-tabs-title,.jqx-tabs-title-selected-top {
+            border: 0 !important;
+            border-radius: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            width: 165px !important;
+            padding: 15px 0 !important;
+        }
+        .jqx-tabs-titleContentWrapper {
+            text-align: center !important;
+            width: 100%;
+            font-size: 30px !important;
+        }
+        .jqx-tabs-title-selected-top {
+            background: #ff6a00 !important;
+            color: #fff !important;
+        }
+        .jqx-tabs-arrow-background {
+            display: none !important;
+        }
+    </style>
+    $load("inc/u_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxtabs.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/passport.js')"></script>
+    <script type="text/javascript">
+        //$if(Config.VerifyMobile)
+        var dissms = false;
+        function onTimer(time) {
+            time = time - 1;
+            if (time == -1) {
+                $('#captchaLink1').html('获取短信验证码');
+                dissms = false;
+            }
+            else {
+                $('#captchaLink1').html('剩余' + time + '秒重试');
+                setTimeout('onTimer(' + time + ')', 1000);
+            }
+        }
+        function sendSms(el) {
+            if ($("#Mobile").val().length > 0)
+            {
+                if (!dissms) {
+                    dissms = true;
+                    if (Cnaws.Passport.sendSms($('#Mobile').val(), 'yuntongxun', 0)) {
+                        onTimer($Sms.TimeSpan);
+                    }
+                    else {
+                        dissms = false;
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                $("#Mobile").focus();
+                return false;
+            }
+        }
+        //$end
+        $(document).ready(function () {
+			$('.protocol-wrap').click(function(){
+				var that = $(this);
+				var protocol = that.find('.protocol');
+				if(that.hasClass('active')) {
+					that.removeClass('active');
+					protocol.val(0);
+				}else {
+					that.addClass('active');
+					protocol.val(1);
+				}
+
+			});
+            Cnaws.Passport.Init({
+                targetUrl: '$Target'
+            });
+            $('#Mobile').jqxInput({ placeHolder: "请输入手机号码" });
+            $('#fPassword1').jqxInput({ placeHolder: "请输入密码" });
+            $('#Password1').jqxInput({ placeHolder: "请再一次输入密码" });
+            //$if(Config.VerifyMobile)
+            $('#Captcha1').jqxInput({ placeHolder: "请输入手机验证码" });
+            //$end
+            $('#form1').jqxValidator({
+                hintType: 'label',
+                animationDuration: 0,
+                rules: [
+                    { input: '#Mobile', message: '手机号码不能为空', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#Mobile', message: '手机号码格式错误', action: 'keyup, focus', rule: function (input, commit) {
+                            return /^1(3|4|5|6|7|8|9)\d{9}$/.test(input.val());
+                        }
+                    },
+                    {
+                        input: '#Mobile', message: '该手机号码已存在', action: 'blur', rule: function (input, commit) {
+                            if (/^1(3|4|5|6|7|8|9)\d{9}$/.test(input.val())) {
+                                return Cnaws.Passport.checkMobile(input.val());
+                            }
+                            return false;
+                        }
+                    },
+                    { input: '#fPassword1', message: '密码不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#fPassword1', message: '密码长度必须为6～32位', action: 'keyup, blur', rule: 'length=6,32' },
+                    { input: '#Password1', message: '确认密码不能为空', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#Password1', message: '两次密码不一致', action: 'keyup, focus', rule: function (input, commit) {
+                            if (input.val() === $('#fPassword1').val()) {
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    //$if(Config.VerifyMobile)
+                    , { input: '#Captcha1', message: '手机验证码不能为空', action: 'keyup, blur', rule: 'required' }
+                    //$end
+                    ,{
+                        input: "#protocol", message: "请同意乡城品用户协议", rule: function (input, commit) {
+                            if (input.val() != 1) {
+                                $("#protocolMessage").show();
+                                return false;
+                            }
+                            else {
+                                $("#protocolMessage").hide();
+                                return true;
+                            }
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</head>
+<body>
+	<div class="page">
+        <a href="javascript:history.go(-1);" class="back">返回</a>
+		<div class="post-form">
+			<div class="header">
+				<h1>用户注册</h1>
+			</div>
+            <div id="tabs" class="clearfix" style="margin-top: 30px !important">
+                <div>
+                    <form id="form1" action="$url('/register/submit')" method="post" onsubmit="return Cnaws.Passport.register(this, '#errmsg1', '')">
+                        <p class="clearfix text-box uname">
+                            <span>手机号码</span>
+                            <input type="text" name="Mobile" id="Mobile">
+                        </p>
+                        <p class="clearfix pwd text-box">
+                            <span for="fPassword1">密　码：</span>
+                            <input type="password" id="fPassword1" />
+                        </p>
+                        <p class="clearfix pwd text-box">
+                            <span for="Password1">确认密码：</span>
+                            <input type="password" id="Password1" name="Password" />
+                        </p>
+                        $if(Config.VerifyMobile)
+                        <p class="clearfix pwd text-box">
+                            <span>验证码</span>
+                            <input type="text" id="Captcha1" name="SmsCaptcha">
+                        </p>
+                        <p class="clearfix pwd text-box">
+                            <a id="captchaLink1" class="submit" style="border:0;width:100%;margin-top:0"  onclick="return sendSms()">获取短信验证码</a>
+                        </p>
+                        $end
+                        <p>
+                            <spn id="errmsg1"></spn>
+                        </p>
+                        <p class="protocol-wrap active">
+                            <input type="hidden" name="RegisterType" value="2">
+                            <input type="hidden" id="protocol" class="protocol" value="1">
+                            同意《乡城品用户协议》
+                        </p>
+                        <p id="protocolMessage" style="display:none;">
+                            <label class="jqx-validator-error-label">请同意乡城品用户协议</label>
+                        </p>
+                        <a class="submit" href="javascript:void(0)" onclick="$('#form1').submit()">注册</a>
+                    </form>
+                </div>
+            </div>
+            <p class="bottom"><a href="$url('/login')?target=$Target">已有账户，马上登录</a></p>
+		</div>
+	</div>
+</body>
+</html>

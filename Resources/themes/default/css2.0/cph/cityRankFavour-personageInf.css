@@ -1,0 +1,29 @@
+input{padding-left: 10px;}
+.center_wrapRight{width: 995px;}
+.center_wrapRight .center_wrapRightH{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;}
+
+.center_informationW{margin-top: 15px;border:1px solid #e2e2e2;height: 755px;}
+.center_information{margin-top: 40px;}
+.center_informationR{width: 212px;}
+.center_informationR span{display: block;text-align: right;color:#5d5d5d;font-family: "simsun";}
+
+.center_informationL{margin-left: 10px;}
+.center_inforP{width:88px;height: 88px;border-radius: 45px;position: relative;overflow: hidden;}
+.center_inforBj{width:88px;position: absolute;z-index: 1px;bottom: 0;height: 25px;background:#F4F5F0;color:#e31939;text-align: center;text-decoration: underline;}
+.center_inforBj a{color:#e31939;}
+.center_informationL .center_inforP:hover .center_inforBj{display: block;}
+.center_inforInput{margin:10px 0;}
+.inputClass{border:1px solid #ccc;width: 208px;height: 24px;}
+.inputYear{border:1px solid #ccc;width: 66px;height: 24px;}
+.inputMonth ,.inputDay{border:1px solid #ccc; width: 42px;;height: 24px;}
+.selectCoutry{border:1px solid #ccc;height: 24px;width: 88px;}
+.selectProvince{border:1px solid #ccc;height: 24px;width: 300px;}
+.textareaAddress{width: 384px;height: 80px;border: 1px solid #ccc;padding-left: 5px;background: #f5f5f5;color:#999;}
+.verify{width:68px; height:30px;background: #e31939;color: #fff;cursor: pointer;margin-top: 20px;display: inline-block;text-align: center;line-height: 30px;font-size: 14px;}
+.verify_cancel{background: #e5e5e5;margin-left: 10px;color: #a0a0a0;border:1px solid #ccc;}
+.span_headImage{margin-top: 34px;}
+.span_name{margin-top: 44px;}
+.span_same{margin-top: 14px;}
+.span_sex{margin-top:9px;}
+.centerradioT{margin-left: 10px;}
+.centerradio{margin-top: 2px;}

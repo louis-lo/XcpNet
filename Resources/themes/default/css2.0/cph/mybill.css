@@ -1,0 +1,7 @@
+/**我的账单**/
+table.gridtable{font-family: verdana, arial, sans-serif;font-size: 11px;color: #333333;border:1px solid #ddd;border-collapse: collapse;width: 990px;margin-top: 18px;}
+table.gridtable th{border:none;border-bottom:1px solid #ddd;padding: 8px;background-color: #f7f7f7;width: 190px;}
+tr:nth-child(2n+1){background: #f7f7f7;}
+table.gridtable td {border:none;border-bottom:1px solid #ddd;padding: 8px;width: 190px;text-align: center;}
+table.gridtable td a{color: #000;}
+.gridtable .cg{color: #51cd9b;}

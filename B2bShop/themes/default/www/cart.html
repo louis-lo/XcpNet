@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>进货方案 - $Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    <link rel="stylesheet" href="$res('css2.0/xcp.cdb.pc.cart.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="header_zhongBig w100">
+        <div class="header_zhongBox w1000 clearFix">
+            <div class="header_logo fl">
+                <div class="header_logoBox fl">
+                    <a href="$url('/index')">
+                        <img src="$res('img2.0/cdb/stock_logo.png')">
+                    </a>
+                </div>
+            </div>
+            <div class="header_right_logo">
+                <div>
+                    <span class="span_one">查看购物车</span>
+                    <span class="span_two">拍下商品</span>
+                    <span class="span_three">付款</span>
+                    <span class="span_four">确认收货</span>
+                </div>
+                <div><img src="$res('img2.0/passport/cart_cg.png')" /></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="goods_infos w1000 ">
+        <form id="form" method="post" action="$passport('/buy')">
+            <ul class="clearFix">
+                <li class="goods_header clearFix">
+                    <div class="item_select fl">
+                        <input type="checkbox" id="chkAll" checked />
+                        <span>全选</span>
+                    </div>
+                    <div class="item_pro fl">
+                        产品
+                    </div>
+                    <div class="item_pric fl">
+                        单价
+                    </div>
+                    <div class="item_num fl">
+                        数量
+                    </div>
+                    <div class="item_rental fl">
+                        小计
+                    </div>
+                    <div class="item_oper item_rental fl">
+                        操作
+                    </div>
+                </li>
+                $if(SupplierList!=null)
+                $if(SupplierList.Count>0)
+                $foreach(supplier in SupplierList)
+                $set(CartList=GetCartListBySupplierId(supplier.A.UserId))
+                <!--$if(CartList.Key<supplier.A.MinOrderPrice)-->
+                $set(TotalMoney=TotalMoney-CartList.Key)
+                <!--$end-->               
+                <li class="goods_wrap clearFix" $if(CartList.Key<supplier.A.MinOrderPrice) style="background:#e5e5e5" $end data-minprice="$supplier.A.MinOrderPrice">
+                    <div style="width:100%; height:26px; margin-bottom:20px; border-bottom:1px solid #ccc">
+                    <span style="font-weight:bold">
+                        <a href="$url('/category/list/0/1/0/2/_/',supplier.A.UserId,'/_')" style=" cursor:pointer">店铺名称：$if(supplier.B.StoreName!=null)$supplier.B.StoreName$else$supplier.A.Company$end</a>
+                        </span>
+                        <!--$if(supplier.A.IsActivityFree)-->
+                        <span style="color:#666; margin-left:70px">活动：凡在本店铺购买满$supplier.A.ActivityCondition.ToString("F2")元,即可享受邮费为$supplier.A.ActivityFree.ToString("F2")无.</span>
+                        <!--$end-->
+                        <span style="float:right; color:#f60; font-weight: bold;" class="supplierTotal_$supplier.A.UserId">$CartList.Key.ToString("C2")</span><span style="float:right; color:#f60; font-weight: bold;">共计：</span>
+                    </div>
+                    $foreach(cart in CartList.Value)
+                    <div style="width:100%;  min-height: 90px" class="supplier_$supplier.A.UserId" data-supplier="$supplier.A.UserId" id="Cart_$cart.A.Id">
+                        <div class="goods_checkbox fl">
+                            <input type="checkbox"  class="dxuan" name="Id" value="$cart.A.ProductId" $if(CartList.Key<supplier.A.MinOrderPrice) disabled="true" ${else}checked="checked"$end data-id="$cart.A.Id" />
+                        </div>
+                        <a href="$url('/product/info/',cart.B.Id)" target="_blank">
+                            <div class="goods_print fl">
+                                <img src="$cart.A.Image" alt="$cart.A.Title" />
+                            </div>
+                            <div class="goods_msNorms fl">
+                                <span class="goods_ms">
+                                    $cart.A.Title
+                                </span>
+                                $foreach(item in json(cart.A.Attributes))
+                                <span> ${item.Value.Name}：<i>${item.Value.Value}</i> </span>
+                                $end
+                            </div>
+                        </a>
+                        <div class="goods_pric fl ">
+                            <span class="pricBig fb">$cart.B.GetSalePrice(this.DataSource,this.Distributor.Province,this.Distributor.City,this.Distributor.County).ToString("c2")</span>/$cart.B.Unit
+                        </div>
+                        <div class="item_number fl">
+                            <span class="fl prev">-</span>
+                            <input type="text" autocomplete="off" class="fl js-number" value="$cart.A.Count" name="Count" data-min="$cart.B.WholesaleCount" data-max="$cart.B.Inventory" />
+                            <span class="fl next">+</span>
+                        </div>
+                        <div class="total_$supplier.A.UserId goods_gross goods_lsj goods_pric fl ">
+                            <span class="fb">$cart.A.GetTotalMoney().ToString("c2")</span>
+                        </div>
+                        <div class="item_del fl">
+                            <a href="javascript:;" class="js-del">删除</a>
+                        </div>
+                        </div>
+                        $end
+                     <div id="minorderprice_$supplier.A.UserId" style="width:100%; height:22px; $if(CartList.Key>=supplier.A.MinOrderPrice)display:none$end "><span style="float:right; color:#f60; font-weight: bold; color:red;">注意：店铺需要满$supplier.A.MinOrderPrice.ToString("F2")元才能下单，<a href="$url('/category/list/0/1/0/2/_/',supplier.A.UserId,'/_')" style=" color:blue; cursor:pointer">点击此处</a>去该店铺购买产品</span></div>
+                    </li>
+                $end
+                $end
+                $else
+                购物车中没有任何东西
+                $end
+            </ul>
+            <div class="aggregate_wrap clearFix">
+                <div class="aggregate_wrapLeft fl">
+                    <a href="$url('/index')" class="fl">继续购物</a>
+                    <span class="clear_cart" title="清空选中的商品">清空选中的商品</span>
+                </div>
+                <div class="aggregate_wrapRight fr">
+                    待支付：<span class="fnb" id="totalMoney">$TotalMoney.ToString("c2")</span>
+                    <button id="btnSubmit">去结算</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    $load("inc/xalert.html")
+    $load("inc/bottom2.html")
+    <script type="text/javascript" src="$res('plugins/shoppingcart/shoppingCart-1.0.0.min.js')"></script>
+    <script type="text/javascript" src="$res('plugins/plusminusbtn/plusminusbtn-1.0.0.min.js')"></script>
+    <script type="text/javascript" src="$res('plugins/xalert/xalert-1.0.1.min.js')"></script>
+    <script type="text/javascript" src="$res('js2.0/xcp.cdb.pc.cart.js')"></script>
+    <script>
+        $(function () {
+            Cart({
+                cartInstance: new Cnaws.Cart({
+                    getPaymentUrl: function (orderId) {
+                        return Cnaws.getUrl('/buy/perfect/' + orderId);
+                    }
+                })
+            });
+        });
+    </script>
+</body>
+</html>

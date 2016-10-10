@@ -1,0 +1,229 @@
+﻿$if(this.IsAjax)
+$if(RecordList.Data.Count>0)
+$foreach(item in RecordList)
+<div class="list-block myRecommend">
+    <ul>
+        <li class="col_333" style="background:#eee">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label item-time col_666">创建时间：<span class="col_333">$item.CreationDate.ToString()</span></div>
+                    <div class="item-input item-state col_4ca">
+                        ${if(item.Type==1&&item.Value<0)}<a href="$url('/buy/status/',item.TargetId)" class="external">查看详情</a>${else}成功${end}
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li class="col_333">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">订单号：</div>
+                    <div class="item-input">$item.TargetId</div>
+                </div>
+            </div>
+        </li>
+        <li class="col_333">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label col_666">类型：</div>
+                    <div class="item-input">$item.Title </div>
+                </div>
+            </div>
+        </li>
+        <li class="col_333">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label col_666">金额：</div>
+                    <div class="item-input">$item.Value.ToString("C2")</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+$end
+<script>
+    pageIndex = $RecordList.PageIndex;
+    $.pullToRefreshDone('.pull-to-refresh-content');
+    if (pageIndex < $RecordList.PagesCount) {
+        $.attachInfiniteScroll($('.infinite-scroll'));
+        $('.infinite-scroll-preloader').show();
+        $.refreshScroller();
+    }
+    else {
+        $.detachInfiniteScroll($('.infinite-scroll'));
+        $('.infinite-scroll-preloader').hide();
+    }
+</script>
+$end
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>我的账单</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/swiper.min.css?v=1')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/withdrawals.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+    $load("inc/header.html")
+    <script>
+        Cnaws.Init({
+            urlExt: '$ext',
+            resourcesUrl: '$this.Application.Settings.ResourcesUrl'
+        });
+    </script>
+    <style>
+        .list-block {
+            margin: 0;
+            border-bottom: 15px solid #f3f3f3;
+        }
+
+        .bar-footer {
+            line-height: 2.2rem;
+        }
+
+        .col_ffc {
+            color: #ffcc00;
+        }
+
+        .col_4ca {
+            color: #4caf50;
+        }
+
+        .list-block .item-title.label.item-time {
+            width: 70%;
+        }
+
+        .list-block .item-state {
+            text-align: right;
+            padding-right: .75rem;
+        }
+
+            .list-block .item-state a {
+                color: #ff7300;
+            }
+    </style>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-infinite-scroll-bottom">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:window.history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    我的账单
+                </div>
+            </div>
+            <!-- end nav -->
+
+            <div class="content pull-to-refresh-content infinite-scroll infinite-scroll-bottom" data-ptr-distance="55" data-distance="100" style="top:0">
+                <!-- 默认的下拉刷新层 -->
+                <div class="pull-to-refresh-layer">
+                    <div class="preloader"></div>
+                    <div class="pull-to-refresh-arrow"></div>
+                </div>
+                <div id="temp">
+                    $foreach(item in RecordList)
+                    <!-- for -->
+                    <div class="list-block myRecommend">
+                        <ul>
+                            <li class="col_333" style="background:#eee">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label item-time col_666">创建时间：<span class="col_333">$item.CreationDate.ToString()</span></div>
+                                        <div class="item-input item-state col_4ca">
+                                            ${if(item.Type==1&&item.Value<0)}<a href="$url('/buy/status/',item.TargetId)" class="external">查看详情</a>${else}成功${end}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="col_333">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">订单号：</div>
+                                        <div class="item-input">$item.TargetId</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col_333">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">类型：</div>
+                                        <div class="item-input">$item.Title </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="col_333">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">金额：</div>
+                                        <div class="item-input">$item.Value.ToString("C2")</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end for -->
+                    $end
+                </div>
+                <!-- 加载提示符 -->
+                <div class="infinite-scroll-preloader">
+                    <div class="preloader"></div>
+                </div>
+                <!-- 加载提示符 -->
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+    <script type="text/javascript">
+        var pageIndex = 1;
+        var loading = false;
+
+        $(function () {
+            $(document).on('refresh', '.pull-to-refresh-content', function (e) {
+                $.ajax({
+                    cache: false,
+                    type: 'get',
+                    dataType: 'html',
+                    url: '$url("/billlist/list/1")',
+                    success: function (result) {
+                        $("#temp").html(result);
+                    }
+                });
+            });
+
+            $(document).on("pageInit", "#page-infinite-scroll-bottom", function (e, id, page) {
+                $(page).on('infinite', function () {
+                    if (loading) return;
+                    loading = true;
+                    $.ajax({
+                        type: "GET",
+                        url: Cnaws.getUrl('$url("/billlist/list/")' + (++pageIndex)),
+                        dataType: 'html',
+                        success: function (result) {
+                            $("#temp").append(result);
+                            loading = false;
+                        }
+                    });
+                });
+            });
+
+            $.init();
+
+            if (pageIndex >= $RecordList.PagesCount) {
+                $.detachInfiniteScroll($('.infinite-scroll'));
+                $('.infinite-scroll-preloader').hide();
+            }
+        });
+    </script>
+</body>
+</html>
+$end

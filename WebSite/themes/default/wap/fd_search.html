@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width">
+    <title>搜索结果-$Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/sm.min.css')">
+    <style>
+        input[placeholder], [placeholder], *[placeholder] {
+            color: #fff !important;
+        }
+
+        ::-webkit-input-placeholder { /* WebKit browsers */
+            color: #fff;
+        }
+
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #fff;
+        }
+
+        .vote_top div {
+            height: 2.75rem;
+            line-height: 2.75rem;
+        }
+
+            .vote_top div:first-child {
+                width: 4rem;
+                margin-left: 0.5rem;
+            }
+
+            .vote_top div:nth-child(2) {
+                width: 4rem;
+                position: absolute;
+                left: 50%;
+                margin-left: -2rem;
+            }
+
+            .vote_top div:last-child {
+                width: 3rem;
+                margin-right: 0.5rem;
+            }
+
+            .vote_top div img, .joins_bottom div img {
+                vertical-align: middle;
+            }
+
+        .vote_content {
+            background: url($res('wap/img/vote_bg.png'));
+            background-size: 100% 100%;
+            height: auto;
+            overflow: hidden;
+            padding-bottom: 2.5rem;
+            min-height:22rem;
+        }
+
+        .vote_succImg {
+            width: 95%;
+            height: auto;
+            overflow: hidden;
+            margin: 3rem auto 0;
+            color: #4e0800;
+        }
+
+            .vote_succImg .fl, .vote_succImg .fr {
+                width: 40%;
+                border: 1px solid #4e0800;
+            }
+
+            .vote_succImg .fl {
+                margin-right: 3%;
+            }
+
+        .vote_succLiImg {
+            width: 100%;
+            position: relative;
+            padding-bottom: 120%;
+        }
+
+        .vote_succImg .fr {
+            width: 55%;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+            .vote_succImg .fr ul {
+                position: relative;
+                width: 100%;
+                padding-bottom: 100%;
+            }
+
+        .vote_succImg p ,.vote_succReP{
+            font-size: 0.65rem;
+            border-bottom: 1px dashed #4e0800;
+            margin:0;
+            padding: 0 0.5rem;
+            line-height:1.2rem;
+        }
+
+            .vote_succImg p:last-child {
+                border-bottom: none;text-align:center
+                
+            }
+            .vote_button{margin-top: 0.3rem !important;}
+            .vote_button img{width:4.2rem;}
+        .vote_succTxt {
+            font-size: 1.2rem;
+            color: #f10900;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .vote_succShop {
+            width: 60%;
+            margin: 1.5rem auto 0;
+        }
+
+        .vote_complete {
+            width: 30%;
+            height: auto;
+            overflow: hidden;
+            margin: 1.5rem auto 0;
+        }
+
+        .vote_bottom {
+            background: #3e3e3e;
+            height: auto;
+            overflow: hidden;
+        }
+
+            .vote_bottom div:first-child {
+                width: 4rem;
+                margin-left: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            .vote_bottom div:nth-child(2) {
+                width: 5rem;
+                position: absolute;
+                left: 50%;
+                margin-left: -2.25rem;
+                margin-top: 1rem;
+            }
+
+            .vote_bottom div:last-child {
+                width: 3rem;
+                margin-right: 0.6rem;
+                margin-top: 0.3rem;
+            }
+
+                .vote_bottom div:last-child img {
+                    padding: 0.2rem;
+                    background: #fff;
+                }
+                @media only screen and (max-device-width: 480px) and (min-device-width: 320px)
+.vote_succImg p, .vote_succReP {
+    font-size: 12px;
+}
+        /* iphone 6 */
+        @media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2) {
+            .vote_complete {
+                margin: 1.5rem auto 5rem;
+            }
+
+            .vote_succImg p:first-child, .vote_succImg p:nth-child(2) {
+                line-height: 1.5rem;
+            }
+
+            .vote_button {
+                margin-top: 7% !important;
+            }
+
+                .vote_button img {
+                    4.5rem;
+                }
+
+            .vote_succImg p, .vote_succReP {
+                font-size: 14px;
+            }
+            .vote_content {
+            
+            min-height:27rem;
+            }
+        }
+        /* iphone6 plus */
+        @media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3) {
+            .vote_complete {
+                margin: 1.5rem auto 9.3rem;
+            }
+
+            .vote_button {
+                margin-top: 8%;
+            }
+
+                .vote_button img {
+                    5rem;
+                }
+                .vote_content {
+            
+            min-height:27rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="vote_top clearfix">
+            <div class="fl"><img src="$res('wap/img/vote_logo.png')"></div>
+            <div class="fl"><img src="$res('wap/img/vote_tel.png')"></div>
+            <div class="fr"><a href="$url(Site.Url)"><img src="$res('wap/img/vote_gohome.png')"></a></div>
+        </div>
+
+        <div class="vote_content">
+            $if(SearchList.Count>0)
+            <div id="list">
+                $foreach(register in SearchList)
+                <div class="vote_succImg clearfix">
+                    <div class="fl">
+                        <div class="vote_succLiImg js-imgbox" style="background:url($register.HeadImgUrl);background-size:100% 100%;"></div>
+                    </div>
+                    <div class="vote_succReTxt fr">
+                        <p class="p">姓名：${register.Name}(${register.VoteCount}票)</p>
+                        <p>报名编号：$register.Id.ToString("D5")</p>
+                        <div class="vote_succReP">
+                            <div>最想对爸爸说的一句话：</div>
+                            <div class="txt_hide">$register.Content</div>
+                        </div>
+                        <p class="vote_button"><a href="vote.html?id=$register.Id"><img src="$res('wap/img/vote_signup4.png')" /></a></p>
+                    </div>
+                </div>
+                $end
+            </div>
+            $else
+            <div class="vote_succTxt" style="min-height:15rem">
+                <b>
+                    暂无结果
+                </b>
+            </div>
+            <div class="vote_complete"><a href="/fathersday/index.html" style="color:#f10900">返回</a></div>
+            $end
+        </div>
+        <div class="vote_bottom clearfix">
+            <div class="fl"><a href="$url(Site.Url)"><img src="$res('wap/img/joins_botLogo.png')" /></a></div>
+            <div class="fl"><img src="$res('wap/img/joins_botTel.png')" /></div>
+            <div class="fr"><img src="$res('wap/img/joins_code.png')" /></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('wap/js/mobile/xcp.imgbox.js')"></script>
+    <script>
+        $('div.js-imgbox').enlargeImg();
+
+        $(".vote_succLiImg:first-child").attr('id', 'vote_succLeImg');
+        var succLeImg = document.getElementById("vote_succLeImg").offsetHeight;
+        $(".vote_succReTxt").height(succLeImg);
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){
+body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+table{border-spacing:0;border-collapse:collapse;}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.w1000{ width:1200px; height:auto; overflow:hidden; margin:0 auto;}
+.w1001{ padding-top: 2px;overflow:hidden;position: absolute;}
+.mt{margin-top:10px;}
+input,button {outline:none;border: 0;background: #fff;}
+i{font-style: normal;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto; min-height:680px}
+.freightTop{display:inline-block;width: 150px;height: 36px;background:url("../img/jia.png") #ff500b 18px 10px no-repeat;text-align: center;line-height: 36px;}
+.freightTop span{font-size: 14px;color: #fff;font-family: "simsun";margin-left: 23px;}
+.freightTable{margin-top:20px;font-family: "simsun";border:1px solid #ececec;}
+.freightTableT th,.freightTableT td{text-align: center;}
+.freightTable .titleTh{height: 42px;background: #f1f1f1;font-weight: normal;padding:0 25px;border-bottom:1px solid #ececec;}
+.tableTop{color: #666;}
+.tableTop a{color: #ff3300;margin-left: 30px;}
+.freightHeader td{height: 36px;border:none;border-bottom:1px solid #ececec;background: #fafafa;}
+.freightHeader .thwidth{width: 332px;}
+.freightHeader .thwidthRest{width: 165px;}
+.freightBody td{border:1px solid #ececec;height: 42px;}
+.center_addAddressTitle{background: #ebebeb;height: 41px;text-align: center;font-family: "simsun";line-height: 41px;font-size: 14px;}
+.new_addressWrap{padding:15px 10px;}

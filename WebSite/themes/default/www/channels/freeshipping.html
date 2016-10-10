@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<title>网货节 - $Site.Title</title>
+    <meta name="keywords" content="网货节,$Site.Keywords">
+    <meta name="description" content="网货节,$Site.Description">
+	<link rel="stylesheet" type="text/css" href="$res('css/base_02.css')">
+	<link rel="stylesheet" type="text/css" href="$res('css/index_02.css')">
+	<style type="text/css">
+	/* BEGIN slider */
+	.slider {
+		height: 0;
+	}
+	/* END slider */
+	
+	/* BEGIN slider-aside-left dd  */
+	.slider-aside-left dd {
+		display: none;
+	}
+	/* END slider-aside-left dd  */
+	
+	/* BEGIN flexslider */
+	.flexslider {
+		width: 1200px;
+        height: 333px;
+        margin-left: 0;
+	}
+	.flexslider img {
+		display: block;
+		width:1200px;
+		height:333px;
+	}
+	/* END flexslider  */
+
+	/* BEGIN section-01 */
+	.main.section-01 {
+		width:100%;
+		height:262px;
+		background:url($res('css/img/wh_section_01_bg.png')) repeat left top;
+	}
+	.main.section-01 .section-01-content {
+		position:relative;
+		width:1114px;
+		height:261px;
+		margin-left:auto;
+		margin-right:auto;
+		background:url($res('css/img/wh_section_01.png'));
+	}
+	.main.section-01 .time {
+		position: absolute;
+		top: 158px;
+		left: 310px;
+		width: 310px;
+		height: 30px;
+		line-height: 30px;
+		font-size: 22px;
+		color: #FFF;
+		letter-spacing: 5px;
+	}
+	.main.section-01 .des {
+		position: absolute;
+		top: 77px;
+		left: 735px;
+		width: 240px;
+		text-align: center;
+	}
+	.main.section-01 .des a {
+		display: block;
+	}
+	.main.section-01 .des p {
+		color: #571817;
+		font-size: 22px;
+	}
+	.main.section-01 .des p span {
+		color: #FFF;
+	}
+	.main.section-01 .des .first-child {
+		width: 236px;
+		height: 50px;
+		margin-top: 10px;
+		font-size: 28px;
+		color: #E71200;
+		line-height: 50px;
+		background-color: #F7EBCA;
+		border-radius: 6px;
+	}
+	.main.section-01 .des .last-child {
+		margin-top: 20px;
+		color: #000;
+	}
+	/* END section-01 */
+
+		/* BEGIN main */
+	.main {
+		padding-top: 25px;
+	}
+	.main li {
+		float: left;
+		width: 226px;
+		padding-bottom: 15px;
+		margin-bottom: 25px;
+		margin-left: 59px;
+		background-color: #FFF;
+	}
+	.main li img {
+		width: 226px;
+		height: 226px;
+	}
+	.main li div,
+	.main li p {
+		margin-left: 10px;
+		margin-right: 10px;
+		margin-top: 15px;
+	}
+	.main li div {
+		text-align: center;
+	}
+	.main li div div.title {
+		height: 12px;
+        line-height: 12px;
+		overflow: hidden;
+        white-space: nowrap;
+        text-align: center;
+        margin-bottom: 10px;
+	}
+	.main li div span.price {
+		font-size: 22px;
+		color: #e11817;
+	}
+	.main li p {
+		height: 26px;
+		line-height: 26px;
+		color: #e11817;
+		text-align: center;
+		border: 1px solid #E1B61D;
+	}
+	.main li a:hover p {
+		font-weight: bold;
+		background-color: #E1B61D;
+	}
+	/* END main */
+	</style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            //$('#banner').jqxScrollView({ width: 1200, height: 333, buttonsOffset: [0, 0], slideShow: true, slideDuration: 5000 });
+            $(".load-img").scaling(226, 226, errPic);
+        });
+    </script>
+</head>
+<body>
+    $load("../inc/top2.html")
+
+	<!-- BEGIN slider -->
+    <link rel="stylesheet" type="text/css" href="$res('css/slider.css')" />
+    $set(cates=clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+    <div class="clearfix container slider">
+        <dl class="slider-aside-left">
+            <dt><a href="javascript:void(0)">所有商品分类</a></dt>
+            $foreach(cate in cates)
+            <dd>
+                <a href="$url('/category/list/',cate.Id)">$cate.Name<span>></span></a>
+                <div class="slider-aside-left-item">
+                    <!-- BEGIN 新增 -->
+                    $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,cate.Id))
+                    <dl class="clearfix">
+                        <dt><a href="$url('/category/list/',child.Id)">$child.Name</a><span>></span></dt>
+                        <dd>
+                            $foreach(three in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,child.Id))
+                            <a href="$url('/category/list/',three.Id)">$three.Name</a>
+                            $end
+                        </dd>
+                    </dl>
+                    $end
+                    <!-- END 新增 -->
+                </div>
+            </dd>
+            $end
+        </dl>
+        <!--<div class="flexslider">
+            <div id="banner" class="slides">
+                <div class="slides"><a href="javascript:void(0)" target="_blank" title=""><div style="width:1200px;height:333px;background:url($res('img/wh_slider.jpg')) no-repeat center top;"></div></a></div>
+            </div>
+        </div>-->
+    </div>
+
+        <!--<div class="flexslider">
+            <div id="banner" class="slides">
+                <div class="slides"><a href="javascript:void(0)" target="_blank" title=""><div style="width:1200px;height:333px;background:url($res('img/wh_slider.jpg')) no-repeat center top;"></div></a></div>
+            </div>
+        </div>-->
+    </div>
+	<!-- END slider -->
+
+    <div class="main-wrap" style="padding-top:20px;padding-bottom: 10px;background: url($res('css/img/wh_bg.png')) repeat left top">
+        <img src="$res('img/wx_hd_01.png')" style="width:545px;height:193px;margin-left:auto;margin-right:auto;display:block;">
+        <!-- BEGIN main -->
+        <div class="clearfix container main" style="margin-top:-6px;background-color:#E11817;">
+            <ul>
+                $foreach(product in clr.Cnaws.Product.Modules.Product.GetBySupplierStateOrStateParent(this.DataSource,746,1,3,1,99,11))
+                <li>
+                    <a href="$url('/product/info/',product.Id)" target="_blank">
+                        <img class="load-img" data-original="$product.GetImage()">
+                        <div>
+                            <div class="title">$product.Title</div>
+                            <span class="price">$product.GetSalePrice().ToString("C2")</span> 元
+                        </div>
+                        <p>立即抢购</p>
+                    </a>
+                </li>
+                $end
+            </ul>
+        </div>
+        <!-- END main -->
+    </div>
+
+    $load("../inc/footer2.html")
+
+	<script type="text/javascript">
+		$(function() {
+		    $('.slider-aside-left').hover(function () {
+				$(this).find('dd').stop().slideDown();
+			},function(){
+			    $(this).find('dd').stop().slideUp();
+			})
+		});
+	</script>
+</body>
+</html>

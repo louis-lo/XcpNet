@@ -1,0 +1,31 @@
+/* BEGIN state */
+.state .panel-body li {
+	float: left;
+	margin-left: 30px;
+}
+/* END state */
+
+/* BEGIN list */
+.list {
+	padding-bottom: 20px;
+	background-color:#FFF;
+	border:1px solid #E1E1E1;
+}
+.list li,
+.list .img {
+	width:160px;
+}
+.list li {
+	position: relative;
+	float: left;
+	margin-top: 20px;
+	border: 1px solid #FFF;
+}
+.list li input[type="checkbox"] {
+	position: absolute;
+	left: 0;
+}
+.list .img {
+	height: 150px;
+}
+/* END list */

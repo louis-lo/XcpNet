@@ -1,0 +1,485 @@
+﻿$if(this.IsAjax)
+$foreach(register in RegisterList)
+<li>
+    <div class="vote_succImg clearfix">
+        <div class="fl">
+            <div class="vote_succLiImg" style="background:url($register.HeadImgUrl);background-size:100% 100%;"></div>
+        </div>
+        <div class="vote_succReTxt fr">
+            <p>姓名：${register.Name}(${register.VoteCount}票)</p>
+            <p>报名编号：$register.Id.ToString("D5")</p>
+            <div class="vote_succReP">
+                <div>最想对爸爸说的一句话：</div>
+                <div class="txt_hide">$register.Content</div>
+            </div>
+            <p class="vote_button"><a href="vote.html?id=$register.Id"><img src="$res('wap/img/vote_signup4.png')" /></a></p>
+        </div>
+    </div>
+</li>
+$end
+<script type="text/javascript">
+    pageIndex = $RegisterList.PageIndex;
+    pageCount = $RegisterList.PagesCount;
+</script>
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width">
+    <title>最帅老爸,父亲节为最爱的老爸投上一票-$Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/sm.min.css')">
+    <style>
+        input[placeholder], [placeholder], *[placeholder] {
+            color: #351e0b !important;
+        }
+
+        #wrapper, #scroller {
+            width: 100%;
+        }
+
+        .txt_hide {
+            text-overflow: ellipsis;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        ::-webkit-input-placeholder { /* WebKit browsers */
+            color: #351e0b;
+        }
+
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #351e0b;
+        }
+
+        .vote_top {
+            background: #fff;
+        }
+
+        body {
+            background: #fef1a9;
+        }
+
+        .vote_top div {
+            height: 2.75rem;
+            line-height: 2.75rem;
+        }
+
+            .vote_top div:first-child {
+                width: 4rem;
+                margin-left: 0.5rem;
+            }
+
+            .vote_top div:nth-child(2) {
+                width: 4rem;
+                position: absolute;
+                left: 50%;
+                margin-left: -2rem;
+            }
+
+            .vote_top div:last-child {
+                width: 3rem;
+                margin-right: 0.5rem;
+            }
+
+            .vote_top div img, .joins_bottom div img {
+                vertical-align: middle;
+            }
+
+        .vote_content {
+            height: auto;
+        }
+
+        .vote_conTop {
+            line-height: 0;
+            position: relative;
+            padding-top: 2rem;
+            background: #e5dec8;
+        }
+
+        .vote_conList {
+            background: url($res('wap/img/vote_conBg.png'));
+            background-size: 100% 100%;
+            height: auto;
+            overflow: hidden;
+        }
+
+            .vote_conList ul {
+                width: 90%;
+                margin: 0.8rem auto 0;
+            }
+
+                .vote_conList ul li {
+                    width: 30%;
+                    margin: 0 3% 0.8rem 0;
+                    float: left;
+                }
+
+                    .vote_conList ul li div {
+                        border: 2px solid #fff;
+                        position: relative;
+                        width: 100%;
+                        padding-bottom: 100%;
+                        border-radius: 50%;
+                    }
+
+        .vote_conTxtpart {
+            padding-left: 0.2rem;
+        }
+
+        .vote_signup {
+            width: 80%;
+            margin: 0 auto;
+            padding: 0.5rem 0 0;
+            height: auto;
+            overflow: hidden;
+        }
+
+            .vote_signup div:first-child {
+                width: 50%;
+                line-height: 0;
+            }
+
+            .vote_signup div:last-child {
+                width: 48%;
+                margin-top: 0.3rem;
+                line-height: 0;
+            }
+
+        .vote_discount {
+            width: 87%;
+            margin: 0 auto;
+            padding-left: 0.2rem;
+        }
+
+        .vote_succImg {
+            width: 95%;
+            height: auto;
+            overflow: hidden;
+            margin: 1rem auto;
+            color: #4e0800;
+        }
+
+            .vote_succImg .fl, .vote_succImg .fr {
+                width: 40%;
+                border: 1px solid #4e0800;
+            }
+
+            .vote_succImg .fl {
+                margin-right: 3%;
+            }
+
+        .vote_succLiImg {
+            width: 100%;
+            position: relative;
+            padding-bottom: 120%;
+        }
+
+        .vote_succImg .fr {
+            width: 55%;
+            box-sizing: border-box;
+        }
+
+            .vote_succImg .fr ul {
+                position: relative;
+                width: 100%;
+                padding-bottom: 100%;
+            }
+
+        .vote_succImg p, .vote_succReP {
+            font-size: 14px;
+            border-bottom: 1px dashed #4e0800;
+            line-height: 1.2rem;
+            margin: 0;
+            padding: 0 0.5rem;
+        }
+
+            .vote_succImg p:last-child {
+                border-bottom: none;
+            }
+
+
+
+        .vote_button img {
+            width: 4.2rem;
+        }
+
+
+        .vote_bottom {
+            background: #3e3e3e;
+            height: auto;
+            overflow: hidden;
+        }
+
+            .vote_bottom div:first-child {
+                width: 4rem;
+                margin-left: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            .vote_bottom div:nth-child(2) {
+                width: 5rem;
+                position: absolute;
+                left: 50%;
+                margin-left: -2.25rem;
+                margin-top: 1rem;
+            }
+
+            .vote_bottom div:last-child {
+                width: 3rem;
+                margin-right: 0.6rem;
+                margin-top: 0.3rem;
+            }
+
+                .vote_bottom div:last-child img {
+                    padding: 0.2rem;
+                    background: #fff;
+                }
+
+        .vote_button {
+            text-align: center;
+            margin-top: 0.3rem !important;
+        }
+        /* iphone4 */
+        @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+            .vote_succImg p, .vote_succReP {
+                font-size: 12px;
+            }
+        }
+        /* iphone 6 */
+        @media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2) {
+            .vote_complete {
+                margin: 1.5rem auto 5rem;
+            }
+
+            .vote_succImg p:first-child, .vote_succImg p:nth-child(2) {
+                line-height: 1.5rem;
+            }
+
+            .vote_button {
+                margin-top: 7% !important;
+            }
+
+                .vote_button img {
+                    4.5rem;
+                }
+
+            .vote_succImg p, .vote_succReP {
+                font-size: 14px;
+            }
+        }
+        /* iphone6 plus */
+        @media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3) {
+            .vote_complete {
+                margin: 1.5rem auto 9.3rem;
+            }
+
+            .vote_button {
+                margin-top: 8%;
+            }
+
+                .vote_button img {
+                    5rem;
+                }
+        }
+
+        .music {
+            position: absolute;
+            right: 46%;
+            bottom: 4rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: url($res('wap/img/vote_play.png'));
+            background-size: 1.5rem;
+            z-index: 99;
+            margin-right: -0.75rem;
+        }
+
+        .play {
+            background-image: url($res('wap/img/vote_suspend.png'));
+            -webkit-animation: rotate 3.82s linear infinite;
+            animation: rotate 3.82s linear infinite;
+        }
+
+        #wrapper {
+            position: absolute;
+            z-index: 1;
+            top: 0px;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        #pullUp .pullUpIcon {
+            margin-left: 0px !important;
+        }
+        /* vote_search */
+        .vote_search {
+            position: fixed;
+            top: 3.2rem;
+            right: 0.8rem;
+            z-index: 999;
+        }
+
+        .vote_searchTxt {
+            width: 5rem;
+            height: 1.3rem;
+            line-height: 1.3rem;
+            border: 1px solid #351e0b;
+            background: none;
+            color: #351e0b;
+            text-indent: 0.2rem;
+            font-size: .75rem;
+        }
+
+        .vote_searchSub {
+            display: inline-block;
+            width: 2.5rem;
+            height: 1.3rem;
+            line-height: 1.3rem;
+            border: 1px solid #351e0b;
+            background: #351e0b;
+            color: #e5dec8;
+            text-align: center;
+            font-size: .75rem;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/styles/scroll.css')">
+
+</head>
+<body>
+    <div id="wrapper">
+        <div id="scroller">
+            <div class="vote_search clerfix">
+                <form id="searchForm" action="$url('/fathersday/search')" method="post">
+                    <input class="vote_searchTxt fl" id="id" name="id" type="text" placeholder="请输入编号" />
+                    <a id="btnSubmit" class="vote_searchSub fl">搜索</a>
+                </form>
+            </div>
+            <div class="vote_top clearfix">
+                <div class="fl"><img src="$res('wap/img/vote_logo.png')"></div>
+                <div class="fl"><img src="$res('wap/img/vote_tel.png')"></div>
+                <div class="fr"><a href="$url(Site.Url)"><img src="$res('wap/img/vote_gohome.png')"></a></div>
+            </div>
+            <div class="vote_content">
+                <div class="vote_conTop">
+                    <img src="$res('wap/img/vote_topBg.png')" />
+                    <span class="music"><audio id="audio" src="$res('wap/img/FadeAway.mp3')" autoplay="autoplay" loop="loop"></audio></span>
+                </div>
+                <div class="vote_conList">
+                    <ul class="clearfix">
+                        $foreach(item in NewList)
+                        <li>
+                            <div class="js-imgbox" style="background:url($item.HeadImgUrl);background-size:100% 100%;"></div>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+                <div class="vote_conTxtpart"><img src="$res('wap/img/vote_contxtBg.png')" /></div>
+                <div class="vote_signup">
+                    <div class="fl">
+                        <a href="voteregister.html"><img src="$res('wap/img/vote_signup.png')" /></a>
+                    </div>
+                    <div class="fr"><img src="$res('wap/img/vote_signup2.png')" /></div>
+                </div>
+                <div class="vote_discount">
+                    <img src="$res('wap/img/vote_signup3.png')" />
+                </div>
+                <!-- for -->
+                <div id="list">
+                    $foreach(register in RegisterList)
+                    <div class="vote_succImg clearfix">
+                        <div class="fl">
+                            <div class="vote_succLiImg js-imgbox" style="background:url($register.HeadImgUrl);background-size:100% 100%;"></div>
+                        </div>
+                        <div class="vote_succReTxt fr">
+                            <p class="p">姓名：${register.Name}(${register.VoteCount}票)</p>
+                            <p>报名编号：$register.Id.ToString("D5")</p>
+                            <div class="vote_succReP">
+                                <div>最想对爸爸说的一句话：</div>
+                                <div class="txt_hide">$register.Content</div>
+                            </div>
+                            <p class="vote_button"><a href="vote.html?id=$register.Id"><img src="$res('wap/img/vote_signup4.png')" /></a></p>
+                        </div>
+                    </div>
+                    $end
+                </div>
+                <!-- /end for -->
+            </div>
+            <div class="vote_bottom clearfix">
+                <div class="fl"><a href="#"><img src="$res('wap/img/joins_botLogo.png')" /></a></div>
+                <div class="fl"><img src="$res('wap/img/joins_botTel.png')" /></div>
+                <div class="fr"><img src="$res('wap/img/joins_code.png')" /></div>
+            </div>
+            $if(RegisterList.Data.Count>0&&RegisterList.PagesCount>1)
+            <div id="pullUp">
+                <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+            </div>
+            $end
+        </div>
+    </div>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/scroll.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript" src="$res('wap/js/mobile/xcp.imgbox.js')"></script>
+    <script type="text/javascript" src="$res('js/pingZhang.js')"></script>
+
+    <script>
+        Cnaws._options.urlExt = '.html';
+        var scroll = null;
+        var pageIndex = $RegisterList.PageIndex;
+        var pageCount = $RegisterList.PagesCount;
+        var errPic = '$res("img/load_image.png")';
+        $(function () {
+            scroll = $('#wrapper').scrolling(pageIndex, pageCount, function () {
+                if (scroll.hasNext() && !scroll.isLocked()) {
+                    scroll.lock();
+                    Cnaws.getAjax(Cnaws.getUrl('$url("/fathersday/index/")' + (pageIndex + 1)), function (data, args) {
+                        $('#list').append($(data));
+                        scroll.update(pageIndex, pageCount);
+                        scroll.unlock();
+                    }, null, true, 'html');
+                }
+            }, null, function () {
+                var _appHeader = $('.header-01');
+                var _hideBox = _appHeader.find('.hide-box'),
+                    dis = _appHeader.height() + this.y;
+                if (dis >= 0) {
+                    _hideBox.stop().animate({ opacity: 0 }, 'fast');
+                } else {
+                    _hideBox.stop().animate({ opacity: 0.75 }, 'fast');
+                }
+            });
+            $('.music').click(function () {
+                $(this).toggleClass('play');
+                var audio = document.getElementById('audio');
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            });
+
+            $('div.js-imgbox').enlargeImg();
+
+            $(".vote_succLiImg:first-child").attr('id', 'vote_succLeImg');
+            var succLeImg = document.getElementById("vote_succLeImg").offsetHeight;
+            $(".vote_succReTxt").height(succLeImg);
+            $("#btnSubmit").click(function () {
+                var id = $("#id").val();
+                if (id === '') {
+                    return false;
+                }
+                else {
+                    $('#searchForm').submit()
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+$end

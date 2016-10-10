@@ -1,0 +1,14 @@
+﻿$if(this.IsAjax)
+    $foreach(item in BrandProductList)
+    <li class="swiper-slide">
+        <a href="$url('/product/info/',item.A.Id)">
+            <div>
+                <img class="load-img" src="$item.A.GetImage()" alt="$item.A.Title">
+        </div>
+        <p>$item.A.Title</p>
+        <ins>$item.A.GetSalePrice().ToString("C2")</ins>
+        <des>$item.A.MarketPrice.ToString("C2")</des>
+        </a>
+    </li>
+    $end
+$end

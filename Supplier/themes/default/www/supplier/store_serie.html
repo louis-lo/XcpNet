@@ -1,0 +1,129 @@
+﻿$if(this.IsAjax)
+<tr id="AttrValueTr">
+    <th><span>*</span><label for="Title">产品规格</label></th>
+    <td style="background-color:#f9f9f9; border: 1px solid #eee; border-radius: 5px;padding:5px 20px">   
+    $foreach(attr in AttrList)
+    <div class="freightBody">
+        <div class="fl" style="width:95px; text-align:right">
+            <span style="color:#666; font-weight:bold; text-align:right">
+                $attr.SerieName：<input type="hidden" value="$attr.SerieName" name="SerieName_$attr.Id">
+            </span>
+            <span style="color: #999;width: 87px; padding-right:10px;display:inline-block">
+                (最多选20个)
+            </span>
+            </div>
+        <div class="fl" style="max-width:600px;">
+            $set(AttrValue=attr.GetAttributors())
+            $for(i=0;i<AttrValue.Length;i++)
+            <span style="color:#666">
+                <input class="fl" type="checkbox" id="AttrValue_$AttrValue[i]" name="AttrValue_$attr.Id" value="$AttrValue[i]" />
+                <label class="fl" style="min-width:83px;display: inline; padding-left: 4px" for="AttrValue_$AttrValue[i]">$AttrValue[i]</label>
+            </span>
+            $end
+            <div class="clearFix"></div>
+        </div>
+        <div class="clearFix"></div>
+    </div>
+     $end   
+    </td>
+</tr>
+$else
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商后台-默认规格管理</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.freightone.css')">
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <style>
+        .freightHeader .thwidth {
+            width:212px !important;
+        }
+    </style>
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/side.html")
+        <!-- 中间 开始 -->
+        <div class="center_wrapRight fr">
+            <div>
+                <a href="$url('/storeinfo/attribute')" class="freightTop"><span>新增规格模板</span></a>
+            </div>
+            <!-- 运费模板一 开始 -->
+            $foreach(item in SerieList)
+            <table align="center" border="0" width="100%" class="freightTable freightTableT">
+                <tr>
+                    <th class="titleTh" colspan="2">
+                        <div class="clearFix">
+                            <div class="fl">${item.Name} ${if(item.IsDefault==true)}(默认使用)${end}</div>
+                            <div class="tableTop fr">修改时间：$item.CreationDate.ToString("yy-MM-dd HH:mm:ss")<a href="$url('/storeinfo/attribute/',item.Id)">修改</a><a href="javascript:;" data-id="$item.Id" class="delTemplate">删除</a></div>
+                        </div>
+                    </th>
+                </tr>
+                <tr class="freightHeader">
+                    <td class="thwidth">规格名称</td>
+                    <td>规格值</td>
+                </tr>
+                $foreach(attr in item.GetAttributes(this.DataSource))
+                <tr class="freightBody">
+                    <td>$attr.SerieName</td>
+                    <td>
+                        $set(AttrValue=attr.GetAttributors())
+                        $for(i=0;i<AttrValue.Length;i++)
+                        $AttrValue[i],
+                        $end
+                    </td>
+                </tr>
+                $end
+            </table>
+            $end
+            <!-- 运费模板一 结束 -->
+        </div>
+        <!-- 弹出层模板-->
+        <script type="text/html" id="tmpl-xalert">
+            <div class="center_addAddressTitle">删除规格模板</div>
+            <div class="new_addressWrap clearFix">
+                <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                    <div class="new_addressWrap clearFix" style="padding:20px 20px">
+                        是否删除此规格模板?
+                    </div>
+                </form>
+            </div>
+        </script>
+        <!-- 中间 结束 -->
+    </div>
+    $load("inc/bottom.html")
+    $load("inc/xalert.html")
+    <script>
+        $(function () {
+            $('.delTemplate').xalert({
+                tmpl: '#tmpl-xalert',
+                height: '170px',
+                left: '40%',
+                top: '20%',
+                width: '300px',
+                callback: function (xalert) {
+                    $.ajax({
+                        type: "Post",
+                        dataType: "Json",
+                        url: Cnaws.getUrl('$url("/storeinfo/delserie/")' + $(xalert.target).data("id")),
+                        success: function (data) {
+                            if (data.code == -200) {
+                                Cnaws.showSuccess("删除成功.");
+                                setInterval(function () { location.reload() },1500);
+                            }
+                            else { Cnaws.showErrow("抱歉,删除失败,请检查数据.");}
+                        }
+                    })
+                    xalert.close();
+                }
+            })
+        })
+        /**/
+    </script>
+</body>
+</html>
+$end

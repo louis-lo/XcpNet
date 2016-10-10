@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <title>$Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/styles/scroll.css')">
+    <script type="text/javascript" src="$res('js/base_css.js')"></script>
+    <script type="text/javascript" src="$res('js/base.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <style type="text/css">
+        .content-wrap {
+            position: absolute;
+            top: 1.346667rem;
+            bottom: 0;
+            background-color: #FFF;
+        }
+
+        #wrapper, #wrapper-01 {
+            position: absolute;
+            z-index: 100;
+            bottom: 0;
+            top: 0;
+            overflow: hidden;
+            background-color: #FFF;
+        }
+
+        #wrapper-01 {
+            width: 2.506667rem;
+            background-color: #F9F9F9;
+        }
+
+        #wrapper {
+            left: 2.506667rem;
+            width: 7.493333rem;
+        }
+
+        #scroller, #scroller-01 {
+            position: absolute;
+            z-index: 100;
+            width: 100%;
+            -webkit-transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            -webkit-perspective: 1000;
+        }
+
+        #wrapper-01 li {
+            height: 1.333333rem;
+            line-height: 1.333333rem;
+        }
+
+            #wrapper-01 li a {
+                display: block;
+                width: 100%;
+                height: 100%;
+                color: #333;
+                text-indent: 0.373333rem;
+                border-left: 0.106667rem solid #F9F9F9;
+            }
+
+            #wrapper-01 li.active a {
+                color: #FFC718;
+                background-color: #FFF;
+                border-left: 0.106667rem solid #FFC718;
+            }
+
+        .tab-content {
+            display: none;
+        }
+
+            .tab-content h2 {
+                /*background:#f9f9f9;*/
+                padding-top: 0.133333rem;
+                text-indent: 0.213333rem;
+                border-bottom:1px solid #e5e5e5;
+                border-top:1px solid #e5e5e5;
+                padding-bottom:0.133333rem;
+            }
+                .tab-content h2:first-child {
+                    border-top:#fff;
+                }
+                .tab-content h2 a {
+                    color: #333;
+                }
+
+            .tab-content ul {
+                padding-top: 0.133333rem;
+                margin-left: 1%;
+            }
+
+            .tab-content li {
+                float: left;
+                width: 33%;
+                margin-bottom: 0.533333rem;
+                text-align: center;
+            }
+
+                .tab-content li img {
+                    display: block;
+                    width: 2.133333rem;
+                    height: 2.133333rem;
+                    margin-left: auto;
+                    margin-right: auto;
+                    margin-bottom: 0.373333rem;
+                }
+
+                .tab-content li a {
+                    width: 2.133333rem;
+                    color: #333;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+               .header-01{background:#FFF!important;}
+               .header-01 input{background-color:#E7E9E6!important;}
+               .header-01 h1 a{background-image:url($res('wap/css/img/back.png'))!important;background-size:0.28rem 0.52rem!important;background-position:0.466667rem 50%!important;}
+               .header-01 a{color:#333!important;background-image:url($res('wap/css/img/top_cart_01.png'))!important;}
+   
+            .tab-content:first-child{display:block;}
+    </style>
+
+    <script>
+       
+    </script>
+</head>
+<body>
+    <div class="app">
+        $load("../inc/header.html")
+        
+        $set(cates=clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+        <div class="clearfix content-wrap">
+            <!-- BEGIN wrapper -->
+            <div id="wrapper">
+                <!-- BEGIN content -->
+                <div class="content" id="scroller">
+                    $foreach(root in cates)
+                    <div class="tab-content">
+
+                        $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,root.Id))
+                        <h2><a href="$url('/category/list/',child.Id)">$child.Name</a></h2>
+                        <ul class="clearfix">
+                            $foreach(three in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,child.Id))
+                            <li>
+                                <a href="$url('/category/list/',three.Id)">
+                                    <img src="$three.Image" onerror="this.src='$res('img/load_image.png')'">
+                                    $three.Name
+                                </a>
+                            </li>
+                            $end
+                        </ul>
+                        $end
+
+                    </div>
+                    $end
+
+                </div>
+                <!-- END content -->
+            </div>
+            <!-- END wrapper -->
+            <!-- BEGIN wrapper-01 -->
+            <div id="wrapper-01">
+                <div class="aside" id="scroller-01">
+                    <ul>
+
+                        $foreach(root in cates)
+                        <li $if(foreachIndex==1)class ="active" $end><a>$root.Name</a></li>
+                        $end
+
+                    </ul>
+                </div>
+            </div>
+            <!-- END wrapper-01 -->
+        </div>
+        $end
+
+            </div>
+
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/scroll.js')"></script>
+    
+            <script src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+            <script>
+        $('.aside li a').click(function () {
+            var _parent = $(this).parent('li'),
+                 _index = _parent.index(),
+                 _tabContent = $('.tab-content');
+
+            _parent.addClass('active').siblings('li').removeClass('active');
+            $(_tabContent[_index]).show().siblings('.tab-content').hide();
+
+        });
+        $("img.lazy").lazyload({ placeholder: 'css/img/load_image.png', effect: 'fadeIn' });
+
+
+        var myScroll;
+        function loaded() {
+            setTimeout(function () {
+                myScroll = new IScroll('#wrapper', { scrollbars: false, mouseWheel: true, interactiveScrollbars: false, fadeScrollbars: false, probeType: 3, click: true });
+                myScroll.on('scroll', function () {
+                    $('#wrapper').trigger('scroll');
+                    var _appHeader = $('.header-01');
+                    var _hideBox = _appHeader.find('.hide-box'),
+                        dis = _appHeader.outerHeight() + this.y;
+                    if (dis >= 0) {
+                        _hideBox.stop().animate({ opacity: 0 }, 'fast');
+                    } else {
+                        _hideBox.stop().animate({ opacity: 0.75 }, 'fast');
+                    }
+                });
+
+                if ($('#wrapper-01')) {
+                    myScrollLeft = new IScroll('#wrapper-01', { scrollbars: false, mouseWheel: true, interactiveScrollbars: false, fadeScrollbars: false, probeType: 3, click: true });
+                    myScrollLeft.on('beforeScrollStart', function () {
+                        $('#wrapper').trigger('scroll');
+                    });
+                }
+
+            }, 100)
+        }
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        document.addEventListener('DOMContentLoaded', loaded, false);
+            </script>
+</body>
+</html>

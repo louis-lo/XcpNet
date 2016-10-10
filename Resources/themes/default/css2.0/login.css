@@ -1,0 +1,71 @@
+/* BEGIN main */
+.main {
+	min-height: 468px;
+}
+.main .content-wrap	 {
+	position: relative;
+}
+.main .bg {
+	position: absolute;
+	top:-12px;
+	left: -60px;
+}
+/* END main */
+
+/* BEGIN login-form */
+.login-form {
+	position: absolute;
+	top: 30px;
+	right: 0;
+	width:357px;
+}
+.form-body {
+	padding-top: 22px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.form-body .input-box label {
+	width: 57px;
+    text-indent:15px;
+}
+.form-body .input-box input {
+    text-indent:57px;
+	width: 348px;
+}
+.form-body .tip_01 #remember{
+    width: 80px;
+}
+.form-body .tip_02 {
+	margin-top: 15px;
+}
+.form-body .tip_02 a {
+	color: #F60;
+}
+/* END login-form */
+
+.jqx-validator-error-label {
+    text-indent: 60px !important;
+}
+.free_registration{color:#333;}
+.free_registration a{float:right;font-size:12px;color:#cc3333;padding:6px 8px;border:1px solid #e4393c}
+.account_icon{display:inline-block;width:20px;height:20px;background:url(img/account_passwordIcon.png) no-repeat;vertical-align:middle;}
+.password_icon{display:inline-block;width:16px;height:22px;background:url(img/account_passwordIcon.png) no-repeat;vertical-align:middle;background-position:-24px 0px;}
+input:-webkit-autofill {-webkit-box-shadow: 0 0 0px 1000px white inset;}
+#Captcha{text-indent:17px;width:122px;}
+.form-body .code a.last:hover{background:none;}
+.jqx-validator-error-label{width:348px !important;}
+.login_submit:hover{background:#e4393c !important;}
+.login_txtcol{color:#999}
+.login_txtcol b{color:#e4393c}
+
+.quick_logon{margin-right:10px;width:60px;text-align:center}
+.qq_loginicon,.wechat_loginicon,.alipay_loginicon{display:inline-block;width:28px;height:28px;background:url(img/quick_logonIcon.png) no-repeat;}
+.qq_logintxt{color:#6cb0f4;margin-top:5px;}
+.qq_login:hover .qq_loginicon{background-position:0 -43px;}
+.wechat_loginicon{background-position:-45px 0px;}
+.wechat_login:hover .wechat_loginicon{background-position:-45px -43px;}
+
+.wechat_logintxt{color:#4caf50}
+.alipay_logintxt{color:#0099ff}
+.alipay_loginicon{background-position:-87px 0px;}
+.alipay_login:hover .alipay_loginicon{background-position:-87px -43px;}

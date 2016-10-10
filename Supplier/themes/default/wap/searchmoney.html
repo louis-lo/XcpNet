@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body class="with-picker-modal" bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    我的收益查询
+                </div>
+            </div>
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <form action="#">
+                    <div class="harvest_query pad_lr bg_fff">
+                        <div class="harvest_queryTop harvest_query_opction">
+                            <h3 class="mt10"><span class="withdrawals_icon bank_opction"></span>按时间查询</h3>
+                            <div class="list-block">
+                                <ul>
+                                    <!-- Text inputs -->
+                                    <li>
+                                        <div class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-input">
+                                                    <input type="text" placeholder="请选择起始时间" id="birthday" data-toggle="date" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-block">
+                                <ul>
+                                    <!-- Text inputs -->
+                                    <li>
+                                        <div class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-input">
+                                                    <input type="text" placeholder="请选择结束时间" id="birthday" data-toggle="date" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="harvest_queryBom harvest_query_opction">
+                            <h3 class="mt10"><span class="withdrawals_icon bank_opction"></span>按订单查询</h3>
+                            <div class="list-block">
+                                <ul>
+                                    <!-- Text inputs -->
+                                    <li>
+                                        <div class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-input">
+                                                    <input type="number" placeholder="请输入订单号">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="harvest_querySub pad_lr">
+                        <button class="col_fff">确定</button>
+                    </div>
+                </form>
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+    <script src="$res('wap/js2.0/date.js')"></script>
+    <script>
+$(function(){
+	$(".harvest_query_opction").click(function(){
+		$(".harvest_query_opction").removeClass("on");
+		$(this).addClass("on");
+	})
+})
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+
+<div class="header_zhongBox w1000 clearFix">
+    <a href="$url(Site.Url)">
+        <div class="header_logo fl">
+            <div class="fl">
+                <img src="$res('img2.0/logo.png')">
+            </div>
+            <div class="header_logo_right fr">
+                <span>乡品进城</span>
+                <p>城品下乡</p>
+            </div>
+        </div>
+    </a>
+    <div class="header_search fl">
+        <ul class="header_search_ul clearFix">
+            <li><a class="on" href="javascript:;" id="baby" data-type="0">宝贝</a></li>
+            <li><a href="javascript:;" id="shop"data-type="1">店铺</a></li>
+        </ul>
+        <div class="header_searchInput">
+            <form id="searchForm" action="$url('/category/list/0/1')" method="get" target="_blank">
+                <input type="text" id="q" name="q" placeholder="请输入关键词">
+                <input type="hidden" name="searchType" value="0" />
+                <a class="fr" href="javascript:;" id="btnSearch">搜索</a>
+            </form>
+        </div>
+        <div class="header_keyword">
+            <!--<ul>
+                $foreach(item in clr.Cnaws.Statistic.Modules.StatisticTag.GetTop(this.DataSource,8,7))
+                <li><a href="$url('/search')?q=$urlencode(item.Name)">$item.Name</a></li>
+                $end
+            </ul>-->
+        </div>
+    </div>
+    <div class="header_cart fl clearFix">
+        <span class="seven fl"></span>
+        <span class="just fl"></span>
+        <span class="flash fl"></span>
+        <div class="header_zi">
+            <ul class="clearFix">
+                <li>七天包退</li>
+                <li>正品保障</li>
+                <li>闪电发货</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--<div class="header_bottomBox w1000 clearFix">
+    <div  id="cateContainer">
+        <div class="header_bottom_left fl" id="cateHeader"><a href="javascript:;">全部商品分类</a></div>
+        $load("inc/nav.html")
+    </div>
+    <div class="header_bottom_right fl">
+        <ul class="clearFix">
+            <li><a href="$url('/channel/mall')">城品惠</a></li>
+            <li><a href="$url('/xdginfo/xdghomepage')">乡道馆</a></li>
+            <li><a target="_blank" href="$Site.B2bShopUrl$url('/')">进货宝</a></li>
+            <li><a href="$url('/channel/discount')">七货来了</a></li>
+            <li><a href="$url('/channel/promotions')">网货节</a></li>
+            <li><a href="javascript:;" onclick="Cnaws.showInfo('程序猿正在加班中...')">0元季</a></li>
+            <!--<li><a href="$url('/channel/one')">1元抢</a></li>-->
+            <!--<li><a href="javascript:;" onclick="Cnaws.showInfo('程序猿正在加班中...')">凑份子</a></li>
+            <li><a href="javascript:;" onclick="Cnaws.showInfo('程序猿正在加班中...')">爱心公益</a></li>
+            <li><a href="javascript:;" onclick="Cnaws.showInfo('程序猿正在加班中...')">桃花源记</a></li>
+            <!--<li><a href="http://www.qinto.com" target="_blank">牵头众筹</a></li>-->
+        <!--</ul>
+    </div>
+</div>-->
+<script>
+    ;+(function ($,doc) {
+        var get = function (id) { return doc.getElementById(id); };
+        $(function () {
+            var ui = {
+                btnSearch: get('btnSearch'),
+                queryTxt: get('q'),
+                form: get('searchForm'),
+                baby: get('baby'),//产品
+                shop: get('shop'),//店铺
+                searchType: $('input[name="searchType"]')
+            };
+
+            ui.btnSearch.addEventListener('click', function () {
+                if (ui.queryTxt.value.replace(/(^\s*)|(\s*$)/g, '').length !== 0) {
+                    ui.form.submit();
+                }
+            }, false);
+
+            ui.baby.onclick = ui.shop.onclick = function () {
+                if (this.className !== 'on') {
+                    var brother = this.parentNode.parentNode.querySelector('.on');
+                    brother && brother.removeAttribute('class');
+                    this.className = 'on';
+                    ui.searchType.val($(this).data('type'));
+                }
+            };
+        });
+    })($,document)
+</script>

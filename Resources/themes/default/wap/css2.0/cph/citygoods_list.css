@@ -1,0 +1,28 @@
+/* evaluate */
+.star_bg{width:140px;height:23px;background:url(../../img2.0/cph/evaluate_star.png) 0 -22px no-repeat;background-size:130px 51px;margin-top:.5rem;}
+.star_bg ul{width:140px;height:23px;background:url(../../img2.0/cph/evaluate_star.png) 0 -22px no-repeat;background-size:130px 51px;}
+.star_bg .star1{background-position:-107px 3px;}
+.star_bg .star2{background-position:-80px 3px;}
+.star_bg .star3{background-position:-53px 3px;}
+.star_bg .star4{background-position:-27px 3px;}
+.star_bg .star5{background-position:-0px 3px;}
+.star_bg ul li{width:22px;height:23px;text-indent:-999px;float:left;margin-left:5px;}
+.star_bg ul li:first-child{margin-left:0;}
+
+.admin_evaluateTextarea{margin-top:1rem;}
+.admin_evaluateTextarea textarea{resize:none;width:100%;border:none;padding:2%;height:5rem;font-size:.75rem;}
+
+.admin_evaluateButton{margin-top:1rem;}
+.admin_evaluateButton button{width:100%;background:#f23030;color:#fff;border:none;height:44px;line-height:44px;text-align:center;border-radius:.15rem;}
+
+.Determine_modification{background:none;border:none;font-size:.85rem;color:#666;position:absolute;right:0;top:.55rem;}
+.returngoods_option ul li{border-bottom:1px solid #e5e5e5;line-height:44px;font-size:.8rem;}
+.returngoods_option ul li:last-child{border:none;}
+.returngoods_option ul li span.fr{width:20px;height:24px;vertical-align:middle;display:none;margin-top:10px;}
+.returngoods_option ul li.on span.fr{display:block;background-size: 376px 223px;background-position:-271px -74px;}
+.Prompt_txt{line-height:1.8rem;}
+
+.order_noresult{margin:4rem auto 1rem;text-align:center;width:6.5rem;}
+.order_noresultTxt{text-align:center;}
+.order_noresultTxt h3{margin-bottom:.5rem;}
+.order_noresultTxt a{display:inline-block;background:#e01928;padding:0.2rem .75rem;border-radius:.15rem;}

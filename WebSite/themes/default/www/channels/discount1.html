@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>七货来了 - $Site.Title</title>
+    <meta name="keywords" content="七货来了,团购,$Site.Keywords">
+    <meta name="description" content="七货来了,团购频道,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css/base_02.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/index_02.css')">
+    <style type="text/css">
+        /* BEGIN slider */
+        .slider{
+             height: 503px!important;
+        }
+        .slider .slides div {
+            height: 503px!important;
+            background-size:1200px 503px !important;
+        }
+        .slides {
+		height:503px!important;
+	}
+        /* END slider */
+
+        /* BEGIN slider-aside-left dd  */
+        .slider-aside-left dd {
+            display: none;
+        }
+        /* END slider-aside-left dd  */
+
+        /* BEGIN flexslider */
+        .flexslider {
+            width: 1200px;
+            height: 503px!important;
+            margin-left: 0;
+        }
+
+            .flexslider img {
+                display: block;
+                width: 1200px;
+                height: 503px!important;
+            }
+        /* END flexslider  */
+
+        /* BEGIN qihuo */
+        .qihuo {
+            margin-top: 15px;
+            background-color: #FFF;
+        }
+
+            .qihuo .header {
+                height: 50px;
+                line-height: 50px;
+                background-color: #febf17;
+                color: #FFF;
+                overflow: hidden;
+                text-indent: 30px;
+            }
+
+                .qihuo .header h2 {
+                    font-size: 26px;
+                    font-weight: normal;
+                }
+
+                    .qihuo .header h2 span {
+                        font-size: 15px;
+                    }
+
+                .qihuo .header .f-right {
+                    font-size: 14px;
+                    color: #FFF;
+                    line-height: 20px;
+                    margin-right: 30px;
+                    margin-top: 24px;
+                }
+
+            .qihuo .body {
+                margin-top: 10px;
+            }
+
+                .qihuo .body > div {
+                    float: left;
+                }
+
+                    .qihuo .body > div a {
+                        display: block;
+                    }
+                /* END qihuo */
+                /* BEGIN update */
+                .qihuo .body ul li {
+                    float: left;
+                    width: 290px;
+                    margin-left: 8px;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
+
+                    .qihuo .body ul li img {
+                        width: 290px;
+                        height: 290px;
+                    }
+
+                    .qihuo .body ul li p {
+                        margin-top: 10px;
+                    }
+
+                    .qihuo .body ul li .title {
+                        height: 19px;
+                        color: #000;
+                        font-size: 19px;
+                        text-align: center;
+                        overflow: hidden;
+                    }
+
+                    .qihuo .body ul li .price {
+                        padding-top: 10px;
+                        font-size: 27px;
+                        font-weight: bold;
+                        color: #e22c33;
+                        text-align: center;
+                        border-top: 2px solid #000;
+                    }
+        /* END update */
+         /* add qighuo */
+        body{color:#444;}
+        .mb10{margin-bottom:10px;}.mt10{margin-top:10px;}.mt3{margin-top:30px;}.mt2{margin-top:20px;}.mtb{margin:10px 0;}
+        .fl{float:left;}.fr{float:right;}
+        .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+        .qihuo_Banner{height: auto;overflow: hidden;}
+        .qihuo_Banner img{min-width:100%;}
+        .qihuo_title{color:#000;font-size:16px;border-bottom:2px solid #000;line-height:40px;}
+        .qihuo_title img{margin-right:8px;vertical-align: middle;}
+        .qihuo_list li{width:294px;height:427px;overflow:hidden;margin:0 8px 12px 0;}
+        .qihuo_list li:nth-child(4n){margin-right:0;}
+        .qihuo_liImg{line-height:0;border:1px solid #aaa;}
+        .qihuo_liTitle{font-size:16px;text-align:center;padding:5px;word-break:break-all;line-height:30px;height:70px;box-sizing: border-box;}
+        .qihuo_Number{color:#ff0000;font-size:28px;font-weight:bold;margin-left:8px;}
+        .qihuo_Number i{font-size:14px;font-style:normal;}
+        .qihuo_Number2{margin-right:11px;margin-top:4px;}
+        .qihuo_liDiv span{display:inline-block;}
+        .qihuo_purchase{margin-right:9px;padding:8px 16px;color:#fff;background:#ff0000;}
+        .qihuo_liBottom{border:1px solid #aaa;border-top:none;width:294px;height:120px;padding:0 0 15px;box-sizing:border-box;overflow:hidden;}
+        /*  end add qihuo*/
+    </style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            //$('#banner').jqxScrollView({ width: 1200, height: 335, buttonsOffset: [0, 0], slideShow: true, slideDuration: 5000 });
+            //$(".load-img").scaling(394, 394, errPic);
+            $(".load-img2").scaling(292, 292, errPic);
+        });
+    </script>
+</head>
+<body>
+    $load("../inc/top2.html")
+    <!-- BEGIN slider -->
+    <link rel="stylesheet" type="text/css" href="$res('css/slider.css')" />
+    $set(cates=clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+    <div class="clearfix container slider">
+        <dl class="slider-aside-left">
+            <dt><a href="javascript:void(0)">所有商品分类</a></dt>
+            $foreach(cate in cates)
+            <dd>
+                <a href="$url('/category/list/',cate.Id)">$cate.Name<span>></span></a>
+                <div class="slider-aside-left-item">
+                    <!-- BEGIN 新增 -->
+                    $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,cate.Id))
+                    <dl class="clearfix">
+                        <dt><a href="$url('/category/list/',child.Id)">$child.Name</a><span>></span></dt>
+                        <dd>
+                            $foreach(three in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,child.Id))
+                            <a href="$url('/category/list/',three.Id)">$three.Name</a>
+                            $end
+                        </dd>
+                    </dl>
+                    $end
+                    <!-- END 新增 -->
+                </div>
+            </dd>
+            $end
+        </dl>
+        <!--<div class="flexslider">
+            <div id="banner" class="slides">
+                <div class="slides"><a href="javascript:void(0)" target="_blank" title=""><div style="width:1200px;height:333px;background:url($res('img/wh_slider.jpg')) no-repeat center top;"></div></a></div>
+            </div>
+        </div>-->
+        <div class="qihuo_Banner mb10 mt10">
+            <img src="$res('img/qihuo_discount/qihuobanner.jpg')" />
+        </div>
+    </div>
+    <!-- END slider -->
+    <!-- BEGIN qihuo -->
+   
+    <div class="container">
+        <div class="qihuo_content">
+            <div class="qihuo_title mb10"><img src="$res('img/qihuo_discount/qihuo_titleicon.jpg')" />厂家团购</div>
+            <div class="qihuo_list">
+                <ul class="clearfix">
+                    <!-- BEGIN 循环 -->
+                    $foreach(product in clr.Cnaws.Product.Modules.Product.GetManufactorOrBrandGroupBy(this.DataSource, 16,0, false))
+                    <li class="fl">
+                        <a href="$url('/product/info/',product.Id)" target="_blank">
+                            <div class="qihuo_liImg"><img data-original="$product.GetImage()" class="load-img2" /></div>
+                            <div class="qihuo_liBottom">
+                                <div class="qihuo_liTitle">$product.Title</div>
+                                <div class="qihuo_liDiv mt1 clearfix">
+                                    <span class="qihuo_Number fl">$product.DiscountPrice.ToString("C2")</span>
+                                    <span class="qihuo_purchase fr">马上抢</span>
+                                    <!--<span class="qihuo_Number2 fr">4000人抢购</span>-->
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    $end
+                    <!-- END 循环 -->
+                </ul>
+            </div>
+        </div>
+        <!-- banner -->
+        <div class="qihuo_Banner mb10 mt10">
+            <img src="$res('img/qihuo_discount/qihuo_banner2.jpg')" />
+        </div>
+        <!-- / banner-->
+
+        <div class="qihuo_content">
+            <div class="qihuo_title mb10"><img src="$res('img/qihuo_discount/qihuo_titleicon.jpg')" />品牌团购</div>
+            <div class="qihuo_list">
+                <ul class="clearfix">
+                    <!-- BEGIN 循环 -->
+                    $foreach(product in clr.Cnaws.Product.Modules.Product.GetManufactorOrBrandGroupBy(this.DataSource, 8,0, true))
+                    <li class="fl">
+                        <a href="$url('/product/info/',product.Id)" target="_blank">
+                            <div class="qihuo_liImg"><img data-original="$product.GetImage()" class="load-img2" /></div>
+                            <div class="qihuo_liBottom">
+                                <div class="qihuo_liTitle">$product.Title</div>
+                                <div class="qihuo_liDiv mt1 clearfix">
+                                    <span class="qihuo_Number fl">$product.Price.ToString("C2")</span>
+                                    <span class="qihuo_purchase fr">马上抢</span>
+                                    <!--<span class="qihuo_Number2 fr">4000人抢购</span>-->
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    $end
+                    <!-- END 循环 -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- END qihuo -->
+    $load("../inc/footer2.html")
+
+    <script type="text/javascript">
+        $(function () {
+            $('.slider-aside-left').hover(function () {
+                $(this).find('dd').stop().slideDown();
+            }, function () {
+                $(this).find('dd').stop().slideUp();
+            })
+        });
+    </script>
+</body>
+</html>

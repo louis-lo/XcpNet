@@ -1,0 +1,29 @@
+ .center_wrapRight{width: 995px;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:96px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;}
+/* 中间地址栏 */
+.address_content{border: 1px solid #e2e2e2;margin-top: 20px;padding-bottom: 40px;padding-top:20px;margin-bottom: 30px;}
+.new_addressLeft span{display: block;text-align: right;margin-top: 11px;color: #555;}
+.new_addressLeft .address{margin-top: 22px;}
+.new_addressLeft .rode{margin-top: 20px;}
+.new_addressLeft span i{color: #ff6c00;font-style: normal;}
+.new_addressRint{margin-top: 4px;margin-left: 15px;}
+.new_addressRint input{width: 212px; height: 28px;border:1px solid #e2e2e2;}
+.new_addressSelect select{width: 155px;margin-top: 15px;height: 28px;}
+.new_addressRoad input{width: 500px;margin-top: 15px;}
+.new_addressTell{margin-top: 15px;}
+.tell{margin-left: 20px;color: #555;}
+.tell .tellOne,.tell .tellThree{width: 60px;}
+.tell .tellTwo{width: 110px;}
+.ts{color: #999;margin-top: 20px;}
+.verify{width:68px; height:30px;background: #e31939;color: #fff;cursor: pointer;margin-top: 30px;}
+.verify_cancel{width:68px; height:30px;background: #e5e5e5;;cursor: pointer;margin-top: 30px;}
+.default_div input{width: 14px;height: 14px;}
+.default_div .defaultT{margin-top: 2px;}
+.default_div{color:#999}
+
+.address_table{width: 100%;border: 1px solid #e2e2e2;margin-top: 20px;border-collapse:collapse;}
+.address_table thead{background-color: #f3f3f3;}
+.address_table th,.address_table td{border: 1px solid #e2e2e2;font-weight: normal;color: #555;height: 40px;}
+.handle_a{color: #e31939 }
+.address_table tbody tr{text-align:center;height: 60px;}
+/* 中间地址栏结束 */

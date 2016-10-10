@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Site.Name - $Site.Title</title>
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.public.min.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.index.min.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <div class="headerHr w100"></div>
+    <div class="center_wrap w100">
+        <div class="centerBox w1000 clearFix">
+            <div class="centerNav_left fl"></div>
+            <div class="swiper-container fl">
+                <a class="arrow-left" href="javascript:;"><</a>
+                <a class="arrow-right" href="javascript:;">></a>
+                <div class="swiper-wrapper">
+                    $foreach(item in clr.XcpNet.Ad.Modules.Advertisement.GetByLabel(this.DataSource,19))
+                    <div class="swiper-slide">
+                        <a href="$item.Url" target="_blank">
+                            <img src="$item.ImgUrl" style="border: none;" width="$item.Width" height="$item.Height">
+                        </a>
+                    </div>
+                    $end
+                </div>
+                <div class="pagination"></div>
+            </div>
+            <div class="center_right fr">
+                <div>
+                    <div class="center_flash center_rightTop clearFix">
+                        <span class="fl fb">乡城品快讯</span>
+                        <a class="fr" href="http://help.xcpnet.com/article/list/1.html" target="_blank">更多></a>
+                    </div>
+                    <div class="center_notice">
+                        <ul>
+                            $foreach(it in clr.Cnaws.Article.Modules.Article.GetTop(this.DataSource,1,4))
+                            <li>
+                                <a href="http://help.xcpnet.com$url('/article/info/',it.Id)" target="_blank">$it.Title</a>
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+                </div>
+                $set(topRightAds=clr.XcpNet.Ad.Modules.Advertisement.GetByLabel(this.DataSource,20))
+                $foreach(topRightAd in topRightAds)
+                <div class="center_rightPrint">
+                    <a href="$topRightAd.Url" target="_blank"><img src="$topRightAd.ImgUrl"></a>
+                </div>
+                $end
+            </div>
+        </div>
+    </div>
+    <div class="box w1000" id="sales-product">
+        <div class="module-title">
+            <h3>商城推荐</h3>
+        </div>
+        <div class="shangcTj js j_index_carouseProduct centerHome_classifyzhongT" id="sales-product-main">
+            <ul class="clearfix">
+                $foreach(product in clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetTopRecommendByArea(this.DataSource,6,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                <li>
+                    <a href="$url('/product/info/',product.A.Id)" target="_blank">
+                        <div class="recomgoodsPrint"><img class="jsProductImg" data-original="$product.A.GetImage()"></div>
+                        <div class="recomgoodsMs">$product.A.Title</div>
+                        <div class="recomgoodsPric">
+                            <span><i class="fb">$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i></span>/ $product.A.Unit（<span class="fb">$product.A.WholesaleCount</span>$product.A.Unit 起定）
+                        </div>
+                        <div class="goodsMsHover goodsMsHoverT clearfix">
+                            <div class="goodsMsHoverLT goodsMsHoverL fl">
+                                <span>包<i class="leftSpan">装：</i> </span>
+                                <span>建议零售：</span>
+                                <span class="pifaleft"><i>批</i><i>发</i><i>价：</i></span>
+                            </div>
+                            <div class="goodsMsHoverR goodsMsHoverL fl">
+                                <span>${product.A.Norms}(${product.A.WholesaleCount}${product.A.Unit}起定)</span>
+                                <span><i>$product.A.GetPrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i>元/$product.A.RetailUnit</span>
+                                <span><i>$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i>元$product.A.Unit</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                $end
+            </ul>
+        </div>
+    </div>
+    $set(topRecomAds=clr.XcpNet.Ad.Modules.Advertisement.GetByLabelAndCategoryId(this.DataSource,18,1))
+    $foreach(topRecomAd in topRecomAds)
+    <div class="advertismentW w1000">
+        <a href="$topRecomAd.Url" target="_blank"><img src="$topRecomAd.ImgUrl" height="$topRecomAd.Height" width="$topRecomAd.Width"></a>
+    </div>
+    $end
+    $set(cates=clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetAll(this.DataSource,0))
+    $foreach(cate in cates)
+    
+    <div class="centerHome_electricAppliance w1000 clearFix">
+        <span class="fb fl">${foreachIndex}F $cate.Name</span>
+        <div class="centerHome_classify fr ">
+            <ul class="clearFix">
+                $set(children=clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetTop(this.DataSource,cate.Id,16))
+                $for(i=6;i<clr.System.Math.Min(16,children.Count);i++) $set(child=children[i])
+                    <li><a href="$url('/category/list/',child.Id)">$child.Name</a></li>
+                $end
+            </ul>
+        </div>
+    </div>
+    <div class="centerHome_classifyGoods w1000 clearFix">
+        <div class="centerHome_classifyLeft fl">
+            <div class="centerHome_classifyp">
+                $set(leftAdItems=clr.XcpNet.Ad.Modules.Advertisement.GetByLabelAndCategoryId(this.DataSource,21,cate.Id))
+                $if(leftAdItems.Count>0)
+                $set(leftAd=leftAdItems[0])
+                <a href="$leftAd.Url" target="_blank">
+                    <img src="$leftAd.ImgUrl" width="$leftAd.Width" height="$leftAd.Height">
+                </a>
+                $end
+            </div>
+            <div class="centerHome_classifyF">
+                $for(i=0;i<clr.System.Math.Min(6,children.Count);i++) $set(child=children[i])
+                    <a href="$url('/category/list/',child.Id)"><b>$child.Name</b></a>
+                $end
+            </div>
+        </div>
+        <div class="centerHome_classifyzhong centerHome_classifyzhongT fl">
+            <ul class="clearFix">
+                $set(products=clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetTopBestByCategoryByArea(this.DataSource,8,cate.Id,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                $for(i=0;i<clr.System.Math.Min(8,products.Count);i++) $set(product=products[i])
+                <li>
+                    <a href="$url('/product/info/',product.A.Id)" target="_blank">
+                        <div class="centerHome_goodsPrint">
+                            <img class="jsProductImg" data-original="$product.A.GetImage()">
+                        </div>
+                        <div class="centerHome_goodsMs centerHome_goodsprice">
+                            $product.A.Title
+                        </div>
+                        <div class="centerHome_goodsprice">
+                            <span class="centerHomep"><i class="fb">$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i></span>
+                            <span>/${product.A.Unit}（<i class="fb">$product.A.WholesaleCount</i>${product.A.Unit}起定）</span>
+                        </div>
+                        <div class="goodsMsHover clearfix">
+                            <div class="goodsMsHoverLT goodsMsHoverL fl">
+                                <span>包<i class="leftSpan">装：</i> </span>
+                                <span>建议零售：</span>
+                                <span class="pifaleft"><i>批</i><i>发</i><i>价：</i></span>
+                            </div>
+                            <div class="goodsMsHoverR goodsMsHoverL fl">
+                                <span>${product.A.Norms}(${product.A.WholesaleCount}${product.A.Unit}起定)</span>
+                                <span><i>$product.A.GetPrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i>元/${product.A.RetailUnit}</span>
+                                <span><i>$product.A.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")</i>元${product.A.Unit}</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                $end
+            </ul>
+        </div>
+    </div>
+    $set(bottomAdItems=clr.XcpNet.Ad.Modules.Advertisement.GetByLabelAndCategoryId(this.DataSource,18,cate.Id))
+    $if(bottomAdItems.Count>0)
+    $set(bottomAd=bottomAdItems[0])
+    <div class="advertismentW w1000">
+        <a href="$bottomAd.Url" target="_blank">
+        <img src="$bottomAd.ImgUrl" height="$bottomAd.Height" width="$bottomAd.Width">
+        </a>
+    </div>
+    $end
+    $end
+    $load("inc/toolbar.html")
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript" src="$res('js2.0/lib/idangerous.swiper.min.js')"></script>
+    <script type="text/javascript" src="$res('js2.0/xcp.cdb.pc.index.js')"></script>
+    <script type="text/javascript" src="$res('js2.0/lib/tab.js')"></script>
+    <script>
+            index('$res("img2.0/index/load_image.png")');
+    </script>
+</body>
+</html>

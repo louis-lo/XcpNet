@@ -1,0 +1,1177 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>七货来了-$Site.Name</title>
+    <meta name="keywords" content="七货来了,团购,$Site.Keywords">
+    <meta name="description" content="七货来了,团购频道,$Site.Description">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/swiper.min.css')">
+    <style type="text/css">
+        /* BEGIN slide */
+	    .page {
+		    background-color: #E5E5E5;
+            width:640px;
+	    }
+	    .swiper-container,
+	      .swiper-slide {
+	            width: 640px !important;
+	            height: 229px !important;
+	        }
+	        .swiper-slide {
+		    text-indent: -9999px;
+	        }
+	        .swiper-pagination-bullet {
+	    	    width: 11px;
+	    	    height: 11px;
+	    	    background-color: #FFF;
+	    	    opacity:10;
+	        }
+	        .swiper-pagination-bullet-active {
+	    	    background-color: #A8531D;
+	        }
+	    /* END slide */
+
+	    /* BEGIN header */
+	    #header {
+		    top: 0px;
+            z-index: 2;
+            position: fixed;
+            width: 640px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #FFF;
+	    }
+	    #header .logo {
+		    width: 142px;
+		    padding-top: 5px;
+		    margin-left: 18px;
+	    }
+	    #header input {
+		    width: 318px;
+		    height: 24px;
+		    line-height: 24px;
+		    margin-left: 18px;
+		    border: 0;
+		    padding: 0;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		    padding-left: 56px;
+		    padding-right: 10px;
+		    margin-top: 6px;
+		    font-size: 24px;
+		    border-radius: 30px;
+		    background:#FFF url($res('wap/css/img/search_01.jpg')) no-repeat 16px center;
+		    border: 1px solid #BDBDBD;
+	    }
+	    #header .login {
+		    width: 76px;
+		    height: 54px;
+		    line-height: 54px;
+		    text-align: center;
+		    color: #999;
+	    }
+	    /* END header */
+
+	    /* BEGIN index-nav */
+	    .index-nav {
+		    padding-top: 39px;
+		    padding-bottom: 22px;
+		    background-color: #FFF;
+		    border-top: 1px solid #E3E3E3;
+		    border-bottom: 1px solid #DBDBDB;
+	    }
+	    .index-nav li {
+		    float: left;
+		    width: 160px;
+		    height: 106px;
+	    }
+	    .index-nav li a {
+		    display: block;
+		    width: 100%;
+		    /*height: 72px;*/
+		    height: 14px;
+		    padding-top: 88px;
+		    font-size: 18px;
+		    color: #333;
+		    text-align: center;
+		    background-repeat: no-repeat;
+		    background-position: center top;
+	    }
+	    .index-nav li.index-nav-01 a {
+		    background-image: url($res('wap/css/img/index/index_nav_01_01.jpg'));
+	    }
+	    .index-nav li.index-nav-02 a {
+		    background-image: url($res('wap/css/img/index/index_nav_01_02.jpg'));
+	    }
+	    .index-nav li.index-nav-03 a {
+		    background-image: url($res('wap/css/img/index/index_nav_01_03.jpg'));
+	    }
+	    .index-nav li.index-nav-04 a {
+		    background-image: url($res('wap/css/img/index/index_nav_01_04.jpg'));
+	    }
+	    /* END index-nav */
+
+	    /* BEGIN ad */
+	    .ad {
+		    padding-left: 10px;
+		    padding-right: 10px;
+		    padding-bottom: 12px;
+		    background-color: #FFF;
+	    }
+	    .ad li {
+		    float: left;
+		    margin-top: 5px;
+	    }
+	    .ad a {
+		    display: block;
+	    }
+	    .ad img {
+		    display: block;
+		    width: 203px;
+		    height: 112px;
+	    }
+	    /* END ad */
+
+	    /* BEGIN qihuo */
+	    .qihuo {
+		    background-color: #FFF;
+	    }
+	    .qihuo .header {
+		    height:48px;
+		    line-height:48px;
+		    background-color:#E0412C;
+		    color:#FFF;
+		    text-indent: 30px;
+	    }
+	    .qihuo .header h2 {
+		    font-weight: normal;
+	    }
+	    .qihuo .header h2 span {
+		    font-size: 20px;
+	    }
+	    .qihuo .header .f-right {
+		    color: #FFF;
+		    margin-right: 30px;
+	    }
+	    .qihuo .body {
+		    padding-bottom: 15px;
+	    }
+	    .qihuo .media {
+		    position: relative;
+		    margin-top: 5px;
+		    background-color:#F6F6F6;
+		    border: 1px solid #ED8F83;
+	    }
+	    .qihuo .media .qihuo-hot {
+		    position: absolute;
+		    top: -4px;
+		    left: 15px;
+	    }
+	    .qihuo .media-body {
+		    width: 285px;
+		    margin-left: 10px;
+            padding-top: 20px;
+	    }
+	    .qihuo .media-body h3 {
+		    height: 62px;
+		    margin-top: 15px;
+		    line-height: 1.3;
+		    font-weight: normal;
+		    color: #333;
+		    overflow: hidden;
+	    }
+	    .qihuo .media-body p {
+		    font-size: 20px;
+	    }
+	    .qihuo .media-body p,
+	    .qihuo .media-body a {
+		    margin-top: 30px;
+	    }
+	    .qihuo .media-body a.btn {
+		    display: block;
+		    height: 35px;
+		    margin-right: 10px;
+		    font-size: 22px;
+		    line-height: 35px;
+		    text-align: center;
+		    color: #FFF;
+		    background: #E31851 url($res('wap/css/img/qihuo_cart.png')) no-repeat 30px center;
+	    }
+	    .qihuo .media-body des {
+		    text-decoration: line-through;
+	    }
+	    .qihuo .media-body ins {
+		    margin-left: 10px;
+		    color: #e22c33;
+	    }
+	    .qihuo .media-body ins span {
+		    font-size: 24px;
+		    font-weight: bold;
+	    }
+
+	    .qihuo .body ul li {
+		    float: left;
+		    width: 202px;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		    margin-left: 3.5px;
+	    }
+	    .qihuo .body ul li img {
+		    display: block;
+		    width: 202px;
+		    height: 202px;
+	    }
+	    .qihuo .body ul li p {
+		    margin-top: 10px;
+	    }
+	    .qihuo .body ul li .title {
+            height:48px;
+		    color: #000;
+            overflow:hidden;
+	    }
+	    .qihuo .body ul li .price {
+		    padding-top: 10px;
+		    font-size: 27px;
+		    font-weight: bold;
+		    color: #e22c33;
+		    text-align: center;
+		    border-top: 2px solid #000;
+	    }
+	    /* END qihuo */
+
+	    /* BEGIN click */
+	    .click {
+		    height: 46px;
+		    font-size: 20px;
+		    line-height: 46px;
+		    color: #333;
+		    text-align: center;
+		    background-color: #F3F5F7;
+		    border-top: 1px solid #D7D8DA;
+		    border-bottom: 1px solid #D7D8DA;
+	    }
+	    /* END click */
+
+	    /* BEGIN  footer-nav */
+	    .footer-nav {
+		    height: 70px;
+		    line-height: 70px;
+		    text-align: center;
+		    background-color: #F8F8F8;
+		    border-top: 10px solid #FFF;
+		    border-bottom: 2px solid #FFF;
+	    }
+	    .footer-nav a {
+		    display: inline-block;
+		    margin-left: 25px;
+		    margin-right: 25px;
+		    color: #666;
+	    }
+	    /* END footer-nav */
+
+	    /* BEGIN copyright */
+	    .copyright {
+		    height: 60px;
+		    line-height: 60px;
+		    font-size: 20px;
+		    text-align: center;
+		    background-color: #F8F8F8;
+		    border-top: 2px solid #FFF;
+	    }
+	    /* END copyright */
+
+	    /* BEGIN site-nav */
+	    .site-nav {
+		    padding: 20px;
+		    background-color: #F6F6F6;
+		    border-top: 2px solid #DCDCDC;
+		    border-bottom: 2px solid #DCDCDC;
+	    }
+	    .site-nav li {
+		    width: 33%;
+		    text-align: center;
+		    float: left;
+	    }
+	    .site-nav li img {
+		    display: block;
+		    margin-bottom: 5px;
+		    margin-left: auto;
+		    margin-right: auto;
+	    }
+	    .site-nav li a {
+		    color: #666;
+	    }
+        .nav ul{
+            width:100% !important;
+        }
+        .nav li{
+            width:20% !important;
+        }
+        
+        .page {
+            width:1200px !important;
+	    }
+	    /* END site-nav */
+    </style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var curPage = 1;
+        var endPage = false;
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            window.setInterval(function () {
+                var banner = $('#banner');
+                var max = $('.jqx-scrollview-page').length;
+                if (max > 1) {
+                    if (banner.jqxScrollView('currentPage') < (max - 1)) {
+                        banner.jqxScrollView('forward');
+                    }
+                    else {
+                        banner.jqxScrollView('changePage', 0);
+                    }
+                }
+            }, 5000);
+            $(".load-img").scaling(324, 324, errPic);
+            $(".load-img2").scaling(202, 202, errPic);
+        });
+    </script>
+</head>
+<body>
+    <div id="top" class="page">
+        <div class="clearfix" id="header">
+            <form id="form" action="$url('/search')" method="get" onsubmit="return onSearch()">
+                <a class="logo f-left" href="$Site.Url"><img style="display:block;" src="$res('wap/css/img/logo_03.png')" height="54" width="142"></a>
+                <input class="f-left" type="text" id="q" name="q" placeholder="乡品进城 城品下乡">
+                <a href="javascript:void(0)" onclick="$('#form').submit()" class="f-right login">搜索</a>
+            </form>
+        </div>
+
+        $load("../inc/nav.html")
+        <link rel="stylesheet" type="text/css" href="$res('css/childrens_day.css')">
+        <div class="center_wrap" style="">
+            <div class="center_1200_wrap">
+                <div class="center_top_box">
+                    <div class="center_top_print">
+                        <img src="$res('img/childrens/banner_01.png')">
+                    </div>
+                    <div class="center_top_activity_wrap">
+                        <div class="center_top_activity_box">
+                            <div class="center_top_activity">
+                                <a href="#Floor1">
+                                    <img src="$res('img/childrens/banner_02.png')">
+                                </a>
+                            </div>
+                            <div class="center_top_activity">
+                                <a href="#Floor2">
+                                    <img src="$res('img/childrens/banner_03.png')">
+                                </a>
+                            </div>
+                            <div class="center_top_activity">
+                                <a href="#Floor3">
+                                    <img src="$res('img/childrens/banner_04.png')">
+                                </a>
+                            </div>
+                            <div class="cl">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="center_bottom_box">
+                    <div class="center_bottom_goods_wrap">
+                        <img src="$res('img/childrens/bg_03.png')">
+                        <div class="center_goods_fone" id="Floor3">
+                            <ul>
+                                <li>
+                                    <a href="$url('/product/info/40693')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_01.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    韩版印花五星星字母短袖t恤
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        39.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40673')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_02.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    条纹一家三口夏装短袖t恤外贸
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        39
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40633')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_03.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    韩版米奇亲子装母女童裙子
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        35.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 一楼 结束 -->
+                        <!-- 二楼 开始 -->
+                        <div class="center_goods_fone2 center_goods_fone" id="Floor2">
+                            <ul>
+                                <li>
+                                    <a href="$url('/product/info/40514')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_04.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    夏款印花女童套装 外贸套装
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        26.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40495')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_05.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    韩国童装外贸新款短袖男童t恤
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        15.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40498')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_06.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    外贸童装 公主风儿童蕾丝裙
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        33.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li li_04">
+                                    <a href="$url('/product/info/40527')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_07.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    外贸童装批发 韩版蓬蓬公主裙
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        33.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li">
+                                    <a href="$url('/product/info/40518')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_08.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    韩版蓬蓬公主裙 女童连衣裙夏
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        12
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li">
+                                    <a href="$url('/product/info/40587')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_09.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    韩国童装外贸新款短袖男童t恤
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        15.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 二楼 结束 -->
+                        <!-- 三楼 开始 -->
+                        <div class="center_goods_fone3 center_goods_fone2 center_goods_fone" id="Floor1">
+                            <ul>
+                                <li>
+                                    <a href="$url('/product/info/40608')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_10.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    黄金沙鹰软弹枪水弹枪具
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        16.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40598')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_11.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    软弹水弹两用玩具枪
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        20.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40616')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_12.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    儿童玩具枪AK47无影突击枪
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        32.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li li_04">
+                                    <a href="$url('/product/info/40609')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_13.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    巴雷特阻击枪 手动水弹枪
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        29.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li">
+                                    <a href="$url('/product/info/40594')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_14.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    仿真手动连发手弹枪
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        26.5
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li">
+                                    <a href="$url('/product/info/40611')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_15.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    猎鹰水弹枪 发射水弹软弹
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        32.8
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 三楼 结束 -->
+                        <!-- 四楼 开始 -->
+                        <div class="center_goods_fone4 center_goods_fone3 center_goods_fone2 center_goods_fone" id="Floor0">
+                            <ul>
+                                <li>
+                                    <a href="$url('/product/info/40488')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_16.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    新款儿童电动车三轮电动童车
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        199
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40474')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_17.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    遥控双驱越野儿童车C00226
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        469
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="$url('/product/info/40480')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_18.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    儿童电动摩托车
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        189
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li li_04">
+                                    <a href="$url('/product/info/40466')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_19.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    超酷新款儿童电动摩托车
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        189
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li">
+                                    <a href="$url('/product/info/40475')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_20.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    可遥控双驱越野儿童车
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        469
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="center_goods_fone2_li">
+                                    <a href="$url('/product/info/40487')">
+                                        <div class="goods_print">
+                                            <img src="$res('img/childrens/goods_21.png')">
+                                        </div>
+                                        <div class="goods_describe_pric">
+                                            <div class="goods_describe">
+                                                <span>
+                                                    男女宝宝玩具车遥控摩托车
+                                                </span>
+                                            </div>
+                                            <div class="goods_pric">
+                                                <div class="goods_pric_left">
+                                                    <span class="buy_give_one">
+                                                        买二送一
+                                                    </span>
+                                                    <span class="goods_dream_pric">
+                                                        6.1梦幻价：
+                                                    </span>
+                                                </div>
+                                                <div class="goods_pric_right goods_pric_left">
+                                                    <span class="goods_money">
+                                                        199
+                                                    </span>
+                                                </div>
+                                                <div class="cl">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="goods_rush_print">
+                                            <img src="$res('img/childrens/6.1zhe.png')">
+                                        </div>
+                                        <div class="cl">
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 四楼 结束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    $load("../inc/footer.html")
+</body>
+</html>

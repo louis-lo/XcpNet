@@ -1,0 +1,309 @@
+﻿$if(this.IsAjax)
+$foreach(item in ProductList)
+<li>$load("temp/product.html")</li>
+$end
+<script type="text/javascript">
+    pageIndex = $ProductList.PageIndex;
+    pageCount = $ProductList.PagesCount;
+    $(".load-img-$ProductList.PageIndex").scaling(300, 300, errPic, '#wrapper');
+</script>
+$else
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$Q</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/common.css')">
+    <style type="text/css">
+        .order, .content {
+            margin-top: 0;
+        }
+        #wrapper {
+	        position: absolute;
+	        z-index: 1;
+	        top: 85px;
+	        bottom: 84px;
+	        width: 640px;
+	        background: #f0f0f0;
+	        overflow: hidden;
+        }
+        #pullDown, #pullUp {
+	        height:80px;
+	        line-height:80px;
+	        padding:10px 20px;
+	        font-weight:bold;
+	        color:#888;
+            text-align: center;
+        }
+        #pullDown .pullDownIcon, #pullUp .pullUpIcon  {
+	        display:block;
+            float:left;
+            margin-left: 180px;
+	        width:80px;
+            height:80px;
+	        background:url($res('/resource/static/iscroll/pull-icon.png')) 0 0 no-repeat;
+            background-size:80px 160px;
+            -webkit-transition-property:-webkit-transform;
+	        -webkit-transition-duration:250ms;	
+        }
+        #pullDown .pullDownIcon, #pullUp.flip .pullUpIcon {
+	        -webkit-transform:rotate(0deg) translateZ(0);
+        }
+        #pullUp .pullUpIcon, #pullDown.flip .pullDownIcon  {
+	        -webkit-transform:rotate(-180deg) translateZ(0);
+        }
+        #pullDown .pullDownLabel, #pullUp .pullUpLabel  {
+	        display:block;
+            float:left;
+        }
+        #pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+	        background-position:0 100%;
+	        -webkit-transform:rotate(0deg) translateZ(0);
+	        -webkit-transition-duration:0ms;
+	        -webkit-animation-name:loading;
+	        -webkit-animation-duration:2s;
+	        -webkit-animation-iteration-count:infinite;
+	        -webkit-animation-timing-function:linear;
+        }
+        @-webkit-keyframes loading {
+	        from { -webkit-transform:rotate(0deg) translateZ(0); }
+	        to { -webkit-transform:rotate(360deg) translateZ(0); }
+        }
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var locked = false;
+        var myScroll, pullDownEl, pullDownOffset, pullUpEl, pullUpOffset, generatedCount = 0;
+        var pageIndex = $ProductList.PageIndex;
+        var pageCount = $ProductList.PagesCount;
+        var errPic = '$res("img/load_image.png")';
+        function pullDownAction() {
+            if (!locked) {
+                locked = true;
+                $.ajax({
+                    type: "GET",
+                    url: '$url("/search/list/1")?q=' + encodeURIComponent('$Q'),
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#list').html(data);
+                        locked = false;
+                        myScroll.refresh();
+                    }
+                });
+            }
+        }
+        function pullUpAction() {
+            if (!locked) {
+                locked = true;
+                $.ajax({
+                    type: "GET",
+                    url: Cnaws.getUrl('$url("/search/list/")' + (pageIndex + 1)) + '?q=' + encodeURIComponent('$Q'),
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#list').append($(data));
+                        locked = false;
+                        myScroll.refresh();
+                    }
+                });
+            }
+        }
+        $(document).ready(function () {
+            pullDownEl = document.getElementById('pullDown');
+            if (pullDownEl != null) {
+                pullDownOffset = pullDownEl.offsetHeight;
+            }
+            else {
+                pullDownOffset = 0;
+            }
+            pullUpEl = document.getElementById('pullUp');
+            if (pullUpEl != null) {
+                pullUpOffset = pullUpEl.offsetHeight;
+            }
+
+            myScroll = new IScroll('#wrapper', {
+                scrollbars: true,
+                mouseWheel: true,
+                interactiveScrollbars: true,
+                shrinkScrollbars: 'scale',
+                fadeScrollbars: true,
+                probeType: 3,
+                startY: -pullDownOffset,
+                click: true
+            });
+            myScroll.beginDown = 0;
+            myScroll.beginUp = 0;
+            myScroll.on('scroll', function () {
+                if (!locked) {
+                    if (this.y > 5) {
+                        if (pullDownEl != null) {
+                            if (this.beginDown == 0) {
+                                this.beginDown = 1;
+                                pullDownEl.className = 'flip';
+                                pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+                            }
+                        }
+                    }
+                    else if (this.y < (this.maxScrollY - 5)) {
+                        if (pullUpEl != null) {
+                            if (this.beginUp == 0) {
+                                this.beginUp = 1;
+                                pullUpEl.className = 'flip';
+                                pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+                            }
+                        }
+                    }
+                }
+                $('#wrapper').trigger('scroll');
+            });
+            myScroll.on('scrollEnd', function () {
+                if (this.beginDown == 1) {
+                    if (!locked) {
+                        this.beginDown = 2;
+                        pullDownEl.className = 'loading';
+                        pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+                        pullDownAction();
+                    }
+                    else {
+                        this.beginDown = 0;
+                    }
+                }
+                if (this.beginUp == 1) {
+                    if (!locked) {
+                        if (pageIndex < pageCount) {
+                            this.beginUp = 2;
+                            pullUpEl.className = 'loading';
+                            pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+                            pullUpAction();
+                        }
+                        else {
+                            this.beginUp = 0;
+                            pullUpEl.className = '';
+                            pullUpEl.querySelector('.pullUpLabel').innerHTML = '已到最后一页';
+                        }
+                    }
+                    else {
+                        this.beginUp = 0;
+                    }
+                }
+            });
+            myScroll.on('refresh', function () {
+                if (this.beginDown == 2) {
+                    this.beginDown = 0;
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                    if (this.y < 5) {
+                        this.scrollTo(this.x, this.options.startY);
+                    }
+                }
+                if (this.beginUp == 2) {
+                    this.beginUp = 0;
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                }
+            });
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+            $(".load-img").scaling(300, 300, errPic, '#wrapper');
+        });
+    </script>
+</head>
+<body>
+	$load("inc/nav.html")
+	<div class="page">
+		<div class="header">
+			<a href="javascript:history.go(-1)" class="back">返回</a>
+            搜索“$Q”的结果
+		</div>
+		<div class="content">
+			<style type="text/css">
+			.thumbnail {
+				margin-top: 0;
+			}
+			.filter ul {
+				height: 80px;
+				padding-right: 88px;
+				color: #333;
+				text-align: center;
+				background-color: #FFF;
+				border-top: 1px solid #E8E8E8;
+				border-bottom: 1px solid #E8E8E8;
+			}
+			.filter li {
+				float: left;
+				width: 92px;
+			}
+			.filter li a {
+				display: inline-block;
+				height: 74px;
+				line-height: 74px;
+				color: #333;
+				border-bottom: 6px solid #fff;
+			}
+			.filter li.active a {
+				color: #febf17;
+				border-bottom-color: #febf17;
+			}
+			.filter div {
+				margin-top: 14px;
+			}
+			.filter div a {
+				float: left;
+				display: inline-block;
+				width: 142px;
+				height: 74px;
+				margin-bottom: 14px;
+				line-height: 74px;
+				color: #333;
+				margin-left: 14px;
+				text-align: center;
+				background-color: #FFF;
+			}
+			</style>
+			<!-- BEGIN thumbnail -->
+            <div id="wrapper">
+                <div id="scroller">
+                    $if(ProductList.Data.Count>0&&ProductList.PagesCount>1)
+                    <div id="pullDown">
+                        <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+                    </div>
+                    $end
+                    <ul id="list" class="clearfix thumbnail" style="margin-top:10px">
+                        $foreach(item in ProductList)
+                        <li>
+                            <a href="$url('/product/info/',item.A.Id)"><img class="load-img" data-original="$item.A.GetImage()" alt="$item.A.Title"></a>
+                            <h3><a href="$url('/product/info/',item.A.Id)">$item.A.Title</a></h3>
+                            <p>
+                                <ins>$item.A.GetSalePrice().ToString("C2")</ins>
+                                <des>$item.A.MarketPrice.ToString("C2")</des>
+                            </p>
+                            <!--<p class="sold-total">已售<span>#item.B.Count</span>件</p>-->
+                            <p class="clearfix thumbnail-footer">
+                                <span class="ensure-01">已交保证金</span>
+                                <span class="ensure-02">品质保障</span>
+                            </p>
+                        </li>
+                        $end
+                    </ul>
+                    $if(ProductList.Data.Count>0&&ProductList.PagesCount>1)
+                    <div id="pullUp">
+                        <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+                    </div>
+                    $end
+                </div>
+            </div>
+			<!-- END thumbnail -->
+		</div>
+	</div>
+
+    $load("inc/footer.html")
+</body>
+</html>
+$end

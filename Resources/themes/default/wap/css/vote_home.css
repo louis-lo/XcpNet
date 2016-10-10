@@ -1,0 +1,9 @@
+html{font-size:20px;}
+body{margin:0px;padding:0px;line-height:1.5;-webkit-tap-highlight-color:rgba(0,0,0,0);font-size:.85rem;font-family:"Helvetica Neue", Helvetica, sans-serif,"Microsoft YaHei",tahoma,arial,'Hiragino Sans GB';color:#666;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+ul li{list-style:none;}h3{font-size:0.95rem;}a{text-decoration: none;color:#333;}
+img{max-width:100%;}p{font-size:0.75rem;}.col_333{color:#333;}.col_ff3{color:#ff3e0e;}
+div,p,ul,li,h3,img,dd{margin:0;padding: 0;word-break:break-word;}.fl{float:left;}.fr{float:right;}
+.shop_line{height:15px;background:#f3f3f3;margin:0.5rem 0;}.txt_hide{text-overflow:ellipsis;max-width:100%;white-space:nowrap;overflow:hidden;}
+.wrap{max-width:1024px;margin:0 auto;}.pad_lr{padding:0 0.75rem;}.pad_tl{padding:0.75rem;}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance: none !important;margin: 0;}input,textarea{box-sizing: border-box;font-family:"Helvetica Neue", Helvetica, sans-serif,"Microsoft YaHei",tahoma,arial,'Hiragino Sans GB';font-size:0.85rem;}

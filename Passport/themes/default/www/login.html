@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录 - $Site.Name</title>
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css2.0/reg_login.css')">
+    <link rel="stylesheet" href="$res('css2.0/login.css')">
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcore.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcheckbox.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/passport.js')"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Cnaws.Init({
+                urlExt: '$ext',
+                resourcesUrl: '$this.Application.Settings.ResourcesUrl'
+            });
+            Cnaws.Passport.Init({
+                targetUrl: '$Target'
+            });
+            $('#UserName').jqxInput({ placeHolder: "请输入用户名/手机/邮箱" });
+            $('#Password').jqxInput({ placeHolder: "请输入密码" });
+            $('#Captcha').jqxInput({ placeHolder: "请输入验证码" });         
+            //$('#remember').jqxCheckBox({ 
+            //$if(UserName!="")
+                //checked :true,
+                //$else 
+                //checked: false,                
+            //$end
+            //});
+            var checked = $('#remember').jqxCheckBox('checked');
+            $('#form').jqxValidator({
+                hintType: 'label',
+                animationDuration: 0,
+                rules: [
+                    { input: '#UserName', message: '用户名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Password', message: '密码不能为空', action: 'keyup, blur', rule: 'required' }
+                    //$if(Config.LoginWithCaptcha)
+                    ,{ input: '#Captcha', message: '验证码不能为空', action: 'keyup, blur', rule: 'required',width:'350px' }
+                    //$end
+                      
+                ]
+            });
+            Cnaws.changeCaptcha('#captchaImg', 'login');
+        });
+    </script>
+</head>
+<body style="background:#fafafa">
+
+    <!-- BEGIN header -->
+    <div id="header">
+        <div class="clearafix content-wrap">
+            <h1 class="f-left logo"><a href="$Site.Url" title="$Site.Name"></a></h1>
+            <small class="f-left">欢迎登录</small>
+        </div>
+    </div>
+    <!-- END header -->
+    <!-- BEGIN main -->
+    <div class="main" style="background:#ff3943">
+        <div class="content-wrap">
+            <img class="bg" src="$res('css2.0/img/login_bg.png')" alt="">
+            <!-- BEGIN login-form -->
+            <div class="post-form login-form">
+                <h2 class="free_registration clearfix"><p>用户登录<a  href="$url('/register')?target=$Target">免费注册 ></a></p></h2>
+                <div class="form-body">
+                    <form id="form" action="$url('/login/submit')" method="post" onsubmit="return Cnaws.Passport.login(this, '#errmsg', '#captchaLink')">
+                        <p class="clearfix input-box">
+                            <label for="UserName"><span class="account_icon"></span></label>
+                            <input type="text" id="UserName" name="UserName" value="$UserName" />
+                        </p>
+                        <p class="clearfix input-box">
+                            <label for="Password"><span class="password_icon"></span></label>
+                            <input type="password" id="Password" name="Password" />
+                        </p>
+                        $if(Config.LoginWithCaptcha)
+                        <p class="clearfix input-box code" style="margin-bottom:5px">
+                            <input type="text" id="Captcha" name="Captcha" />
+                            <a id="captchaLink" href="javascript:void(0)" title="点击更换获取验证码" onclick="Cnaws.changeCaptcha('#captchaImg', 'login')"><img id="captchaImg" /></a>
+                            $if(Config.LoginWithCaptcha)
+                            <a class="last" href="javascript:void(0)" onclick="Cnaws.changeCaptcha('#captchaImg', 'login')">看不清?</a>
+                            $end
+                        </p>
+                        <div id="errmsg" class="clearfix errmsg" style="margin-bottom:10px;"></div>
+                        $end
+                        <!--<div id="errmsg" class="clearfix errmsg"></div>-->
+
+
+                        <input type="submit" value="立即登录" style="margin-top:0;" class="login_submit">
+                        <div class="tip_01 clearfix">
+                            <div id="remember"name="remember"><label><input type="checkbox" checked="checked" style="margin-right:5px" />记住账号</label></div>
+                            <a class="last" href="$url('/password')" style="float:right;color:#666;">忘记密码?</a>
+                            <!--$if(Config.LoginWithCaptcha)
+                            <a class="last" href="javascript:void(0)" onclick="Cnaws.changeCaptcha('#captchaImg', 'login')">看不清楚，更换验证码</a>
+                            $end-->
+                        </div>
+                        <div class="tip_01 login_txtcol"><b>快速安全登录</b>-点击头像授权登录</div>
+                        <div class="tip_01 clearfix">
+                            <div class="f-left quick_logon">
+                                <a href="#" class="qq_login">
+                                    <div class="qq_loginicon"></div>
+                                    <div class="qq_logintxt">QQ登录</div>
+                                </a>
+                            </div>
+                            <div class="f-left quick_logon">
+                                <a href="#" class="wechat_login">
+                                    <div class="wechat_loginicon"></div>
+                                    <div class="qq_logintxt wechat_logintxt">微信登录</div>
+                                </a>
+                            </div>
+                            <div class="f-left quick_logon">
+                                <a href="#" class="alipay_login">
+                                    <div class="alipay_loginicon"></div>
+                                    <div class="alipay_logintxt qq_logintxt">支付宝登录</div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!--<div class="tip_02">您没注册，马上<a href="$url('/register')?target=$Target">注册新账号</a><a class="last" href="$url('/password')" style="float:right">忘记密码</a></div>-->
+                    </form>
+                </div>
+            </div>
+            <!-- END login-form -->
+        </div>
+    </div>
+    <!-- END main -->
+    $load("inc/reg_login_footer.html")
+
+</body>
+</html>

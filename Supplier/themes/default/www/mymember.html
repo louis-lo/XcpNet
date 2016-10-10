@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我的会员</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/leagueManage_myMember.css')">
+    $load("inc/s_comm.html")
+    <meta charset="utf-8" />
+</head>
+<body>
+    $load("inc/d_top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/d_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr ">
+            <div class="dredgeId_top clearFix">
+                <span class="fl">我的会员</span>
+                <a href="javascript:history.go(-1)" class="fr">返回</a>
+            </div>
+            <div class="dredgeId_informationWrap clearFix">
+                <table align="center" border="0" width="100%">
+                    <tr class="topTr">
+                        <th>创建时间</th>
+                        <th>真实姓名</th>
+                        <th class="numberTh">登录次数</th>
+                        <th>电话</th>
+                        <th class="addressTh">地址</th>
+                    </tr>
+                    $foreach(item in DistributorList.Data)
+                    <tr class="informationTr topTr">
+                        <td>$item.A.CreationDate.ToString("yyyy-MM-dd")</td>
+                        <td>$item.B.Name</td>
+                        <td>$item.B.LoginNum</td>
+                        <td>$item.B.Mobile</td>
+                        <td>$item.A.GetAddressStr()</td>
+                    </tr>
+                    $end
+                </table>
+                <!-- 分页 开始 -->
+                <div class="center_pageWrap">
+                    <div class="center_pageBox fr clearFix">
+                        <ul class="clearFix fl">
+                            $if(DistributorList.PageIndex==DistributorList.BeginPage)
+                            <li class="page_prev">
+                                <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                    <span class="unicon"></span>
+                                    上一页
+                                </a>
+                            </li>
+                            $else
+                            <li class="page_prev">
+                                <a href="$url('/distributor/mymember/',ParentId,'/',DistributorList.PageIndex-1)" class="pageprev_print pageprev_img">
+                                    <span class="icon"></span>
+                                    上一页
+                                </a>
+                            </li>
+                            $end
+                          
+                            $if(DistributorList.BeginPage>1)
+                            $end
+                            $for(i=DistributorList.BeginPage;i<=DistributorList.EndPage;i++)
+                            $if(i==DistributorList.PageIndex)
+                            <li class="page_numer itme">
+                                <a href="$url('/distributor/mymember/',ParentId,'/',i)">$i</a>
+                            </li>
+                            $else
+                            <li class="page_numer">
+                                <a href="$url('/distributor/mymember/',ParentId,'/',i)">$i</a>
+                            </li>
+                            $end
+                            $end
+                            $if(DistributorList.PagesCount>DistributorList.EndPage)
+                            <li class="no"><a href="$url('/distributor/mymember/',ParentId,'/',DistributorList.PageIndex+1)">...</a></li>
+                            <li><a href="$url('/distributor/mymember/',ParentId,'/',DistributorList.PagesCount)">$DistributorList.PagesCount</a></li>
+                            $end
+                            $if(DistributorList.PageIndex==DistributorList.EndPage)
+                            <li class="page_next page_prev">
+                                <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                    下一页
+                                    <span class="unicon"></span>
+                                </a>
+                            </li>
+                            $else
+                            <li class="page_next page_prev">
+                                <a href="$url('/distributor/mymember/',ParentId,'/',DistributorList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                    下一页
+                                    <span class="icon"></span>
+                                </a>
+                            </li>
+                            $end
+                        </ul>
+                        <div class="total fl"> 共 $DistributorList.PagesCount 页/$DistributorList.TotalCount条，</div>
+                        <!--<div class="form fl">
+                            <span class="text">跳到</span>
+                            <input class="input J_Input location_number" type="number" aria-label="页码输入框" max="100" min="1" value="2">
+                            <span class="text">页</span>
+                            <span class="btn J_Submit fr location_href" tabindex="0" role="button">跳转</span>
+                        </div>-->
+                    </div>
+                </div>
+                <!-- 分页 结束 -->
+            </div>
+        </div>
+        <!-- 右边 结束 -->
+    </div>
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+    <script>
+        $(function () {
+            $(".location_href").click(function () {
+                var location_number = $(".location_number").val();
+                var ParentId = $ParentId;
+                var location_href = '/distributor/mymember/' + ParentId + '/' + location_number + '.html';
+                window.location.href = location_href;
+            })
+        })
+    </script>
+</body>
+</html>

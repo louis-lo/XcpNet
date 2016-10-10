@@ -1,0 +1,61 @@
+﻿<!-- 商品信息 订单信息 开始 -->
+<div class="applyContentL fl">
+    <!-- 商品信息 开始 -->
+    $set(info=Product.GetProductInfo())
+    <div class="applyzt fb">商品信息</div>
+    <div class="applyGoodsInWrap">
+        <div class="applyGoodsIn clearFix">
+            <div class="applyGoodsPrint fl">
+                <img src="$info.Image" />
+            </div>
+            <div class="applyGoodsMs fl">
+                $SubStr(info.Title)
+                $foreach(item in info)
+                $if(foreachIndex%2==0)
+                <p>
+                    $item.Key：$item.Value
+                    $else
+                    <span>$item.Key：$item.Value</span>
+                </p>
+                $end
+                $end
+                <!--<p>颜色：蓝色 <span>规格：ML</span></p>-->
+            </div>
+        </div>
+        <div class="applyGoodsCo applyGoodsIn clearFix">
+            <div class="applyGoodsCoR applyGoodsCoT fl">
+                <span>单 价：</span>
+                <span>合 计：</span>
+                <p>店 铺：</p>
+            </div>
+            <div class="applyGoodsCoL applyGoodsCoT">
+                <span><i>$Product.Price.ToString("f2")</i>元 * $Product.Count（数量）</span>
+                <span><i>￥$Product.TotalMoney.ToString("f2")</i>元</span>
+                <p>$ShopName</p>
+            </div>
+        </div>
+    </div>
+    <!-- 商品信息 结束 -->
+    <!-- 订单信息 开始 -->
+    <div class="applyzt fb">订单信息</div>
+    <div class="applyGoodsInWrap">
+        <div class="applyGoodsInWrapT applyGoodsCo applyGoodsIn clearFix">
+            <div class="applyGoodsCoRTwo applyGoodsCoR applyGoodsCoT fl">
+                <span>订单编号：</span>
+                <span>邮 费：</span>
+                <span>商品总金额：</span>
+                <span>总计：</span>
+                <p>成交时间：</p>
+            </div>
+            <div class="applyGoodsCoLTwo applyGoodsCoL applyGoodsCoT">
+                <span class="applyGoodsColor">$PrOrder.Id</span>
+                <span><i>$PrOrder.FreightMoney.ToString("f2")</i>元</span>
+                <span><i>￥$PrOrder.TotalMoney.ToString("f2")</i>元</span>
+                <span><i>￥${(PrOrder.TotalMoney-PrOrder.FreightMoney).ToString("f2")}</i>元</span>
+                <p class="">$PrOrder.ReceiptDate.ToString('yyyy-MM-dd hh:mm:ss')</p>
+            </div>
+        </div>
+    </div>
+    <!-- 订单信息 结束 -->
+</div>
+<!-- 商品信息 订单信息 结束 -->

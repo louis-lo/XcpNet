@@ -1,0 +1,82 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/*-----------------初始化--------------*/
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,img, ins, kbd, q, s, samp,small, strike,strong,dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption,tfoot, thead,th,input
+{margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baselinebaseline; background: transparent;font-style: normal;}
+body { margin:0;padding:0;margin:0px; padding:0px; list-style-type:none;  font-size:12px; font-family:"微软雅黑";  }   
+ol, ul {list-style: none;}   
+blockquote, q {quotes: none;}   
+blockquote:before, blockquote:after,   
+q:before, q:after {content: '';content: none;}     
+table {border-collapse: collapse; border-spacing: 0;} 
+img{vertical-align:middle; display:block;text-align:center;}
+p{word-wrap:break-word}
+br{height:1%; line-height:0; font-size:0; clear:both;}
+h1,h2,h3,h4,h5,h6{}
+.fb{font-weight:bold;}
+.xcp_widht{ width:1200px; margin:0 auto; overflow:hidden;}
+/*-----------------初始化end--------------*/
+
+/*头部*/
+.top_login{background-color:#474e5e; width:100%; height:35px; margin:0 auto; }
+.top_login .login{float:right; color:#FFF; line-height:35px;}
+.top_login .login a{color:#FFF; line-height:35px; text-decoration: none;}
+.top_login .login a:hover{color:#FFF; line-height:35px; text-decoration:underline;}
+
+.top{widht:100%; height:144px; background-color:#FFF;}
+.top_box{ margin:0 auto; width:1200px;}
+.top_logo{ float:left; margin-top:30px;}
+.top_Telephone{ float: left;
+    margin-top: 17px;
+    margin-left: 230px;}
+.top_home{ float:right; margin-top:30px;}
+
+/*banner*/
+.banner{ overflow:hidden;}
+.banner img{ position:relative; left:50%; margin-left:-960px;}
+
+/*行业前景*/
+.prospect{ width:100%; background-color:#ffa901; margin:0 auto;}
+
+/*.互联网+农业*/
+.internet{widht:100%; background-color:#ffe08e; margin:0 auto;}
+
+/*B2B2C+O2O*/
+.O2O{ width:100%; background-color:#ffa902; margin:0 auto;}
+
+/*加盟优势*/
+.jmys{ width:100%; background-color:#ffe08e; margin:0 auto;}
+
+/*投资分析1*/
+.investment{ width:100%; height:600px; background:url(images/investment_1.jpg) no-repeat center;background-color:#ffa902;}
+.investment_content{    margin-top: 229px;  margin-left: 54px;width:1092px; height:291px;  overflow:hidden;  }
+.investment_content_main{float:left; width:282px; height:291px; margin-right:123px;overflow-y:auto; overflow-x:hidden;}
+.investment_content_main:nth-child(3){margin-right:0px;}
+.investment_content_main_t{ width:282px; height:50px; background:url(images/investment_3.jpg) no-repeat center top;  font-size:18px; color:#3e3838;line-height: 50px; color: #3e3838;text-align: center;}
+.investment_content_main_t span{color:red;}
+.investment_content_main_m{width:250px; overflow:hidden; font-size:12px; color:#3e3838; line-height:25px; padding: 0px 8px;}
+
+
+
+
+/*投资分析2*/
+.tzfx{ width:100%; background-color:#ffe08e; margin:0 auto;}
+
+/*加盟伙伴*/
+.jmhb{width:100%; height:600px; background:url(images/jiamenghuoban.jpg) no-repeat center;background-color:#ffa902;}
+.jmhb_video{    margin-left: 630px;
+    margin-top: 116px;
+    width: 550px;
+    height: 350px;}
+
+
+/*商学院*/
+.Business-School{ overflow:hidden;}
+.Business-School img{ position:relative; left:50%; margin-left:-960px;}
+
+
+/*底部*/
+.footer{ width:100%; height:200px; background-color:#3d3d3d;}
+.footer_left{ float:left; margin-top:65px;}
+.footer_right{ float:right; margin-top:32px;}
+.footer_middle{ float:left; margin-left:267px; margin-top:65px;}

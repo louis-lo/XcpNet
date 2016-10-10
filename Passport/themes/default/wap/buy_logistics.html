@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/swiper.min.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <style>
+        .bar-nav ~ .content {
+            top: 2.2rem;
+        }
+
+        h3 {
+            font-weight: normal;
+        }
+
+        .logistics_title {
+            line-height: 2rem;
+        }
+
+        .purchaseall_logiLe {
+            width: 9%;
+        }
+
+        .purchaseall_logiRe {
+            width: 91%;
+        }
+
+            .purchaseall_logiRe h3 {
+                line-height: 1.5;
+                font-size: .75rem;
+            }
+
+        .purchaseall_logistics .choice_icon {
+            background-position: -126px -3px;
+        }
+
+        .purchaseall_logistics ul li {
+            background: url(../img/route_descIconBg.jpg) .45rem 0 repeat-y;
+            padding-bottom: .5rem;
+        }
+
+            .purchaseall_logistics ul li:last-child {
+                background: none;
+            }
+
+                .purchaseall_logistics ul li:last-child .choice_icon {
+                    background-position: -103px 0px;
+                }
+
+            .purchaseall_logistics ul li h3 {
+                color: #666;
+            }
+
+            .purchaseall_logistics ul li:first-child h3 {
+                color: #333;
+            }
+
+        .logistics_icon {
+            display: inline-block;
+            width: 20px;
+            height: 24px;
+            vertical-align: middle;
+            background-size: 514px 290px;
+            background-position: -213px -155px;
+        }
+
+            .logistics_icon.on {
+                background-size: 430px 257px;
+                background-position: -148px -133px;
+            }
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="clearfix bar bar-nav col_333 bg_fff">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1)" >
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    查看物流
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="content native-scroll">
+                <div class="pad_lr">
+                    <h3 class="logistics_title col_333 ">订单号：$Logistics.BillNo</h3>
+                    <div class="purchaseall_logistics">
+                        $if(isset("ExpressInfo") && ExpressInfo.message == "ok")
+                        <ul>
+                            $foreach(item in ExpressInfo.data)
+                            <li class="clearfix">
+                                <div class="fl purchaseall_logiLe">
+                                    <span ${if(foreachIndex==1)}class="purchasemy_icon logistics_icon on"${else}class="purchasemy_icon logistics_icon" ${end}></span>
+                                </div>
+                                <div class="fl purchaseall_logiRe">
+                                    <h3>$item.context</h3>
+                                    <div class="col_999">$item.time</div>
+                                </div>
+                            </li>
+                            $end
+                        </ul>
+                        $else
+                        抱歉！暂时未找到相关信息
+                        $end
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

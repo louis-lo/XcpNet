@@ -1,0 +1,41 @@
+@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{width:100%; height:auto;}
+.w1000{width:1200px; height:auto; margin:0 auto;}
+.mt{margin-top:10px;}
+input{outline:none;border: 0;background: #fff;}
+button{border:0;outline:none;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #ff3f08;text-align: center;font-size: 16px;}
+
+.information_content{border: 1px solid #ccc;margin-top: 30px;padding-top: 30px;padding-bottom: 160px;}
+.shop_information_right{width: 178px;}
+.shop_information_right span{display: block;color: #333;text-align: right;}
+.shop_information_right span i,.shop_logo_box span i{color: red;margin-right: 5px;}
+.shop_information_right .shopName_span{margin-top: 9px;}
+.shop_information_right .shopLogo_span{margin-top: 55px;}
+.shop_information_right .slogan_span{margin-top: 98px;}
+.shop_information_right .slogan_span2{margin-top:22px;}
+.shop_information_left{width: 600px;float: left;padding-top:6px;}
+.shop_information_left .shop_name input{width: 500px;height: 30px;}
+.shop_information_left .shop_name textarea{width: 500px;height:118px;border: 1px solid #ccc;padding-left:10px; resize:none; line-height:22px; color:#a9a9a9;}
+.shop_name input{border: 1px solid #ccc;padding-left:10px;}
+.shop_logo_box span{margin: 13px 0 18px 0;display: block;}
+.shop_logo{border:1px solid #e2e2e2;width: 95px;height: 95px;margin-top: 10px;padding: 2px;display: block; position:relative;}
+.shop_logo input{width:95px;height:95px; position:absolute; left:0; top:0; opacity:0;}
+.shop_button{padding: 20px 0;}
+.shop_button .shop_button_submint{border-radius:2px;padding: 7px 35px;background-color: #ff3f08;font-size: 15px;color: #fff;}
+.shop_slogan{margin-top:13px;}
+
+
+
+

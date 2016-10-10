@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>基本信息</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.basicinformation.css')">
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <style type="text/css">
+        .center_wrapRight {
+            float: right;
+        }
+
+        .txt {
+            margin-left: 10px;
+        }
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxbuttons.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxwindow.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/passport.js')"></script>
+    <script type="text/javascript">
+        var editor = null;
+        var imgel = null;
+        function formatImage() {
+            var val = '';
+            $('.up-img').each(function (index, value) {
+                if (index > 0)
+                    val += '|';
+                val += $(value).attr('src');
+                $('.down-img').hide();
+            });
+            $('#Images').val(encodeURIComponent(val));
+
+        }
+        function deleteImage(el) {
+            $(el).parent().remove();
+            $('.down-img').show();
+            formatImage();
+        }
+        function uploadImage() {
+            if (arguments.length > 0) {
+                imgel = $(arguments[0]).find('img').first();
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: imgel.attr('src'),
+                        clickFn: function (url, title) {
+                            imgel.attr('src', url);
+                            editor.hideDialog();
+                            formatImage();
+                            $('#form').jqxValidator('validateInput', '#Images');
+                        }
+                    });
+                });
+            }
+            else {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            $('#imgbtn').before($('<div style="float:left; height:69px;"><a href="javascript:void(0)" onclick="uploadImage(this)"><img style="width:97px;height:97px;" class="up-img" src="' + url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></div>'));
+                            editor.hideDialog();
+                            formatImage();
+                            $('#form').jqxValidator('validateInput', '#Images');
+                        }
+                    });
+                });
+            }
+        }
+
+
+
+        function deleteCate(el) {
+            $(el).parent().remove();
+
+        }
+        function addCate() {
+            //$('#cates').jqxWindow('open');
+            $('.alretBezel').xalert({
+                tmpl: '#tmpl-address',
+                height: '260px',
+                onShow: function () {
+                    getCate('#bigcate', 0);
+                    $('#smallcate').html('<option>请选择分类</option>');
+
+                    $("#bigcate").on("change", function () {
+                        $('#smallcate').html('<option>请选择分类</option>');
+                        getCate('#smallcate', this.options[this.options.selectedIndex].value);
+                    });
+                    $("#smallcate").on("change", function () {
+                        $('#threecate').html('<option>请选择分类</option>');
+                        getCate('#threecate', this.options[this.options.selectedIndex].value);
+                    });
+
+
+
+                },
+                callback: function (xalert) {
+                    var el = document.getElementById('threecate');
+                    var op = el.options[el.options.selectedIndex];
+                    var v = parseInt(op.value);
+
+                    if (!isNaN(v)) {
+
+                        $("#catebtn").before($('<span class="span_basicTrade fl">' + op.innerHTML + '  <input type="hidden" name="Categories" value="' + v + '" /><a class="del-img" href="javascript:void(0)" onclick="deleteCate(this)"></a></span>'))
+                        //$('#catebtn').before($('<div><span>' + op.innerHTML + '</span><input type="hidden" name="Categories" value="' + v + '" /><a class="del-img" href="javascript:void(0)" onclick="deleteCate(this)">X</a></div>'));
+                        xalert.close();
+                        $('#form').jqxValidator('validateInput', '#Categories');
+                        return true;
+                    }
+                    return false;
+                }
+            })
+        }
+        function getCate(target, id) {
+            Cnaws.getAjax(Cnaws.getUrl('$url("/category/child/")' + id), function (data, args) {
+                if (data.code == -200) {
+                    var html = '<option>请选择分类</option>';
+                    for (var i = 0; i < data.data.length; ++i) {
+                        html += '<option value="' + data.data[i].Id + '">' + data.data[i].Name + '</option>';
+                    }
+                    $(target).html(html);
+                }
+            }, { target: target });
+        }
+        $(function () {
+            //$if(Supplier.State!=5)
+            $('#Company').jqxInput({ placeHolder: "请输入公司名称" });
+            $('#Signatories').jqxInput({ placeHolder: "请输入签约人姓名" });
+            $('#SignatoriesPhone').jqxInput({ placeHolder: "请输入签约人联系电话" });//$end
+            $('#Contact').jqxInput({ placeHolder: "请输入负责人姓名" });
+            $('#ContactPhone').jqxInput({ placeHolder: "请输入负责人联系电话" });
+            $('#Products').jqxInput({ placeHolder: "请输入主营产品" });
+            $('#Address').jqxInput({ placeHolder: "请输入公司地址" });
+
+            editor = KindEditor.editor({
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+            });
+
+            formatImage();
+            Cnaws.Area.Init('area', '$url("/country/")', $this.Supplier.County);
+            $('#form').jqxValidator({
+                rules: [//$if(Supplier.State!=5)
+                    { input: '#Company', message: '公司名称不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#QQ', message: '联系QQ不能为空', action: 'keyup, blur', rule: 'required' },
+                    //{ input: '#Images', message: '必须上传证件图片', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Signatories', message: '签约人姓名不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#SignatoriesPhone', message: '签约人联系电话不能为空', action: 'keyup, blur', rule: 'required' },
+                    //{ input: '#Categories', message: '必须选择行业', action: 'keyup, blur', rule: 'required' },//$end
+                    { input: '#Products', message: '主营产品不能为空', action: 'keyup, blur', rule: 'required' },
+                    { input: '#Address', message: '公司地址不能为空', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+            $("#IsActivityFree").change(function () {
+                if ($(this).prop("checked")) {
+                    $(".ActivityFree").each(function () { $(this).show() });
+                }
+                else {
+                    $(".ActivityFree").each(function () { $(this).hide() });
+                }
+            });
+
+            if ($("#IsActivityFree").prop("checked")) {
+                $(".ActivityFree").each(function () { $(this).show() });
+            }
+            else {
+                $(".ActivityFree").each(function () { $(this).hide() });
+            }
+
+        })
+
+
+        function onSubmit(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            if (form.jqxValidator('validate')) {
+                $.ajax({
+                    type: "Post",
+                    dataType: "Json",
+                    url: form.attr('action'),
+                    data: form.serialize(),
+                    success: function (data) {
+                        if (data.code == -200) {
+                            Cnaws.showSuccess('修改成功');
+                        }
+                        else {
+                            Cnaws.showError('数据操作失败，请联系管理员');
+                        }
+                    }
+
+                })
+                form.attr('disabled', false);
+            }
+            else {
+                form.attr('disabled', false);
+            }
+            return false;
+        }
+
+
+    </script>
+    <style>
+        #from th {
+        width:100px;
+        text-align:right
+        }
+        #from td {
+            padding:3px;
+            width:auto !important;
+        }
+        #from input {
+            border: 1px solid #e5e5e5;
+            height: 30px;
+            padding-left: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/side.html")
+        <div class="center_wrapRight fr">
+            <h2>基本信息</h2>
+            <div class="information_content clearFix">
+                <form id="form" action="$url('/supplier/submit')" method="post" onsubmit="return onSubmit(this)">
+                    <table id="from" class="basic_information_left" style="width:100%">
+                        <tr>
+                            <th>公司名称：</th>
+                            <td>
+                                <!--<input type="text" class="company_text" placeholder="请输入公司名称" />-->
+                                $if(Supplier.State!=5)
+                                <input class="company_text" type="text" id="Company" name="Company" value="$Supplier.Company" style="width:500px" placeholder="请输入公司名称">
+                                $else
+                                <span class="txt">$Supplier.Company</span>
+                                $end
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>联系QQ：</th>
+                            <td><input type="text" class="company_text" placeholder="请输入联系QQ" id="QQ" name="QQ" value="$Supplier.QQ" /></td>
+                        </tr>
+                        <tr>
+                            <th>证件照片：</th>
+                            <td class="basic_type" id="imgbtn">
+                                <a class="shop_logo" href="javascript:void(0)" onclick="uploadImage()">
+                                    <img class="down-img" src="$res('img2.0/supplier/print.jpg')" style="float:left;">
+                                </a>
+                                <input id="Images" name="Images" type="text" value="$Supplier.Images" style="visibility:hidden;position:absolute;width:1px;margin:38px 0 0 -14px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>签约人：</th>
+                            <td>
+                                <input type="text" id="Signatories" name="Signatories" value="$Supplier.Signatories" class="fl same_text" placeholder="请输入签约人姓名">
+                                <div class="fl phone_distance">
+                                    <span>联系电话：</span>
+                                    <input type="text" id="SignatoriesPhone" name="SignatoriesPhone" value="$Supplier.SignatoriesPhone" placeholder="请输入签约人电话">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>负责人：</th>
+                            <td>
+                                <input type="text" class="fl same_text" id="Contact" name="Contact" value="$Supplier.Contact" placeholder="请输入负责人姓名">
+                                <div class="fl phone_distance">
+                                    <span>联系电话：</span>
+                                    <input type="text" id="ContactPhone" name="ContactPhone" value="$Supplier.ContactPhone" placeholder="请输入负责人电话">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>行业：</th>
+                            <td class="basic_trade">
+                                $foreach(item in Supplier.GetCategories(this.DataSource))
+                                <span class="span_basicTrade fl">
+                                    $item.Name
+                                    <!--<a></a>-->
+                                    <input type="hidden" name="Categories" value="$item.Id" />
+                                    <a class="del-img" href="javascript:void(0)" onclick="deleteCate(this)"></a>
+                                </span>
+                                $end
+                                <a onclick="addCate()" id="catebtn" class="alretBezel fl">
+                                    <img src="$res('img2.0/supplier/jia.jpg')" class="alretBezel">
+                                    <input type="hidden" value="$Supplier.Categories" name="Categories" id="Categories" />
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>主营产品：</th>
+                            <td>
+                                <input type="text" id="Products" name="Products" value="$Supplier.Products" placeholder="请输入主营产品" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>发货地：</th>
+                            <td>
+                                <div id="area"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>公司地址：</th>
+                            <td>
+                                <input type="text" placeholder="请输入公司地址" id="Address" name="Address" value="$Supplier.Address" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>最小订单金额：</th>
+                            <td>
+                                <input type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" id="MinOrderPrice" value="$Supplier.MinOrderPrice.ToString("F2")" name="MinOrderPrice" placeholder="请输入满足条件的最小订单金额" /><span style="color:red">（注意：设置后，用户购买的订单金额小于该值便不能下单！该设置仅适用于进货宝订单）</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>邮费活动：</th>
+                            <td>
+                                <input type="checkbox" style="vertical-align: middle;" name="IsActivityFree" id="IsActivityFree" $if(Supplier.IsActivityFree)checked="checked" $end autocomplete="off" /><label for="IsActivityFree">开启满足条件设置邮费活动</label>
+                            </td>
+                        </tr>
+                        <tr class="ActivityFree">
+                            <th>满足条件：</th>
+                            <td>
+                                <input type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" id="ActivityCondition" value="$Supplier.ActivityCondition" name="ActivityCondition" placeholder="请输入满足活动的条件价，全场满价格" />
+                            </td>
+                        </tr>
+                        <tr class="ActivityFree">
+                            <th>邮费：</th>
+                            <td>
+                                <input type="text" onkeyup="value=value.replace(/[^\d\.]/g,'')" id="ActivityFree" value="$Supplier.ActivityFree" name="ActivityFree" placeholder="请输入满足条件的邮费" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td class="shop_button">
+                                <input type="submit" class="shop_button_submint" value="提交审核" />
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 弹出层模板-->
+    $load("inc/xalert.html")
+    <!-- 弹出层结束-->
+    <script type="text/html" id="tmpl-address">
+        <div class="center_addAddressTitle">添加行业</div>
+        <div class="new_addressWrap clearFix">
+            <form id="addForm" action="" method="post">
+                <input type="hidden" name="Id" />
+                <div class="new_addressWrap clearFix">
+                    <div class="new_addressLeft fl">
+                        <span>行业：</span>
+                    </div>
+                    <div class="new_addressRint fl">
+                        <select id="bigcate" onchange="$('#smallcate').html('<option>请选择分类</option>'); getCate('#smallcate', this.options[this.options.selectedIndex].value)"></select>
+                        <select id="smallcate" onchange="$('#threecate').html('<option>请选择分类</option>'); getCate('#threecate', this.options[this.options.selectedIndex].value)"></select>
+                        <select id="threecate" name="CategoryId"><option>请选择分类</option></select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+    $load("inc/bottom.html")
+
+</body>
+</html>

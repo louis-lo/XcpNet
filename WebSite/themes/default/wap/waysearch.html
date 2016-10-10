@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+<title></title>
+<link rel="stylesheet" href="$res('wap/css/waysearch.css')" />
+<script>
+function search(){
+	document.getElementById("way_search").style.display="block";
+}
+function search_none(){
+	document.getElementById("way_search").style.display="none";
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+	<!-- nav -->
+	<header class="bar_nav">
+		<div class="nav_main">
+			<div class="bar_navre">
+	        	<label class="icon_search"></label>
+	        	<input type="search" id="search" onclick="search()" placeholder="搜索特色产品" />
+			</div>
+			<div class="bar_navle"><img src="$res('wap/img/icon_Firststep.png')" /></div>
+		</div>
+	</header>
+	<!-- / nav -->
+	<div class="waysearch">
+		<ul>
+			<li class="clearfix">
+				<div class="fl waysearch_le">
+					<div class="waysearch_img" style="background:url($res('wap/img/wayLi_Hotlistimg.png')) no-repeat;background-size:100% 100%;"></div>
+				</div>
+				<div class="fr waysearch_re">
+					<h3>Blue yeti 雪怪 USB电容麦克风 四种录音模式</h3>
+					<p>￥109.00</p>
+				</div>
+			</li>
+			
+			
+			<li class="clearfix">
+				<div class="fl waysearch_le">
+					<div class="waysearch_img" style="background:url($res('wap/img/wayLi_Hotlistimg.png')) no-repeat;background-size:100% 100%;"></div>
+				</div>
+				<div class="fr waysearch_re">
+					<h3>Blue yeti 雪怪 USB电容麦克风 四种录音模式</h3>
+					<p>￥109.00</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<!-- nav_bottom -->
+	<div class="nav_bottom">
+		<ul class="clearfix">
+			<li>
+				<a href="#">
+					<div><img src="$res('wap/img/xcp_city.png')" /></div>
+					<div>城品惠</div>
+				</a>
+			</li>
+			<li class="on">
+				<a href="#">
+					<div><img src="$res('wap/img/xcp_villageOn.png')" /></div>
+					<div>乡道馆</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<div><img src="$res('wap/img/xpc_purchase.png')" /></div>
+					<div>进货宝</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<div><img src="$res('wap/img/xcp_activity.png')" /></div>
+					<div>活动区</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<div><img src="$res('wap/img/xcp_my.png')" /></div>
+					<div>我的</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="way_search" id="way_search">
+	<header class="bar_nav">
+		<div class="nav_main">
+			<div class="bar_navre">
+	        	<label class="icon_search"></label>
+	        	<input type="search" id="search" placeholder="搜索特色产品" />
+			</div>
+			<div class="bar_navle" onclick="search_none()"><img src="$res('wap/img/icon_Firststep.png')" /></div>
+		</div>
+	</header>
+	<div class="way_searchTxt">
+		<h3>热门搜索</h3>
+		<ul class="clearfix">
+			<li><a href="#">啊啊啊</a></li>
+			<li><a href="#">啊啊啊</a></li>
+			<li><a href="#">啊啊啊</a></li>
+			<li><a href="#">啊啊啊</a></li>
+			<li><a href="#">啊啊啊</a></li>
+			<li><a href="#">啊啊啊</a></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

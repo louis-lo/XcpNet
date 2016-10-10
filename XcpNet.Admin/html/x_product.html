@@ -1,0 +1,786 @@
+﻿<style>
+    .view {
+        border: 1px solid #e1e1e1;
+        display: none;
+        height: 400px;
+        position: absolute;
+        width: 400px;
+        z-index: 999;
+    }
+
+        .view img {
+            width: 400px;
+            height: 400px;
+        }
+
+    #CommentBox th {
+        text-align: right;
+        width: 130px;
+    }
+
+    td.keyword div#keywordbtn {
+        margin-right: 0;
+        padding: 0;
+    }
+
+    #CommentBox th span {
+        color: red;
+    }
+
+    #CommentBox th, #CommentBox td {
+        padding-top: 10px;
+    }
+
+    #setkeyword input[type="text"], select {
+        border: 1px solid #ddd;
+        height: 24px;
+        line-height: 24px;
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 150px;
+    }
+
+    #CommentBox input[type="text"], select {
+        border: 1px solid #ddd;
+        height: 24px;
+        line-height: 24px;
+        padding-left: 5px;
+        padding-right: 5px;
+        width: 150px;
+    }
+
+    #CommentBox th, #CommentBox td {
+        padding-top: 10px;
+    }
+
+    textarea {
+        border: 1px solid #ddd;
+    }
+
+    td.keyword * {
+        display: inline;
+        float: left;
+    }
+
+    td.keyword div {
+        border: 1px solid #e4e4e4;
+        border-radius: 3px;
+        margin-right: 10px;
+        padding: 7px 20px 10px 10px;
+    }
+
+        td.keyword div a.del-img {
+            height: 15px;
+            margin: -8px 0 0 4px;
+            padding-top: 1px;
+            position: absolute;
+        }
+
+        td.keyword div#keywordbtn a {
+            line-height: 28px;
+            color: #999;
+            font-family: Verdana;
+            font-size: 28px;
+            padding: 0 6px 4px;
+        }
+
+    .upload li {
+        float: left;
+        height: auto;
+        line-height: 1;
+        margin-right: 5px;
+    }
+
+
+        .upload li img {
+            border: 1px solid #e4e4e4;
+            height: 96px;
+            padding: 2px;
+            width: 96px;
+        }
+
+    .upload a.del-img {
+        background: #ccc none repeat scroll 0 0;
+        border-radius: 2px;
+        color: #fff;
+        font-family: Verdana;
+        font-size: 14px;
+        height: 16px;
+        margin: 3px 0 0 -19px;
+        position: absolute;
+        text-align: center;
+        width: 16px;
+    }
+</style>
+<script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxrating.js')"></script>
+<script type="text/javascript" src="$url('x_product/allcategory')"></script>
+<div id="CommentBox" style="display:none">
+    <div><span>用户评论</span></div>
+    <div>
+        <form id="frlform" action="" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <th><label for="UserName">评论人：</label></th>
+                        <td>
+                            <input type="hidden" name="TargetId" id="rid" value="0" />
+                            <input type="text" style="width:150px" value="" name="UserName" id="UserName" placeholder="请输入评论人的账号">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="Star">星级：</label></th>
+                        <td>
+                            <div class="clearfix star"></div>
+                            <input type="hidden" id="Star" name="Star" value="5" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>关键词描述：</label></th>
+                        <td class="keyword">
+                            <div id="keywordbtn">
+                                <a onclick="addCate()">+</a>
+                                <input id="KeyWords" type="text" name="KeyWords" value="" style="visibility:hidden;position:absolute;width:1px;margin:3px 0 0 -14px;" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>评论内容：</label></th>
+                        <td>
+                            <textarea id="Content" name="Content" style="width:400px; height:100px" placeholder="请输入评论内容"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>评论图片：</label></th>
+                        <td>
+                            <ul class="clearfix upload">
+                                <li id="imgbtn">
+                                    <a href="#" Id="uploadImage"><img src="$res('/themes/default/css/img/upload_btn.png')" alt="添加图片"></a>
+                                    <input id="Images" name="Images" type="text" value="" style="visibility:hidden;position:absolute;width:1px;margin:38px 0 0 -14px;" />
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div class="clearfix" style="padding:10px">
+            <input type="button" id="ok" value="确定" class="submit winbtn" />
+            <input type="button" id="cancel" value="取消" class="submit winbtn" />
+        </div>
+    </div>
+</div>
+<div id="setkeyword" style="display:none">
+    <div><span>添加关键词</span></div>
+    <div>
+        <div style="padding:10px">
+            <select id="S_KeyWork" onchange="ChangeKeyWord()"></select>
+            <input type="text" id="CommentKeyWord" name="CommentKeyWord" value="" placeholder="自定义关键词">
+        </div>
+        <div class="clearfix" style="padding:10px">
+            <input type="button" id="keywordok" value="确定" class="submit winbtn" />
+            <input type="button" id="keywordcancel" value="取消" class="submit winbtn" />
+        </div>
+    </div>
+</div>
+<div class="view" style="display: none;"><img /></div>
+<div id="x_products"></div>
+<input id="hcategory" type="hidden" value="0" />
+<script type="text/javascript">
+    var editor = null;
+    var imgel = null;
+
+    var categories = null;
+    var dstates = { 'None': '无优惠', 'Approval': '申请团购', 'Activated': '团购中' };
+    var states = { 'Saved': '仓库中', 'Sale': '已上架', 'BeforeSale': '申请上架', 'BeforeSaved': '申请下架' };
+    var imagerenderer = function (row, column, value) {
+        var img = '';
+        var imgs = value.split('|');
+        if (imgs.length > 0)
+            img = imgs[0];
+        return '<div class="action"><img onmouseover="showImage(this)" onmouseout="hideImage(this)" on src="' + img + '" style="width:16px;height:16px"/></div>';
+    };
+    var categoryrenderer = function (row, column, value) {
+        var html = '<div class="action">';
+        if (value == 0) {
+            html += '根分类';
+        }
+        else {
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                if (allCategory.data[i].Id == value) {
+                    html += allCategory.data[i].Name;
+                    break;
+                }
+            }
+        }
+        html += '</div>';
+        return html;
+    }
+    var dstaterenderer = function (row, column, value) {
+        return '<div class="action">' + dstates[value] + '</div>';
+    };
+    var staterenderer = function (row, column, value) {
+        return '<div class="action">' + states[value] + '</div>';
+    };
+    var bestrenderer = function (row, column, value) {
+        var cate = '';
+        for (var i = 0; i < allCategory.data.length; ++i) {
+            if (allCategory.data[i].Id == value) {
+                cate = allCategory.data[i].Name;
+                break;
+            }
+        }
+        return '<div class="action">' + cate + '</div>';
+    };
+    var actionrenderer = function (row, column, value) {
+        var buttons = '<div class="action">';
+        buttons += '<a href="$Site.Url' + getUrl('$url("/product/show/")' + value) + '" target="_blank">预览</a>';
+        if (dataTable.get(row, 'a_State') == "Saved" || dataTable.get(row, 'a_State') == "BeforeSale")
+            buttons += '<a href="javascript:;" onclick="return changeState(' + value + ',1)">上架</a>';
+        if (dataTable.get(row, 'a_State') == "Sale" || dataTable.get(row, 'a_State') == "BeforeSaved" || dataTable.get(row, 'a_State') == "BeforeSale")
+            buttons += '<a href="javascript:;" style="color:red" onclick="return changeState(' + value + ',0)">下架</a>';
+        if (dataTable.get(row, 'a_DiscountState') == "None" || dataTable.get(row, 'a_DiscountState') == "Approval")
+            buttons += '<a href="javascript:;" onclick="return changeDState(' + value + ',2)">加入团购</a>';
+        if (dataTable.get(row, 'a_DiscountState') == "Activated")
+            buttons += '<a href="javascript:;" style="color:red" onclick="return changeDState(' + value + ',0)">取消团购</a>';
+        if (dataTable.get(row, "a_ParentId") == 0)
+            buttons += '<a href="javascript:;" onclick="return setComment(' + value + ')">评论</a>';
+        else
+            buttons += '<a href="javascript:;" onclick="return setComment(' + dataTable.get(row, "a_ParentId") + ')">评论</a>';
+        buttons += '</div>';
+        return buttons;
+    }
+
+
+    function changeState(id, state) {
+        postAjax('$url("x_product/state")', 'Id=' + id + '&State=' + state, function (data, args) {
+            if (data.code == -200) {
+                dataTable.reloadPage();
+                showNotify('success', '操作成功！');
+            }
+            else
+                showNotify('error', '操作失败！');
+        }, null);
+    }
+    function changeDState(id, state) {
+        postAjax('$url("x_product/dstate")', 'Id=' + id + '&DiscountState=' + state, function (data, args) {
+            if (data.code == -200) {
+                showNotify('success', '操作成功！');
+                dataTable.reloadPage();
+            }
+            else
+                showNotify('error', '操作失败！');
+        }, null);
+    }
+    function doCategory(el, pre, id, must, def) {
+        var async = true;
+        if (arguments.length > 5)
+            async = arguments[5];
+
+        $('#hcategory').val(id);
+
+        if (async) {
+            while (categories.length > 0) {
+                if (categories[categories.length - 1] != pre) {
+                    $('#acategory_' + categories[categories.length - 1]).remove();
+                    categories.pop();
+                }
+                else {
+                    break;
+                }
+            }
+        }
+
+        if (id > 0 || must) {
+            if (async) {
+                getAjax(getUrl('$url("x_product/categories/")' + id), function (data, args) {
+                    if (data.code == -200) {
+                        if (data.data.length > 0) {
+                            var html = '<select id="acategory_' + args.id + '" onchange="doCategory(\'' + args.el + '\',' + args.id + ',this.options[this.options.selectedIndex].value,false,0)"><option value="0">请选择分类</option>';
+                            for (var i = 0; i < data.data.length; ++i) {
+                                html += '<option value="' + data.data[i].Id + '"' + (data.data[i].Id == args.def ? ' selected="selected"' : '') + '>' + data.data[i].Name + '</option>';
+                            }
+                            html += '</select>';
+                            $('#' + args.el).append($(html));
+                            categories.push(args.id);
+                        }
+                    }
+                }, { el: el, id: id, def: def });
+            }
+            else {
+                var xhr = $.ajax({
+                    type: "GET",
+                    url: getUrl('$url("x_product/categories/")' + id),
+                    dataType: 'json',
+                    async: false
+                });
+                var data = xhr.responseJSON;
+                var args = { el: el, id: id, def: def };
+                if (data.code == -200) {
+                    if (data.data.length > 0) {
+                        var html = '<select id="acategory_' + args.id + '" onchange="doCategory(\'' + args.el + '\',' + args.id + ',this.options[this.options.selectedIndex].value,false,0)"><option value="0">请选择分类</option>';
+                        for (var i = 0; i < data.data.length; ++i) {
+                            html += '<option value="' + data.data[i].Id + '"' + (data.data[i].Id == args.def ? ' selected="selected"' : '') + '>' + data.data[i].Name + '</option>';
+                        }
+                        html += '</select>';
+                        $('#' + args.el).append($(html));
+                        categories.push(args.id);
+                    }
+                }
+            }
+        }
+    }
+    var dataTable = initDataTable('x_products', '$url("x_product/list/")', [
+        { name: 'b_Name', type: 'string' },
+        { name: 'a_Id', type: 'int' },
+        { name: 'a_Title', type: 'string' },
+        { name: 'a_Image', type: 'string' },
+        { name: 'a_ParentId', type: 'int' },
+        { name: 'a_CategoryId', type: 'int' },
+        { name: 'a_DiscountState', type: 'int' },
+        { name: 'a_State', type: 'int' },
+        { name: 'a_Recommend', type: 'bool' },
+        { name: 'a_CategoryBest', type: 'int' },
+        { name: 'a_SortNum', type: 'int' }
+    ], [
+        { text: '供应商', datafield: 'b_Name', width: '7%', columntype: 'textbox', editable: false },
+        { text: '标题', datafield: 'a_Title', width: '18%', columntype: 'textbox', editable: false },
+        { text: '图片', datafield: 'a_Image', width: '5%', cellsrenderer: imagerenderer, editable: false },
+        {
+            text: '分类', datafield: 'a_CategoryId', width: '8%', cellsrenderer: categoryrenderer, createeditor: function (row, cellvalue, editor, cellText, width, height) {
+                var parent = editor.parent();
+                var div = $('<div id="row_cid_' + row + '"></div>');
+                var title = $('<div></div>');
+                var span = $('<span>选择产品分类</span>');
+                var content = $('<div></div>');
+                var list = $('<div id="row_cid_' + row + '_c"></div>');
+                var bottom = $('<div style="float:right;padding:10px;"></div>');
+                var ok = $('<input id="row_cid_' + row + '_ok" type="button" value="确定" class="submit" />');
+                var cancel = $('<input id="row_cid_' + row + '_cancel" type="button" value="取消" class="cancel" />');
+                var hidden = $('<input id="row_cid_' + row + '_h" type="hidden" value="' + cellvalue + '" />');
+                title.append(span);
+                div.append(title);
+                bottom.append(ok);
+                bottom.append(cancel);
+                content.append(list);
+                content.append(bottom);
+                content.append(hidden);
+                div.append(content);
+                parent.append(div);
+                div.jqxWindow({
+                    width: 600,
+                    height: 110,
+                    autoOpen: false,
+                    resizable: false,
+                    draggable: false,
+                    isModal: true,
+                    modalOpacity: 0.3,
+                    okButton: $('#row_cid_' + row + '_ok'),
+                    cancelButton: $('#row_cid_' + row + '_cancel'),
+                    initContent: function () {
+                        $('#row_cid_' + row + '_ok').focus();
+                    }
+                });
+                div.on('close', function (event) {
+                    if (event.args.dialogResult.OK) {
+                        var val = parseInt($('#hcategory').val());
+                        if (val > 0) {
+                            $('#' + this.id + '_h').val(val);
+                        }
+                    }
+                });
+            },
+            initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+                categories = new Array();
+                $('#row_cid_' + row + '_c').empty();
+                $('#row_cid_' + row).jqxWindow('open');
+                getAjax(getUrl('$url("x_product/parents/")' + cellvalue), function (data, args) {
+                    if (data.code == -200) {
+                        var id;
+                        var pid = 0;
+                        categories = new Array();
+                        for (var i = 0; i < data.data.length; ++i) {
+                            id = data.data[i];
+                            doCategory('row_cid_' + args + '_c', pid, pid, pid == 0, id, false);
+                            pid = id;
+                        }
+                        $('#row_cid_' + args).jqxWindow('open');
+                    }
+                }, row);
+            },
+            geteditorvalue: function (row, cellvalue, editor) {
+                return $('#row_cid_' + row + '_h').val();
+            }
+        },
+        { text: '团购', datafield: 'a_DiscountState', width: '8%', cellsrenderer: dstaterenderer, editable: false },
+        { text: '状态', datafield: 'a_State', width: '10%', cellsrenderer: staterenderer, editable: false },
+        { text: '首页推荐', datafield: 'a_Recommend', width: '8%', columntype: 'checkbox' },
+        {
+            text: '分类推荐', datafield: 'a_CategoryBest', width: '10%', cellsrenderer: bestrenderer, createeditor: function (row, cellvalue, editor, cellText, width, height) {
+                var parent = editor.parent();
+                var div = $('<div id="row_bid_' + row + '"></div>');
+                var title = $('<div></div>');
+                var span = $('<span>选择产品分类</span>');
+                var content = $('<div></div>');
+                var list = $('<div id="row_bid_' + row + '_c"></div>');
+                var bottom = $('<div style="float:right;padding:10px;"></div>');
+                var ok = $('<input id="row_bid_' + row + '_ok" type="button" value="确定" class="submit" />');
+                var cancel = $('<input id="row_bid_' + row + '_cancel" type="button" value="取消" class="cancel" />');
+                var hidden = $('<input id="row_bid_' + row + '_h" type="hidden" value="' + cellvalue + '" />');
+                title.append(span);
+                div.append(title);
+                bottom.append(ok);
+                bottom.append(cancel);
+                content.append(list);
+                content.append(bottom);
+                content.append(hidden);
+                div.append(content);
+                parent.append(div);
+                div.jqxWindow({
+                    width: 600,
+                    height: 110,
+                    autoOpen: false,
+                    resizable: false,
+                    draggable: false,
+                    isModal: true,
+                    modalOpacity: 0.3,
+                    okButton: $('#row_bid_' + row + '_ok'),
+                    cancelButton: $('#row_bid_' + row + '_cancel'),
+                    initContent: function () {
+                        $('#row_bid_' + row + '_ok').focus();
+                    }
+                });
+                div.on('close', function (event) {
+                    if (event.args.dialogResult.OK) {
+                        $('#' + this.id + '_h').val(parseInt($('#hcategory').val()));
+                    }
+                });
+            },
+            initeditor: function (row, cellvalue, editor, celltext, pressedkey) {
+                categories = new Array();
+                $('#row_bid_' + row + '_c').empty();
+                $('#row_bid_' + row).jqxWindow('open');
+                if (cellvalue == 0) {
+                    doCategory('row_bid_' + row + '_c', 0, 0, true, 0);
+                    $('#row_bid_' + row).jqxWindow('open');
+                }
+                else {
+                    getAjax(getUrl('$url("x_product/parents/")' + cellvalue), function (data, args) {
+                        if (data.code == -200) {
+                            var id;
+                            var pid = 0;
+                            categories = new Array();
+                            for (var i = 0; i < data.data.length; ++i) {
+                                id = data.data[i];
+                                doCategory('row_bid_' + args + '_c', pid, pid, pid == 0, id, false);
+                                pid = id;
+                            }
+                            $('#row_bid_' + args).jqxWindow('open');
+                        }
+                    }, row);
+                }
+            },
+            geteditorvalue: function (row, cellvalue, editor) {
+                return $('#row_bid_' + row + '_h').val();
+            }
+        },
+        {
+            text: '排序', datafield: 'a_SortNum', width: '6%', columntype: 'numberinput', validation: function (cell, value) {
+                if (value < 0) {
+                    return { result: false, message: "值必须大于或等于0" };
+                }
+                return true;
+            }
+        },
+        { text: '操作', datafield: 'a_Id', minwidth: '20%', cellsrenderer: actionrenderer, editable: false }
+    ], function (toolbar) {
+        toolbar.empty();
+        toolbar.append($('<div style="margin:5px 0 5px 5px;float:left;display:inline;height:22px;line-height:22px;">当前分类：</div><div id="menucur" style="margin:5px 5px 5px 0;float:left;display:inline;height:22px;line-height:22px;">所有商品</div><input type="Hidden" id="CategoryId" name="CategoryId" value="0">'));
+        toolbar.append($('<div id="catemenu" style="margin-top:1px;float:left;display:inline;"><ul><li>选择分类<ul id="menuitem_0"><li onclick="reloadPage(0,1,\'所有商品\')">所有商品</li><li>快速查询<ul><li onclick="reloadPage(-1,1,\'待上架商品\')">待上架商品</li><li onclick="reloadPage(-2,1,\'待下架商品\')">待下架商品</li><li onclick="reloadPage(-3,1,\'首页推荐商品\')">首页推荐商品</li><li onclick="reloadPage(-4,1,\'分类推荐商品\')">分类推荐商品</li><li onclick="reloadPage(-5,1,\'申请团购商品\')">申请团购商品</li><li onclick="reloadPage(-6,1,\'团购商品\')">团购商品</li><li onclick="reloadPage(-7,1,\'仓库中的商品\')">仓库中的商品</li><li onclick="reloadPage(-8,1,\'回收站\')">回收站</li></ul></li></ul></li></ul></div>'));
+        toolbar.append($('<input type="text" id="keyword" name="keyword" class="text" style="height:23px;float:left;width:180px; margin-left:15px" value="" />'));
+        toolbar.append($("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px; margin-left:15px'onclick='reloadPages()' value='查询' />"));
+
+        var all;
+        var max = 1;
+        var tmp = new Array();
+        var temp = new Array();
+        var cate, id, pid, mid, name;
+        for (var i = 0; i < allCategory.data.length; ++i) {
+            tmp[allCategory.data[i].Id] = true;
+        }
+        for (var i = 0; i < allCategory.data.length; ++i) {
+            cate = allCategory.data[i];
+            pid = cate.ParentId;
+            if (pid == 0) {
+                id = cate.Id;
+                name = cate.Name;
+                tmp[id] = false;
+                temp[id] = 1;
+                $('#menuitem_' + pid).append($('<li onclick="reloadPage(' + id + ',1,\'' + name + '\')">' + name + '<ul id="menuitem_' + id + '"></ul>' + '</li>'));
+            }
+        }
+        while (true) {
+            all = true;
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                cate = allCategory.data[i];
+                pid = cate.ParentId;
+                id = cate.Id;
+                if (pid > 0 && !tmp[pid] && tmp[id]) {
+                    mid = temp[pid];
+                    max = Math.max(max, mid + 1);
+                    tmp[id] = false;
+                    temp[id] = mid + 1;
+                }
+                if (tmp[id]) {
+                    all = false;
+                }
+            }
+            if (all) {
+                break;
+            }
+        }
+        for (var j = 2; j <= max; ++j) {
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                cate = allCategory.data[i];
+                id = cate.Id;
+                if (temp[id] == j) {
+                    name = cate.Name;
+                    $('#menuitem_' + cate.ParentId).append($('<li onclick="reloadPage(' + id + ',1,\'' + name + '\')">' + name + (j != max ? '<ul id="menuitem_' + id + '"></ul>' : '') + '</li>'));
+                }
+            }
+        }
+
+        $('#catemenu').jqxMenu({ height: 27, width: 70 });
+        document.maxWidth = $(document).width();
+        document.maxHeight = $(document).height();
+        $('#catemenu').on('shown', function (e) {
+            var doc = $(document);
+            var el = $(e.args.subMenuElement);
+            var pos = el.offset();
+            var a = 'right';
+            var v = 'down';
+            var c = false;
+            if ((pos.left + el.width()) > document.maxWidth) {
+                c = true;
+                a = 'left';
+            }
+            if ((pos.top + el.height()) > document.maxHeight) {
+                c = true;
+                v = 'up';
+            }
+            if (c) {
+                $("#catemenu").jqxMenu('setItemOpenDirection', e.args.id, a, v);
+                $('#catemenu').jqxMenu('closeItem', e.args.id);
+                $('#catemenu').jqxMenu('openItem', e.args.id);
+            }
+        });
+    }, function (rowid, rowdata, commit) {
+        postAjax('$url("x_product/update")', 'Id=' + rowdata.a_Id + '&CategoryId=' + rowdata.a_CategoryId + '&Recommend=' + rowdata.a_Recommend + '&CategoryBest=' + rowdata.a_CategoryBest + '&SortNum=' + rowdata.a_SortNum, function (data, args) {
+            if (data.code == -200) {
+                args(true);
+                showNotify('success', '操作成功！');
+                dataTable.reloadPage();
+            }
+            else {
+                showNotify('error', '操作失败！');
+                args(false);
+            }
+        }, commit);
+    });
+    dataTable.loadTypePage(0 + '/_', 1);
+    function reloadPage(type, page, name) {
+        $('#menucur').html(name);
+        $("#CategoryId").val(type);
+        var q = $("#keyword").val();
+        if (q != '') {
+            q = encodeURIComponent(q);
+        }
+        else {
+            q = '_';
+        }
+        dataTable.loadTypePage(type + "/" + q, page);
+    }
+    function reloadPages() {
+        var q = $("#keyword").val();
+        if (q != '') {
+            q = encodeURIComponent(q);
+        }
+        else {
+            q = '_';
+        }
+        dataTable.loadTypePage($("#CategoryId").val() + "/" + q, 1);
+    }
+
+
+
+    function formatImage() {
+        var val = '';
+        $('.up-img').each(function (index, value) {
+            if (index > 0)
+                val += '|';
+            val += $(value).attr('src');
+        });
+        $('#Images').val(encodeURIComponent(val));
+    }
+    function deleteImage(el) {
+        $(el).parent().remove();
+        formatImage();
+    }
+
+
+    function formatCate() {
+        var val = '';
+        $('.up-cate').each(function (index, value) {
+            if (index > 0)
+                val += '|';
+            val += $(value).val();
+        });
+        $('#KeyWords').val(val);
+    }
+    function deleteCate(el) {
+        $(el).parent().remove();
+        formatCate();
+    }
+    function addCate() {
+        if ($(".up-cate").length < 5) {
+            getKeyWord("#S_KeyWork");
+            $('#setkeyword').jqxWindow('open');
+        }
+        else {
+            showNotify('warning', '最多添加5个关键词！');
+        }
+    }
+    function getKeyWord(target) {
+        getAjax('$url("x_product/getallkeyword")', function (data, args) {
+            if (data.code == -200) {
+                var html = '<option value="">自定义关键词</option>';
+                for (var i = 0; i < data.data.length; ++i) {
+                    html += '<option value="' + data.data[i].Keyword + '">' + data.data[i].Keyword + '</option>';
+                }
+                $(target).html(html);
+            }
+        }, { target: target });
+    }
+    function ChangeKeyWord() {
+        if ($("#S_KeyWork option:selected").val() != "")
+            $("#CommentKeyWord").val($("#S_KeyWork option:selected").val());
+    }
+
+
+    function uploadImage() {
+        if (editor.dialogs.length <= 0) {
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    imageUrl: '',
+                    clickFn: function (url, title) {
+                        $('#imgbtn').before($('<li><a href="javascript:void(0)"><img class="up-img" src="' + url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></li>'));
+                        editor.hideDialog();
+                        formatImage();
+                    }
+                });
+            });
+        }
+    }
+    function setComment(id) {
+        $("#rid").val(id);
+        $(".star").jqxRating({ width: 300, height: 30, value: 5 });
+        $('#CommentBox').jqxWindow('open');
+    }
+    $(document).ready(function () {
+
+        editor = KindEditor.editor({
+            cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+            uploadJson: '$filesystem("upload")',
+            fileManagerJson: '$filesystem("filemanager")',
+            allowFileManager: true,
+        });
+
+        $("#uploadImage").click(function () {
+            if ($(".up-img").length < 5)
+                uploadImage();
+            else
+                showNotify('warning', '最多上传5张照片');
+        });
+        $('#CommentBox').jqxWindow({
+            width: '800px',
+            height: '500px',
+            autoOpen: false,
+            resizable: false,
+            draggable: false,
+            isModal: true,
+            modalOpacity: 0.3,
+            cancelButton: $('#cancel'),
+            initContent: function () {
+                $('#ok').focus();
+            }
+        });
+
+        $("#frlform").jqxValidator({
+            rules: [
+                { input: '#UserName', message: '账号不能为空！', action: 'blur,keyup', rule: 'required' },
+                { input: '#Content', message: '评论内容不能为空！', action: 'blur,keyup', rule: 'required' },
+            ]
+        }
+        );
+
+        $("#ok").click(function () {
+            $("#Star").val($(".star").val());
+            var form = $("#frlform");
+            if ($("#frlform").jqxValidator()) {
+                postAjax('$url("x_product/setcomment")', form.serialize(), function (data, args) {
+                    if (data.code == -200) {
+                        showNotify('success', '评论成功！');
+                        $('#CommentBox').jqxWindow('close');
+                    }
+                    else if (data.code == -1) {
+                        showNotify('error', '没有找到对应的用户');
+                    }
+                    else {
+                        showNotify('error', '评论失败,请检查内容！');
+                    }
+                });
+            }
+        });
+
+
+        $('#setkeyword').jqxWindow({
+            width: 'auto',
+            height: 'auto',
+            autoOpen: false,
+            resizable: false,
+            draggable: false,
+            isModal: true,
+            modalOpacity: 0.3,
+            cancelButton: $('#keywordcancel'),
+            initContent: function () {
+                $('#keywordok').focus();
+            }
+        });
+        $("#keywordok").click(function () {
+            var el = $('#CommentKeyWord');
+            var v = el.val();
+            if (v != "") {
+                $('#keywordbtn').before($('<div><span>' + v + '</span><input type="hidden" class="up-cate" value="' + v + '" /><a class="del-img" href="javascript:void(0)" onclick="deleteCate(this)">X</a></div>'));
+                $('#setkeyword').jqxWindow('close');
+                formatCate();
+                return true;
+            }
+            return false;
+            formatImage();
+            formatCate();
+        });
+    });
+    function showImage(el) {
+        var that = $('.view');
+        var val = $(el).offset().left - 162;
+        that.css('left', val);
+        val = 70;
+        that.css('top', val);
+        that.find('img').attr('src', el.src);
+        that.show();
+    }
+    function hideImage(el) {
+        $('.view').hide();
+    }
+</script>

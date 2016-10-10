@@ -1,0 +1,678 @@
+﻿$if(this.IsAjax)
+$if(Parent.Id>0)
+$set(series=Parent.GetSerie(this.DataSource))
+<table cellpadding="2" cellspacing="0" border="0" style="width:100%">
+    <tr>
+        <th align="center">组合</th>
+        $foreach(item in series)
+        <th align="center">$item.Name<a href="javascript:void(0)" onclick="delSerie($item.Id)">删除</a></th>
+        $end
+        <th>操作</th>
+    </tr>
+    <tr>
+        <td align="left">$Parent.Title</td>
+        $foreach(item in series)
+        $set(map=Parent.GetMapping(this.DataSource,item.Id))
+        <td align="center">
+            <form action="$url('distributorproduct/submit/5')" method="post" onsubmit="return onSubmit(this)">
+                <input name="ProductId" value="$Parent.Id" type="hidden" />
+                <input name="SerieId" value="$item.Id" type="hidden" />
+                <input name="Name" value="$item.Name" type="hidden" />
+                <input type="text" name="Value" value="$if(map!=null)$map.Value$end" onblur="$(this).parent().submit()" />
+            </form>
+        </td>
+        $end
+        <td align="center">
+            $if(Product.Id!=Parent.Id)
+            <a href="$url('distributorproduct/info/',Parent.Id)">编辑</a>
+            $end
+        </td>
+    </tr>
+    $foreach(child in Parent.GetChildren(this.DataSource))
+    <tr>
+        <td align="left">$child.Title</td>
+        $foreach(item in series)
+        $set(map=child.GetMapping(this.DataSource,item.Id))
+        <td align="center">
+            <form action="$url('distributorproduct/submit/5')" method="post" onsubmit="return onSubmit(this)">
+                <input name="ProductId" value="$child.Id" type="hidden" />
+                <input name="SerieId" value="$item.Id" type="hidden" />
+                <input name="Name" value="$item.Name" type="hidden" />
+                <input type="text" name="Value" value="$if(map!=null)$map.Value$end" onblur="$(this).parent().submit()" />
+            </form>
+        </td>
+        $end
+        <td align="center">
+            $if(Product.Id!=child.Id)
+            <a href="$url('distributorproduct/info/',child.Id)">编辑</a>
+            <a href="javascript:void(0)" onclick="delProduct($child.Id)">删除</a>
+            $end
+        </td>
+    </tr>
+    $end
+</table>
+$end
+$else
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>发布宝贝 - $Site.Name</title>
+    <link rel="stylesheet" href="$res('css/jquery-ui.min.css')">
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css/u_common.css')">
+    <link rel="stylesheet" href="$res('css/s_common.css')">
+    <style type="text/css">
+        .main,.content {
+            width: 100%;
+        }
+        .main,.content .panel {
+            padding: 0;
+            border: 0;
+            margin: 0;
+        }
+        .content .panel-body {
+            margin: 0;
+        }
+        /* BEGIN tab */
+        .tab .tab-nav {
+            border-bottom: 2px solid #ED6C44;
+        }
+
+            .tab .tab-nav li {
+                float: left;
+                height: 28px;
+                line-height: 28px;
+                padding-left: 37px;
+                padding-right: 37px;
+                margin-left: 3px;
+                background-color: #EEE;
+                cursor: pointer;
+            }
+
+                .tab .tab-nav li.first {
+                    margin-left: 25px;
+                }
+
+                .tab .tab-nav li.active {
+                    color: #FFF;
+                    background-color: #ED6C44;
+                }
+
+        .tab .tab-content {
+            padding: 15px;
+        }
+
+            .tab .tab-content .tab-pane {
+                display: none;
+                margin-bottom: 30px;
+            }
+
+                .tab .tab-content .tab-pane.active {
+                    display: block;
+                }
+        /* END tab */
+
+        /* BEGIN content */
+        .w-60 {
+            width: 60px !important;
+        }
+
+        .Wdate {
+            width: 150px !important;
+        }
+
+        .tab-pane th,
+        .tab-pane td {
+            padding-top: 10px;
+        }
+
+        .tab-pane th {
+            padding-right: 10px;
+            color: #999;
+        }
+
+        .tab-pane .title-box {
+            width: 390px;
+        }
+
+        .tab-pane textarea {
+            width: 390px;
+            height: 55px;
+            padding: 5px;
+            border: 1px solid #DDD;
+        }
+        /* END content */
+
+        /* BEGIN upload */
+        .upload li {
+            float: left;
+            height: auto;
+            margin-right: 5px;
+            line-height: 1;
+        }
+
+            .upload li img {
+                width: 96px;
+                height: 96px;
+                padding: 2px;
+                border: 1px solid #E4E4E4;
+            }
+        /* END upload */
+        .del-img {
+            position: absolute;
+            margin: 3px 0 0 -19px;
+            color: #FFF;
+            width: 16px;
+            height: 16px;
+            text-align: center;
+            background: #CCC;
+            font-family: Verdana;
+            font-size: 14px;
+            border-radius: 2px;
+        }
+
+            .del-img:hover {
+                color: #FFF;
+                background: #F00;
+            }
+
+        #groups input[type="text"] {
+            width: 80px;
+        }
+
+        #groups a, #groups input[type="submit"] {
+            float: none;
+            display: block;
+            margin: 2px 0;
+        }
+
+        #groups th a {
+            margin-top: 4px;
+        }
+
+        #groups th {
+            text-align: center;
+        }
+
+        #td-freight span, #td-freight a {
+            margin-left: 6px;
+        }
+
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            background: none;
+        }
+        .control {
+            width: 100%;
+            position: fixed;
+            bottom: 0px;
+            background: #FFF
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/kindeditor/themes/default/default.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcore.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxnotification.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <script type="text/javascript">
+        Cnaws.Init({
+            urlExt: '$ext',
+            resourcesUrl: '$this.Application.Settings.ResourcesUrl'
+        });
+    </script>
+    $if(Error==false)
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxbuttons.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxnumberinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/datepicker/wdatepicker.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <script type="text/javascript">
+        var editor = null;
+        var imgel = null;
+        function formatImage() {
+            var val = '';
+            $('.up-img').each(function (index, value) {
+                if (index > 0)
+                    val += '|';
+                val += $(value).attr('src');
+            });
+            $('#Image').val(encodeURIComponent(val));
+        }
+        function deleteImage(el) {
+            $(el).parent().remove();
+            formatImage();
+        }
+
+        function uploadImage() {
+            if (arguments.length > 0) {
+                //imgel = $(arguments[0]).find('img').first();
+                //editor.loadPlugin('image', function () {
+                //    editor.plugin.imageDialog({
+                //        imageUrl: imgel.attr('src'),
+                //        clickFn: function (url, title) {
+                //            imgel.attr('src', url);
+                //            editor.hideDialog();
+                //            formatImage();
+                //        }
+                //    });
+                //});
+            }
+            else {
+                if (editor.dialogs.length <= 0) {
+                    editor.loadPlugin('multiimage', function () {
+                        editor.plugin.multiImageDialog({
+                            clickFn: function (urlList) {
+                                var a = 0;
+                                for (var i = 0; i < urlList.length; i++) {
+                                    $('#imgbtn').before($('<li><a href="javascript:void(0)" onclick="uploadImage(this)"><img class="up-img" src="' + urlList[i].url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></li>'));
+                                    editor.hideDialog();
+                                    formatImage();
+                                }
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                }
+            }
+        };
+
+        function uploadImage1() {
+            if (arguments.length > 0) {
+                imgel = $(arguments[0]).find('img').first();
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: imgel.attr('src'),
+                        clickFn: function (url, title) {
+                            imgel.attr('src', url);
+                            editor.hideDialog();
+                            formatImage();
+                        }
+                    });
+                });
+            }
+            else {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: '',
+                        clickFn: function (url, title) {
+                            $('#imgbtn').before($('<li><a href="javascript:void(0)" onclick="uploadImage(this)"><img class="up-img" src="' + url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></li>'));
+                            editor.hideDialog();
+                            formatImage();
+                        }
+                    });
+                });
+            }
+        }
+        function getCate(target, id) {
+            Cnaws.getAjax(Cnaws.getUrl('$url("distributorproduct/child/")' + id), function (data, args) {
+                if (data.code == -200) {
+                    var html = '<option>请选择分类</option>';
+                    for (var i = 0; i < data.data.length; ++i) {
+                        html += '<option value="' + data.data[i].Id + '">' + data.data[i].Name + '</option>';
+                    }
+                    $(target).html(html);
+                }
+            }, { target: target });
+        }
+        function initCate(target, id, sid) {
+            Cnaws.getAjax(Cnaws.getUrl('$url("distributorproduct/child/")' + id), function (data, args) {
+                if (data.code == -200) {
+                    var html = '<option>请选择分类</option>';
+                    for (var i = 0; i < data.data.length; ++i) {
+                        html += '<option value="' + data.data[i].Id + '"' + (args.sid == data.data[i].Id ? ' selected="selected"' : '') + '>' + data.data[i].Name + '</option>';
+                    }
+                    $(target).html(html);
+                }
+            }, { target: target, sid: sid });
+        }
+        $(document).ready(function () {
+            $if(CategoryList.Count==0)
+            getCate('#bigcate', 0);
+            $end
+            $('#Title').jqxInput({ placeHolder: "请输入产品标题" });
+            editor = KindEditor.create('#Content', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+                width: 670,
+                height: 300
+            });
+            $('#BarCode').jqxInput({ placeHolder: "请输入产品条码" });
+            $('#Unit').jqxInput({ placeHolder: "请输入产品单位" });
+            Cnaws.Area.Init('area', '$url("/country/")', $Location);
+            initGroups();
+            window.parent.showWindow();
+        });
+        function onSubmit(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            $('#HContent').val(encodeURIComponent(editor.html()));
+            //if (form.jqxValidator('validate')) {
+            Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                if (data.code == -200) {
+                    Cnaws.showSuccess('修改成功');
+                    window.parent.closeWindow();
+                    $if(Product.Id == 0)
+                    setTimeout(function () {
+                        location.href = Cnaws.getUrl('$url("distributorproduct/info/")' + data.data);
+                    }, 800);
+                    $end
+                }
+                else if (data.code == -1) {
+                    Cnaws.showError('请先保存基本信息');
+                }
+                else {
+                    Cnaws.showError('数据操作失败，请联系管理员');
+                }
+                args.form.attr('disabled', false);
+                
+            }, { form: form });
+            //}
+            //else {
+            //    form.attr('disabled', false);
+            //}
+            return false;
+        }
+        function initGroups() {
+            $('#groups').empty();
+            $.ajax({
+                type: "GET",
+                url: '$url("distributorproduct/info/",Product.Id)',
+                dataType: 'html',
+                success: function (data) {
+                    $('#groups').append($(data));
+                }
+            });
+        }
+        function addSerie(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                if (data.code == -200) {
+                    Cnaws.showSuccess('修改成功');
+                    initGroups();
+                }
+                else if (data.code == -1) {
+                    Cnaws.showError('请先保存基本信息');
+                }
+                else if (data.code == -2) {
+                    Cnaws.showError('规格名称不能为空');
+                }
+                else {
+                    Cnaws.showError('数据操作失败，请联系管理员');
+                }
+                args.form.attr('disabled', false);
+            }, { form: form });
+            return false;
+        }
+        function addGroup(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                if (data.code == -200) {
+                    Cnaws.showSuccess('修改成功');
+                    initGroups();
+                }
+                else if (data.code == -1) {
+                    Cnaws.showError('请先保存基本信息');
+                }
+                else {
+                    Cnaws.showError('数据操作失败，请联系管理员');
+                }
+                args.form.attr('disabled', false);
+            }, { form: form });
+            return false;
+        }
+        function delSerie(id) {
+            if (window.confirm('警告：删除后不可恢复，确认删除？')) {
+                Cnaws.postAjax("$url('distributorproduct/submit/8')", 'Id=' + id, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('修改成功');
+                        initGroups();
+                    }
+                    else if (data.code == -1) {
+                        Cnaws.showError('请先保存基本信息');
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                }, null);
+            }
+            return false;
+        }
+        function delProduct(id) {
+            if (window.confirm('警告：删除后不可恢复，确认删除？')) {
+                Cnaws.postAjax("$url('distributorproduct/submit/9')", 'Id=' + id, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('修改成功');
+                        initGroups();
+                    }
+                    else if (data.code == -1) {
+                        Cnaws.showError('请先保存基本信息');
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                }, null);
+            }
+            return false;
+        }
+    </script>
+    $end
+</head>
+<body>
+    <!-- BEGIN main -->
+    <div class="clearfix content-wrap main">
+        <div class="content">
+            <div class="panel">
+                <div class="panel-body" style="min-height:570px;">
+                    $if(Error)
+                    <div style="text-align:center;font-weight:bold;color:#f00">商品不存在或已上架</div>
+                    $else
+                    <div class="tab">
+                        <div>
+                        <ul class="clearfix tab-nav" style="position:fixed;width:100%;background:#EEE;top:0px">
+                            <li class="first active">基本信息</li>
+                            <li>图片</li>
+                            <li>规格</li>
+                            <li>组合</li>
+                        </ul>
+
+                        <div class="tab-content" style="margin-top:30px">
+                            <div class="tab-pane active">
+                                <form id="form1" action="$url('distributorproduct/submit/1')" method="post" onsubmit="return onSubmit(this)">
+                                    <table>
+                                        <tr>
+                                            <th><label>分类</label></th>
+                                            <td>
+                                                $if(Product.Id>0)
+                                                $for(i=0;i<2;i++)
+                                                $if(i<CategoryList.Count)
+                                                $set(item=CategoryList[i])
+                                                $else
+                                                $set(item=null)
+                                                $end
+                                                $if(i==0)
+                                                <select id="bigcate" onchange="$('#smallcate').html('<option>请选择分类</option>'); $('#threecate').html('<option>请选择分类</option>'); getCate('#smallcate', this.options[this.options.selectedIndex].value)"><option>请选择分类</option></select>
+                                                $if(item!=null)
+                                                <script type="text/javascript">
+                                                    initCate('#bigcate', $item.ParentId, $item.Id);
+                                                    $if(CategoryList.Count==1)
+                                                    getCate('#smallcate', $item.Id);
+                                                    $end
+                                                </script>
+                                                $end
+                                                $elseif(i==1)
+                                                <select id="smallcate"  name="CategoryId"><option>请选择分类</option></select>
+                                                $if(item!=null)
+                                                <script type="text/javascript">
+                                                    initCate('#smallcate', $item.ParentId, $item.Id);
+                                                </script>
+                                                $end
+                                                $end
+                                                $end
+                                                $else
+                                                <select id="bigcate" onchange="$('#smallcate').html('<option>请选择分类</option>'); $('#threecate').html('<option>请选择分类</option>'); getCate('#smallcate', this.options[this.options.selectedIndex].value)"><option>请选择分类</option></select>
+                                                <select id="smallcate" name="CategoryId" ><option>请选择分类</option></select>
+                                                $end
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="Title">标题</label></th>
+                                            <td><input class="title-box" type="text" id="Title" name="Title" value="$Product.Title" style="width:500px"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="Content">详情</label></th>
+                                            <td>
+                                                <textarea id="Content">$Product.Content</textarea><input type="hidden" id="HContent" name="Content" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="BarCode">条码</label></th>
+                                            <td><input type="text" id="BarCode" name="BarCode" value="$Product.BarCode"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="Unit">单位</label></th>
+                                            <td><input type="text" id="Unit" name="Unit" value="$Product.Unit"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="Inventory">库存</label></th>
+                                            <td>
+                                                <input class="w-60" type="text" id="Inventory" name="Inventory" value="$Product.Inventory">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="Price">零售价</label></th>
+                                            <td><input class="w-60" type="text" id="Price" name="Price" value="$Product.Price.ToString('F2')"></td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="CostPrice">出厂价</label></th>
+                                            <td>
+                                                <input class="w-60" type="text" id="CostPrice" name="CostPrice" value="$Product.CostPrice.ToString('F2')">
+                                                <label>结算方式</label>
+                                                <select id="Settlement" name="Settlement">
+                                                    <option value="0" ${if(Product.Settlement==0)}selected ="selected" ${end}>固定价格</option>
+                                                    <option value="1" ${if(Product.Settlement==1)}selected ="selected" ${end}>提成</option>
+                                                </select>
+                                                <label>提成</label>
+                                                <input type="text" id="RoyaltyRate" name="RoyaltyRate" value="$Product.RoyaltyRate" style="width:30px;" /> %
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label for="WholesalePrice">批发价</label></th>
+                                            <td>
+                                                <input type="hidden" id="Wholesale" name="Wholesale" value="1" />
+                                                <input class="w-60" type="text" id="WholesalePrice" name="WholesalePrice" value="$Product.WholesalePrice.ToString('F2')">
+                                                <label for="WholesaleCount">起批数</label>
+                                                <input class="w-60" type="text" id="WholesaleCount" name="WholesaleCount" value="$Product.WholesaleCount">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><label>销售地</label></th>
+                                            <td id="area"></td>
+                                        </tr>
+                                    </table>
+                                    <div class="clearfix control" style="text-align:center">
+                                        <input name="Id" type="hidden" value="$Product.Id" />
+                                        <input class="btn-post" type="submit" value="保存" style="margin-left:360px;" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane">
+                                <!--图片-->
+                                <form id="form2" action="$url('distributorproduct/submit/2')" method="post" onsubmit="return onSubmit(this)">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <p style="color:red;margin-bottom:10px;">*第一张图为主图<a href="javascript:uploadImage1()" style="padding:0 10px">单张上传</a></p>
+                                                <ul class="clearfix upload">
+                                                    $foreach(item in Product.GetImages())
+                                                    <li>
+                                                        <a href="javascript:void(0)"><img class="up-img" src="$item"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a>
+                                                    </li>
+                                                    $end
+                                                    <li id="imgbtn"><a href="javascript:void(0)" onclick="uploadImage()"><img src="$res('css/img/upload_btn.png')" alt="添加图片"></a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="clearfix control" style="text-align:center">
+                                        <input name="Id" type="hidden" value="$Product.Id" />
+                                        <input id="Image" name="Image" type="hidden" value="$Product.Image" />
+                                        <input class="btn-post" type="submit" value="保存" style="margin-left:360px;" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane">
+                                <!--规格-->
+                                <form id="form3" action="$url('distributorproduct/submit/3')" method="post" onsubmit="return onSubmit(this)">
+                                    <table>
+                                        $foreach(item in AttributeList)
+                                        <tr>
+                                            <th><label>$item.Name</label></th>
+                                            <td><input type="text" name="Attr$item.Id" value="$Product.GetAttribute(ValueList,item.Id)"></td>
+                                        </tr>
+                                        $end
+                                    </table>
+                                    <div class="clearfix control" style="text-align:center">
+                                        <input name="Id" type="hidden" value="$Product.Id" />
+                                        <input class="btn-post" type="submit" value="保存" style="margin-left:360px;" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane">
+                                <!--组合-->
+                                <div class="clearfix">
+                                    <form id="form6" action="$url('distributorproduct/submit/6')" method="post" onsubmit="return addSerie(this)">
+                                        <label for="SerieName" style="float:left;margin-top:6px">规格名称：</label><input style="float:left" type="text" id="SerieName" name="Name" />
+                                        <input name="ProductId" type="hidden" value="$Parent.Id" />
+                                        <input class="btn-post" style="margin-left:10px" type="submit" value="添加规格" />
+                                    </form>
+                                    <form id="form7" action="$url('distributorproduct/submit/7')" method="post" onsubmit="return addGroup(this)">
+                                        <input name="Id" type="hidden" value="$Parent.Id" />
+                                        <input class="btn-post" type="submit" value="添加组合" />
+                                    </form>
+                                </div>
+                                <div class="clearfix" style="text-align:center">
+                                    <div id="groups"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    $end
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- END main -->
+    <script src="$res('js/jquery-ui.min.js')"></script>
+    <script type="text/javascript">
+        $('.tab .tab-nav li').click(function () {
+            var that = $(this),
+				index = that.index();
+            tabPane = that.parents('.tab').find('.tab-content .tab-pane');
+            that.addClass('active').siblings().removeClass('active');
+            $(tabPane[index]).addClass('active').siblings().removeClass('active');
+        });
+    </script>
+    <script>
+        $(".upload").sortable({
+            items: 'li:not(#imgbtn)',
+            update: function () {
+            var newSortImg = [];
+            $(this).children('li.ui-state-default').each(function () {
+                newSortImg.push($(this).find('img').attr('src'));
+            });
+            formatImage();
+            }
+        });
+    </script>
+</body>
+</html>
+$end

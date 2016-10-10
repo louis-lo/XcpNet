@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/city_show.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <script type="text/javascript" src="$res('wap/js2.0/zepto-mvalidate.js')"></script>
+    <style>
+        .deliver {
+            margin-top: 30px;
+        }
+
+            .deliver input {
+                background: #ff7300;
+                color: #fff;
+                width: 100%;
+                line-height: 44px;
+                text-align: center;
+                font-size: .8rem;
+                border: none;
+                border-radius: .15rem;
+            }
+        /* regexp */
+        .field-tooltipWrap {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 19891014;
+            display: block;
+        }
+
+        .field-tooltipInner {
+            pointer-events: none;
+            display: table;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .field-tooltip {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+            .field-tooltip .zvalid-resultformat {
+                display: inline-block;
+                position: relative;
+                background-color: rgba(0,0,0,0.8);
+                color: #fff;
+                padding: 10px 15px;
+                font-size: 14px;
+                border-radius: 6px;
+                box-shadow: 0 0 8px rgba(0,0,0,.1);
+                pointer-events: auto;
+                animation-name: fieldTipBounceIn;
+                -webkit-animation-name: fieldTipBounceIn;
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+                -webkit-animation-duration: .18s;
+                animation-duration: .18s;
+            }
+    </style>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <!-- nav -->
+            <header class="bar bar-nav wayshow_navPosi">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="$url('/shippingaddress')">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    新建收货人
+                </div>
+            </header>
+            <!-- / nav -->
+            <!-- content -->
+            <div class="content native-scroll order_content" style="top:2.2rem">
+                <form class="zform zform-radius" id="form1" action="$url('/shippingaddress/submit')" method="post">
+                    <div class="list-block">
+                        <ul>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner pad_lr">
+                                        <div class="item-title label col_666">收货人</div>
+                                        <div class="item-input"><input class="field-text" id="Consignee" name="Consignee" value="$Address.Consignee" type="text" data-required="true" data-descriptions="contacts" placeholder="请输入收货人"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="logistics_number">
+                                <div class="item-content">
+                                    <div class="item-inner exchange_num pad_lr">
+                                        <div class="item-title label col_666">联系电话</div>
+                                        <div class="item-input"><input type="number" min="1" id="Mobile" name="Mobile" value="$Address.Mobile" placeholder="请输入联系电话" data-validate="phone" data-describedby="phone-description"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner pad_lr">
+                                        <div class="item-title label col_666">所在地区</div>
+                                        <div class="item-input">
+                                            $if(Address!=null)
+                                            <input type="text" id="city-picker" data-id="$Address.Province,$Address.City,$Address.County" readonly placeholder="请选择" data-required="true" data-descriptions="provincial_city" value="$GetAreaName(Address.Province) $GetAreaName(Address.City) $GetAreaName(Address.County) ">
+                                            $else
+                                            <input type="text" id="city-picker" data-id="0" readonly placeholder="请选择" data-required="true" data-descriptions="provincial_city" value="请选择">
+                                            $end
+                                            <input type="hidden" id="area_provinces" name="area_provinces" />
+                                            <input type="hidden" id="area_cities" name="area_cities" />
+                                            <input type="hidden" id="area_counties" name="area_counties" />
+                                            <input type="hidden" id="isDefault" name="IsDefault" value="$Address.IsDefault"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner pad_lr">
+                                        <div class="item-title label col_666">详细地址</div>
+                                        <div class="item-input"><input type="text" id="Address" name="Address" value="$Address.Address" placeholder="请输入详细地址" data-required="true" data-descriptions="address" /></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="logistics_number">
+                                <div class="item-content">
+                                    <div class="item-inner exchange_num pad_lr">
+                                        <div class="item-title label col_666">邮政编码</div>
+                                        <div class="item-input"><input type="number" id="PostId" name="PostId" value="$Address.PostId" min="1" placeholder="请输入邮政编码"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="deliver pad_lr"><input type="submit" value="保存"></li>
+                        </ul>
+                        <input id="Id" name="Id" type="hidden" value="$Address.Id" />
+                    </div>
+                </form>
+            </div>
+            <!-- end content -->
+        </div>
+    </div>
+    <script>
+$(function(){
+    $("#city-picker").cityPicker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+		<button class="button button-link pull-right close-picker">确定</button>\
+		<h1 class="title">选择收货地址</h1>\
+		</header>'
+    });
+	//表单
+	$.mvalidateExtend({
+		phone:{
+            required : true,
+            pattern : /^0?1[3|4|5|8][0-9]\d{8}$/,
+            each:function(){
+
+            },
+            descriptions:{
+                required : '<div class="field-invalidmsg">请输入手机号</div>',
+                pattern : '<div class="field-invalidmsg">您输入的手机号码格式不正确</div>',
+                valid : '<div class="field-validmsg">正确</div>'
+            }
+    	}
+    });
+    $("#form1").mvalidate({
+        type:1,
+        onKeyup:true,
+        sendForm:true,
+        firstInvalidFocus:false,
+        valid:function(event,options){
+            //点击提交按钮时,表单通过验证触发函数
+            //alert("验证通过！");
+            event.preventDefault();
+            SetArea();
+        },
+        invalid:function(event, status, options){
+            //点击提交按钮时,表单未通过验证触发函数
+
+        },
+        eachField:function(event,status,options){
+            //点击提交按钮时,表单每个输入域触发这个函数 this 执向当前表单输入域，是jquery对象
+
+        },
+        eachValidField:function(val){},
+        eachInvalidField:function(event, status, options){},
+        conditional:{
+    	},
+    	descriptions:{
+            contacts:{
+                required : '请输入收货人'
+            },
+            region:{
+                required : '请选择地区'
+            },
+            address:{
+                required : '请输入详细地址'
+            }
+        }
+    });
+})
+
+function SetArea() {
+    dataId = $("#city-picker").attr("data-id");
+    if (dataId=="0") {
+        $.alert("请选择地区");
+    } else {
+        var dataArray = dataId.split(',');
+        if (dataArray.length == 3) {
+            $("#area_provinces").val(dataArray[0]);
+            $("#area_cities").val(dataArray[1]);
+            $("#area_counties").val(dataArray[2]);
+            onSubmit();
+        } else {
+            $.alert("地区选择错误,请刷新后重试!");
+        }
+
+    }
+}
+
+function onSubmit() {
+    var form = $('#form1');
+    form.attr('disabled', true);
+    if (true) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function (result) {
+                if (result.code == -200) {
+                    if ($("#Id").val() == '0') {
+                        $.alert("添加成功");
+                    } else {
+                        $.alert("修改成功");
+                    }
+                    $set(target = this.Request.QueryString["target"])
+                    $if(clr.System.String.IsNullOrEmpty(target))
+                    window.location.href = '$url("/shippingaddress")';
+                    $else
+                    window.location.href = '$target';
+                    $end
+                } else {
+                    $.alert("数据操作失败，请联系管理员");
+                }
+                $('#Id').val('0');
+                $('#Consignee').val('');
+                $('#Address').val('');
+                $('#Mobile').val('');
+                $('#PostId').val('');
+                document.getElementById('IsDefault').checked = false;
+            }
+        });
+        return false;
+    }
+}
+    </script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm-city-picker.js')"></script>
+</body>
+</html>

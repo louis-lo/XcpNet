@@ -1,0 +1,59 @@
+<link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cph.pc.nav.min.css')">
+<div class="centerNav_left  fl" $if(this.Application.ControllerName.ToLower() !="index" ) style="display:none" $end>
+    <ul class="centerNav_leftUl">
+        $foreach(root in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+        <li class="centerList_one centerList_li">
+            <div>
+                <a class="centerList_a" href="$url('/category/cateparent/',root.Id)">$root.Name</a>
+                <span></span>
+            </div>
+            <div class="secondLevel_classify undis">
+                $foreach(parent in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,root.Id))
+                <div class="secondLevel_classifyUl clearFix">
+                    <div class="secondLevel_li fl">
+                        <a class="fb" href="$url('/category/list/',parent.Id)">$parent.Name</a>
+                    </div>
+                    <div class="secondLevel_link fl">
+                        <ul class="clearFix">
+                            $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,parent.Id))
+                            <li><a href="$url('/category/list/',child.Id)">$child.Name</a></li>
+                            $end
+                        </ul>
+                    </div>
+                </div>
+                $end
+            </div>
+        </li>
+        $end
+    </ul>
+</div>
+<script>
+    $if(this.Application.ControllerName.ToLower() != "index")
+    $(function () {
+        var cateContainer = $('#cateContainer'), cates = cateContainer.find('div.centerNav_left');
+
+        cateContainer.mouseover(function () {
+            cates.show();
+        }).mouseleave(function (event) {
+            event = event || window.event;
+            //获得相对于body定位的横标值；
+
+            var x = event.clientX;
+            //获得相对于body定位的纵标值；
+            var y = event.clientY;
+
+            //获得对象相对于页面的横坐标值；id为对象的id
+            var thisX = this.offsetLeft;
+
+            //获得对象相对于页面的横坐标值；
+            var thisY = this.offsetTop;
+
+            cates.hide();
+        });
+
+        cates.mouseover(function () {
+            cates.show();
+        });
+    });
+    $end;
+</script>

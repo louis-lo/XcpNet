@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>修改昵称</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/citygoods_list.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f6f6f6">
+    <div class="page-group">
+        <div class="page page-current">
+            <form id="form" action="$url('/security/SubmitSetName')" method="post" onsubmit="return onSubmit()">
+                <div class="clearfix bar bar-nav col_333 bg_fff">
+                    <div class="wayshow_navPosi">
+                        <div class="wayshow_navLe fl">
+                            <a href='javascript:window.history.go(-1)'>
+                                <span class="icon_Firststep fl"></span>
+                            </a>
+                        </div>
+                        修改昵称
+                        <input class="Determine_modification" type="submit" value="确定" />
+                    </div>
+                </div>
+
+                <div class="content native-scroll">
+                    <div class="list-block" style="margin:0;">
+                        <ul>
+                            <li class="pad_lr">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label" style="width:30%;">昵称</div>
+                                        <div class="item-input">
+                                            <input id="NickName" name="NickName" type="text" placeholder="请输入新昵称" value="$Member.NickName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col_999 pad_lr Prompt_txt" id="mess">由4-20个字符，可由中英文、数字、组成</div>
+                </div>
+                <!-- / content -->
+            </form>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".returngoods_optionLi li").click(function () {
+                $(".returngoods_optionLi li").removeClass("on");
+                $(this).addClass("on");
+            })
+        });
+
+        function onSubmit() {
+            var form = $('#form');
+            form.attr('disabled', true);
+            var reg = /^[\u4e00-\u9fa50-9a-zA-Z_\-]{4,20}$/;
+            if (reg.test($("#NickName").val())) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: form.serialize(),
+                    url: form.attr('action'),
+                    success: function (result) {
+                        if (result.code == -200) {
+                            $.alert('修改成功', function () {
+                                $set(target = this.Request.QueryString["target"])
+                                $if(clr.System.String.IsNullOrEmpty(target))
+                                window.location.href = '$url("/ucenter")';
+                                $else
+                                window.location.href = '$target';
+                                $end
+                            });
+                        } else if (result.code == -1002) {
+                            $.alert("昵称由4-20个字符，可由中英文、数字“-”、”_“组成");
+                        } else {
+                            $.alert("修改失败，请重试");
+                        }
+                    }
+                });
+                form.attr('disabled', true);
+            }
+            else {
+                $("#mess").css("border", "1px solid red");
+                form.attr('disabled', false);
+            }
+            return false;
+        }
+
+        //function toVaild(){
+        //	var str = $("#modify_name").val();
+        //	//console.log(str);
+        //	if(str.length!=0){
+        ////		var patrn = /^[a-z\d_\u4e00-\u9fa5]{4,20}/i;
+        //		var patrn = /^[0-9a-zA-Z\u4e00-\u9fa5_]{4,20}$/;
+        //		if(patrn.test(str)){
+        //			console.log("YES")
+        //			return false;
+        //		}else{
+        //			console.log("格式不对")
+        //			return false;
+        //		}
+        //	}else{
+        //		console.log("不能为空")
+        //		return false;
+        //	}
+        //}
+        //function IsLetter()
+        //{
+        //        var str = document.getElementById('str').value.trim();
+        //        if(str.length!=0){
+        //	        reg=/^[a-zA-Z]+$/;
+        //	        if(!reg.test(str)){
+        //	            alert("对不起，您输入的英文字母类型格式不正确!");//请将“英文字母类型”改成你需要验证的属性名称!
+        //	        }
+        //        }
+        //}
+    </script>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

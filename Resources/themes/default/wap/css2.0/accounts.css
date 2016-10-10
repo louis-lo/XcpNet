@@ -1,0 +1,70 @@
+.pad_lr{padding:0 0.75rem;}.pad_tb{padding:0.5rem 0;}
+.withdrawals_icon{background:url(../img2.0/withdrawals.png) no-repeat;display:inline-block;}
+.purchasemy_icon{background: url(../img2.0/purchasemyImg.png) no-repeat;}
+.col_ff7{color:#color:#ff7300;}.purchaseall_icon{background: url(../img2.0/purchaseallImg.png) no-repeat;}
+.wayshow_nav{position:fixed;top:0;height:2.2rem;line-height:2.2rem;width:100%;background:#fff;text-align:center;z-index:999;font-size:.9rem;color:#333;border-bottom:1px solid #f3f3f3;}
+.wayshow_navPosi{position:relative;}
+.wayshow_navLe{position:absolute;top:0.5rem;left:0.3rem;}
+.icon_Firststep{display:inline-block;width:18px;height:18px;background:url(../img2.0/icon_Firststep.png);background-size:100%;}
+.navRe{position:absolute;top:0;right:0.3rem;font-size:.75rem;}
+/* end nav*/
+
+.item-title{text-indent:.75rem;}
+.row .col-33{border:1px dashed #e5e5e5;margin-left:3.8%;}
+.box_imgchile{padding-top: 100%;overflow: hidden;}
+.box_imglast{margin-top: -100%;vertical-align:middle;font-size:0.6rem;}
+.box_imglast span{display:block;text-align:center;}
+.onload_imgicon img{width:2rem;margin-top:0.5rem;}
+.box_imglast a{color:#666;}
+.box_imglast .box_imgwidth{min-height:100%;}
+.returngoods_button{padding:1rem 0 2rem;text-align:center;}
+.returngoods_button input{background:#ff7300;color:#fff;border:none;width:90%;line-height:2.3rem;border-radius:3px;}
+
+.Paymentsuccess_icon{margin-bottom:1rem;}
+.Paymentsuccess_content h3{line-height:1.5rem;font-size:.85rem;}
+.Payment_successIcon{background:url(../img2.0/withdrawals.png) 0 -184px no-repeat;background-size:408px 306px;display:inline-block;width:100px;height:100px;}
+.Paymentsuccess_content{margin:2rem 0 2.5rem;text-align: center;}
+.Paymentsuccess_return{display:inline-block;background:#ff7300;padding:.35rem 3rem;border-radius:.15rem;font-size:.8rem;}
+
+.See_state .bg_fff{line-height:1.7rem;}
+.See_state ul li .See_stateArrow{display:inline-block;width:15px;height:15px;background-size:450px 320px;background-position:-231px -156px;margin-top:.4rem;}
+.See_state ul li.on .See_stateArrow{background-size:450px 320px;background-position:-251px -156px;}
+.See_state ul li dl{display:none;}
+.See_state ul li.on dl{display:block;}
+.See_state dd{font-size:.7rem;line-height:1.2rem;margin:.4rem auto;}
+
+.mysubordinate ul li{float:left;width:50%;height:80px;line-height:80px;text-align:center;box-sizing:border-box;}
+.mysubordinate ul li:nth-child(2n){border-left:1px solid #f3f3f3;}
+.mysubordinate ul li:nth-child(3),.mysubordinate ul li:nth-child(4){border-top:1px solid #f3f3f3;}
+.mysubordinate ul li .withdrawals_icon{width:28px;height:28px;background-size:300px 230px;vertical-align:middle;margin:-3px 2px 0 0;}
+.nickname_icon{background-position:-173px -64px;}
+.gender_icon{background-position:-213px -64px;}
+.password_icon{background-position:-257px -64px;}
+.address_icon{background-position:-85px -65px;}
+
+.list-block{margin:15px 0;}
+.list-block .item-title.label{color:#333;width:34%;}
+.list-block .item-input{color:666;}
+
+.myRecommend .withdrawals_icon{width:20px;height:20px;background-size:365px 265px;vertical-align:middle;margin:-2px 2px 0 0;}
+.reco_companyicon{background-position:-159px -82px}
+.reco_responsibleicon{background-position:-189px -82px}
+.reco_signicon{background-position:2px -126px}
+.reco_addressicon{background-position:-28px -127px}
+.myRecommend .reco_codeicon{background-size:385px 285px;background-position:-60px -137px;}
+.reco_gradeicon{background-position:-87px -129px}
+.reco_telicon{background-position:-250px -124px}
+.item-profit{text-align:right;padding:.5rem 0.75rem;}
+.item-profit a{background:#ff7300;padding:.25rem .3rem;border-radius:.15rem;margin-left:.15rem;font-size:.65rem;}
+
+.reco_joinicon{background-size:380px 286px;background-position:-117px -159px;width:130px;height:130px;}
+
+.harvest_query{margin:1rem 0 35px;}
+.bank_opction{display:inline-block;width:20px;height:20px;background-size:310px 215px;background-position:-130px -102px;vertical-align:middle;margin-right:.5rem;}
+.harvest_query_opction.on .bank_opction{background-position:-100px -102px;}
+.harvest_query .list-block{margin-bottom:20px;}
+.harvest_query .list-block li{background:#eee;}
+.harvest_query .list-block li input{text-indent:.5rem;font-size:.7rem !important;}
+.harvest_query_opction{padding-bottom:30px;height:auto;overflow:hidden;}
+.harvest_querySub button{width:100%;height:40px;line-height:40px;text-align:center;background:#ff7300;border:none;font-size:.8rem;border-radius:.15rem;}
+

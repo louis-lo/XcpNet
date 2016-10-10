@@ -1,0 +1,119 @@
+﻿
+<div id="logisticslists"></div>
+<div id="logisticslist" style="display:none;">
+    <div><span>添加物流公司</span></div>
+    <div>
+        <form id="frlform" action="" method="post">
+            <div style="margin-bottom:6px;">
+                <table border="0" cellpadding="0" cellspacing="0" class="table">
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="tpname">物流公司：</label></td>
+                        <td><input id="Name" name="Name" type="text" class="text" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="tpname">物流代码：</label></td>
+                        <td><input id="NameCode" name="NameCode" type="text" class="text" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>是否启用：</label></td>
+                        <td>
+                            <input type="radio" name="IsEnable" id="IsEnableTrue" value="True" checked /><label for="IsEnableTrue">启用</label>
+                            <input type="radio" name="IsEnable" id="IsEnableFalse" value="False" /><label for="IsEnableFalse">不启用</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right;padding:10px;">
+                <input type="button" id="ok" value="确定" class="submit" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function showAdd() {
+        $('#logisticslist').jqxWindow('open');
+    }
+    var actionrenderer = function (row, column, value) {
+        return '<div class="action"><a href="javascript:;" onclick="return doDelete(' + value + ')">删除</a></div>';
+    }
+    function doDelete(id) {
+        if (window.confirm('确定要删除该信息吗？')) {
+            postAjax('$url("logisticslist/del")', 'Id=' + id, function (data, args) {
+                if (showResult(data, '删除成功', '删除失败', function (code) {
+                    if (code == -1) {
+                }
+                    return null;
+                })) {
+                    reloadPage();
+                }
+            }, null);
+        }
+        return false;
+    }
+    var mainWindow = initWindow('logisticslist', 'frlform', [
+		{ input: '#Name', message: '物流公司不能为空!', action: 'keyup, blur', rule: 'required' },
+        { input: '#NameCode', message: '物流代码不能为空!', action: 'keyup, blur', rule: 'required' }
+    ], null, null, null, null,
+    function (form) {
+        postAjax('$url("logisticslist/add")', form.serialize(), function (data, args) {
+            if (showResult(data, '添加分类成功', '添加分类失败', null)) {
+                reloadPage();
+            }
+            mainWindow.close();
+            mainWindow.end();
+        }, null);
+    }, null);
+    var dataTable = initDataTable('logisticslists', '$url("logisticslist/list/")', [
+        { name: 'Name', type: 'string' },
+        { name: 'NameCode', type: 'string' },
+        { name: 'IsEnable', type: 'bool' },
+        { name: 'Id', type: 'int' }],
+        [{ text: '物流公司', datafield: 'Name', width: '35%', columntype: 'textbox', editable: false },
+        { text: '物流代码', datafield: 'NameCode', width: '35%', columntype: 'textbox', editable:false},
+        { text: '是否启用', datafield: 'IsEnable', width: '15%', columntype: 'checkbox', editable: true },
+		{ text: '操作', datafield: 'Id', minwidth: '15%', editable: false, cellsrenderer: actionrenderer }
+    ], function (toolbar) {
+        toolbar.empty();
+        var container = $('<div style="margin:5px 5px 5px 0;float:left;"></div>');
+        var selectinput = $("<input type='text' id='CompanyName' name='CompanyName' style='float:left;width:140px; height:21px; margin-left:5px;'>");
+        var selectbutton = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px; margin-left:15px'onclick='reloadPage()' value='查询' />");
+        var input = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px;' value='添加' />");
+        toolbar.append(container);
+        container.append(selectinput);
+        container.append(selectbutton);
+        container.append(input);
+        input.on('click', function (event) {
+            showAdd();
+            return false;
+        });
+    }, function (rowid, rowdata, commit) {
+        postAjax('$url("logisticslist/mod")', 'Id=' + rowdata.Id + '&logisticslistName=' + encodeURIComponent(rowdata.logisticslistName) + '&IsEnable=' + encodeURIComponent(rowdata.IsEnable), function (data, args) {
+            if (showResult(data, '修改成功', '修改失败', null)) {
+                args(true);
+                reloadPage();
+            }
+            else {
+                args(false);
+            }
+        }, commit);
+    });
+
+    function loadPage(type, page) {
+        dataTable.loadTypePage(type, page);
+    }
+
+    function reloadPage() {
+        var index = dataTable.pageIndex;
+        dataTable.pageIndex = -1;
+        var name = $("#CompanyName").val();
+        if (name != "") {
+            type = name;
+        }
+        else {
+            type = "_";
+        }
+        loadPage(type, index);
+    }
+    loadPage("_", 1);
+</script>

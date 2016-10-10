@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>查看详情</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/withdrawals.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    提现详情
+                </div>
+            </div>
+
+            <!-- end nav -->
+            <div class="content native-scroll">
+                $if(DrawOrder.IsDrawBalance())
+                <!--提现到余额-->
+                <div class="With_detailsTop bg_fff">
+                    <h3 class="With_detailsBank"><img src="$res('wap/img2.0/Withdrawals_balance.png')" />提现至余额</h3>
+                    <div class="With_detailsState">
+                        <h3>$DrawOrder.DrawMoney.ToString("c2")</h3>
+                        <p class="With_detaStateCol">$DrawOrder.GetOrderStateText()</p>
+                    </div>
+                    <h3 class="Withdrawals_balanceTime pad_lr"><span class="fr col_999">$DrawOrder.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>创建时间</h3>
+                </div>
+                $else
+                <!--<!--提现到银行卡-->
+                <div class="With_detailsTop bg_fff">
+                    <h3 class="With_detailsBank"><img src="$DefaultBank.B.Icon" />$DrawOrder.BankName</h3>
+                    <div class="With_detailsState">
+                        <h3>$DrawOrder.DrawMoney.ToString("c2")</h3>
+                        <p class="With_detaStateCol" style="color:#68c164">$DrawOrder.GetOrderStateText()</p>
+                    </div>
+                </div>
+                <!--提现进度-->
+                <div class="With_detaSpeed clearfix bg_fff">
+                    <h3>提现进度</h3>
+                    <div class="purchaseall_logistics">
+                        <ul>
+                            <li class="clearfix">
+                                <div class="fl purchaseall_logiLe">
+                                    <span class="withdrawals_icon withdrawals_speedicon"></span>
+                                </div>
+                                <div class="fl">提交申请</div>
+                                <div class="fr purchaseall_logiRe col_999">$DrawOrder.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</div>
+                            </li>
+                          
+                            <li class="clearfix">
+                                <div class="fl purchaseall_logiLe">
+                                    <span class="withdrawals_icon withdrawals_speedicon"></span>
+                                </div>
+                                <div class="fl">审核中</div>
+                                <div class="fr purchaseall_logiRe col_999">$DrawOrder.ProcessingDateTime.ToString("yyyy-MM-dd HH:mm:ss")</div>                              
+                            </li>
+                            
+                            $if(DrawOrder.OrderState.ToString()=='TradeSuccess')
+                            <!--成功显示的图标样式-->
+                            <li class="clearfix">
+                                <div class="fl purchaseall_logiLe">
+                                    <span class="withdrawals_icon withdrawals_speedSuccess"></span>
+                                </div>
+                                <div class="fl">提现成功</div>
+                                <div class="fr purchaseall_logiRe col_999"> $DrawOrder.TradeSuccessDateTime.ToString("yyyy-MM-dd HH:mm:ss")</div>
+                            </li>
+                            $end
+                            $if(DrawOrder.OrderState.ToString()=='AuditFaiure')
+                            <!--失败显示的图标样式-->
+                            <li class="clearfix">
+                                <div class="fl purchaseall_logiLe">
+                                    <span class="withdrawals_icon withdrawals_fail"></span>
+                                </div>
+                                <div class="fl" style="color:#f13d3d">提现失败</div>
+                                <div class="fr purchaseall_logiRe col_999">$DrawOrder.AuditFailureDateTime.ToString("yyyy-MM-dd Hh:mm:ss")</div>
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+                </div>
+                <!--提现成功凭证单-->
+                $if(DrawOrder.OrderState.ToString()=='TradeSuccess')
+                <div class="withdrawals_SuccessTxt bg_fff">
+                    <h3 class="pad_lr"><span class="fr col_999" style="font-size:.7rem">$DrawOrder.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>创建时间</h3>
+                    <div class="withdrawals_Numbers col_333 pad_lr">转账单号  $DrawOrder.OrderId</div>
+                    <ul class="withdrawals_SuccessLi clearfix pad_lr">
+                        $foreach(img in CredentialImgs)
+                        <li>
+                            <div><img src="$img"></div>
+                            <div>凭证单</div>
+                        </li>
+                        $end                
+                    </ul>
+                </div>
+                $end
+                $if(DrawOrder.OrderState.ToString()=='AuditFailure')
+                <!--提现失败原因，审核中则无-->
+                <div class="withdrawals_SuccessTxt bg_fff">
+                    <h3 class="pad_lr col_333"><span class="fr col_999" style="font-weight:normal">$DrawOrder.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>创建时间</h3>
+                    <h3 class="pad_lr col_333" style="border:none;">失败理由</h3>
+                    <div class="pad_lr">
+                        $DrawOrder.RefusalReasons
+                    </div>
+                </div>
+                $end
+                $end
+            </div>
+        </div>
+        <!-- content -->
+    </div>
+
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

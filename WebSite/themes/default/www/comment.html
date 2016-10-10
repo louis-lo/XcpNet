@@ -1,0 +1,103 @@
+﻿$foreach(item in CommentList)
+$set(map=clr.Cnaws.Product.ProductOrderMapping.GetById(this.DataSource,item.TargetData,item.TargetId))
+$set(info=json(map.ProductInfo))
+$if(State!=2)
+<div class="com-table-main">
+    <div class="comments-item">
+        <div class="com-item-main clearfix">
+            <div class="column column1 fl">
+                <div class="grade-star g-star5_$item.Star">
+                </div>
+                <div class="comment-day type-item">
+                    <!--收货14天后评论-->
+                </div>
+                <div class="comment-time type-item">
+                    $item.CreationDate.ToString("yyyy-MM-dd HH:mm")
+                </div>
+                <div class="comment-name type-item">
+                    $info.Title
+                </div>
+                <div class="features type-item">
+                    <ul class="clearfix"></ul>
+                </div>
+            </div>
+            <div class="column column2 fl">
+                <div class="p-comment">
+                    $item.Content
+                </div>
+                <div class="p-otherFeatures">
+                    <ul class="clearfix"></ul>
+                </div>
+                <div class="J-p-show-img p-show-img clearfix">
+                    <ul class="clearfix">
+                        $foreach(img in item.GetImages(this.DataSource))
+                        <li>
+                            <div class="J-show-more-pic">
+                                <img alt="评论图片" src="$img.Image">
+                            </div>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <div class="column column3">
+                <div class="user-item clearfix">
+                    <img class="user-ico" width="25" height="25" src="$item.UserImage">
+                    <div class="user-name">
+                        $item.GetUserName()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+$else
+<div class="shait clearFix">
+    <div class="comment_print fl">
+        $foreach(img in item.GetImages(this.DataSource))
+        <img src="$img.Image" width="500">
+        $end
+    </div>
+    <div class="userpl fr">
+        $item.Content
+        <div class="usernameWrap user-item clearfix">
+            <div class="canshu fl">
+                $foreach(attr in info.Series)
+                <p>$attr.Key：$attr.Value</p>
+                $end
+            </div>
+            <div class="userTx fr">
+                <img class="user-ico" width="25" height="25" alt="$item.GetUserName()" src="$item.UserImage">
+                <div class="user-name fr">$item.GetUserName()</div>
+                <p>$item.CreationDate.ToString("yyyy-MM-dd HH:mm")</p>
+            </div>
+        </div>
+    </div>
+</div>
+$end
+$end
+<div class="center_pageWrap clearFix">
+    <div class="center_pageBox fr clearFix">
+        <ul class="clearFix fl">
+            $if(CommentList.BeginPage>1)
+            <li class="page_prev">
+                <a href="javascript:;" class="pageprev_unprint pageprev_img" onclick="return getCommentList($CommentList.PageIndex - 1)">&lt;上一页</a>
+            </li>
+            <li class="page_numer itme"><a href="javascript:;" onclick="getComment(1)">1</a></li>
+            <li class="dot">...</li>
+            $end
+            $for(i=CommentList.BeginPage;i<=CommentList.EndPage;i++)
+            $if(i==CommentList.PageIndex)
+            <li class="page_numer"><a href="javascript:;" class="active">$i</a></li>
+            $else
+            <li class="page_numer"><a href="javascript:;" onclick="getComment($i)">$i</a></li>
+            $end
+            $end
+            $if(CommentList.PagesCount>CommentList.EndPage)
+            <li class="dot">...</li>
+            <li class="page_numer"><a href="javascript:;" onclick="getComment($CommentList.PagesCount)">$CommentList.PagesCount</a></li>
+            <li class="page_next page_prev"><a class="pageprev_next pageprev_print pagenext_img" href="javascript:;" onclick="getComment($CommentList.PageIndex + 1)">下一页&gt;</a></li>
+            $end
+        </ul>
+    </div>
+</div>

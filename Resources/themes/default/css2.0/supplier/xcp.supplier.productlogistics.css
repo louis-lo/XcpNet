@@ -1,0 +1,67 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){
+body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+table{border-spacing:0;border-collapse:collapse;}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.w1000{ width:1200px; height:auto; overflow:hidden; margin:0 auto;}
+.w1001{ padding-top: 2px;overflow:hidden;position: absolute;}
+.mt{margin-top:10px;}
+input,button {outline:none;border: 0;background: #fff;}
+i{font-style: normal;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto; min-height:680px}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:100px;border-bottom:2px solid #ff3f08;text-align: center;font-size: 16px;}
+
+.tableTrHeader{border:1px solid #e5e5e5;margin-top: 15px;height: 35px;background: #fafafa;margin-bottom: 12px;}
+.heartTh{width:365px;}
+.tableTrTop td{text-align: left;background: #f1f1f1;height: 42px;padding-left: 20px;}
+.tableTrTop span{margin-left: 40px;color:#666;}
+.heartDelivInf{border:1px solid #e5e5e5;text-align: center;font-family: "simsun";}
+.heartInformation a{display: block;padding:15px 20px;}
+.heartDelivMs{width: 230px;margin-left: 10px;color: #000;height: 85px;overflow: hidden;text-align: left;}
+.heartDelivMs p{color: #666;font-family: "simsun";}
+.numberTh{width: 100px;}
+
+.tableTd{width: 365px;}
+.pricTd{width: 143px;}
+.numberTd{width: 92px;}
+.stutasTd{width: 120px;}
+.receiptTd{width: 152px;border-left: 1px solid #e5e5e5;}
+.stockTd{border-left: 1px solid #e5e5e5;}
+/* .stockTd a{ padding: 8px 20px;border:1px solid #e2e2e2;border-radius: 3px;background: #f5f5f5;}
+.stockTd a:hover{background: #fff;border:1px solid #ff340d;color: #ff340d;transition: 0.5s;}
+ */.merchantTd{text-align: left;border-top:  1px solid #e5e5e5;height: 25px;padding-left: 24px;color: #666;}
+.merchantTd span{margin-left: 22px;}
+.center_addAddressTitle{background: #ebebeb;height: 41px;text-align: center;font-family: "simsun";line-height: 41px;font-size: 14px;}
+.new_addressWrap{padding:15px 10px;}
+.new_addressLeft span{display: block;}
+.new_addressRint .checkWidth{width: 292px;height: 30px;margin-bottom: 20px;border:1px solid #e2e2e2;}
+.expressName{margin-top: 2px;}
+.expressN{margin-top: 30px;}
+.new_addressRint{margin-left: 5px;}
+
+/* 你的包裹已被签收 开始 */
+.packageSign_title{margin-top: 10px;padding: 15px;background: #f3f3f3;border-bottom:1px solid #e2e2e2;font-size: 16px;}
+/* 你的包裹已被签收 结束 */
+
+/* 物流部分 */
+.package-status .status-list li::before {background-color: #d9d9d9;border: 3px solid #f3f3f3;border-radius: 5px;content: "";display: inline-block;height: 5px;margin-left: -6px;margin-right: 10px;width: 5px;}
+.package-status .status-list li {margin-bottom: -2px;}.package-status .status-list li {height: auto;min-height: 30px;}.package-status .status-list li {border-left: 1px solid #d9d9d9;height: 36px;margin-top: -5px;}.package-status {padding: 18px 0 0;}
+.package-status .status-box::before{content: " ";display: block;height: 4px;left: 20px;position: absolute;top: -2px;width: 10px;}.package-status .status-box{position: relative;}.package-status .status-box{overflow: hidden;}.package-status .status-list{margin-top: 0;font-size: 12px;list-style: outside none none;padding:10px 22px 30px;}.package-status .status-list .date{width: 78px;}.package-status .status-list .date, .package-status .status-list .week, .package-status .status-list .time{display: inline-block;}.package-status .status-list .date{font-weight: 600;margin-right: 8px;}.package-status .status-list .week{width: 32px;font-weight: 700;}.package-status .status-list .time{width: 48px;}.package-status .status-list .time{margin-left: 5px;margin-right: 28px;}.package-status .status-list .text{display: inline-block;line-height: 1.5em;vertical-align: text-top;width: 635px;}.hidden{visibility: hidden;}.package-status .status-box .status-list .latest::before{background-color: #fe4300;border-color: #f8e9e4;}.package-status .status-box .status-list .latest{border: medium none;padding-bottom: 15px;border-bottom: 1px solid #e2e2e2;}			
+.package-status .status-list li.latest::before{margin-left:-5px}
+
+.packageSign_wrap{background: #f3f3f3;}
+.orderAddress_wrap{margin-top: 35px;border-top:1px solid #e2e2e2;padding:20px 0;}
+.orderAddress_wrap .orderLeft{margin-right: 20px;}
+.Address_wrap .addressLeft span{width: 60px;display: block;text-align: right;}
+.Address_wrap .addressRight span{display: block;}
+.Address_wrap .addressRight i{font-style: normal;}
+.heartDelivImg img{width: 80px;height: 72px;}

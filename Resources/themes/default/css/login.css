@@ -1,0 +1,47 @@
+/* BEGIN main */
+.main {
+	min-height: 420px;
+}
+.main .content-wrap	 {
+	position: relative;
+}
+.main .bg {
+	position: absolute;
+	top: 60px;
+	left: -35px;
+}
+/* END main */
+
+/* BEGIN login-form */
+.login-form {
+	position: absolute;
+	top: 30px;
+	right: 0;
+	width: 502px;
+}
+.form-body {
+	padding-top: 22px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.form-body .input-box label {
+	width: 60px;
+}
+.form-body .input-box input {
+    text-indent: 60px;
+	width: 348px;
+}
+.form-body .tip_01 #remember{
+    width: 80px;
+}
+.form-body .tip_02 {
+	margin-top: 15px;
+}
+.form-body .tip_02 a {
+	color: #F60;
+}
+/* END login-form */
+
+.jqx-validator-error-label {
+    text-indent: 60px !important;
+}

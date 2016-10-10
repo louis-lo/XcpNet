@@ -1,0 +1,37 @@
+﻿<link href="//res.xcpnet.com" rel="dns-prefetch" />
+<link href="//static.xcpnet.com" rel="dns-prefetch" />
+<link href="//passport.xcpnet.com" rel="dns-prefetch" />
+<link href="//help.xcpnet.com" rel="dns-prefetch" />
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+<link rel="stylesheet" type="text/css" href="$res('css2.0/style.css')" />
+<script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcore.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxnotification.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+<script type="text/javascript" src="//supplier.xcpnet.com/index/management.html"></script>
+
+
+<script type="text/javascript">
+    Cnaws.Init({
+        urlExt: '$ext',
+        resourcesUrl: '$this.Application.Settings.ResourcesUrl'
+    });
+
+    $(function () {
+        $(".header_bottom_left").mouseover(function () {
+            $(".centerBox").show();
+        });
+        $(".header_bottom_left").mouseout(function () {
+            $(".centerBox").hide();
+        });
+    })
+    $(function () {
+        $(".header_search .header_search_ul li a").click(function () {
+            $(this).addClass("on").parent().siblings().children().removeClass();
+        })
+    });
+</script>
+
+

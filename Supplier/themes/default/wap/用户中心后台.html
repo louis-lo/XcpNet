@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title></title>
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/citygoods.css" />
+<link rel="stylesheet" href="../css/citygoods_admin.css" />
+<script src="../js/zepto.min.js"></script>
+<style>
+.bar.nav_bottom{height: 2.5rem;}
+</style>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="bar nav_bottom bar-footer">
+			<ul class="clearfix">
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_city.png"></div>
+						<div>城品惠</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_village.png"></div>
+						<div>乡道馆</div>
+					</a>
+				</li>
+				<li class="on">
+					<a href="#">
+						<div><img src="../img/xpc_purchaseOn.png"></div>
+						<div>进货宝</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_activity.png"></div>
+						<div>活动区</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div><img src="../img/xcp_my.png"></div>
+						<div>我的</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="content native-scroll" style="top:0">
+			<div class="purchasemy_top col_fff bg_fff">
+				<div class="pad_lr clearfix">
+					<div class="purchasemy_topLe fl">
+						<div class="purchasemy_portrait" style="background:url(../img/purchasemy_portrait.png) no-repeat;background-size:cover;"></div>
+					</div>
+					<div class="purchasemy_topCon fl">
+						<div>昵称：JERRY</div>
+						<div>余额：¥850</div>
+						<div>用户中心后台</div>
+					</div>
+					<div class="purchasemy_switch"><a href="#" class="col_fff">切换到加盟商后台</a></div>
+				</div>
+			</div>
+			
+			<div class="purchasemy_order bg_fff">
+				<div class="purchasemy_orderTop pad_lr clearfix col_333">
+					<span class="purchasemy_icon purchasemy_order_icon"></span>
+					全部订单
+					<a href="#" class="fr">
+						<span class="col_666">查看全部订单</span>
+						<span class="purchasemy_icon purchasemy_orderMore"></span>
+					</a>
+				</div>
+				<div class="purchasemy_orderCon">
+					<ul class="clearfix">
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon payment_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">代付款</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon getlibrary_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">出库中</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon deliver_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">待出库</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon receipt_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">待收货</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon evaluate_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">待评价</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div class="purchasemy_icon customer_icon"><span class="admin_thisNumber">1</span></div>
+								<div class="payment_titleTest">售后</div>
+							</a>
+							<span class="customer_arrow_icon"></span>
+						</li>
+					</ul>
+				</div>
+				<div class="way_line"></div>
+				
+				<div class="purchasemy_shopcartNum pad_lr clearfix">
+					<a href="#">
+						<span class="purchasemy_icon purchasemy_shopcartNum1"></span>
+						<span class="purchasemy_shopcartNum2">购物车</span>
+						<span class="fr">
+							<span class="purchasemy_shopcartNum3 col_fff">580</span>
+							<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</span>
+					</a>
+				</div>
+				<div class="way_line"></div>
+			</div>
+			<div class="my_assets bg_fff">
+				<h3 class="pad_lr col_333">资产中心</h3>
+				<div class="purchasemy_shopcartNum pad_lr clearfix borbom_f3">
+					<a href="#">
+						<span class="purchasemy_icon myRecharge_icon"></span>
+						<span class="purchasemy_shopcartNum2">充值</span>
+						<span class="fr">
+							<span class="purchasemy_shopcartNum3" style="background:none">
+								账户余额
+								<span style="color:#e01928">￥<b>1928</b></span>
+							</span>
+							<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</span>
+					</a>
+				</div>
+				<div class="purchasemy_shopcartNum pad_lr clearfix">
+					<a href="#">
+						<span class="purchasemy_icon mybill_icon"></span>
+						<span class="purchasemy_shopcartNum2">我的账单</span>
+						<span class="fr">
+							<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</span>
+					</a>
+				</div>
+			</div>
+			<div class="way_line"></div>
+			<div class="purchasemy_account bg_fff">
+				<h3 class="pad_lr col_333">账户管理</h3>
+				<ul class="col_333">
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon nickname_icon"></span>
+						<span>昵称</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon gender_icon"></span>
+						<span>性别</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon password_icon"></span>
+						<span>登录密码</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<span class="purchasemy_icon address_icon"></span>
+						<span>地址管理</span>
+						<span class="purchasemy_icon purchasemy_shopcartNum4"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="purchasemy_sign pad_lr">
+				<a href="#" class="col_fff">退出登录</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

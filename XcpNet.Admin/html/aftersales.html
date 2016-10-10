@@ -1,0 +1,544 @@
+﻿$if(isset("Order"))
+$set(map=GetMapping(Order.AfterSalesRecord_OrderId,Order.AfterSalesRecord_ProductId))
+$set(info=json(map.ProductInfo))
+$set(addr=json(Order.AfterSalesRecord_Address))
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title">售后详情</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox iboxex float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">订单号：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Order.AfterSalesRecord_Id</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">订单时间：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Order.AfterSalesRecord_CreateDate.ToString()</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">订单状态：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$GetStateString(Order.AfterSalesRecord_ServerState)</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox iboxex float-e-margins">
+                <div class="ibox-title">
+                    <h5>商品信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table id="infoTable" data-show-export="true"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox iboxex float-e-margins">
+                <div class="ibox-title">
+                    <h5>售后原因</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">原因：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Order.AfterSalesRecord_Reason</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">说明：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Order.AfterSalesRecord_Message</p>
+                        </div>
+                    </div>
+                    $if(Order.AfterSalesRecord_ServerState==4)
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">驳回原因：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$Order.AfterSalesRecord_FailMessage</p>
+                        </div>
+                    </div>
+                    $end
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    $if(Order.AfterSalesRecord_ServiceType!=3)
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox iboxex float-e-margins">
+                <div class="ibox-title">
+                    <h5>回寄信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收货人：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$addr.Consignee</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">联系电话：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$addr.Mobile</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">收货地址：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$addr.Province$addr.City$addr.County$addr.Address</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">邮政编码：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$addr.PostId</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    $if(Order.AfterSalesRecord_ServerState==2||Order.AfterSalesRecord_ServerState==3)
+    $set(logistics=clr.Cnaws.Product.Modules.ProductLogistics.GetByOrder(this.DataSource,Order.AfterSalesRecord_Id))
+    $if(logistics!=null)
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox iboxex float-e-margins">
+                <div class="ibox-title">
+                    <h5>物流信息</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">物流公司：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$logistics.ProviderName</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">物流单号：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">$logistics.BillNo</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    $end
+    $end
+    $end
+    <script>
+        $(".collapse-link").click(function () {
+            var o = $(this).closest("div.ibox"),
+                e = $(this).find("i"),
+                i = o.find("div.ibox-content");
+            i.slideToggle(200),
+            e.toggleClass("fa-chevron-up").toggleClass("fa-chevron-down"),
+            o.toggleClass("").toggleClass("border-bottom"),
+            setTimeout(function () {
+                o.resize(),
+                o.find("[id^=map-]").resize()
+            }, 50)
+        });
+        $('#infoTable').DaTab({
+            height: 260,
+            search: false,
+            showExport: false,
+            pagination: false,
+            ajax: null,
+            data: [
+                {
+                    Id: $map.ProductId,
+                    Image: '$info.Image',
+                    Title: '$info.Title',
+                    Url: 'http://${if(this.Channel==1)}www${else}cdb${end}.xcpnet.com$url("/product/show/", map.ProductId)',
+                    Series: [
+                        //$foreach(attr in info.Series)
+                        { Key: '$attr.Key', Value: '$attr.Value' },
+                        //$end
+                    ],
+                    Price: $map.Price.ToString("F2"),
+                    Count: $map.Count,
+                    Unit: '$info.Unit',
+                    DealMoney: $Order.AfterSalesRecord_DealMoney,
+                    RefundMoney: $Order.AfterSalesRecord_RefundMoney,
+                    RefundCount: $Order.AfterSalesRecord_RefundCount,
+                },
+            ],
+            columns: [
+                {
+                    field: 'Id',
+                    title: 'ID',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'Title',
+                    title: '标题',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+                        return '<a href="' + row.Url + '" target="_blank">' + value + '</a>';
+                    }
+                },
+                {
+                    field: 'Image',
+                    title: '图片',
+                    align: 'center',
+                    valign: 'middle',
+                    visible: false,
+                    formatter: function (value, row, index) {
+                        var imgs = value.split('|');
+                        var html = '<div id="carousel' + row.a_Id + '" class="carousel slide">';
+                        html += '<ol class="carousel-indicators">';
+                        for (var i = 0; i < imgs.length; ++i) {
+                            html += '<li data-slide-to="' + i + '" data-target="#carousel' + row.a_Id + '"';
+                            if (i == 0)
+                                html += ' class="active"';
+                            html += '></li>';
+                        }
+                        html += '</ol>';
+                        html += '<div class="carousel-inner">';
+                        for (var i = 0; i < imgs.length; ++i) {
+                            html += '<div class="item';
+                            if (i == 0)
+                                html += ' active';
+                            html += '"><img class="img-responsive" src="' + imgs[i] + '"></div>';
+                        }
+                        html += '</div>';
+                        html += '<a data-slide="prev" href="#carousel' + row.a_Id + '" class="left carousel-control"><span class="icon-prev"></span></a>';
+                        html += '<a data-slide="next" href="#carousel' + row.a_Id + '" class="right carousel-control"><span class="icon-next"></span></a>';
+                        html += '</div>';
+                        return html;
+                    }
+                },
+                {
+                    field: 'Series',
+                    title: '规格',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+                        var arr = [];
+                        for (var i = 0; i < value.length; ++i) {
+                            arr.push(value[i].Key + '：' + value[i].Value);
+                        }
+                        return arr.join('&nbsp;');
+                    }
+                },
+                {
+                    field: 'Price',
+                    title: '单价',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'Count',
+                    title: '数量',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'Unit',
+                    title: '单位',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'DealMoney',
+                    title: '成交总金额',
+                    align: 'center',
+                    valign: 'middle'
+                },
+                {
+                    field: 'RefundCount',
+                    title: '售后数量',
+                    align: 'center',
+                    valign: 'middle',
+                    visible: false
+                },
+                {
+                    field: 'RefundMoney',
+                    title: '售后总金额',
+                    align: 'center',
+                    valign: 'middle'
+                }
+            ]
+        });
+    </script>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+</div>
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Site.Name - 售后管理</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="$res('~/manageres/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/font-awesome.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/switchery/switchery.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/treeview/bootstrap-treeview.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/toastr/toastr.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/animate.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/style.min.css')" rel="stylesheet">
+    <style>
+        .ibox { margin-bottom: 0; }
+        .iboxex { margin-bottom: 25px; }
+        .btn-default *, .btn-default a:hover { color: #676a6c; }
+        .dropdown-menu { left: 0 !important; right: auto !important; }
+        .list-group { border: 0; margin-bottom: 0; }
+            .list-group li { border-radius: 0 !important; }
+        .control-label { text-align: right; }
+        .form-control-static { padding-top: 0; }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content height-begin">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="dataTableToolbar" role="group">
+                                    <div class="btn btn-outline btn-default dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            $TypeName
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="javascript:viewChild(0,$State)">全部类型</a></li>
+                                            <li><a href="javascript:viewChild(1,$State)">退货</a></li>
+                                            <li><a href="javascript:viewChild(2,$State)">换货</a></li>
+                                            <li><a href="javascript:viewChild(3,$State)">退款</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="btn btn-outline btn-default dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            $StateName
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="javascript:viewChild($Type,-99)">全部状态</a></li>
+                                            <li><a href="javascript:viewChild($Type,0)">待审核</a></li>
+                                            <li><a href="javascript:viewChild($Type,1)">待邮寄</a></li>
+                                            <li><a href="javascript:viewChild($Type,2)">处理中</a></li>
+                                            <li><a href="javascript:viewChild($Type,3)">已完成</a></li>
+                                            <li><a href="javascript:viewChild($Type,4)">申请失败</a></li>
+                                            <li><a href="javascript:viewChild($Type,5)">已取消</a></li>
+                                            <li><a href="javascript:viewChild($Type,6)">已驳回</a></li>
+                                            $if(Type==1||Type==3)
+                                            <li><a href="javascript:viewChild($Type,7)">待退款</a></li>
+                                            $end
+                                        </ul>
+                                    </div>
+                                </div>
+                                <table id="dataTable" data-toolbar="#dataTableToolbar" data-show-export="true"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="insertForm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+    <script src="$res('~/manageres/js/jquery.min.js')"></script>
+    <script src="$res('~/manageres/js/bootstrap.min.js')"></script>
+    <script src="$res('~/manageres/js/content.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/toastr/toastr.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/switchery/switchery.js')"></script>
+    <script src="$res('~/manageres/js/plugins/treeview/bootstrap-treeview.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/multiple-search/bootstrap-table-multiple-search.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="$res('~/manageres/js/cnaws.js')"></script>
+    <script src="$res('~/manageres/js/datatable.js')"></script>
+    <script>
+        var table = null;
+        var types = { '1': '退货', '2': '换货', '3': '退款' };
+        var states = { '0': '待审核', '1': '待邮寄', '2': '处理中', '3': '已完成', '4': '申请失败', '5': '已取消', '6': '已驳回', '7': '待退款' };
+        function viewChild(t, s) {
+            location.href = Cnaws.getUrl('$url(this.Path,"/index/")' + t + '/' + s);
+        }
+        function initWindow(id) {
+            Cnaws.ajax({
+                method: 'GET',
+                type: 'html',
+                url: Cnaws.getUrl('$url(this.Path,"/info/")' + id)
+            }, function (data) {
+                $('#modal-content').html(data);
+                $('#insertForm').modal('show');
+            });
+        }
+        $().ready(function () {
+            Cnaws.init({
+                urlExt: '$ext',
+                resourcesUrl: '$this.Application.Settings.ResourcesUrl',
+                passportUrl: '$this.Application.Settings.PassportUrl'
+            });
+
+            table = $('#dataTable').DaTab({
+                search: false,
+                //showExport: false,
+                //enableSearchTypes: true,
+                //searchType: $Type,
+                //searchTypes: [
+                //    { value: 0, text: '订单号码' },
+                //    { value: 1, text: '供应商账号' },
+                //    { value: 2, text: '用户账号' },
+                //    { value: 3, text: '时间(格式：2016-12-12|2016-12-13)' },
+                //    { value: 4, text: '收货人的姓名' },
+                //    { value: 5, text: '订单金额' }
+                //],
+                idField: 'AfterSalesRecord_Id',
+                uniqueId: 'AfterSalesRecord_Id',
+                loadUrl: Cnaws.getUrl('$url(this.Path,"/list/", Type, "/", State, "/")' + '{page}'),
+                columns: [
+                    {
+                        field: 'AfterSalesRecord_Id',
+                        title: '售后编号',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'AfterSalesRecord_ServiceType',
+                        title: '售后类型',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return types[value];
+                        }
+                    },
+                    {
+                        field: 'Member_Name',
+                        title: '会员账号',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'Member_Mobile',
+                        title: '会员手机',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'AfterSalesRecord_OrderId',
+                        title: '产品订单',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'AfterSalesRecord_RefundMoney',
+                        title: '售后金额',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'AfterSalesRecord_RefundCount',
+                        title: '售后数量',
+                        align: 'center',
+                        valign: 'middle',
+                        visible: false
+                    },
+                    {
+                        field: 'AfterSalesRecord_CreateDate',
+                        title: '申请时间',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return (new Date(value * 1000)).format('yyyy-MM-dd hh:mm:ss');
+                        }
+                    },
+                    {
+                        field: 'AfterSalesRecord_ServerState',
+                        title: '售后状态',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return states[value];
+                        }
+                    },
+                    {
+                        field: 'action',
+                        title: '操作',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            var arr = ['<a class="edit" href="javascript:void(0)" onclick="initWindow(\'' + row.AfterSalesRecord_Id + '\')">查看详情</a>'];
+                            if (row.AfterSalesRecord_ServiceType == 1 || row.AfterSalesRecord_ServiceType == 3) {
+                                if (row.AfterSalesRecord_ServerState == 7) {
+                                    arr.push(' <a class="edit" href="javascript:void(0)" onclick="return false">退款</a>');
+                                }
+                            }
+                            return arr.join('');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
+$end

@@ -1,0 +1,25 @@
+.panel {
+	min-height: 570px;
+}
+.panel-body {
+	padding-top: 20px;
+	padding-bottom: 35px;
+}
+.panel-body th,
+.panel-body td {
+	padding-top: 10px;
+}
+.panel-body select {
+	width: 80px;
+	margin-right: 5px;
+}
+.panel-body input[type="text"] {
+	width: 150px;
+}
+.panel-body th {
+	width: 130px;
+	text-align: right;
+}
+.panel-body th span {
+	color: red;
+}

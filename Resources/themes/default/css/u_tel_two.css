@@ -1,0 +1,45 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{width:100%; height:auto;}
+.w1000{width:1200px; height:auto; margin:0 auto;}
+.mt{margin-top:10px;}
+input{outline:none;border: 0;background: #fff;}
+button{border:0;outline:none;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+
+.recharge_wrap{width: 943px;border:1px solid #e2e2e2;margin: 0 auto;margin-bottom: 60px;padding-bottom: 60px;}
+.recharge_wrap h2{margin-top: 55px;color: #666;margin-left:55px;}
+.verify{margin-left: 187px;}
+.recharge_left{margin-top: 18px;}
+.recharge_left span{display: block;font-size: 14px;color: #333;font-family: "宋体";}
+.recharge_left .phone{margin-top: 9px;}
+.recharge_left .value{margin-top: 35px;}
+.recharge_left .price{margin-top: 34px;}
+.recharge_right{margin-top: 18px;}
+.phoneNumber{border:1px solid #7abd54;width: 235px;height: 35px;color: #999;margin-left: 18px;}
+.phoneNumber input{height:35px;width: 140px;padding-left: 10px;font-size: 18px;}
+.recharge_right span{color: #439e1b;margin: 7px 10px;} 
+.sum{margin-top: 25px;}
+.sum ul li{border:1px solid #e2e2e2;float: left;margin-left:18px;line-height: 28px;text-align: center;margin-bottom: 20px;cursor: pointer; }
+.sum ul li a{font-size: 14px;width: 52px;height: 28px;display: block;}
+.pric{color: #e4393c;font-size: 13px;margin-left: 15px;margin-top: 10px;}
+.pric span{color:#ff7300;}
+
+.pay_wrap{border-top:1px solid #e2e2e2;margin-top: 37px;}
+.pay_mode{padding:0 75px;margin-top: 60px;}
+.pay_mode ul{margin-top: 10px;}
+.pay_mode ul input{margin-top: 10px;}
+.pay_mode ul li{border:1px solid #e2e2e2;padding:10px 20px;border-bottom:none;}
+.pay_mode ul li:last-child{border-bottom:1px solid #e2e2e2;}
+.pay_mode ul li span{font-size: 16px;display: table-cell;vertical-align: middle;margin-left: 20px;}
+.recharge_button{margin-top: 50px;margin-left: 72px;font-size: 16px;}
+.recharge_button span{font-size: 25px;color: #e54043;}
+.recharge_button button{width: 135px;height: 35px;font-size: 16px;color: #fff;background: #e54043;border-radius: 4px;margin-left: 38px;}
+.recharge_button a{color: #005ea7;margin-left: 8px;vertical-align: middle;font-size: 12px;}

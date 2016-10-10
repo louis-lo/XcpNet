@@ -1,0 +1,50 @@
+<!-- BEGIN top -->
+
+<style type="text/css">
+    .phone a {
+        cursor: default;
+    }
+
+    .phone .dd {
+        display: none;
+        position: absolute;
+        margin-left: -50px;
+    }
+</style>
+<div id="top">
+    <div class="content-wrap">
+        <a class="f-left back-home" href="$url(Site.Url)">$Site.Name</a>
+        <ul class="f-right">
+            $if(this.IsLogin)
+            <li>$this.User.Identity.Name</li>
+            <li><a href="$passport('/ucenter')">会员中心</a></li>
+            <li><a href="$passport('/logout')">退出</a></li>
+            $else
+            <li><a href="$passport('/login')">登录</a></li>
+            <li><a href="$passport('/register')">注册</a></li>
+            $end
+            <li class="phone">
+                <a href="#">手机</a>
+                <div class="dd">
+                    <div class="dd-spacer"></div>
+                    <div class="dd-inner" id="ttbar-atte-main">
+                        <img src="$res('img/phone_qr.png')" width="100">
+                    </div>
+                </div>
+            </li>
+            $if(this.Request.Url.ToString().ToLower().IndexOf("article")<=0)
+            <li><a href="http://www.xcpnet.com/article/list/3.html" target="_blank">帮助中心</a></li>
+            $end
+        </ul>
+    </div>
+</div>
+<!-- END top -->
+<script>
+    $(function () {
+        $('li.phone').mouseover(function () {
+            $(this).find('.dt, .dd').show();
+        }).mouseleave(function () {
+            $(this).find('.dt, .dd').hide();
+        });
+    })
+</script>

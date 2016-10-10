@@ -1,0 +1,67 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){
+body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+table{border-spacing:0;border-collapse:collapse;}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.w1000{ width:1200px; height:auto; overflow:hidden; margin:0 auto;}
+.w1001{ padding-top: 2px;overflow:hidden;position: absolute;}
+.mt{margin-top:10px;}
+input,button {outline:none;border: 0;background: #fff;}
+i{font-style: normal;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px; float:right;margin-top:10px; min-height:680px}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:75px;border-bottom:2px solid #ff3f08;text-align: center;font-size: 16px;}
+
+.applyJdWrap{border:1px solid #e5e5e5;height: 170px;background: #fafafa;margin: 10px 0 20px;}
+.applyJdPrint{margin:20px auto 0;background: url("../../img2.0/supplier/first.png") no-repeat;width: 605px;height: 31px;}
+.applyJdWz{margin:16px auto 0;width: 690px;color: #333;}
+.applyJdWz ul li{float: left;font-size: 16px;}
+.applyJdWz ul .firstLi{margin-left: 18px;} .applyJdWz ul .conLi{margin-left: 195px;}.applyJdWz ul .lastLi{margin-left: 200px;}
+.applyJdDate{width: 748px;margin:2px auto 0;}
+.applyJdDate ul li{float: left;font-family: "simsun";color:#666;}
+.applyJdDate ul .dateconLi{margin-left: 170px;}.applyJdDate ul .datelastLi{margin-left: 182px;}
+.applyJdDate ul .datefirstLi{margin-left: 31px;}
+
+.thisStatusWrap{height: 20px;margin-top: 15px;background: url("../../img2.0/supplier/ture.png") 28px 0px no-repeat;}
+.thisStatusWrap span{font-size:16px;margin-left: 62px;color: #f84f00;}
+.thisStatusWrap i{color: #f9150a;}
+
+.orderInformationT{margin: 10px 0 20px;}
+.takeGoodsIn{border:1px solid #e2e2e2;padding:0 0 12px;}
+.orderInformationT td{padding-top: 12px;}
+.takeGoodsIn td{border:0;}
+.orderICharT{text-align: right;width: 76px;}
+.information{border:1px solid #e5e5e5;}
+.information th{background: #fafafa;height: 35px;}
+.tableTd{width: 365px;}
+.heartInformation a{display: block;padding:15px 20px;}
+.heartDelivMs{width: 230px;margin-left: 10px;color: #000;height: 85px;overflow: hidden;text-align: left;}
+
+.heartDelivImg img{width: 80px;height: 72px;}
+.information td{border:1px solid #e5e5e5;text-align: center;}
+.inforTd{width: 196px;}
+.dpricTd{width: 154px;}
+.numberTd{width: 122px;}
+.pricTd{width: 156px;color: #f74c04;}
+.totalTd{height:42px ;background: #fafafa;color:#666;}
+.totalTdPric i{color: #f74c04;font-size: 14px;}
+.totalTdPric span{font-size: 16px;color: #333;}
+.information .totalTdPric{text-align: right;color:#666;background: #fafafa;}
+.information .totalTd{text-align: left;padding-left: 110px;}
+.shipments{text-align: right;}
+.shipments a{width: 90px;height: 30px;line-height: 30px;display: inline-block;background: #f74c04;color: #fff;text-align: center;font-size: 14px;font-family: "simsun";border-radius: 2px;}
+
+
+
+
+
+
+

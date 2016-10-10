@@ -1,0 +1,50 @@
+.purchase_icon{background:url(../../img2.0/jhb/purchase_icon.png) no-repeat;display:inline-block;}
+.borbom{border-bottom:1px solid #e5e5e5}
+.content.order_goodsTop{top:24%;width:90%;height:6%;left:5%;bottom:auto;z-index:91;text-align:center;font-size:.8rem;border-radius:.15rem .15rem 0 0}
+.content.order_goodsCon{top:30%;width:90%;height:37%;left:5%;bottom:auto;z-index:91;}
+.content.order_goodsBom{top:67%;width:90%;height:6%;left:5%;bottom:auto;z-index:91;}
+.order_goodsCon ul li{margin:10px 10px 0;}.order_goodsCon ul li.borbom{border-color:#f3f3f3;}
+.purchase_ReceiptBottom{position:fixed;bottom:0;background:#fff;height:2.5rem;width:100%;box-sizing: border-box;}
+.city_add_address{text-align:right;padding:.5rem .75rem;}
+.purchase_edit_icon{width:20px;height:20px;background-size:395px 51px;background-position:-372px 1px;vertical-align:middle;margin-right:5px;}
+.receipt_detaCon_main{width: 100%;}
+.receipt_detaCon_Le{width: 200px;margin-left: -100%;position: relative;left: -1.2rem;}
+.receipt_detaContacts{padding:.5rem .75rem;line-height:1.2rem;}
+.receipt_detaContacts h3{color:#555;font-size:.7rem;font-weight:normal;}
+.receipt_detainfo{zoom: 1;overflow: hidden;padding-left:1.2rem;}
+.content-block ul .purchaseall_Test{display: -webkit-box;display: -moz-box;display: -ms-box;display: -o-box;display: box;box-sizing: border-box;padding: .3rem .75rem;}
+.purchaseall_Le{
+width: 4rem;height: 4rem;margin-right: .293rem;overflow: hidden;background: #fff;
+-webkit-box-pack: center;-moz-box-pack: center;-ms-box-pack: center;-o-box-pack: center;box-pack: center;
+-webkit-box-align: center;-moz-box-align: center;-ms-box-align: center;-o-box-align: center;box-align: center;
+display: -webkit-box;display: -moz-box;display: -ms-box;display: -o-box;display: box;}
+.purchaseall_Le img{height:4rem;width:4rem;vertical-align:middle;}
+.purchaseall_Con{-webkit-box-flex: 1;-moz-box-flex: 1;-ms-box-flex: 1;-o-box-flex: 1;box-flex: 1;line-height: 1.4;}
+.purchaseall_Con h3{font-size:.7rem;font-weight:normal;}
+.purchaseall_Con .Coninfo{font-size:.6rem;margin-top: .3rem;}
+.purchaseall_Re{width:3.5rem;text-align: right;display: -webkit-box;display: -moz-box;display: -ms-box;display: -o-box;display: box;-webkit-box-orient: vertical;}
+.purchaseall_Txt{text-align:right;line-height:1.8rem;}
+.purchaseall_Sub a{padding:0 0.5rem;font-size:.8rem;border-radius:.15rem;line-height:1.5rem;background:#ff7300;margin-top:.5rem;}
+.city_message_txt{padding:.5rem .75rem;}
+.purchaseall_reason textarea{resize:none;width:100%;border:none;padding:2%;height:1.6rem;background:#eee;border-radius:.15rem;}
+.purchase_address_icon{width:24px;height:24px;background-size:395px 51px;background-position:-342px -27px;}
+.purchase_shop_icon{width:22px;height:22px;background-size:395px 51px;background-position:-370px -29px;vertical-align:middle;}
+/* top class*/
+.close_icon{display:inline-block;width:24px;height:24px;background-size:338px 44px;background-position:-103px 5px;}
+.close_popup{padding:.5rem 0 0;}
+.paymentback_icon{display:inline-block;width:1rem;height:1rem;background:url(../../img2.0/jhb/paymentback_icon.png) center no-repeat;background-size:70%;}
+.Product_class{margin:0;padding:0;}
+.buttons-row{width:27.5%;display:block;}
+.Product_class .tabs .tabs{width:68%;}
+.buttons-row .button{background:#f1f1f1;border:none;line-height:1.8rem;height:1.8rem;color:#333;margin-left:0;}
+.buttons-row .button.active{background:#fff;color:#333;}
+.buttons-row .button:first-child,.buttons-row .button:last-child{border-radius:0;border-left-width:0px;}
+.tabs ul li{margin:0 .5rem .5rem 0;height:1.5rem;line-height:1.5rem;padding:0 .25rem;text-align:center;border-radius:.15rem;}
+.tabs_class .tabs ul li{height:1.8rem;line-height:1.8rem;text-align:left;padding:0;margin:0;}
+/*tab*/
+.popup-about .content-block{margin:0;}
+.purchaseall_tab{margin:2.5rem 0;height:auto;overflow:hidden;}
+.content-block{padding: 0;margin:.3rem 0 0;}
+.buttons-tab .button{padding:0 0;font-size:.75rem;color:#333;}
+.buttons-tab .button.active{border-bottom:3px solid #ff7300;color:#ff7300;}
+

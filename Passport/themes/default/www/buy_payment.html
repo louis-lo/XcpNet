@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>去结算 - $Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cph.pc.payment.min.css')">
+    $load("inc/comm.html")
+    <style>
+        .header_bottom {
+            border-bottom: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    <div class="headerBottom_wrap w100">
+        <a href="$Site.Url" target="_blank">
+            <div class="header_bottom w1000 clearFix"><img src="$res('img2.0/logo.png')" class="fl"></div>
+        </a>
+    </div>
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap">
+        <div class="center_wrapBox w1000 clearFix">
+            <div class="center_wrapBoxLeft fl">
+                请你及时付款，以便订单尽快处理！共  笔订单
+            </div>
+            <div class="center_wrapBoxRight center_wrapBoxLeft fr">应付总金额：<i class="fb">$TotalMoney.ToString("c2")</i>元</div>
+        </div>
+        <table align="center" border="0" width="100%" class="order_hao ">
+            <tr class="trOne">
+                <td class="tdOne">订单号</td>
+                <td class="tdOne">商家</td>
+                <td class="tdOne">数量</td>
+                <td class="tdOne">金额</td>
+            </tr>
+            $foreach(order in OrderList)
+            <tr>
+                <td class="tableOne">
+                    $order.Id
+                </td>
+                <td class="tableOne">
+                    $order.GetStoreName(this.DataSource)
+                </td>
+                <td class="tableOne">
+                    $order.GetCount(this.DataSource)
+                </td>
+                <td class="tableOne">
+                    $order.TotalMoney.ToString("c2")
+                </td>
+            </tr>
+            $end
+        </table>
+    </div>
+    <!-- 支付方式 开始 -->
+    <div class="center_payWayBox w1000 ">
+        <div class="payprint fl"></div>
+        <a href="javascript:history.go(-1);" class="fr">返回</a>
+        <div class="pay_mode center_address">
+            <ul class="clearFix">
+                <li class="clearFix" id="border_li">
+                    <form action="$url('/buy/submit/balance')" method="post">
+                        <input type="hidden" name="Id" value="$OrderId" />
+                        <input type="password" name="PayPassword" />
+                        <div>
+                            <input type="radio" name="payRadio" autocomplete="off" class="fl" checked="checked" v="1" />
+                            <span class="yepayWay"><i class="ye"></i>余额支付</span>
+                            <div class="ablemoney_span ablemoney_spantwo" style="display:block">
+                                <span>可用余额<i>$Money.ToString("c2")</i></span>
+                                <span class="fr">支付<i>$TotalMoney.ToString("c2")</i></span>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="clearFix">
+                    <form action="$url('/buy/makeqr/wxpay')" method="post">
+                        <input type="hidden" name="Id" value="$OrderId" />
+                        <div>
+                            <input type="radio" name="payRadio" autocomplete="off" class="fl" v="2" />
+                            <span class="yepayWay"><i class="wx ye"></i>微信扫码支付</span>
+                            <div class="ablemoney_spantwo ablemoney_span">
+                                <span class="fr">支付<i>$TotalMoney.ToString("c2")</i></span>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="clearFix">
+                    <form action="$url('/buy/submit/alipaydirect')" method="post">
+                        <input type="hidden" name="Id" value="$OrderId" />
+                        <div>
+                            <input type="radio" name="payRadio" autocomplete="off" class="fl" v="3" />
+                            <span class="yepayWay"><i class="zfb ye"></i>支付宝支付</span>
+                            <div class="ablemoney_spantwo ablemoney_span">
+                                <span class="fr">支付<i>$TotalMoney.ToString("c2")</i></span>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                $if(OrderType==1)
+                <li class="clearFix">
+                    <form action="$url('/buy/submit/cashondelivery')" method="post">
+                        <input type="hidden" name="Id" value="$OrderId" />
+                        <div>
+                            <input type="radio" name="payRadio" autocomplete="off" class="fl" v="4" />
+                            <span class="yepayWay"><i class="hdfk ye"></i>货到付款</span>
+                            <div class="ablemoney_spantwo ablemoney_span">
+                                <span class="fr">收到货后再付款<i>$TotalMoney.ToString("c2")</i></span>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                $end
+            </ul>
+
+            <div class="colseWrap">
+                <div class="center_payPassword ablemoney_spantwo" style="display:block">
+                    $if(HasPayPassword==true)
+                    <div class="center_payPrice">请输入支付密码</div>
+                    <input id="payPwd" type="password" placeholder="请输入支付密码">
+                    <a class="fb" href="$url('/security/default/paypassword')?target=$url('/buy/payment/',OrderId)">忘记支付密码？</a>
+                    <div class="center_payTs" id="pwdTip"><span>密码错误</span></div>
+                    $else
+                    <a href="$url('/security/default/paypassword')?target=$url('/buy/payment/',OrderId)">设置支付密码</a>
+                    $end
+                </div>
+                <div class="cart_button clearFix">
+                    <button class="fb fl" type="button" id="btnPay">确认支付</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 支付方式 结束 -->
+    <!-- 中间 结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script>
+        $(function () {
+            var v = $("input[name='payRadio']:checked").attr("v");
+            if (parseInt(v) != 1 && parseInt(v) != 4) {
+                $(".center_payPassword").hide();
+            }
+
+            $("div.pay_mode ul li").click(function () {
+                var self = $(this);
+                self.parents('ul').find(':radio').attr('checked', false);
+                self.find("input:radio").attr("checked", true);
+                var index = self.parent().find("li").index(this);
+                if (index == 0 || index == 3) {
+                    self.attr("id", "border_li").siblings().attr("id", "");
+                    self.find(".ablemoney_span").show().find(".ablemoney_spantwo").show();
+                    self.siblings().find(".ablemoney_spantwo").hide();
+                    $(".center_payPassword").show();
+                } else {
+                    self.find(".ablemoney_spantwo").show();
+                    self.siblings().find(".ablemoney_spantwo").hide();
+                    self.parent().find("li").eq(0).find(".ablemoney_span").hide();
+                    $(".center_payPassword").hide();
+                    self.attr("id", "border_li").siblings().attr("id", "");
+                }
+            });
+
+            $('#btnPay').click(function () {
+                var form = $('input[name="payRadio"]:checked').parents('form');
+                var payPwd = $('#payPwd');
+                if (payPwd.is(':visible') && payPwd.length > 0) {
+                    var pwdTip = $('#pwdTip');
+                    if (payPwd.val() === '') {
+                        pwdTip.show().find('span').text('请输入支付密码！');
+                        payPwd.addClass('paypwd_error');
+                    }
+                    else {
+                        pwdTip.hide();
+                        payPwd.removeClass('paypwd_error');
+                        $.post('/security/chkPayPwd.html', { PayPassword: payPwd.val() }, function (result) {
+                            if (result.code === -200) {
+                                form.submit();
+                            }
+                            else {
+                                pwdTip.show().find('span').text('支付密码错误！');
+                            }
+                        }, 'json');
+                    }
+                }
+                else {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

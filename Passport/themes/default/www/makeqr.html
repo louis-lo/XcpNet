@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微信支付</title>
+    $load("inc/comm.html")
+    <style>
+        @charset "utf-8";
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+            line-height: 22px;
+            font-family: Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";
+            background: #f8f8f8;
+        }
+
+        html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        input, select, textarea {
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        img {
+            border: 0;
+        }
+
+        ul, li {
+            list-style-type: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        a {
+            color: #353535;
+            text-decoration: none;
+        }
+
+        .tc {
+            text-align: center;
+        }
+
+        .tl {
+            text-align: left;
+        }
+
+        .tr {
+            text-align: right;
+        }
+
+        .dis {
+            display: block;
+        }
+
+        .undis {
+            display: none;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .cl {
+            clear: both;
+        }
+
+        .fb {
+            font-weight: bold;
+        }
+
+        .fnb {
+            font-weight: 200;
+            margin-left: -1px;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+            outline: none;
+        }
+
+        .w100 {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+        }
+
+        .w1000 {
+            width: 1200px;
+            height: auto;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .mt {
+            margin-top: 10px;
+        }
+
+        button {
+            border: 0;
+        }
+
+        input {
+            outline: none;
+            border: 0;
+            background: #fff;
+        }
+
+        .clearFix:after {
+            clear: both;
+            display: block;
+            visibility: hidden;
+            height: 0;
+            line-height: 0;
+            content: '';
+        }
+
+        img {
+            display: block;
+        }
+
+        .mt10 {
+            margin-top: 10px;
+        }
+
+        .mt25 {
+            margin-top: 25px;
+        }
+
+        .pr10 {
+            padding-right: 20px;
+        }
+        /* 头部 开始*/
+        .headertop_wrap {
+            background: #fff;
+            height: 94px;
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        .headerLogo {
+            width: 202px;
+            height: 78px;
+            margin-top: 7px;
+            background: url("$res('css2.0/img/scanLogo.png')") no-repeat;
+        }
+
+        .header_top img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .headerTitle {
+            margin-left: 35px;
+            padding: 0 30px;
+            border-left: 1px solid #d4d4d4;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 25px;
+        }
+
+            .headerTitle span {
+                font-size: 22px;
+                color: #666;
+            }
+        /* 头部 结束*/
+        /* 中间 开始*/
+        .centerTitleWrap {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .centerTitlePrint {
+            background: url("$res('css2.0/img/WeChat.png')") no-repeat;
+            height: 46px;
+            width: 46px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .centerTitle span {
+            font-size: 24px;
+        }
+
+        .centerWrap {
+            width: 960px;
+            height: 475px;
+            background: #fff;
+            margin: 25px auto;
+            border-top: 3px solid #df1b25;
+            text-align: center;
+        }
+
+        .scanCodeBox {
+            width: 263px;
+            height: 263px;
+            margin: 60px auto;
+            background: url("$res('css2.0/img/scanCodeCase.png')") no-repeat;
+        }
+
+        .scanCode {
+            padding: 9px;
+            margin: auto;
+        }
+
+        .payPricWrap {
+            color: #e31723;
+            font-size: 34px;
+        }
+        /* 中间 结束*/
+        /* 底部 开始 */
+        .bottom_box {
+            background: #fafafa;
+            padding-bottom: 30px;
+            border-top: 1px solid #e2e2e2;
+        }
+
+        .bottom_foot_box {
+            margin-top: 15px;
+        }
+
+            .bottom_foot_box ul {
+                width: 472px;
+                margin: 0 auto;
+            }
+
+                .bottom_foot_box ul li {
+                    border-right: 1px solid #999;
+                    float: left;
+                    padding: 0 12px;
+                    height: 13px;
+                    line-height: 13px;
+                }
+
+                    .bottom_foot_box ul li a {
+                        color: #666;
+                    }
+
+                    .bottom_foot_box ul li:last-child {
+                        border-right: 0px;
+                    }
+
+        .bottom_section_last {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+            .bottom_section_last p {
+                color: #999;
+                margin-bottom: 2px;
+            }
+        /* 底部 结束 */
+    </style>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    <div class="headertop_wrap w100">
+        <div class="header_top w1000 clearFix">
+            <div class="headerLogo fl"></div>
+            <div class="headerTitle fl">
+                <span><b>扫码支付</b></span>
+            </div>
+        </div>
+    </div>
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="centerTitleWrap w1000">
+        <div class="centerTitle">
+            <em class="centerTitlePrint"></em>
+            <span>微信支付</span>
+        </div>
+
+        <div class="centerWrap">
+            <div class="scanCodeBox">
+                <div class="scanCode">
+                    <img style="width: 245px;height: 245px;" src="$QrUrl">
+                </div>
+            </div>
+            <div class="payPricWrap fb">
+                支付金额：$Money.ToString("C2")
+            </div>
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/reg_login_footer.html")
+    <!-- 底部 结束 -->
+    <script type="text/javascript">
+		 $(document).ready(function () {
+            var getstate=setInterval(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "$url('/buy/getorderstate/',OrderId)",
+                    dataType: "Json",
+                    async: false,
+                    success: function (data) {
+                        if (data.code == -200) {
+                            clearInterval(getstate);
+                            Cnaws.showSuccess('恭喜您，支付成功！<br/>系统正在跳转中......');
+                            setTimeout(function () {
+                                window.location.href = "$url('/buy/payResult/1')";
+                            }, 2000);
+                        }
+                    }
+                })
+            }, 1000);
+        })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>产品上架管理-下架</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/style.css')" />
+    $load("inc/s_comm.html")
+    <script src="$res('js2.0/jquery.zoom.js')"></script>
+    <script type="text/javascript">
+        /*使用jqzoom*/
+        $(function () {
+            $(".jqzoom").jqueryzoom({
+                xzoom: 400, //放大图的宽度(默认是 200)
+                yzoom: 400, //放大图的高度(默认是 200)
+                offset: 10, //离原图的距离(默认是 10)
+                position: "right", //放大图的定位(默认是 "right")
+                preload: 1
+            });
+            $("input[type='text']").focus(function () {
+                $(this).css("border-color", "#ff5820")
+            });
+            $("input[type='text']").blur(function () {
+                $(this).css("border-color", "#ccc")
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/s_top.html")
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/s_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="fr">
+            <h3 class="ProductShelves">产品价格管理</h3>
+
+            <!--产品价格管理开始-->
+            <table class="priceManagement" cellpadding="0" cellspacing="0">
+                <tr class="first">
+                    <td class="commodity">商品</td>
+                    <td class="attribute">属性</td>
+                    <td class="supplier">库存</td>
+                    <td class="platform">供应价</td>
+                    <td class="countyLevel">网点进货价</td>
+                    <td class="dot">建议零售</td>
+                </tr>
+                $foreach(item in ProductList)
+                <tr class="last">
+                    <td class="commodity clearFix">
+                        <div class="img fl">
+                            <a href="#">
+                                <img src="$GetImage(item.DistributorProduct_Image)" />
+                            </a>
+                        </div>
+                        <div class="right fl">
+                            <a href="#" class="txt_hide2L">$item.DistributorProduct_Title</a>
+                        </div>
+                    </td>
+                    <td class="attribute">
+                        $set(attrs=GetAttributes(item.DistributorProduct_Id))
+                        $set(infos=json(attrs))
+                        $for(i=0;i<infos.Count;i++)
+                        <span>
+                            $infos[i].Name：$infos[i].Value
+                        </span>
+                        $end
+                    </td>
+                    <td class="supplier">
+                        $item.DistributorProduct_Inventory$if(item.DistributorProduct_Unit!='')$item.DistributorProduct_Unit$end
+                    </td>
+                    <td class="platform">
+                        $item.DistributorProduct_CostPrice.ToString("C2")$if(item.DistributorProduct_Unit!='')/$item.DistributorProduct_Unit$end
+                    </td>
+                    <td class="countyLevel">
+                        ￥<input type="text" data-id="$item.DistributorProduct_Id" data-type="DotPrice" onblur="UpdatePrice(this)" value="$if(item.DistributorAreaMapping_DotPrice>0)$item.DistributorAreaMapping_DotPrice$else$item.DistributorProduct_DotPrice$end" class="default" />$if(item.DistributorProduct_Unit!='')/$item.DistributorProduct_Unit$end
+                    </td>
+                    <td class="dot">
+                        ￥<input type="text" data-id="$item.DistributorProduct_Id" data-type="Price" onblur="UpdatePrice(this)" value="$if(item.DistributorAreaMapping_Price>0)$item.DistributorAreaMapping_Price$else$item.DistributorProduct_Price$end" class="default " />$if(item.DistributorProduct_RetailUnit!='')/$item.DistributorProduct_RetailUnit$end
+                    </td>
+                </tr>
+                $end
+            </table>
+
+            <!--保存按钮开始-->
+            <div class="priceManagement_preservation">
+                <!--<input type="submit" value="保存" />-->
+            </div>
+
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 分类弹窗开始 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    <script>
+        function UpdatePrice(e) {
+            Cnaws.postAjax(Cnaws.getUrl('$url("/distributormanager/submitprice/")' + $(e).data("id")), 
+                "modfield=" + $(e).data("type") + "&modprice=" + $(e).val(),
+                function (data, args) {
+                if (data.code == -200) {
+                    Cnaws.showSuccess('修改成功');
+                    setTimeout(function () { location.reload() }, 1000);
+                }
+                else {
+                    Cnaws.showError('修改物流失败，请重试或与管理员联系');
+                }
+            })
+        }
+    </script>
+</body>
+</html>

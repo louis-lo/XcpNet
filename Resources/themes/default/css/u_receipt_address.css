@@ -1,0 +1,44 @@
+/* BEGIN add */
+.add .panel-body {
+	padding-top: 20px;
+	padding-bottom: 35px;
+}
+.add th,
+.add td {
+	padding-top: 10px;
+}
+.add select {
+	width: 80px;
+	margin-right: 5px;
+}
+.add th {
+	width: 130px;
+	text-align: right;
+}
+.add th span {
+	color: red;
+}
+/* END add */
+
+/* BEGIN list */
+.address-list .panel-body {
+	padding: 10px;
+}
+.address-list table {
+	width: 100%;
+}
+.address-list th,
+.address-list td {
+	text-align: center;
+	border: 1px solid #DDD;
+}
+.address-list th {
+	height: 40px;
+	line-height: 40px;
+	background-color: #F3F3F3;
+}
+.address-list td {
+	height: 65px;
+	line-height: 1.5;
+}
+/* END list */

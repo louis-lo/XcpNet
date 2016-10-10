@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <title>活动区-$Site.Name</title>
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/swiper-3.3.1.min.css')">
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/index.css')">
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/styles/scroll.css')">
+    <style>
+        #infoNotify,#warningNotify,#successNotify,#errorNotify,#jqxNotificationDefaultContainer-top-right{
+            /*left:50%!important;
+            top:50%!important;*/
+            z-index:9999!important;
+        }
+    </style>
+    $load("../inc/head.html")
+    <script type="text/javascript" src="$res('js/swiper-3.3.1.jquery.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/scroll.js')"></script>
+    <script type="text/javascript">
+        var scroll = null;
+        var pageIndex = 1;
+        var pageCount = 1;
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            scroll = $('#wrapper').scrolling(pageIndex, pageCount, function () {
+                if (scroll.hasNext() && !scroll.isLocked()) {
+                    scroll.lock();
+                    Cnaws.getAjax('$url("/")?page=' + scroll.nextPage(), function (data, args) {
+                        $('#pages').append($(data));
+                        scroll.update(pageIndex, pageCount);
+                        scroll.unlock();
+                    }, null, true, 'html');
+                }
+            }, null, function () {
+                var _appHeader = $('.header-01');
+                var _hideBox = _appHeader.find('.hide-box'),
+                    dis = _appHeader.height() + this.y;
+                if (dis >= 0) {
+                    _hideBox.stop().animate({ opacity: 0 }, 'fast');
+                } else {
+                    _hideBox.stop().animate({ opacity: 0.75 }, 'fast');
+                }
+            });
+            new Swiper('.index-banner', { loop: true, autoplay: 3000, pagination: '.swiper-pagination', paginationClickable: true });
+            initCart();
+            $("img.lazy").lazyload({ placeholder: errPic });
+        });
+    </script>
+</head>
+<body>
+    <!-- BEGIN app -->
+    <div class="app">
+        $load("../inc/header.html")
+        <!-- BEGIN wrapper -->
+        <div id="wrapper" class="wrapper">
+            <!-- BEGIN content -->
+            <div class="content scroller" id="scroller">
+                <!-- BEGIN swiper-container -->
+                <section class="swiper-container index-banner">
+                    <div class="swiper-wrapper">
+                        $foreach(row in clr.Cnaws.Banner.Modules.Banner.GetAll(this.DataSource))
+                        <div class="swiper-slide"><a href="$row.Url"><img src="$row.Image"></a></div>
+                        $end
+                    </div>
+                    <!-- 分页器 -->
+                    <div class="swiper-pagination"></div>
+                </section>
+                <!-- END swiper-container -->
+                <!-- BEGIN section-01 -->
+                <section class="clearfix section-01">
+                    <a class="section-01-img-01" href="$url('/channel/discount')"><img class="lazy" data-original="$res('wap/img/index/section_01_img_01.jpg')"></a>
+                    <div class="section-01-right">
+                        <a class="section-01-img-02" href="$url('/channel/one')"><img class="lazy" data-original="$res('wap/img/index/section_01_img_02.jpg')"></a>
+                        <div class="clearfix section-01-right-bottom">
+                            <a class="section-01-img-03" href="$url('/channel/promotions')"><img class="lazy" data-original="$res('wap/img/index/section_01_img_03.jpg')"></a>
+                            <a class="section-01-img-04" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_01_img_04.jpg')"></a>
+                        </div>
+                    </div>
+                </section>
+                <!-- END section-01 -->
+
+                <!--<a class="full-ad full-ad-01" href="$url('/channel/promotions')"><img class="lazy" data-original="$res('wap/img/full_ad_02.jpg')"></a>-->
+
+                <!-- BEGIN section-02 -->
+                <section class="clearfix section-02">
+                    <a class="section-02-img-01" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_02_img_01.jpg')"></a>
+                    <div class="section-02-right">
+                        <a class="section-02-img-02" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_02_img_02.jpg')"></a>
+                        <a class="section-02-img-03" href="javascript:void(0)"><img class="lazy" data-original="$res('wap/img/index/section_02_img_03.jpg')"></a>
+                    </div>
+                </section>
+                <!-- END section-02 -->
+
+            </div>
+            <!-- END content -->
+        </div>
+        <!-- END wrapper -->
+    </div>
+    <!-- END app -->
+</body>
+</html>
+$end

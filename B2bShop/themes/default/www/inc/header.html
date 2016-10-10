@@ -1,0 +1,113 @@
+<div class="header_zhongBig w100">
+    <div class="header_zhongBox w1000 clearFix">
+        <a href="$url('/index')">
+            <div class="header_logo fl">
+                <div class="header_logoBox fl">
+                    <img src="$res('img2.0/cdb/stock_logo.png')">
+                </div>
+            </div>
+        </a>
+        <div class="header_search fl">
+            <form id="searchForm" action="$url('/category/list/0/1')" method="get" target="_blank">
+                <div class="header_searchInput">
+                    <input type="text" id="q" name="q" placeholder="搜索进货产品..." />
+                    <input type="hidden" id="searchType" name="SearchType" value="0"/>
+                    <button class="fr" id="btnSearch"><span class="stock_seachprint"></span>搜进货</button>
+                </div>
+            </form>
+            <div class="header_keyword">
+                <ul>
+                    <li><a href="$url('/category/list/0/1')?q=男士T恤&SearchType=0">男士T恤</a></li>
+                    <li><a href="$url('/category/list/0/1')?q=女士凉鞋&SearchType=0">女士凉鞋</a></li>
+                    <li><a href="$url('/category/list/0/1')?q=防晒衣&SearchType=0">防晒衣</a></li>
+                    <li><a href="$url('/category/list/0/1')?q=牛仔裤&SearchType=0">牛仔裤</a></li>
+                    <li><a href="$url('/category/list/0/1')?q=内裤批发&SearchType=0">内裤批发</a></li>
+                    <li><a href="$url('/category/list/0/1')?q=风尚志&SearchType=0">风尚志</a></li>
+                    <li><a href="$url('/category/list/0/1')?q=短裤批发&SearchType=0">短裤批发</a></li>
+                    <li><a href="$url('/category/list/0/1')?q=连衣裙批发&SearchType=0">连衣裙批发</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="myStockVehicleW fl">
+            <a href="$url('/cart')">
+                <em class="myStockVehicleem myStockVehicleemT"></em>
+                我的进货车
+                <i class="myStockVehicleemT"></i>
+            </a>
+            <div class="myStockVehicleY jsCount">0</div>
+        </div>
+    </div>
+</div>
+<div class="header_bottomBox w1000 clearFix">
+    <div class="header_bottom_left fl" id="cateContainer">
+        <a href="javascript:;">全部商品分类</a>
+    </div>
+    <div class="header_bottom_right fl">
+        <ul class="clearFix">
+            <li><a href="$url('/index')">首页</a></li>
+            <li class="stockNew"><a href="$url('/programme')">进货方案</a><i></i></li>
+        </ul>
+    </div>
+    <div class="centerNav_left centerNav_leftT" style="height:auto;$if(this.Application.ControllerName.ToLower() !="index" )display:none; $end">
+        <ul class="centerNav_leftUl">
+            $foreach(root in clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetAll(this.DataSource,0))
+            <li class="centerList_one centerList_li">
+                <div class="centerListBox">
+                    <em></em>
+                    <a class="centerList_a" href="$url('/category/list/',root.Id)">$root.Name</a>
+                    <div class="centerList_sClass">
+                        $foreach(parent in clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetTop(this.DataSource,root.Id,3))
+                        <a href="$url('/category/list/',parent.Id)">$parent.Name /</a>
+                       $end
+                    </div>
+                </div>
+                <div class="secondLevel_classify undis">
+                    <div class="secondLevel_classifyUl clearFix">
+                        <div class="secondLevelTop fl">
+                            <div class="secondLevel_link clearFix">
+                                $foreach(cate in clr.XcpNet.Supplier.Modules.Modules.DistributorCategory.GetAll(this.DataSource,root.Id))
+                                <a href="$url('/category/list/',cate.Id)">$cate.Name</a>
+                                $end
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            $end
+        </ul>
+    </div>
+</div>
+<script>
+    ;+(function ($,doc) {
+        var get = function (id) { return doc.getElementById(id); };
+        $(function () {
+            var ui = {
+                btnSearch: get('btnSearch'),
+                queryTxt: get('q'),
+                form: get('searchForm'),
+                searchType: $('input[name="searchType"]')
+            };
+
+            ui.btnSearch.addEventListener('click', function () {
+                if (ui.queryTxt.value.replace(/(^\s*)|(\s*$)/g, '').length !== 0) {
+                    ui.form.submit();
+                }
+            }, false);
+
+            $if(this.Application.ControllerName.ToLower() != "index")
+                var cateContainer = $('#cateContainer'), cates = $('div.centerNav_left');
+
+                cateContainer.mouseover(function () {
+                    cates.show();
+                }).mouseleave(function (event) {
+                    cates.hide();
+                });
+                cates.mouseover(function () {
+                    cates.show();
+                }).mouseleave(function (event) {
+                    cates.hide();
+                });
+            $end;
+        });
+    })($,document)
+</script>

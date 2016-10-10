@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>开通账号联系人</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    开通帐号
+                    <div class="navRe">
+                        <a href="$url('/distributor/accountStatus')" class="col_ff7">查看状态</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <div class="Paymentsuccess_content">
+                    <div class="Paymentsuccess_icon">
+                        <span class="Payment_successIcon"></span>
+                    </div>
+
+                    <h3 style="margin-bottom:1rem;">请联系$DistributorList.Contact（$DistributorList.ContactPhone）!</h3>
+                    <a class="Paymentsuccess_return col_fff" href="$url('/distributor/accountStatus')">确定</a>
+                </div>
+            </div>
+
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+
+</body>
+</html>

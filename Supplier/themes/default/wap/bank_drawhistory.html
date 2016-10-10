@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>提现记录</title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/withdrawals.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    提现记录
+                </div>
+            </div>
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <div class="withdrawals_Record bg_fff">
+                    <ul>
+                        $foreach(order in orderList)
+                        <li class="clearfix">
+                            <a href='$url("/bank/drawDetail/"+order.OrderId)'>
+                                <div class="fl">
+                                    $if(order.IsDrawBalance())
+                                    <img src="$res('wap/img2.0/Withdrawals_balance.png')" />
+                                    $else
+                                    <img src="$DefaultBank.B.Icon" />
+                                    $end
+                                </div>
+                                <div class="fl ">
+                                    $if(order.IsDrawBalance())
+                                    <h3>提现-余额</h3>
+                                    $else
+                                    <h3>$SubBankCard(order.BankCard)</h3>
+                                    $end
+                                    <div class="col_999">$order.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</div>
+                                </div>
+                                $if(order.OrderState.ToString()=='AuditFailure')
+                                <div class="fr" style="color:#f84a3d">失败</div>
+                                $elseif(order.OrderState.ToString()=='PendingAudit')
+                                <div class="fr" style="color:#ffae00">审核中</div>
+                                $elseif(order.OrderState.ToString()=='TradeSuccess')
+                                <div class="fr" style="color:#73d09d">成功</div>
+                                $else
+                                <div class="fr" style="color:#ffae00">转账中</div>
+                                $end
+                            </a>
+                        </li>
+                        $end
+                        <!--<li class="clearfix">
+                            <a href="#">
+                                <div class="fl">
+                                    <img src="$res('wap/img2.0/Withdrawals_balance.png')" />
+                                </div>
+                                <div class="fl ">
+                                    <h3>提现-工商银行</h3>
+                                    <div class="col_999">2016-05-06-15:00</div>
+                                </div>
+                                <div class="fr" style="color:#ffae00">审核中</div>
+                            </a>
+                        </li>
+
+                        <li class="clearfix">
+                            <a href="#">
+                                <div class="fl">
+                                    <img src="$res('wap/img2.0/Withdrawals_balance.png')" />
+                                </div>
+                                <div class="fl ">
+                                    <h3>提现-工商银行</h3>
+                                    <div class="col_999">2016-05-06-15:00</div>
+                                </div>
+                                <div class="fr" style="color:#ffae00">转账中</div>
+                            </a>
+                        </li>
+
+                        <li class="clearfix">
+                            <a href="#">
+                                <div class="fl">
+                                    <img src="$res('wap/img2.0/Withdrawals_balance.png')" />
+                                </div>
+                                <div class="fl ">
+                                    <h3>提现-工商银行</h3>
+                                    <div class="col_999">2016-05-06-15:00</div>
+                                </div>
+                                <div class="fr" style="color:#f84a3d">失败</div>
+                            </a>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

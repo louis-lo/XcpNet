@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    $load('inc/comm.html')
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/purchase_order.css')" />
+    <script src="$res('wap/js2.0/toasterror.js')"></script>
+    <style>
+        .content-block {
+            margin: 0;
+            padding: 0;
+        }
+
+            .content-block ul li:last-child {
+                border-bottom: 1px solid #f3f3f3;
+            }
+
+        .bar-nav ~ .content {
+            bottom: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-group">
+
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    订单详情
+                </div>
+            </div>
+            <div class="content native-scroll">
+                $if(AddressList.Count>0)
+                $foreach(item in AddressList)
+                <div class="receipt_detaContacts borbom">
+                    <h3 class="address_Consignee">收货人：$item.Consignee　$item.Mobile</h3>
+                    <div class="receipt_detainfo">
+                        <div class="receipt_detaCon_main fl col_999 AddressText">$item.GetAddress()</div>
+                        <div class="receipt_detaCon_Le fl"><span class="purchase_icon purchase_address_icon"></span></div>
+                        <input type="hidden" value="$if(item.Consignee!=''&&item.Mobile!=0&&item.Address!='')true${else}false$end" id="HasAddress" name="HasAddress" />
+                    </div>
+                </div>
+                $end
+                $end
+                <!-- 无地址 -->
+                <div class="city_add_address">
+                    <a href="javascript:;" class="col_999 open-about"><span class="purchase_icon purchase_edit_icon"></span>编辑</a>
+                </div>
+                <!-- 无地址 -->
+                <div class="way_line"></div>
+                $foreach(order in OrderList)
+                <div class="content-block">
+                    <ul>
+                        <li class="pad_lr borbom" style="line-height:1.8rem">
+                            <div class="receipt_detainfo">
+                                <div class="receipt_detaCon_main fl col_333">$order.GetStoreName(this.DataSource)</div>
+                                <div class="receipt_detaCon_Le fl"><span class="purchase_icon  purchase_shop_icon"></span></div>
+                            </div>
+                        </li>
+                        $set(mappings=order.GetMapping(this.DataSource))
+                        $foreach(map in mappings)
+                        $set(info=json(map.ProductInfo))
+                        <!-- for goods list  -->
+                        <li class="purchaseall_Test borbom">
+                            <div class="purchaseall_Le no_goods">
+                                <a href="$url('/product/info/',map.ProductId)" class="external"><img src="$map.GetImage(info.Image)" /></a>
+                            </div>
+                            <div class="purchaseall_Con">
+                                <h3 class="txt_hide2L col_333"><a href="$url('/product/info/',map.ProductId)" class="external">$info.Title</a></h3>
+                                <p class="txt_hide2L Coninfo col_999">$foreach(attr in info.Series)$attr.Key：$attr.Value&nbsp;&nbsp;$end</p>
+                            </div>
+                            $if(map.GetSaleArea(this.DataSource,DefaultAdrs.Province,DefaultAdrs.City,DefaultAdrs.County))
+                            <div class="purchaseall_Re">
+                                <p>$map.GetSalePrice(this.DataSource,DefaultAdrs.Province,DefaultAdrs.City,DefaultAdrs.County).ToString("c2")</p>
+                                <p>X$map.Count</p>
+                            </div>
+                            $else
+                            $set(hasInvalid=true)
+                            <div class="purchaseall_Re">
+                                <p style="color:red">无货</p>
+                            </div>
+                            $end
+                        </li>
+                        $end
+                        <!-- end for goods list  -->
+                        <li class="borbom city_message_txt">
+                            <div class="col_333">给卖家留言：</div>
+                            <div class="purchaseall_reason mt10">
+                                <textarea  class="Message_txt" name="Message" data-orderid="$order.Id" placeholder="选填：给卖家留言（45字以内）" onKeyDown='if (this.value.length>=45){if(event.keyCode != 8)event.returnValue=false;}'></textarea>
+                            </div>
+                        </li>
+                        <li class="purchaseall_Txt pad_lr">
+                            <span class="col_999">共$mappings.Count款商品</span>
+                            <span class="col_ff7">合计：$order.GetTotalMoney(this.DataSource).ToString("c2")</span>
+                        </li>
+                    </ul>
+                </div>
+                $end
+                <div class="way_line"></div>
+            </div>
+            <div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+                <div class="purchaseall_Sub">
+                    <div class="fl" style="line-height:1.2rem">
+                        <div><b>待支付：</b><span style="font-size:.6rem"></span><span class="col_ff7"><b>$TotalMoney.ToString("c2")</b></span></div>
+                        <div style="font-size:.6rem">订单总金额：<span class="col_ff7"><b>$TotalMoney.ToString("c2")</b></span></div>
+                    </div>
+                    <a href="javascript:;" class="payment_submit col_fff fr">提交订单</a>
+                </div>
+            </div>
+
+            <div class="popup popup-about">
+                <style>
+                    .deliver{margin-top:30px;}
+                    .deliver input{
+                        background: #ff7300;
+                        color: #fff;
+                        width: 100%;
+                        line-height: 44px;
+                        text-align: center;
+                        font-size: .85rem;
+                        border: none;
+                        border-radius: .15rem;
+                    }
+                </style>
+                <!-- nav -->
+                <header class="bar bar-nav wayshow_navPosi">
+                    <div class="wayshow_navPosi">
+                        <div class="wayshow_navLe fl">
+                            <a href="#">
+                                <h3 style="text-align:right;" class=""><span class="purchase_icon close_icon close-popup"></span></h3>
+                            </a>
+                        </div>
+                        编辑收货地址
+                    </div>
+                </header>
+                <!-- / nav -->
+                <!-- content -->
+                <div class="content native-scroll order_content" style="top:2.2rem">
+                    <form id="EditAddress" method="post" onsubmit="return false">
+                        $if(AddressList.Count>0)
+                        $foreach(item in AddressList)
+                        <div class="list-block">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner pad_lr">
+                                            <div class="item-title label col_666">收货人</div>
+                                            <div class="item-input"><input required="required" autocomplete="off" name="Consignee" id="Consignee" value="$item.Consignee" type="text" placeholder="请输入收货人姓名"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="logistics_number">
+                                    <div class="item-content">
+                                        <div class="item-inner exchange_num pad_lr">
+                                            <div class="item-title label col_666">联系电话</div>
+                                            <div class="item-input"><input type="text" pattern="[1]{1}[0-9]{10}" autocomplete="off"  required="required" name="Mobile" value="$item.Mobile"  id="Mobile" min="1" placeholder="请输入联系电话"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner pad_lr" style="background:#f5f5f5">
+                                            <div class="item-title label col_666">所在地区</div>
+                                            <div class="item-input"><input required="required"  readonly="readonly" value="$item.GetArea()"  type="text" name="City" id="City" placeholder="请选择所在地区"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner pad_lr">
+                                            <div class="item-title label col_666">详细地址</div>
+                                            <div class="item-input"><input required="required" autocomplete="off"  name="Address" value="$item.Address"  id="Address" type="text" placeholder="请输入详细地址"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="logistics_number">
+                                    <div class="item-content">
+                                        <div class="item-inner exchange_num pad_lr">
+                                            <div class="item-title label col_666">邮政编码</div>
+                                            <div class="item-input"><input type="text" autocomplete="off"  min="0" maxlength="6"  pattern="[0-9]{0,6}" name="PostId" value="$item.PostId"  id="PostId" required="required"  placeholder="请输入邮政编码,可填0"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="deliver pad_lr"><input type="submit" value="保存"></li>
+                            </ul>
+                        </div>
+                        $end
+                        $end
+                    </form>
+                </div>
+                <!-- end content -->
+            </div>
+        </div>
+
+
+
+        <script>
+            $(function () {
+                $(document).on('click', '.open-about', function () {
+                    $.popup('.popup-about,.screen_submit');
+                });
+                $(".order_goodsTop,.order_goodsBom").css("line-height", $(".order_goodsTop").height() + 'px')
+                $(".payment_submitSee").click(function () {
+                    var this_click = $(this);
+                    payment_submit.payment(this_click)
+                })
+                $(".paymentback_icon").click(function () {
+                    $(".purchaseall_payment").css("bottom", "100%")
+                })
+                $(".purchaseall_paymentDesc ul li").click(function () {
+                    var this_click = $(this);
+                    payment_submit.purchaseall_paymentDesc(this_click)
+                })
+
+                $("#EditAddress").submit(function () {
+                    var form = this;
+                    $.ajax({
+                        type: "Post",
+                        dataType: "json",
+                        url: "$url('/buy/setaddress')",
+                        data: $(form).serialize(),
+                        async: false,
+                        success: function (data) {
+                            if (data.code == -200) {
+                                $.closeModal(".popup-about");
+                                $(".address_Consignee").html("收货人：" + $("#Consignee").val() + "　" + $("#Mobile").val() + "")
+                                $(".AddressText").html($("#City").val() + $("#Address").val())
+                                $("#HasAddress").val(true);
+                                $.toast("修改成功！");
+                            }
+                            else {
+                                ShowBox.ToastByCode(data.code);
+                            }
+                        }
+                    });
+                    return false;
+                })
+
+                $(".payment_submit").click(function () {
+                    if($("#HasAddress").val())
+                    {
+                        var Message = "";
+                        $(".Message_txt").each(function (e) {
+                            Message += "@" + $(this).data("orderid") + "_" + $(this).val();
+                        })
+                        $.ajax({
+                            type: "Post",
+                            dataType: "json",
+                            url: "$url('/buy/onperfect')",
+                            data: "Id=$OrderId&Address=&Message+" + Message,
+                            async: false,
+                            success: function (data) {
+                                if (data.code == -200) {
+                                    location.href = "$passport('/buy/payment/','" + data.data.OrderId + "')"
+                                }
+                                else {
+                                    ShowBox.ToastByCode(data.code);
+                                }
+                            }
+                        });
+                    } else {
+                        $.toast("收货地址不完整,请先完善收货地址！");
+                    }
+
+                    return false;
+                })
+            })
+            var payment_submit = function () {
+                this.click = function () {
+                    var this_click = $(this);
+                }
+                this.payment = function (this_click) {
+                    var this_Price = this_click.parent(".purchaseall_Sub").prev(".purchaseall_Txt").children('.col_ff7').children(".this_Price").text();
+                    $(".purchaseall_Price").text(this_Price);
+                    $(".purchaseall_payment").css("bottom", "0");
+                }
+                this.purchaseall_paymentDesc = function (this_click) {
+                    $(".purchaseall_paymentDesc ul li").removeClass();
+                    this_click.addClass("on")
+                }
+            }
+            var payment_submit = new payment_submit();
+            //无货
+            function no_goods() {
+                for (var i = 0; i < $(".no_goods").length; i++) {
+                    var this_txt = $(".no_goods").eq(i).html();
+                    $(".no_goods").eq(i).html(this_txt + '<span class="no_goods_icon col_fff">无货</span>')
+                }
+            }
+            no_goods()
+        </script>
+    </div>
+
+</body>
+</html>

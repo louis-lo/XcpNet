@@ -1,0 +1,17 @@
+/**余额支付1**/
+.update-password{width:990px;border:1px solid #ddd;margin-top:18px;}
+.update-password .update-step{width: 720px;margin: 0 auto;padding: 44px;border-bottom: 1px solid #ddd;position: relative;}
+.update-step .auth,.set-pay,.ok{position: absolute;padding:0 90px;}
+.update-step .auth{left: 50px;color: #7abd54;}
+.update-step .set-pay{left: 277px;color: #ccc;}
+.update-step .ok{left: 542px;color:#ccc;}
+.update-password .update-input{width: 462px;margin: 0 auto;padding:60px 10px;}
+.update-input p{color: #747474;}
+.update-input input{border: 1px solid #ddd;padding-left: 10px;margin-left: 25px;}
+.tel input{width: 116px;}
+.update-input .submit-btn{width: 126px;height: 36px;background: #CF0002;color: #fff;display: block;margin-left: 62px;margin-top: 36px;text-align: center;line-height: 36px;}
+.update-stepPrint{width: 720px;height: 37px;background: url("../../img2.0/cph/status1.png") no-repeat;}
+.auth-code input{width: 110px;height: 30px;mar}
+.tel span{padding-left: 10px;}
+.auth-code{margin-top: 20px;}
+.auth-code a{color: dodgerblue;padding-left: 10px;}

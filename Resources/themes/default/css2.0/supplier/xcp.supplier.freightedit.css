@@ -1,0 +1,79 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){
+body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+table{border-spacing:0;border-collapse:collapse;}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+input{padding-left: 15px;}
+.w100{ width:100%; height:auto; overflow:hidden;}
+.w1000{ width:1200px; height:auto; overflow:hidden; margin:0 auto;}
+.w1001{ padding-top: 2px;overflow:hidden;position: absolute;}
+.mt{margin-top:10px;}
+input,button {outline:none;border: 0;background: #fff;}
+i{font-style: normal;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto;border:1px solid #e5e5e5; min-height:680px}
+.addFreighTitle{height: 36px;background: #fafafa;border-bottom:1px solid #e5e5e5;line-height: 36px;}
+.addFreighTitle span{margin-left: 12px;font-family: "simsun";}
+.templatecontent{padding:10px 12px;font-family: "simsun";}
+.templateName{width: 740px;height: 30px;}
+.contentBox .area select{border:1px solid #e5e5e5;}
+.inputColor{border:1px solid #e5e5e5;}
+.templatecontent .contentBox{margin-bottom: 10px;}
+.templatecontent .contentBoxT{margin-bottom: 20px;}
+.contentBox select{width: 172px;height: 30px;}
+.switchingWrap span{cursor: pointer;margin-right: 60px;}
+.switchingWrap span em{display: inline-block;width: 22px;height: 22px;vertical-align: middle;margin:0 10px 0 7px;}
+.switchingWrap .noswitching{background: url("../img/Countylevel_JoinImg.png") -233px -214px no-repeat;}
+.switchingWrap .switching{background: url("../img/Countylevel_JoinImg.png") -202px -214px no-repeat;}
+.express{width: 150px;height: 36px;border-bottom:1px solid #e5e5e5;text-align: center;}
+.expressTs{color: #999;margin-left: 225px;}
+.defaultFreight input{width: 72px;height: 30px;}
+.spanColor{color: #999;}
+.freightTable{border:1px solid #e5e5e5;width: 850px;margin-bottom: 10px;}
+.freightTable th,.freightTable td{text-align: center;height: 32px;}
+.freightTable th{background:#fafafa;border-bottom: 1px solid #e5e5e5;font-weight: normal;}
+.freightTable td{border:1px solid #e5e5e5;padding:0 10px;}
+.freightTop{width: 186px;}
+.freightcon{width: 82px;}
+.freightcontent .noAddArea input{border: 0;padding-left: 0;}
+.compile a{color: #ff500b;}.delcompile{color: #ff500b;}
+.freightcontent input{border:1px solid #e2e2e2;height: 20px;width: 82px;}
+.addcontent a{color: #2e62f5;}
+.addcontentColor{color: #ed3f3f;}
+.addcontent span{margin-left: 100px;}
+.FreighName{width: 90px;display: inline-block;}
+.saveCancel{margin:75px 0;text-align: center;}
+.saveCancel a{display: inline-block;text-align: center;line-height: 28px;height: 28px;font-size: 14px;border-radius: 3px;}
+.saveCancel .save{width: 118px;background:#ff500b;color: #fff;margin-right: 22px;}
+.saveCancel .cancel{width: 76px;background:#e6e6e6;color: #666;}
+
+/* 运费模板弹出窗开始 */
+.center_addAddressTitle{height: 41px;font-family: "simsun";line-height: 41px;font-size: 14px;border-bottom:1px solid #e5e5e5; text-align:left; padding-left:12px;}
+.eastChina{padding-left:12px; line-height:34px;}
+.eastChina input{vertical-align:middle; margin:-2px 5px 0 0;}
+.eastChinaLeft{margin-right:20px;color: #333;font-weight: bold;}
+.province{width:630px;}
+.provinceLiBorder{border:1px solid #fff;}
+.provinceLi{position:relative; margin-right: 10px;}/*z-index: 9999;*/
+.provinceLiT{background:#f9f2c2;border:1px solid #e5e5e5;border-bottom: 1px solid #f9f2c2;}
+.provinceLi span{display:inline-block;cursor:pointer; width:12px; height:10px; background:url(../img/Countylevel_JoinImg.png) no-repeat -170px -5px; margin-left:3px; vertical-align:middle; margin-top:-2px;}
+.slidedown{width:288px; background:#f9f2c2; position:absolute; left:-1px; top:36px; padding-bottom:50px;border:1px solid #e5e5e5;}
+.slidedownT{display:none;}
+.slidedown li{padding:0 15px; line-height:24px; cursor:pointer}
+.closebtn{width:55px; height:25px; text-align:center; line-height:25px; border:1px solid #e6e6e6; background:#fafafa; position:absolute; right:8px; bottom:10px;}
+.closebtn a{display:block;}
+.cityClick{position: relative;z-index: 999;height: 34px;padding:0 10px; box-sizing: border-box;min-width:111px}
+.cityClickT{border-bottom:3px solid #f9f2c2; z-index:99999}
+.cityClickW{border-bottom:1px solid #fff;}
+.cityClick i{color: #f73300;}
+.noAddArea {color:#666}
+input[type=checkbox] {cursor:pointer;}
+
+

@@ -1,0 +1,487 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>城品惠-查看全部订单</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-publicStyle.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-checkOrder.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/rightSidebar.css')">
+    <style type="text/css">
+        .td_input_button {
+            cursor: pointer;
+        }
+        .centerButtonWrap .verify {
+        width:auto !important;
+        }
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('js2.0/cph/parabola.js')"></script>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/leftaside.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr clearFix">
+            <h2>我的订单</h2>
+            <!-- 我的交易提醒 开始 -->
+            <div class="myTransactionWarn clearFix">
+                <b class="fl">我的交易提醒：</b>
+                $set(orders=clr.Cnaws.Product.Modules.ProductOrder.GetAllProductInfo(this.DataSource,this.User.Identity.Id))
+                <ul class="status clearFix fl">
+                    <li class="pitch">
+                        <a href="$url('/bought/list/','_')">
+                            全部订单<span>（$orders.All）</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','Payment')">
+                            未付款<span>（$orders.Payment）</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','Delivery')">
+                            待发货<span>（$orders.Delivery）</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','OutWarehouse')">
+                            出库中<span>（$orders.OutWarehouse）</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','Receipt')">
+                            待收货<span>（$orders.Receipt）</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="$url('/bought/list/','Finished')">
+                            已完成<span>（$orders.Finished）</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 我的交易提醒 结束 -->
+            <!--条件搜索-->
+            <div class="ob_search">
+                <div class="search_header">
+                    <input placeholder="输入宝贝名或者订单号" />
+                    <button class="search_button_order">订单搜索</button>
+                    <button class="search_button_condition">
+                        <span>精确查询</span>
+                        <img id="image_condition" src="$res('img2.0/xia.png')">
+                    </button>
+                </div>
+                <div class="search_condition">
+                    <!-- start search_condition_row-->
+                    <div class="search_condition_row clearFix">
+                        <div class="condition_row_box condition_row_box2 fl">
+                            <span class="time">按日期</span>
+                            <input type="date" class="" placeholder="请选择时间范围起始" />
+                            <span class="about">-</span>
+                            <input type="date" class="" placeholder="请选择时间范围结束" />
+                        </div>
+                        <div class=" condition_row_box condition_row_box3 fl">
+                            <span>交易状态</span>
+                            <select>
+                                <option>全部</option>
+                                <option>未付款</option>
+                                <option>待发货</option>
+                                <option>待收货</option>
+                                <option>已完成</option>
+                                <option>交易关闭</option>
+                            </select>
+                        </div>
+                        <div class="sousuo_div">
+                            <input type="button" value="搜索" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--条件搜索结束-->
+            <!-- 分页 开始 -->
+            <div class="center_pageWrap">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+                        $if(OrderList.PageIndex==OrderList.BeginPage)
+                        <li class="page_prev">
+                            <a href="#" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/bought/list/',State,'/',OrderList.PageIndex-1)" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+                        $if(OrderList.PageIndex==OrderList.EndPage)
+                        <li class="page_next page_prev">
+                            <a href="#" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/bought/list/',State,'/',OrderList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+            <!-- 待付款 已完成 待收货 未发货 交易关闭 开始 -->
+            <!-- 未付款 开始 -->
+            <div class="obligationBox obligationWrap">
+                <ul class="obligationUl clearFix">
+                    <li class="obligationWrap_heart">宝贝</li>
+                    <li class="obligationWrap_nature">属性</li>
+                    <li class="obligationWrap_price">单价（元）</li>
+                    <li class="obligationWrap_number">数量</li>
+                    <li class="obligationWrap_hj">合计</li>
+                    <li class="obligationWrap_handle obligationWrap_nature">操作</li>
+                    <li class="obligationWrap_state ">状态</li>
+                </ul>
+            </div>
+            $if(OrderList.Data.Count>0)
+            <div class="orderstatusWrap">
+                $foreach(order in OrderList)
+                <div class="shipments_order obligation_orderBh obligationWrap">
+                    订单编号：<a href="$url('/buy/status/',order.Id)"><span>$order.Id</span></a>
+                    成交时间：$order.CreationDate.ToString()
+                </div>
+                <table align="center" border="0" width="100%" class="order_dataList">
+                    $set(orderCount=0)
+                    $set(maps=order.GetMapping(this.DataSource))
+                    $foreach(product in maps)
+                    $set(info=json(product.ProductInfo))
+                    $set(orderCount=orderCount+product.Count)
+                    <tr>
+                        <td class="shipments_heart obligationWrap_heart ">
+                            <a href="$url('/buy/status/',order.Id)">
+                                <div class="orderGoods_print fl">
+                                    <img src="$product.GetImage(info.Image)">
+                                </div>
+                                <div class="shipmentsGoods_ms orderGoods_ms fl">
+                                    $info.Title
+                                </div>
+                            </a>
+                        </td>
+                        <td class="obligationWrap_nature goods_nature">
+                            $foreach(attr in info.Series)
+                            <p>$attr.Key：$attr.Value&nbsp;</p>
+                            $end
+                        </td>
+                        <td class="obligationWrap_price goods_price">
+                            <span class="fb">$product.Price.ToString("c2")</span>
+                        </td>
+                        <td class="obligationWrap_number">
+                            $product.Count$info.Unit
+                        </td>
+                        <td class="obligationWrap_hj">
+                            $product.TotalMoney.ToString("c2")
+                        </td>
+                        <td class="shipmentsGoods_nature obligationWrap_nature">
+                            $if(order.State==6)
+                            $if(order.Payment!="cashondelivery")
+                            <input type="button" onclick="location.href = '$passport('/service/addservice/',order.Id,'/',product.ProductId)'" value="申请售后" class="td_input_button td_input_button_margin">
+                            $end
+                            $if(product.Evaluation.ToString()=='True')
+                            <input type="button" onclick="location.href = '$url('/comment/set/',product.ProductId,'/',order.Id,'/',1)'" value="查看评价" class="td_input_button">
+                            $elseif(product.Evaluation.ToString()=='False')
+                            <input type="button" onclick="location.href = '$url('/comment/set/',product.ProductId,'/',order.Id,'/',0)'" value="立即评价" class="td_input_button">
+                            $end
+                            $elseif(order.State==3||order.State==5)
+                            $if(order.Payment!="cashondelivery")
+                            <input type="button" onclick="location.href = '$passport('/service/addservice/',order.Id,'/',product.ProductId)'" value="申请退款" class="td_input_button">
+                            $end
+                            $end
+                        </td>
+                        $if(foreachIndex==1)
+                        <td class="shipmentsGoods_state goods_state" rowspan="$maps.Count">
+                            $if(order.State==2)
+                            未付款
+                            $elseif(order.State==3)
+                            待发货
+                            $elseif(order.State==4)
+                            待收货
+                            $elseif(order.State==5)
+                            出货中
+                            $elseif(order.State==6)
+                            已完成
+                            $end
+                            <p><a href="$url('/buy/status/',order.Id)" target="_blank">查看详情</a></p>
+                        </td>
+                        $end
+                    </tr>
+                    $end
+                    <tr>
+                        <td colspan="7">
+                            <div class="obligation_bottom">
+                                <div class="obligation_bottomRight">
+                                    共 <i>$orderCount</i> 件商品
+                                    <span>实付：<i>$order.TotalMoney.ToString("c2")</i></span>
+                                    $if(order.State==2)
+                                    <a class="cancelOrder" data-id="$order.Id" href="#">取消订单</a>
+                                    <a class="oncePay" href="$passport('/buy/payment/',order.Id)">立即支付</a>
+                                    $elseif(order.State==3)
+                                    <a href="#" data-id="$order.Id" class="alertTackGoods alretBezel">提醒发货</a>
+                                    $elseif(order.State==5)
+                                    <a href="#" data-id="$order.Id" class="alretBezel">提醒发货</a>
+                                    $elseif(order.State==4)
+                                    <a href="$url('/buy/logistics/',order.Id)" target="_blank" class="checkWl">查看物流</a>
+                                    <a href="#" data-id="$order.Id" class="alertBezel verifySh" style=" background: #e31939 none repeat scroll 0 0;">确认收货</a>
+                                    $else
+
+                                    $end
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+                $end
+            </div>
+            $end
+
+
+            $load("inc/xalert.html")
+            <script>
+                $(function () {
+                    //取消订单
+                    $('.cancelOrder').xalert({
+                        tmpl: '是否确认取消订单？',
+                        callback: function (xalert) {
+                            var id = $(xalert.target).data('id');
+                            xalert.close();
+                            Cnaws.postAjax('$url("/buy/cancel")', 'Id=' + id, function (data, args) {
+                                if (data.code == -200) {
+                                    window.location.reload();
+                                }
+                                else {
+                                    ShowBox.showErrorByCode(data.code);
+                                    //Cnaws.showWarning("取消订单失败！");
+                                }
+                            });
+                        }
+                    });
+
+                    //确认收货
+                    $('.verifySh').xalert({
+                        tmpl: '请到货后在确认收货，否则可能钱货两空！',
+                        btnOkTxt: '确认收货',
+                        callback: function (xalert) {
+                            var id = $(xalert.target).data('id');
+                            xalert.close();
+                            Cnaws.postAjax('$url("/buy/receipt")', 'Id=' + id, function (data, args) {
+                                if (data.code == -200) {
+                                    window.location.reload();
+                                }
+                                else {
+                                    Cnaws.showWarning("确认收货失败！");
+                                }
+                            });
+                        }
+                    });
+
+                    //提醒发货
+                    $('.alretBezel').xalert({
+                        tmpl: '提醒发送成功！',
+                        callback: function (xalert) {
+                            var id = $(xalert.target).data('id');
+                            xalert.close();
+                            Cnaws.getAjax('$url("/ReminderDelivery/Reminder/", "' + orderId + '")', function (data) {
+                                if (data.code == -200) {
+                                    Cnaws.showSuccess("提醒成功");
+                                }
+                                else {
+                                    Cnaws.showWarning("今日已成功提醒过商家，请等待商家发货");
+                                }
+                            })
+                        }
+                    });
+
+                    //页码跳转
+                    $(".location_href").click(function () {
+                        var location_number = $(".location_number").val();
+                        var state = '$State';
+                        var location_href = '/bought/list/' + state + '/' + location_number + '.html';
+                        window.location.href = location_href;
+                        // console.log(location_href);
+                    })
+                })
+            </script>
+
+            <!-- 待付款 已完成 待收货 未发货 交易关闭 结束 -->
+            <!-- 分页 开始 -->
+            <div class="center_pageWrap">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+
+                        $if(OrderList.PageIndex==OrderList.BeginPage)
+                        <li class="page_prev">
+                            <a href="#" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/bought/list/',State,'/',OrderList.PageIndex-1)" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+
+
+                        $if(OrderList.BeginPage>1)
+                        $end
+                        $for(i=OrderList.BeginPage;i<=OrderList.EndPage;i++)
+                        $if(i==OrderList.PageIndex)
+                        <li class="page_numer itme">
+                            <a href="$url('/bought/list/',State,'/',i)">$i</a>
+                        </li>
+                        $else
+                        <li class="page_numer">
+                            <a href="$url('/bought/list/',State,'/',i)">$i</a>
+                        </li>
+                        $end
+                        $end
+                        $if(OrderList.PagesCount>OrderList.EndPage)
+                        <li class="page_numer"><a href="$url('/bought/list/',State,'/',OrderList.PageIndex+1)">...</a></li>
+                        <li class="page_numer"><a href="$url('/bought/list/',State,'/',OrderList.PagesCount)">$OrderList.PagesCount</a></li>
+                        $end
+
+
+                        $if(OrderList.PageIndex==OrderList.EndPage)
+                        <li class="page_next page_prev">
+                            <a href="#" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/bought/list/',State,'/',OrderList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                    <div class="form fl">
+                        <span class="pagetext">跳到</span>
+                        <input class="input J_Input location_number" type="number" aria-label="页码输入框" max="100" min="1" value="2">
+                        <span class="pagetext">页</span>
+                        <span class="pagebtn J_Submit fr location_href" tabindex="0" role="button">跳转</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+        </div>
+        <!-- 右边 结束 -->
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 右侧边栏 开始 -->
+    <script type="text/javascript">
+        function fun1() {
+            $("#right_login").children(".dropdown").show();
+            var id = 1;
+        }
+        function onmouseroutfun() {
+            $("#right_login").children(".dropdown").hide();
+        }
+        function collectResponses(result) {
+            document.getElementsByName('back_act').value = result.message;
+            if (result.error > 0) {
+                document.getElementById('o-authcode').style.display = 'block';
+            }
+            else {
+                document.getElementById('o-authcode').style.display = 'none';
+            }
+        }
+    </script>
+    $load("inc/toolbar.html")
+    <script type="text/javascript">
+        $(".J-stie-68").mouseover(function () {
+            $(this).children(".dropdown").show();
+        })
+        $(".J-stie-68").mouseout(function () {
+            $(this).children(".dropdown").hide();
+        })
+        $(".J-stie-68").mouseleave(function () {
+            $(this).children(".dropdown").hide();
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var headHeight2 = 200;  //这个高度其实有更好的办法的。使用者根据自己的需要可以手工调整。
+            var top = $(".top");       //要悬浮的容器的id
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > headHeight2) {
+                    top.removeClass("disabled");
+                }
+                else {
+                    top.addClass("disabled");
+                }
+            })
+        })
+        $(".top").click(function () {
+            $('body,html').animate({ scrollTop: 0 }, 800);
+            return false;
+        });
+        $("#mod-fold").click(function () {
+            $('.sidebar-nav').hasClass('fold') ? $('.sidebar-nav').removeClass('fold') : $('.sidebar-nav').addClass('fold');
+        });
+    </script>
+    <!-- 右侧边栏 结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+    <script>
+        //搜索图标更改
+        $(".search_button_condition").click(function () {
+            var disp = $(".search_condition").css("display");
+            if (disp == "none") {
+                $(".search_condition").fadeToggle("slow");
+                $("#image_condition").attr("src", "$res('img2.0/shang.png')");
+            } else {
+                $(".search_condition").fadeToggle("slow");
+                $("#image_condition").attr("src", "$res('img2.0/xia.png')");
+            }
+        });
+        $(function () {
+            $(".header_bottom_left").mouseover(function () {
+                $(".centerBox").show();
+            });
+            $(".header_bottom_left").mouseout(function () {
+                $(".centerBox").hide();
+            });
+        })
+        $(function () {
+            $(".header_search .header_search_ul li a").click(function () {
+                $(this).addClass("on").parent().siblings().children().removeClass();
+            })
+        });
+    </script>
+</body>
+
+</html>

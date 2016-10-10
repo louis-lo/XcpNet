@@ -1,0 +1,170 @@
+﻿$if(this.IsAjax)
+<table class="gridtable">
+    <tr>
+        <th>订单号</th>
+        <th>创建时间</th>
+        <th>类型</th>
+        <th>金额</th>
+        <th>状态</th>
+    </tr>
+    $foreach(item in RecordList)
+    <tr>
+        <td>$item.TargetId</td>
+        <td>$item.CreationDate.ToString()</td>
+        <td>$item.Title</td>
+        <td>$item.Value.ToString("C2")</td>
+        <td style="color:#26bc00;">$if((item.Type==1||item.Type==5)&&item.Value<0)
+                                                                                   $if(item.Type==1)
+                                                                                   <a href="$url('/buy/status/',item.TargetId)" target="_blank">查看详情</a>$elseif(item.Type==5)
+                                                                                   <a href="$Site.SupplierUrl$url('/shop/status/',item.TargetId)" target="_blank">查看详情</a>$end
+            $else<span class="cg">成功</span>$end</td>
+    </tr>
+    $end
+</table>
+<!-- 分页 开始 -->
+<div class="center_pageWrap">
+    <div class="center_pageBox fr clearFix">
+        <ul class="clearFix fl">
+            $if(RecordList.PageIndex==RecordList.BeginPage)
+            <li class="page_prev">
+                <a href="#" class="pageprev_unprint pageprev_img">
+                    <span class="unicon"></span>
+                    上一页
+                </a>
+            </li>
+            $else
+            <li class="page_prev">
+                <a href="$url('/billlist/list/',RecordList.PageIndex-1)" class="pageprev_print pageprev_img">
+                    <span class="icon"></span>
+                    上一页
+                </a>
+            </li>
+            $end
+
+
+            $if(RecordList.BeginPage>1)
+            $end
+            $for(i=RecordList.BeginPage;i<=RecordList.EndPage;i++)
+            $if(i==RecordList.PageIndex)
+            <li class="page_numer itme">
+                <a href="$url('/billlist/list/',i)">$i</a>
+            </li>
+            $else
+            <li class="page_numer">
+                <a href="$url('/billlist/list/',i)">$i</a>
+            </li>
+            $end
+            $end
+            $if(RecordList.PagesCount>RecordList.EndPage)
+            <li class="page_numer"><a href="$url('/billlist/list/',RecordList.PageIndex+1)">...</a></li>
+            <li class="page_numer"><a href="$url('/billlist/list/',RecordList.PagesCount)">$RecordList.PagesCount</a></li>
+            $end
+
+
+            $if(RecordList.PageIndex==RecordList.EndPage)
+            <li class="page_next page_prev">
+                <a href="#" class="pageprev_unnext pageprev_print pagenext_img">
+                    下一页
+                    <span class="unicon"></span>
+                </a>
+            </li>
+            $else
+            <li class="page_next page_prev">
+                <a href="$url('/billlist/list/',RecordList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                    下一页
+                    <span class="icon"></span>
+                </a>
+            </li>
+            $end
+        </ul>
+        <div class="total fl"> 共 $RecordList.PagesCount 页/$RecordList.TotalCount条，</div>
+        <div class="form fl">
+            <span class="text">跳到</span>
+            <input class="input J_Input" type="number" id="txtJumb" aria-label="页码输入框" max="$RecordList.PagesCount" min="1" value="2">
+            <span class="text">页</span>
+            <span class="pagebtn J_Submit fr" tabindex="0" role="button" ><a id="btnJumb">跳转</a></span>
+            <!--<span class="btn J_Submit fr" tabindex="0" onclick="window.location.href = '$url('/billlist/list/',"' + Math.min(parseInt(document.getElementById('PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value)) + '")' " role=" button">确定</span>-->
+        </div>
+    </div>
+</div>
+<!-- 分页 结束 -->
+$else
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>城品惠-我的账单</title>
+    $load("inc/comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/mybill.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-afterSale.css')">
+    <script type="text/javascript" src="$res('/resource/static/scripts/core.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jtemplates.js')"></script>
+    <style type="text/css">
+        .center_wrapRight {
+            width: 995px;
+        }
+
+        .center_wrapRight h2 {
+            padding: 8px;
+            font-weight: normal;
+            width: 90px;
+            border-bottom: 2px solid #e31939;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+    <script type="text/javascript">
+        function loadData(url) {
+            Cnaws.getAjax(url, function (data, args) {
+                $("#list").html(data);
+                $("#btnJumb").click(btnJumb);
+                $('#list .center_pageBox li').each(function (index, value) {
+                    value = $(value);
+                    if($(this).attr('href')!='#'){
+                        value.find('a').click(function () {
+                            loadData($(this).attr('href'));
+                            return false;
+                        });
+                    }
+                });
+            }, null, true, 'html');
+        }
+
+        function btnJumb() {
+            var num = $("#txtJumb").val();
+            loadData('$url("billlist/list/' + num + '")');
+        }
+
+        $(document).ready(function () {
+            loadData('$url("billlist/list/1")');
+        });
+    </script>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左侧边栏  -->
+        $load("inc/leftaside.html")
+        <!--内容 -->
+        <div class="center_wrapRight fr">
+            <h2>我的账单</h2>
+            <div id="list" class="list-body"></div>
+        </div>
+
+        
+    </div>
+    <!--右边侧栏-->
+    $load("inc/toolbar.html")
+    <!-- 底部  -->
+    $load("inc/bottom.html")
+</body>
+</html>
+$end

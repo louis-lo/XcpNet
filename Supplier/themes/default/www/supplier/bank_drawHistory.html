@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>提现记录</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/publicStyle.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/myJoinStore.css')">
+    <script type="text/javascript" src="$res('/resource/static/datepicker/wdatepicker.js')"></script>
+    $load("inc/comm.html")
+    <meta charset="utf-8" />
+    <style>
+        
+#btnSearch {
+    background: #fe500b none repeat scroll 0 0;
+    color: #fff;
+    display: inline-block;
+    font-family: "simsun";
+    font-size: 13px;
+    text-align: center;
+    width: 86px;
+}
+
+    </style>
+</head>
+<body>
+    $load("inc/top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr ">
+            <div class="dredgeId_top">
+                <span class="mySy">提现记录</span>
+            </div>
+            <div class="dredgeId_informationWrap clearFix">
+                <table align="center" border="0" width="100%">
+                    <tr>
+                        <th class="withdrawDeposit_earnings" colspan="4">
+                            <form method="get" url="$url('/bank/drawmoneyhistory/1')">
+                                申请时间：<input type="text" id="startDate" name="startDate" onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" placeholder="请选择开始日期" /> - <input onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss' })" id="endDate" name="endDate" type="text" placeholder="请选择结束日期" />
+                                <span>
+                                    交易状态：
+                                    <select name="State" id="State">
+                                        <option value="None">全部</option>
+                                        $foreach(state in StateList)
+                                        <option value="$state.Key">$state.Value</option>
+                                        $end
+                                    </select>
+                                    <input type="submit" id="btnSearch" value="搜索" />
+                                </span>
+                            </form>
+                        </th>     
+                    </tr>
+                    <tr>
+                        <td class="nullTr" colspan="4"></td>
+                    </tr>
+                    <tr class="topTr">
+                        <th class="orderTh">创建时间</th>
+                        <th>提现方式</th>
+                        <th>金额</th>
+                        <th>状态</th>
+                    </tr>
+                    $foreach(order in OrderList)
+                    <tr class="informationTr topTr">
+                        <td>$order.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        $if(order.IsDrawBalance())
+                        <td>提现到余额</td>
+                        $else
+                        <td>$SubBankCard(order.BankCard)</td>
+                        $end
+                        <td>$order.DrawMoney.ToString("c2")</td>
+                        $if(order.OrderState=='AuditFailure')
+                        <td class="informationStateS" style="display: block;">
+                        <a href='$url("/bank/drawDetail/"+order.OrderId)'>$order.GetOrderStateText()</a>
+                        </td>
+                        $elseif(order.OrderState=='InTreatment')
+                        <td class="informationState" style="display: none;">
+                        <a href='$url("/bank/drawDetail/"+order.OrderId)'>$order.GetOrderStateText()</a>
+                        </td>
+                        $else
+                        <td class="informationStateT" style="display: block;">
+                        <a href='$url("/bank/drawDetail/"+order.OrderId)'>$order.GetOrderStateText()</a>
+                        </td>
+                        $end
+                    </tr>
+                    $end
+                    <!--<tr class="informationTr topTr">
+                        <td>14658084452815</td>
+                        <td>2016/13 17:00:45</td>
+                        <td>￥15.00</td>
+                        InTreatment
+                        <td class="informationState" style="display: none;">转账中</td>
+                        TradeSuccess
+                        <td class="informationStateT" style="display: block;">提现成功</td>
+                        PendingAudit
+                        <td class="informationState" style="display: none;">提现审核中</td>
+                        AuditFailure
+                        <td class="informationStateS" style="display: none;">提现失败</td>
+                    </tr>-->
+                </table>
+                <!-- 分页 开始 -->
+                <div class="center_pageWrap">
+                    <div class="center_pageBox fr clearFix">
+                        <ul class="clearFix fl">
+                            $if(OrderList.PageIndex==1)
+                            <li class="page_prev">
+                                <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                    <span class="unicon"></span>
+                                    上一页
+                                </a>
+                            </li>
+                            $else
+                            <li class="page_prev">
+                                <a href="$GetUrl(OrderList.PageIndex-1)$this.Request.Url.Query" class="pageprev_print pageprev_img">
+                                    <span class="icon"></span>
+                                    上一页
+                                </a>
+                            </li>
+                            $end
+                            $if(OrderList.BeginPage>1)
+                            <!--<li class="page_numer itme"><a href="$GetUrl(1)">1</a></li>
+                            <li class="page_numer"><a href="$GetUrl(OrderList.PageIndex-1)">...</a></li>-->
+                            $end
+                            $for(i=OrderList.BeginPage;i<=OrderList.EndPage;i++)
+                            $if(i==OrderList.PageIndex)
+                            <li class="page_numer"><a href="$GetUrl(i)$this.Request.Url.Query">$i</a></li>
+                            $else
+                            <li class="page_numer"><a href="$GetUrl(i)$this.Request.Url.Query">$i</a></li>
+                            $end
+                            $end
+                            $if(OrderList.PagesCount>OrderList.EndPage)
+                            <li class="page_numer"><a href="$GetUrl(OrderList.PageIndex+1)$this.Request.Url.Query">...</a></li>
+                            <li class="page_numer"><a href="$GetUrl(OrderList.PagesCount)$this.Request.Url.Query">OrderList.PagesCount</a></li>
+                            $end
+                            $if(OrderList.PagesCount<=0||OrderList.PageIndex==OrderList.PagesCount)
+                            <li class="page_next page_prev">
+                                <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                    下一页
+                                    <span class="unicon"></span>
+                                </a>
+                            </li>
+                            $else
+                            <li class="page_next page_prev">
+                                <a href="$GetUrl(OrderList.PageIndex-1)$this.Request.Url.Query" class="pageprev_next pageprev_print pagenext_img">
+                                    下一页
+                                    <span class="icon"></span>
+                                </a>
+                            </li>
+                            $end
+                        </ul>
+                        <div class="total fl"> 共 $OrderList.PagesCount 页/$OrderList.TotalCount条，</div>
+                        <div class="form fl">
+                        <span class="text">跳到</span>
+                        <input class="input J_Input location_number" id="PageInput" type="number" aria-label="页码输入框" max="$OrderList.PagesCount" min="1" value="1">
+                        <span class="text">页</span>
+                        <span class="pagebtn J_Submit fr" tabindex="0" onclick="window.location.href='$url("/bank/drawmoneyhistory/","'+Math.min(parseInt(document.getElementById('PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value))+'")$this.Request.Url.Query'" role="button">跳转</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 分页 结束 -->
+            </div>
+        </div>
+        <!-- 右边 结束 -->
+    </div>
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+</body>
+</html>

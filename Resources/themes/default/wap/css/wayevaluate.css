@@ -1,0 +1,59 @@
+html{font-size:20px;}
+body{margin:0px;padding:0px;line-height:1.5;-webkit-tap-highlight-color:rgba(0,0,0,0);font-size:.85rem;font-family:"Helvetica Neue", Helvetica, sans-serif,"Microsoft YaHei",tahoma,arial,'Hiragino Sans GB';color:#666;}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+ul li{list-style:none;}h3{font-size:0.95rem;}a{text-decoration: none;color:#333;}.col_333{color:#333}.col_666{color:#666}.col_ff7{color:#ff7300}.col_999{color:#999}
+img{max-width:100%;}p{font-size:0.75rem;}.txt_hide{text-overflow:ellipsis;max-width:100%;white-space:nowrap;overflow:hidden;}.way_line{height:0.75rem;background:#f3f3f3;margin:0 0 0.6rem;}
+div,p,ul,li,h3,img,dd{margin:0;padding: 0;word-break:break-word;}.fl{float:left;}.fr{float:right;}
+
+.wrap{max-width:1024px;margin:0 auto;}.pad_lr{padding:0 0.75rem;}
+
+/* end nav*/
+.wayshow_nav{position:fixed;top:0;height:2.5rem;line-height:2.5rem;width:100%;background:#fff;text-align:center;z-index:100;font-size:.95rem;color:#333;}
+.wayshow_navPosi{position:relative;}
+.wayshow_navLe{position:absolute;top:0.9rem;left:0.3rem;}
+.icon_Firststep{display:inline-block;width:18px;height:18px;background:url(../img/icon_Firststep.png);background-size:100%;}
+.wayshow_navLe span:last-child{line-height:17px;margin-left:0.1rem;font-size:.85rem;}
+
+.content-block{padding:0;}
+.wayshow_evalTitle{border-bottom:1px solid #dadada;line-height:1.5rem;}
+.wayshow_evalMTitle{line-height:19px;font-size:.75rem;}
+.icon_arrow_right{display:inline-block;width:16px;height:16px;background:url(../img/wayshop_entranceIcon.png) no-repeat;background-size:100%;vertical-align:middle;}
+.wayshow_evalname{line-height:1.5rem;}
+.wayshow_evalStar{margin:.15rem 0 0 0.4rem;}
+.wayshow_evaltime{font-size:.75rem;}
+.wayshow_evaluate{border-bottom:1px solid #dadada;margin-bottom:0.3rem;}
+.wayshow_evalStar img{width:0.75rem;}
+.wayshow_evalTxt div:first-child{margin:0.35rem 0 0.1rem;}
+.wayshow_evalImg ul li{width:33.3%;float:left;padding:0.4rem .5rem 0rem;box-sizing:border-box;}
+.wayshow_evalImg ul li div{position:relative;width:100%;padding-bottom:100%;}
+
+.wayshow_parameter{margin-top:3rem;}
+.tabs .tab p{margin:0.3rem 0;}
+.buttons-row{margin-bottom:0.8rem;}
+.wayshow_parameter .buttons-row .button:first-child,.wayshow_parameter .buttons-row .button:last-child{border-radius:0;}
+.wayshow_parameter .buttons-row .button{color:#333;font-size:.85rem;border:none;padding:0 0;width:4.2rem;display:inline-block;height:auto;line-height:1.1rem;}
+.wayshow_parameter .buttons-row .button:first-child{margin-right:.5rem;}
+.wayshow_parameter .buttons-row .button.active{color:#e01928;background:no-repeat;}
+.wayshow_parameter .buttons-row .button span{display:block;font-size:.75rem;}
+.buttons-row div{float:left;width:50%;text-align: center;}
+
+.wayshow_paraList ul{border-top:1px solid #dadada;}
+.wayshow_paraList ul li{zoom: 1;overflow: hidden;padding-left:5rem;line-height:1.75rem;border:1px solid #dadada;border-top:none;}
+.wayshow_paraList ul li .wayshow_parale{width:4.5rem;margin-left:-100%;position:relative;left:-5rem;padding:0 0.3rem;box-sizing:border-box;}
+.wayshow_paraList ul li .wayshow_paraMain{width:100%;box-sizing: border-box;padding:0 0.3rem;}
+
+#city-picker{box-sizing:border-box;border:none;background:none;border-radius:0 0 0 0;box-shadow:none;display:inline-block;
+margin:0;color:#666;font-size:0.85rem;font-family:inherit;}
+
+.shopcart_addnum{position:fixed;bottom:2.5rem;left:1.5rem;color:#ed4636;font-size:.9rem;z-index:9999;opacity:0;transition:opacity .5s;-webkit-animation:shopcart_addnum 1.5s infinite linear ;}
+.shopcart_addnum_on{opacity:1;}
+.nav_bottom{position:fixed;bottom:0;width:100%;background:#fff;z-index:100;}
+.nav_bottom ul li{float:left;text-align:center;width:24%;font-size:.75rem;}
+.nav_bottom ul li .shopcart_posi{position:relative;z-index:999;}
+.nav_bottom ul li .shopcart_posi .shopcart_num{position:absolute;top:0.2rem;right:15%;display:inline-block;padding:0 0.3rem;background:#f44336;color:#fff;line-height:10px;font-size:.4rem;border-radius:.4rem;border: 1px solid #fff;}
+.nav_bottom ul li div:first-child{line-height:0;}
+.nav_bottom ul li div:first-child img{width:1.5rem;}
+.nav_bottom ul li div:last-child{font-size:.65rem;}
+.nav_bottom ul li:nth-child(2),.nav_bottom ul li:last-child{width:38%;}
+.nav_bottom ul li:nth-child(2) a,.nav_bottom ul li:last-child a{display:block;background:#ff9600;color:#fff;font-size:.9rem;line-height:2.5rem;}
+.nav_bottom ul li:last-child a{background:#e01928;}

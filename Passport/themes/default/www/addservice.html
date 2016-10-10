@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>城品惠-提交申请</title>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-commitApply.css')">
+    
+    <script type="text/javascript">
+        var editor = null;
+        $(function () {
+            $("#form").jqxValidator({
+                rules: [
+                    { input:'#Message',message:'说明文字不能为空',action: 'keyup, blur',rule:'required'},
+                    { input: '#RefundMoney', message: '请输入退款金额', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#RefundMoney', message: '退款金额不能大于订单金额', action: 'blur', rule: function (input, commit) {
+                            if (parseInt($('input[name="ServiceType"]:checked').val()) != 2) {
+                                if (input.val() != '' && parseFloat(input.val()) <= $Product.TotalMoney) {
+                                    return true;
+                                }
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        }
+                    },
+                    {
+                        input: '#RefundCount', message: '申请数量不能为空', action: 'keyup,blur', rule: function (input, commit) {
+                            if (parseInt($('input[name="ServiceType"]:checked').val()) != 3) {
+                                if (input.val() == '') { return false; }
+                                else { return true;}
+                            } else {
+                                return true;
+                            }
+                        }
+                    },
+                    {
+                        input: '#RefundCount', message: '换货数量错误', action: 'blur', rule: function (input, commit) {
+                            if (parseInt($('input[name="ServiceType"]:checked').val()) == 2) {
+                                if (input.val() != '' && parseInt(input.val()) <= $Product.Count) {
+                                    return true;
+                                }
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        }
+                    },
+                    {
+                        input: '#Reason', message: '售后原因必须选择', action: 'change', rule: function (input, commit) {
+                            if (input.val() != '0') {
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                ]
+            });
+
+            editor = KindEditor.create('#Summary', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+                width: 670,
+                height: 300
+            });
+            
+
+            $(".header_bottom_left").mouseover(function () {
+                $(".centerBox").show();
+            });
+            $(".header_bottom_left").mouseout(function () {
+                $(".centerBox").hide();
+            });
+            $(".application_title span a").click(function () {
+                $(".application_title span a").children().children().removeAttr("checked");
+                $(this).children().children().attr("checked", "checked");
+                $(".application_title span a").css("color", "#666").children().removeClass().addClass("pay_list_c2");
+                $(this).css("color", "#e31939").children().removeClass().addClass("pay_list_c1");
+                var v1 = this;
+                var v2 = $(this).children().children();
+                v2.click(ChangeType(v2));
+            })
+        })
+
+        function onSubmit() {
+            var form = $('#form');
+            form.attr('disabled', true);
+            if (form.jqxValidator('validate')) {
+                Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showNotify('success', '已成功申请售后,请等待商家审核！');
+                        setTimeout(function () {
+                            window.location.href = "$url('/service/servicelist')"
+                        }, 1200);
+                    }
+                    else if (data.code = -1054) {
+                        Cnaws.showNotify('error', '已过售后申请时间,不能申请！');
+                    }
+                    else if (data.code = -1046) {
+                        Cnaws.showNotify('error', '申请售后失败,退款价格不能高于商品价格！');
+                    }
+                    else if (data.code = -1047) {
+                        Cnaws.showNotify('error', '申请售后失败,换货数量不能购买时的数量！');
+                    }
+                    else {
+                        Cnaws.showNotify('error', '申请售后失败,请核对后重试！');
+                    }
+                    args.form.attr('disabled', false);
+                }, { form: form });
+            }
+            else {
+                form.attr('disabled', false);
+            }
+            return false;
+        }
+
+        function changeImage() {
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    imageUrl: $('#Image').val(),
+                    clickFn: function (url, title) {
+                        $('#Image').val(url);
+                        setImagePic(url);
+                        editor.hideDialog();
+                    }
+                });
+            });
+        }
+
+        function setImagePic(url) {
+            var img = '<img src="' + url + '" style="width:60px;height:60px;margin-left:15px;margin-top:5px;"/>';
+            $("#pzpic img").remove();
+            $('#pzpic').append(img);
+        }
+
+        function ChangeType(input) {
+            if ($(input).val() == 1) {
+                $("#sp_ReturnGoods").show();
+                $("#div_ReturnGoods").show();
+                $("#sp_ExchangeGoods").show();
+                $("#div_ExchangeGoods").show();
+            }
+            else if ($(input).val() == 2) {
+                $("#sp_ReturnGoods").show();
+                $("#div_ReturnGoods").show();
+                $("#sp_ExchangeGoods").show();
+                $("#div_ExchangeGoods").show();
+            }
+            else if ($(input).val() == 3) {
+                //$(".jqx-validator-hint jqx-rc-all").hide();
+                $("#form").jqxValidator('hide');
+                $("#sp_ReturnGoods").show();
+                $("#div_ReturnGoods").show();
+                $("#sp_ExchangeGoods").hide();
+                $("#div_ExchangeGoods").hide();
+            }
+        }
+
+        function drump() {
+            window.location.href = document.referrer;
+        }
+        
+    </script>
+</head>
+<body>
+    
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左侧边栏  -->
+        $load("inc/leftaside.html")
+
+        <!--内容 -->
+        <div class="center_wrapRight fr">
+            <h2>售后管理</h2>
+            <div class="applyJdWrap">
+                <div class="applyJdPrint1"></div>
+                <div class="applyJdWz">
+                    <ul class="clearFix">
+                        <li>申请退换货</li>
+                        <li class="conLi">商家审核</li>
+                        <li class="lastLi">完成售后</li>
+                    </ul>
+                </div>
+                <div class="applyJdDate">
+                    <ul class="clearFix">
+                        <li>$TimeNow</li>
+                        <li class="dateconLi"></li>
+                        <li class="datelastLi undis"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="applyContentWrap clearFix">
+                    <!-- 申请服务 开始 -->
+                    <div class="applyContentR fl">
+                        <form id="form" action="$url('/service/submit/',PrOrder.Id,'/',Product.ProductId)" method="post" onsubmit="return onSubmit()">
+                            <div class="shouhuo_application">
+                                <div class="application_title">
+                                    申请服务：
+                                    <span>
+                                        <a id="span_a1">
+                                            <span class="pay_list_c1">
+                                                <input type="radio" name="ServiceType" id="ServiceType3" value="3" checked="checked" onchange="ChangeType(this)"  class="radioclass">
+                                            </span>
+                                            退款(不退货)
+                                        </a>
+                                        $if(PrOrder.State>3)
+                                        <a id="span_a2">
+                                            <span class="pay_list_c2">
+                                                <input type="radio" name="ServiceType" id="ServiceType2" value="2" onchange="ChangeType(this)" class="radioclass">
+                                            </span>
+                                            换货
+                                        </a>
+                                        <a id="span_a3">
+                                            <span class="pay_list_c2">
+                                                <input type="radio" name="ServiceType" id="ServiceType1" value="1" onchange="ChangeType(this)" class="radioclass">
+                                            </span>
+                                            退货
+                                        </a>
+                                        $end
+                                    </span>
+                                    <span class="need"><i>*</i>为必填项</span>
+                                </div>
+                                <div class="sweetHintWrap sweetHintPrint">
+                                    <span>温馨提示：你只有一次售后维权的机会哦！</span>
+                                </div>
+                                <div class="ContentWrap clearFix">
+                                    <div class="ContentWrapR fl">
+                                        <span>退货退款原因：</span>
+                                        <span class="refundP" id="sp_ReturnGoods">退款金额：</span>
+                                        <span class="refundP" id="sp_ExchangeGoods" style="display:none;">申请数量：</span>
+                                        <span class="refundP">是否退邮费：</span>
+                                        <span class="refundP">说明：<p>（0/200字）</p></span>
+                                        <span class="proof">上传凭证：</span>
+                                    </div>
+                                    <div class="ContentWrapL fl">
+                                        <div class="applycause">
+                                            <i>*</i>
+                                            <select id="Reason" name="Reason">
+                                                <option value="0" selected="selected">请选择退款原因</option>
+                                                <option value="7天无理由退换货">7天无理由退换货</option>
+                                                <option value="退运费">退运费</option>
+                                                <option value="做工问题">做工问题</option>
+                                                <option value="缩水/褪色">缩水/褪色</option>
+                                                <option value="大小/尺寸与商品描述不符">大小/尺寸与商品描述不符</option>
+                                                <option value="颜色/图案/款式与商品描述不符">颜色/图案/款式与商品描述不符</option>
+                                                <option value="材质面料与商品描述不符">材质面料与商品描述不符</option>
+                                                <option value="少件/漏发">少件/漏发</option>
+                                                <option value="卖家发错货">卖家发错货</option>
+                                                <option value="包装/商品破损/污渍">包装/商品破损/污渍</option>
+                                                <option value="假冒品牌">假冒品牌</option>
+                                                <option value="未按约定时间发货">未按约定时间发货</option>
+                                                <option value="发票问题">发票问题</option>
+                                            </select>
+                                        </div>
+                                        <div class="applymoney applymoneyT" id="div_ReturnGoods">
+                                            <i>*</i> <input type="text" name="RefundMoney" value="$Product.TotalMoney.ToString('0.00')" onkeyup="value=value.replace(/[^\d\.]/g,'')" id="RefundMoney"/>元
+                                        </div>
+                                        <div class="applynumber applymoneyT" id="div_ExchangeGoods" style="display:none;">
+                                            <i>*</i> <input type="text" name="RefundCount" value="$Product.Count" onkeyup="value=value.replace(/[^\d\.]/g,'')" id="RefundCount" placeholder="请填写申请数量"/>
+                                        </div>
+                                        <div class="returnpostage">
+                                            $if(IsRetreatFreightAmount)
+                                            <input type="radio" id="IsRetreatFreightAmount" name="IsRetreatFreightAmount"  checked="checked"/>是
+                                            <input type="radio" name="IsRetreatFreightAmount" />否
+                                            $else
+                                            <input type="radio" id="IsRetreatFreightAmount" name="IsRetreatFreightAmount"/>是
+                                            <input type="radio" name="IsRetreatFreightAmount"  checked="checked"/>否
+                                            $end
+                                        </div>
+                                        <div class="applystate">
+                                            <textarea class="applyL" name="Message" id="Message" placeholder="最多两百字"></textarea>
+                                        </div>
+                                        <div class="applyproof applymoneyT" id="pzpic">
+                                            <a href="javascript:void(0);" class="applyL" onclick="changeImage()">选择凭证图片</a>
+                                        </div>
+                                        <div class="applybutton">
+                                            <div style="display:none"><textarea id="Summary" name="Summary"></textarea></div>
+                                            <input type="hidden" id="Image" name="Image" value="" />
+                                            <button type="submit" class="applybuttonf">提交申请</button>
+                                            <a href="javascript:void(0);" onclick="drump()" class="applybuttonf">取消并返回</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- 申请服务 结束 -->
+                    <!-- 商品信息 订单信息 开始 -->
+                    $load("inc/productorderinfo.html")
+                    <!-- 商品信息 订单信息 结束 -->
+                </div>
+        </div>
+    </div>
+    <!--右边侧栏-->
+    $load("inc/toolbar.html")
+    <!-- 底部  -->
+    $load("inc/bottom.html")
+</body>
+</html>

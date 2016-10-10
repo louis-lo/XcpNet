@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>城品惠供应商</title>
+    $load("inc/s_comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier.supplierlist.css')">
+    <script type="text/javascript">
+        /*使用jqzoom*/
+        $(function() {
+            $("input[type='text']").focus(function(){
+                $(this).css("border-color","#ff5820")
+            });
+            $("input[type='text']").blur(function(){
+                $(this).css("border-color","#ccc")
+            });           
+        });
+    </script>
+</head>
+
+
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/s_top.html")
+    <!-- 头部 第二部分 -->
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/s_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="fr">
+            <div class="clearFix">
+                <h3 class="ProductShelves fl">供应商列表</h3>
+            </div>
+
+            <!--城品惠供应商开始-->
+            <!--top-->
+            <div class="cph_supplier">
+                <ul class="top clearFix">
+                    <li class="top_li fl">当前分类:所有供应商</li>
+                    <li class="top_li fl clearFix">
+                        <p class="fl">状态:</p>
+                        <div class="top_li_right top_li_right_on fl">                            
+                            <span id="ShowText">$if(State=="_")所有状态$elseif(State=="0")未支付$elseif(State=="1")未完善$elseif(State=="2")未审核$elseif(State=="5")已审核$end</span>
+                            <span class="cph_supplierIcons"></span>
+                            <ul class="second">
+                                <li class="second_li second_li2" onclick="window.location.href='$url('/supplier/list/_')'">所有状态</li>
+                                <li class="second_li second_li2" onclick="window.location.href='$url('/supplier/list/0')'">未支付</li>
+                                <li class="second_li second_li2" onclick="window.location.href='$url('/supplier/list/1')'">未完善</li>
+                                <li class="second_li second_li2" onclick="window.location.href='$url('/supplier/list/2')'">未审核</li>
+                                <li class="second_li second_li2" onclick="window.location.href='$url('/supplier/list/5')'">已审核</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="top_li btn fl"><a href="$url('/supplier/edit')">新增供应商</a></li>
+                </ul>
+
+                <!--down-->
+                <table class="down" cellpadding="0" cellspacing="0">
+                    <tr class="first">
+                        <td class="company">公司名称</td>
+                        <td class="level">账号</td>
+                        <td class="industry">签约人</td>
+                        <td class="bond">联系电话</td>
+                        <td class="state">QQ</td>
+                        <td class="term">保证金</td>
+                        <td class="time">入住时间</td>
+                        <td class="settlement">期限</td>
+                        <td class="commission">状态</td>
+                        <td class="operation">操作</td>
+                    </tr>
+                    $foreach(item in SupplierList.Data)
+                    <tr class="last">
+                        <td class="company">
+                            <p class="txt_hide">$item.A.Company</p>
+                        </td>
+                        <td class="level">$item.B.Name</td>
+                        <td class="industry">$item.A.Signatories</td>
+                        <td class="bond">$item.A.SignatoriesPhone</td>
+                        <td class="state">$item.A.QQ</td>
+                        <td class="term">$item.A.Money.ToString("C2")</td>
+                        <td class="time">$item.A.CreationDate.ToString("yyyy-MM-dd")</td>
+                        <td class="settlement">${item.A.Year}年</td>
+                        <td class="commission">$item.A.GetStateString()</td>
+                        <td class="operation">
+                            <a href="javascript:;" data-id="$item.A.UserId" class="new_address">查看详情</a>
+                        </td>
+                    </tr>
+                    $end
+                </table>
+
+            </div>
+
+
+            <!--商品分页开始-->
+            <div class="center_pageBox clearFix" style="margin-left:150px;">
+                <ul class="clearFix fl">
+                    $if(SupplierList.PageIndex==SupplierList.BeginPage)
+                    <li class="page_prev">
+                        <a href="#" class="pageprev_unprint pageprev_img">
+                            <span class="unicon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_prev">
+                        <a href="$url('/supplier/list/',State,'/',SupplierList.PageIndex-1)" class="pageprev_print pageprev_img">
+                            <span class="icon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $end
+                    $if(SupplierList.BeginPage>1)
+                    $end
+                    $for(i=SupplierList.BeginPage;i<=SupplierList.EndPage;i++)
+                    $if(i==SupplierList.PageIndex)                    
+                    <li class="page_numer"><a href="$url('/supplier/list/',State,'/',i)">$i</a></li>
+                    $else
+                    <li class="page_numer"><a href="$url('/supplier/list/',State,'/',i)">$i</a></li>
+                    $end
+                    $end
+                    $if(SupplierList.PagesCount>SupplierList.EndPage)
+                    <li class="page_numer"><a href="$url('/supplier/list/',State,'/',SupplierList.PageIndex+1)">...</a></li>
+                    <li class="page_numer"><a href="$url('/supplier/list/',State,'/',SupplierList.PagesCount)">$SupplierList.PagesCount</a></li>
+                    $end
+                    $if(SupplierList.PagesCount<=0||SupplierList.PageIndex==SupplierList.PagesCount)
+                    <li class="page_next page_prev">
+                        <a href="#" class="pageprev_unnext pageprev_print pagenext_img">
+                            下一页
+                            <span class="unicon"></span>
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_next page_prev">
+                        <a href="$url('/supplier/list/',State,'/',SupplierList.PageIndex+1)" class="pageprev_next pageprev_print pagenext_img">
+                            下一页
+                            <span class="icon"></span>
+                        </a>
+                    </li>
+                    $end
+                </ul>
+                <div class="total fl"> 共 $SupplierList.PagesCount 页/$SupplierList.TotalCount条，</div>
+                <div class="form fl">
+                    <span class="text">到第</span>
+                    <input class="input J_Input" type="number" id="PageInput" aria-label="页码输入框" max="$SupplierList.PagesCount" min="1" value="1">
+                    <span class="text">页</span>
+                    <span class="btn J_Submit fr" tabindex="0" onclick="window.location.href = '$url('/supplier/list/',State,'/',"' + Math.min(parseInt(document.getElementById('PageInput').value),parseInt(document.getElementById('PageInput').attributes['max'].value)) + '")'" role=" button">确定</span>
+                </div>
+            </div>
+            <!--商品分页结束-->
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    <!-- 查看详情弹窗开始 -->
+    <!-- 弹出层模板-->
+    $load("inc/xalert.html")
+    <!-- 弹出层结束-->
+    <script type="text/html" id="tmpl-address">
+        <div class="new_addressWrap clearFix">
+            <form id="addForm" action="$url('/shippingaddress/submit')" method="post">
+                <div class="classificationOfPop" id="SupplierInfo">
+
+                    <!--<div class="top">查看详情</div>
+                        <ul class="mid">
+                        <li class="clearFix">
+                            <div class="left fl">公司名称：</div>
+                            <div class="fl">佛山市南海葆登利针织服装有限公司</div>
+                        </li>
+                        <li class="mid_photo clearFix">
+                            <div class="left fl">证件图片：</div>
+                            <div class="right fl clearFix">
+                                <div class="right_img fl">
+                                    <img width="94px" height="95px" src="../img/classificationOfPop_img01.png"/>
+                                    <input type="file"/>
+                                </div>
+                            </div>
+                            <div class="right fl clearFix">
+                                <div class="right_img fl">
+                                    <img width="94px" height="95px" src="../img/classificationOfPop_img02.png"/>
+                                    <input type="file"/>
+                                </div>
+                            </div>
+                            <div class="right fl clearFix">
+                                <div class="right_img fl">
+                                    <img width="94px" height="95px" src="../img/classificationOfPop_img03.png"/>
+                                    <input type="file"/>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">签约人：</div>
+                            <div class="fl">赖余忠　联系电话　13928664289</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">负责人：</div>
+                            <div class="fl">赖余忠　联系电话　13928664289</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">行业：</div>
+                            <div class="fl">文胸内衣</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">主营产品：</div>
+                            <div class="fl">内裤</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">公司地址：</div>
+                            <div class="fl">中国　广东　佛山　南海区小塘大道趁圩岗</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">保证金：</div>
+                            <div class="fl">¥10,000.00</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">入驻时间：</div>
+                            <div class="fl">2016-07-22</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">年限：</div>
+                            <div class="fl">1年</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">状态：</div>
+                            <div class="fl">未支付</div>
+                        </li>
+                        <li class="clearFix">
+                            <div class="left fl">结算方式：</div>
+                            <div class="fl">自营</div>
+                        </li>
+                        <li class="mid_last clearFix">
+                            <div class="left fl">提成：</div>
+                            <div class="right fl">
+                                15<span>（提成只对代卖方式有效）</span>
+                            </div>
+                        </li>
+                    </ul>-->
+                </div>
+            </form>
+        </div>
+    </script>
+    <script>
+
+        $(function () {
+            //  $(".center_addressSelect a").each(function () {
+            //      $(this).click(function () {
+            //          $(this).find(".xiugai_button").css("display", "block");
+            //          $(this).siblings().find(".xiugai_button").css("display", "none");
+            //          $(this).attr("id", "default_A").siblings().attr("id", "");
+            //      });
+            //  });
+            $('.new_address').xalert({
+                tmpl: '#tmpl-address',
+                width:'804px',
+                height: '523px',
+                enableCancel: false,
+                enableOk: false,
+                onShow:function(xalert){
+                    xalert.content.find("#SupplierInfo").html("");
+                    var id = $(xalert.target).data('id');
+                    $.ajax({
+                        type:"Get",
+                        dataType:"html",
+                        url:Cnaws.getUrl('$url("/supplier/info/")'+id),
+                        success:function(data){
+                                xalert.content.find("#SupplierInfo").html(data);
+                        }                    
+                    });
+                }
+            })
+        });
+    </script>
+    <!-- 查看详情弹窗结束 -->
+    <!-- 底部 开始 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+</body>
+</html>

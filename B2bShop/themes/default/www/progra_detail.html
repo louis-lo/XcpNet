@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Site.Name - 进货方案</title>
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.public.min.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cdb.pc.progra_detail.min.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <div class="headerHr w100"></div>
+    <!-- 头部 结束 -->
+    <!-- 商品 开始 -->
+    <div class="goods_box w1000">
+        <!-- 商品 筛选 开始 -->
+        <div class="cneterScreen w1000">
+            <div class="cneterScreenTop">
+                <span>$PrograName</span>> $IndutryCategoryName
+            </div>
+        </div>
+        <!-- 商品 筛选 结束 -->
+        <div class="goods_infos w1000 ">
+            <ul class="clearFix">
+                <li class="goods_header clearFix">
+                    <div class="item_pro fl">产品</div>
+                    <div class="item_pric fl">单价</div>
+                    <div class="item_num fl">数量</div>
+                    <div class="item_rental fl">总额</div>
+                    <div class="item_oper item_rental fl">操作</div>
+                </li>
+                $foreach(product in ProductList)
+                $set(price=product.B.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                <li class="goods_wrap clearFix">
+                    <div class="goods_print fl"><a href="$url('/product/info/',cart.B.Id)" target="_blank"><img src="$product.B.GetImage()" /></a></div>
+                    <div class="goods_msNorms fl">
+                        <span class="goods_ms">
+                            <a href="$url('/product/info/',cart.B.Id)" target="_blank"> $product.B.Title</a>
+</span>
+                        $foreach(item in json(product.B.GetAttributes(this.DataSource)))
+                        <span> ${item.Value.Name}：<i>${item.Value.Value}</i> </span>
+                        $end
+                    </div>
+                    <div class="goods_pric fl "><span class="pricBig fb">$price.ToString("c2")</span>/$product.B.Unit</div>
+                    <div class="item_number fl">
+                        <span class="fl prev jsMinus">-</span>
+                        <input type="text" class="fl jsNumber" value="$product.B.WholesaleCount" data-max="$product.B.Inventory" data-min="$product.B.WholesaleCount" data-price="$price" data-id="$product.B.Id" />
+                        <span class="fl next jsPlus">+</span>
+                    </div>
+                    <div class="goods_gross goods_lsj goods_pric fl "><span class="fb jsSingleMoney">$product.B.GetTotalMoney(false,product.B.WholesaleCount).ToString("c2")</span></div>
+                    <div class="item_del fl"><a href="javascript:;" class="jsDel" title="删除这个商品"><span>删除</span></a></div>
+                </li>
+                $end
+            </ul>
+            <div class="aggregate_wrap clearFix">
+                <div class="aggregate_wrapRight fr">
+                    <span>共<i class="numberKs jsTotalCount">0</i>款</span>
+                    <span>商品总金额：<i class="jsTotalMoney">0.00</i></span>
+                    <a href="javascript:;" id="btnBuy">立即购买</a>
+                    <a href="javascript:;" class="joincart btnCart" id="btnAddToCart" data-productid="0" data-count="0">加入进货车</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 商品 结束 -->
+    $load("inc/toolbar.html")
+    $load("inc/bottom.html")
+    $load("inc/xalert.html")
+    <script type="text/javascript" src="$res('plugins/plusminusbtn/plusminusbtn-1.0.0.js')"></script>
+    <script type="text/javascript" src="$res('plugins/xalert/xalert-1.0.1.min.js')"></script>
+    <script type="text/javascript" src="$res('plugins/shoppingcart/shoppingCart-1.0.0.js')"></script>
+    <script>
+        $(function () {
+            var ids = [], counts = [],
+                //右边工具条
+                t = new Toolbar({
+                    isFly: false,
+                    cartInstance: new Cnaws.Cart({
+                        getPaymentUrl: function (orderId) {
+                            return Cnaws.getUrl('/buy/perfect/' + orderId);
+                        }
+                    }),
+                    onAddComplete: function (shopCart) {
+                        setTimeout(function () {
+                            shopCart.flowDrop.show();
+                        }, 1000);
+                        setTimeout(function (shopCart) {
+                            shopCart.flowDrop.hide();
+                        }, 3000)
+                    }
+                }),
+                //加减按钮选项
+                btnOptions = {
+                 onCalc: function (btn) {
+                     ids = btn.options.idArray;
+                     counts = btn.options.countArray;
+                     var btnAdd = document.getElementById('btnAddToCart');
+                     btnAdd.setAttribute('data-productid', ids.join(','));
+                     btnAdd.setAttribute('data-count', counts.join(','));
+                 },
+                 onChange: function (btn) {
+                     ids = btn.options.idArray;
+                     counts = btn.options.countArray;
+                 }
+             },
+                plusMinusBtn;
+
+            $('div.item_number').each(function (index, item) {
+                if (!plusMinusBtn) {
+                    plusMinusBtn = new PlusMinusBtn(item, btnOptions);
+                    plusMinusBtn.calcTotal();
+                }
+                else
+                    new PlusMinusBtn(item, btnOptions);
+            });
+
+            $('a.jsDel').xalert({
+                tmpl: '确定要删除这个商品吗？',
+                callback: function (xalert) {
+                    $(xalert.target).parents('li').remove();
+                    plusMinusBtn.calcTotal();
+                    xalert.close();
+                }
+            });
+
+            $('#btnBuy').click(function () {
+                t.options.cartInstance.buy(ids.join(','), counts.join(','));
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+.center_wrapRight{width: 995px;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;}
+
+.applyJdWrap{border:1px solid #d6e9c6;height: 140px;background: #dff0d8;margin-top: 10px;}
+.applyJdPrint1{margin:35px auto 0;background: url("../../img2.0/cph/applyJdPrint.png") no-repeat;width: 660px;height: 33px;}
+.applyJdPrint2{margin:35px auto 0;background: url("../../img2.0/cph/commit.png") no-repeat;width: 660px;height: 33px;}
+.applyJdPrint3{margin:35px auto 0;background: url("../../img2.0/cph/pass.png") no-repeat;width: 660px;height: 33px;}
+.applyJdWz{margin:16px auto 0;width: 712px;color: #468847;}
+.applyJdWz ul li{float: left;font-size: 18px;}
+.applyJdWz ul .conLi{margin-left: 248px;}.applyJdWz ul .lastLi{margin-left: 228px;}
+.applyJdDate{width: 748px;margin:2px auto 0;}
+.applyJdDate ul li{float: left;font-family: "simsun";color:#999;}
+.applyJdDate ul .dateconLi{margin-left: 223px;}.applyJdDate ul .datelastLi{margin-left: 182px;}
+.applyContentWrap{margin-top: 20px;}
+/* 申请服务 开始 */
+.applyContentR{width: 718px;height: 598px;}
+.applyHintWrap{background: #f9f9f9;padding:55px 0;}
+.applyHintP{background: url("../../img2.0/cph/tishi.png") no-repeat;width: 28px;height: 28px;margin:8px 15px;}
+.applyHintP1{background: url("../../img2.0/cph/notishi.png") no-repeat;width: 28px;height: 28px;margin:8px 15px;}
+.applyHintWz span{font-size: 16px;}
+.applyHintWz i{color:#e31939;}.applyHintWz p{color:#666;}
+.applyservice{border-bottom:1px solid #e2e2e2;padding:10px;}
+.applyservice span{color:#999;}.applyservice span i{color:#000;}
+
+.ContentWrapR{color:#999;}.ContentWrapL{color:#333;}
+.ContentWrapL i{color:#e31939;}
+.ContentWrapL em{margin-left: 30px;font-style: normal;color:#999;}
+
+.shouhuo_application{margin-top: 15px;border:1px solid #e2e2e2;}
+.ContentWrap{margin: 10px;}
+.ContentWrapR{width:72px;text-align: right;}
+.ContentWrapR span{display: block;font-family: "simsun";}
+.ContentWrapimg img{width: 73px;height: 73px;margin-right: 5px;}
+.applybutton{margin: 28px;}
+.applybutton button{font-size: 14px;background: #dbdbdb;color: #666;width: 100px;height: 37px;border-radius: 5px;cursor: pointer;}
+/* 申请服务 结束 */
+.applyContentL{padding:15px 13px;width: 206px;border:1px solid #e2e2e2;}
+.applyzt{border-bottom:1px solid #e2e2e2;padding:7px 0;font-size: 14px;}
+.applyGoodsInWrap{}
+.applyGoodsIn{padding:10px 0;border-bottom:1px solid #e2e2e2;}
+.applyGoodsPrint{border:1px solid #e2e2e2;padding:3px;line-height: 0;}
+.applyGoodsPrint img{width: 48px;height:48px;}
+.applyGoodsMs{margin-left: 5px;height: 54px;width: 143px;color:#0088cc;}
+.applyGoodsMs p{color:#999;margin-top: 5px;}
+.applyGoodsMs span{margin-left: 12px;}
+.applyGoodsCo{border-bottom: 1px dashed #e2e2e2;}
+.applyGoodsCoR{width: 40px;}
+.applyGoodsCoRTwo{width: 72px;}
+.applyGoodsCoR span,.applyGoodsCoR p{text-align: right;color:#999;}
+.applyGoodsCoT span{display: block;margin-bottom: 8px;}
+.applyGoodsCoL i{color:#e31939;}
+.applyGoodsCoL{width: 205px;}
+.applyGoodsCoL p{color:#48b4ea;}
+.applyGoodsWl{color: #999;margin-top: 10px;position: relative;}
+.applyGoodsColor{color:#0088cc;}
+.applyGoodsCoLTwo p{color:#666;}
+.applyGoodsInWrapT{border-bottom: 0;}
+/* 物流信息 开始 */
+.applyGoodsWl span{cursor: pointer;}
+.logistics{border:1px solid #e2e2e2;width: 248px;height: 102px;position: absolute;z-index: 22;top:19px;background: #fff;text-align: center;}
+.applyGoodsWl span:hover div{display: block;}
+.logisticsP{background: url("../../img2.0/cph/logistics.png") no-repeat;height: 54px;width: 54px;margin:15px auto 0;}
+.logistics{color:#333;}
+/* 物流信息 结束 */

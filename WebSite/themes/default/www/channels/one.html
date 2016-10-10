@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<title>1元抢 - $Site.Title</title>
+    <meta name="keywords" content="1元抢,1元云购,1元夺宝,$Site.Keywords">
+    <meta name="description" content="1元抢,1元云购,1元夺宝,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css/base_02.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/index_02.css')">
+    <style type="text/css">
+	/* BEGIN panel */
+	.main.panel {
+		margin-top: 40px;
+	}
+	.main.panel .panel-header {
+		position: relative;
+		height: 36px;
+		padding-bottom: 12px;
+		border-bottom: 2px solid #000;
+	}
+	.main.panel .panel-header h2,
+	.main.panel .panel-header span {
+		float: left;
+	}
+	.main.panel .panel-header h2 {
+		position: absolute;
+		left: 10px;
+		padding-bottom: 10px;
+		font-size: 36px;
+		color: #000000;
+		font-weight: normal;
+		border-bottom: 6px solid #000;
+	}
+	.main.panel .panel-header span{
+		position: relative;
+		top: 20px;
+		left: 230px;
+		font-size: 16px;
+		color: #636161;
+	}
+
+	.main .media {
+		position: relative;
+		padding: 10px;
+		margin-top: 15px;
+		border: 1px solid #B7B7B7;
+	}
+	.main .media-object {
+		width: 466px;
+		height: 466px;
+	}
+	.main .media-body {
+		width: 611px;
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+	.main .media-body h3 {
+		height: 92px;
+		margin-top: 35px;
+		font-size: 36px;
+		color: #131313;
+		line-height: 1.3;
+		font-weight: normal;
+        overflow: hidden;
+	}
+	.main .media-body .price {
+		margin-top: 25px;
+		color: #8a8888;
+		font-size: 18px;
+	}
+	.main .media-body .price span {
+		font-size: 28px;
+		margin-right: 40px;
+	}
+	.main .media-body .price strong {
+		font-size: 72px;
+		font-weight: bold;
+	}
+	.main .media-body a.btn {
+		display: block;
+		width: 380px;
+		height: 60px;
+		margin-top: 65px;
+		margin-left: auto;
+		margin-right: auto;
+		line-height: 60px;
+		font-size: 30px;
+		color: #FFF;
+		text-align: center;
+		background-color: #E12C33;
+		border-radius: 10px;
+	}
+    .main .media-body .progress {
+		margin-top: 30px;
+		height: 16px;
+		font-size: 15px;
+		line-height: 16px;
+	}
+	.main .media-body .des {
+        padding: 0;
+		margin-top: 30px;
+		height: 16px;
+		font-size: 15px;
+		line-height: 16px;
+	}
+	.main .media-body .des span {
+		color: #E12C33;
+		font-weight: bold;
+	}
+    .main .media-body .left {
+        float: left;
+    }
+    .main .media-body .right {
+        float: right;
+    }
+	.main .media.over .over-content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.5) url($res('css/img/over.png')) no-repeat 215px center;
+	}
+	.main .media.over a {
+		background-color: #A0A0A0;
+	}
+	/* END panel */
+
+	/* BEGIN recommend */
+	.recommend .panel-body {
+		padding: 1px;
+		margin-top: 35px;
+		background-color: #E6E6E6;
+	}
+	.recommend .panel-body li {
+		float: left;
+		width: 268px;
+		padding: 14px;
+		margin-left: 4px;
+		background-color: #FFF;
+	}
+	.recommend .panel-body li img {
+		display: block;
+		width: 268px;
+		height: 262px;
+	}
+	.recommend .panel-body li.first-child {
+		margin-left: 0;
+	}
+	.recommend .panel-body li a {
+		font-size: 14px;
+	}
+	.recommend .panel-body li h3 {
+		margin-top: 20px;
+		line-height: 1.3;
+		font-weight: normal;
+	}
+	.recommend .panel-body li h3,
+	.recommend .panel-body li p {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.recommend .panel-body li h3 strong {
+		color: #000;
+	}
+	.recommend .panel-body li p {
+		margin-top: 15px;
+	}
+	.recommend .panel-body li .btn {
+		padding: 0;
+		height: 38px;
+		line-height: 38px;
+		font-size: 20px;
+		color: #FFF;
+		text-align: center;
+		background-color: #E12C33;
+		border-radius: 10px;
+	}
+    .jqx-fill-state-pressed {
+        background-color: #fdb41c !important;
+    }
+	/* END recommend */
+	</style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxprogressbar.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            $('#banner').jqxScrollView({ width: 738, height: 471, buttonsOffset: [0, 0], slideShow: true, slideDuration: 5000 });
+            $(".load-img").scaling(466, 466, errPic);
+            $('.media').each(function (index, value) {
+                var e = $(value);
+                Cnaws.getAjax(Cnaws.getUrl('$url("/one/progress/")' + e.attr('data-one') + '/' + e.attr('data-num')), function (data, args) {
+                    args.e.find('.des-left').html(data.data);
+                    args.e.find('.des-right').html(args.count - data.data);
+                    args.e.find('.progress').jqxProgressBar({ width: 609, height: 8, value: parseFloat(data.data) / parseFloat(args.count) * 100 });
+                }, { e: e, count: parseInt(e.attr('data-count')) });
+            });
+        });
+    </script>
+</head>
+<body>
+    $load("../inc/top2.html")
+    $load("../inc/header2.html")
+
+	<!-- BEGIN main -->
+	<div class="container main panel" style="margin-top: 40px;">
+		<div class="clearfix panel-header">
+			<h2>本期活动推荐</h2><span>/ 不花高价，1元即得</span>
+		</div>
+        $foreach(item in clr.Cnaws.Product.Modules.OneProduct.GetAllActive(this.DataSource))
+		<!-- BEGIN media -->
+		<div class="clearfix media" data-one="$item.A.Id" data-num="$item.B.Id" data-count="$item.A.Count">
+            <a href="$url('/one/info/',item.A.Id,'/',item.B.Id)" target="_blank"><img class="${if(foreachIndex%2==1)}f-left${else}f-right${end} media-object load-img" data-original="$item.A.GetImage()"></a>
+			<div class="f-right media-body">
+                <a href="$url('/one/info/',item.A.Id,'/',item.B.Id)" target="_blank"><h3>$item.A.Title</h3></a>
+                <p class="price">总需：$item.A.Count 人次</p>
+                <div class="progress"></div>
+                <p class="des left">已参与人次 <span class="des-left">0</span></p>
+                <p class="des right">剩余人次 <span class="des-right">0</span></p>
+                <div class="clearfix"></div>
+                <a class="btn" href="$url('/one/info/',item.A.Id,'/',item.B.Id)" target="_blank">1元疯抢</a>
+            </div>
+		</div>
+		<!-- END media -->
+        $end
+	</div>
+	<!-- END main -->
+
+    $load("../inc/footer2.html")
+</body>
+</html>

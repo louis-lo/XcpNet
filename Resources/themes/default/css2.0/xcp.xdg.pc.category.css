@@ -1,0 +1,37 @@
+﻿@charset "utf-8";
+body{margin:0;padding:0;font-size:12px;line-height:22px;font-family:Microsoft YaHei,YaHei,tahoma,arial,"Hiragino Sans GB";}
+@media screen and (min-width:1601px) and (max-width:2500px){body{font-family:"Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";}}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,p{margin:0;padding:0;}
+input,select,textarea{font-size:12px;line-height:16px;}img{border:0;}ul,li{list-style-type:none;}
+a{color:#353535;text-decoration:none;}
+.tc{text-align:center;}.tl{text-align:left;}.tr{text-align:right;}
+.dis{display:block;}.undis{display:none;}
+.fl{float:left;}.fr{float:right;}.cl{clear:both;}.fb{font-weight:bold;}.fnb{font-weight:200;margin-left:-1px;}
+input[type="text"]:focus,input[type="password"]:focus,textarea:focus{outline:none;}
+.w100{width:100%; height:auto;}
+.w1000{width:1200px; height:auto; margin:0 auto;}
+.mt{margin-top:10px;}
+input{outline:none;border: 0;background: #fff;}
+button{border:0;outline:none;}
+.clearFix:after{clear:both;display:block;visibility:hidden;height:0;line-height:0;content:'';}
+.center_wrapRight{width: 995px;margin: auto;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:90px;border-bottom:2px solid #ff3f08;text-align: center;font-size: 16px;}
+
+.classification_content{border:1px solid #e7e7e7; margin-top:10px; text-align: center;}
+.classification_content li{border-bottom:1px solid #e7e7e7;}
+.first{background:#fafafa; height:34px; line-height:34px;}
+.array{width:46px; border-right:1px solid #fafafa;}
+.classification{width:360px;}
+.images{width:170px;}
+.sort{width:176px;}
+.operation{width:235px;}
+.second{height:54px; line-height:54px;}
+.second .array{width:46px; border-right:1px solid #e8e8e8;}
+.second .classification input{width:248px; height:27px; border:1px solid #e5e5e5; text-indent:10px;}
+.second .images .file{height:30px; display:inline-block; vertical-align:middle; margin-top:-6px; position: relative;}
+.second .images .file input{width:30px; height:30px; display:block; position: absolute; left:0; top:0; opacity:0;}
+.second .sort input{width:88px; height:27px; border:1px solid #e5e5e5; text-align: center;}
+.second .operation span{width:90px; height:29px; border:1px solid #ddd; border-radius:3px; display:inline-block; vertical-align:middle; line-height:31px; background:#f5f5f5; cursor:pointer; color:#666;}
+.second .operation .mid{margin:0 25px;}
+.last{height:140px; border-bottom:none; line-height:60px; color:#ed2525; text-align:left;}
+.last span{width:26px; height:26px; display:inline-block; background:url(../img2.0/Countylevel_JoinImg.png) no-repeat -47px -75px; vertical-align:middle; margin:-3px 17px 0 28px; }

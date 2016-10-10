@@ -1,0 +1,52 @@
+
+.center_wrapRight{width: 995px;margin-bottom: 30px;}
+.center_wrapRight h2{font-weight: normal;width:90px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;padding-bottom: 10px;margin-top: 6px}
+
+/* 订单信息 开始*/
+.orderInformationT{margin: 12px 0 35px 0;}
+.orderInformationT td{border:1px solid #e2e2e2;color:#666;}
+.orderIChar{width: 85px;height: 26px;text-align: center;}
+.orderICharCon{padding-left: 15px;text-align: left;}
+/* 订单信息 结束*/
+
+/* 收货信息 开始*/
+.takeGoodsIn{border:1px solid #e2e2e2;height: 128px;}
+.takeGoodsIn td{border:0;}
+.orderICharT{text-align: right;}
+
+/* 收货信息 结束*/
+.orderICharCon span{color: #e31939;font-size: 14px;}
+
+/* 待发货 开始 */
+.tableTrBottom{border:1px solid #e2e2e2;}
+.tableTrHeader th:first-child{width: 408px;}
+.tableTrHeader th:nth-child(2){width: 105px;}
+.tableTrHeader th:nth-child(3){width: 102px;}
+.tableTrHeader th:nth-child(4){width: 66px;}
+.tableTrHeader th:nth-child(5){width: 135px;}
+.tableTrTop th{background: #eee;padding:5px 0;}
+.tableTrTop th{background: #eee;padding:5px 0;}
+.tableTrTwo th{background: #f5f5f5;text-align: left;padding-left: 10px;color:#333;font-weight: normal;}
+.tableTrLast i{color:#e31939;}
+.orderGoods_print img{width: 50px;height: 50px;}
+.tableTrThree td{border:1px solid #e2e2e2;text-align: center;padding:12px 8px;}
+.shipmentsGoods_ms{}
+.shipmentsGoods_ms{width: 258px;margin-left: 15px;height: 50px;overflow: hidden;text-align: left;}
+.shipments_heart{width: 395px;}
+.obligationWrap_price{width:90px;}
+.obligationWrap_number{width: 58px;}
+.obligationWrap_hj{width: 104px;}
+.shipmentsGoods_nature{width: 90px;}
+.obligationWrap_price span,.shipmentsGoods_state a{color: #e31939;}
+.shipmentsGoods_nature a{color:#e31a22;display: inline-block;width: 67px;height: 27px;border:1px solid #e31a22;border-radius: 5px;line-height: 27px;margin-bottom: 10px;}
+.shipmentsGoods_nature a:last-child{margin-bottom: 0px;}.tableTrLast td{text-align: right;padding-right: 20px;padding:15px;}
+.tableTrLast span,.tableTrLast a{margin-left: 15px;}
+.tableTrLasti{font-size: 22px;}
+.tableTrLast a{display: inline-block;width: 68px;height: 24px;background: #e31939;color:#fff;text-align: center;line-height: 24px;}
+.tableTrLast .oncePay{background:#ccc;margin-left: 10px;}
+.tableTrThree .obligationWrap_nature {text-align: left;}
+
+/*.centerTsWrap{margin-top: 35px;height: 75px;background: url("../../img2.0/cph/ts.png") 117px 0px no-repeat;line-height: 150px;}
+.centerButtonWrap{text-align: center;margin-top: 22px;}
+.tswz{text-align: center;font-size: 14px;font-family: "simsun";}*/
+/* 待发货 结束 */

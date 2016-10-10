@@ -1,0 +1,158 @@
+﻿$if(isset("UserList"))
+<style>
+    #pzSupForm input[type=text] {
+        border: 1px solid #ddd;
+        height: 24px;
+        line-height: 24px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    caption, th {
+        text-align: right;
+    }
+</style>
+<table class="list table" border="1" cellpadding="0" cellspacing="0">
+    <thead>
+        <tr>
+            <th>用户名</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th>公司名称</th>
+            <th>签约人</th>
+            <th>联系电话</th>
+            <th>供应商等级</th>
+            <th>保证金</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    $foreach(item in UserList)
+    <tr>
+        <td>$item.A.Name</td>
+        <td>$item.A.Mobile</td>
+        <td>$item.A.Email</td>
+        <td>$item.B.Company</td>
+        <td>$item.B.Signatories</td>
+        <td>$item.B.SignatoriesPhone</td>
+        $if(item.B.UserId>0)
+        <td>$if(item.B.Level>0)优质$else普通$end供应商</td>
+        <td>$item.B.Money.ToString("C2")</td>
+        <td><input type="button" class="submit js-pz" value="平账" data-userid="$item.B.UserId" /></td>
+        $else
+        <td>
+            <select id="level_$foreachIndex">
+                <option value="0">普通供应商</option>
+                <option value="1">优质供应商</option>
+            </select>
+        </td>
+        <td><input id="money_$foreachIndex" type="text" class="text" style="width:120px" /></td>
+        <td>
+            <input id="btn_$foreachIndex" type="button" class="submit" value="添加" onclick="return addSupplier($item.A.Id,$foreachIndex)" />
+       
+        </td>      
+        $end
+    </tr>
+    $end
+</table>
+$else
+<div>
+    <div>
+        <form id="form" action="$url('supplierex/search')" method="post" onsubmit="return doSearch()">
+            <label for="Users">用户名：</label>
+            <input type="text" id="Users" placeholder="请输入用户名或手机号码或登陆邮箱" name="Users" class="text" style="width:500px" />
+            <span>多个用户名用“,”分隔</span>
+            <input type="submit" class="submit" value="查询" />
+        </form>
+    </div>
+    <div id="suppliers" style="margin-top:10px;"></div>
+</div>
+<div id="pzContainer" style="display:none;">
+    <div><span>请输入平账金额</span></div>
+    <div>
+        <form id="pzSupForm" method="post">
+            <table style="border-collapse:separate; border-spacing:10px;">
+                <tbody>
+                    <tr>
+                        <th><label>最大可平账金额为：</label></th>
+                        <td>
+                            <span id="maxDMoney"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>平账金额：</label></th>
+                        <td>
+                            <input type="text" name="DrawMoney" id="pzDMoney" placeholder="请输入平账金额" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>银行名称：</label></th>
+                        <td>
+                            <input type="text" name="BankName" id="pzBankName" placeholder="请输入银行卡名称" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label>银行卡号：</label></th>
+                        <td>
+                            <input type="text" name="BankCard" id="pzBankCard" placeholder="请输入银行卡名称" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="clearfix" style="padding:10px;">
+                <input type="button" id="btnOk" value="确定" class="submit winbtn" />
+                <input type="button" id="btnCancel" value="取消" class="submit winbtn" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function doSearch() {
+        var form = $('#form');
+        form.attr('disabled', true);
+        if (form.jqxValidator('validate')) {
+            $.ajax({
+                type: "POST",
+                url: form.attr('action'),
+                data: form.serialize(),
+                dataType: 'html',
+                success: function (data) {
+                    $('#suppliers').html(data)
+                    $('#form').attr('disabled', false);
+                    var id;
+                    loadPz(id);
+                }
+            });
+        }
+        else {
+            form.attr('disabled', false);
+        }
+        return false;
+    }
+    function addSupplier(id, row) {
+        var btn = $('#btn_' + row);
+        $(btn).attr('disabled', true);
+        postAjax('$url("supplierex/submit")', 'UserId=' + id + '&Level=' + $('#level_' + row).val() + '&Money=' + encodeURIComponent($('#money_' + row).val()), function (data, args) {
+            if (showResult(data, '添加供应商成功', '添加供应商失败', null)) {
+                doSearch();
+            }
+            $(btn).attr('disabled', false);
+        }, row);
+        return false;
+    }
+    $('#form').jqxValidator({
+        rules: [
+            { input: '#Users', message: '用户名不能为空!', action: 'keyup, blur', rule: 'required' }
+        ]
+    });
+
+    function loadPz(id) {
+        if (PingZhang) {
+            PingZhang('$url("supplierEx/GetArrivalMoney/")', '$url("supplierEx/PingZhang")', '#pzSupForm');
+            id && window.clearInterval(id)
+        }
+        else {
+            id = window.setInterval(loadPz, 500);
+        }
+    }
+</script>
+$end

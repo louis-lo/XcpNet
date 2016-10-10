@@ -1,0 +1,27 @@
+.w-60 {
+	width: 60px !important;
+}
+.state .panel-body {
+	margin-top: 35px;
+}
+.content th,
+.content td {
+	padding-top: 10px;
+}
+.content th {
+	width: 100px;
+	padding-right: 10px;
+	text-align: right;
+}
+ .state .panel-body .upload li {
+	float: left;
+	height: auto;
+	margin-right: 5px;
+	line-height: 1;
+}
+.upload li img {
+	width: 96px;
+	height: 96px;
+	padding: 2px;
+	border: 1px solid #E4E4E4;
+}

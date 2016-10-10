@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title>
+        $if(Level.Level==0||Level.Level==1)
+        我的下级
+        $else
+        我的推荐
+        $end
+    </title>
+    <link rel="stylesheet" href="$res('wap/css2.0/sm.min.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/accounts.css')" />
+    <script src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body bgcolor="#f3f3f3">
+    <div class="page-group">
+        <div class="page page-current" id="page-city-picker">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe">
+                        <a href="javascript:history.go(-1)">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    $if(Level.Level==0||Level.Level==1)
+                    我的下级
+                    $else
+                    我的推荐
+                    $end
+                </div>
+            </div>
+
+            <!-- end nav -->
+            <div class="content native-scroll">
+                <!-- for -->
+                <div class="list-block myRecommend">
+                    $foreach(item in DistributorList)
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_companyicon"></span>公司名：</div>
+                                    <div class="item-input">$item.Company</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_responsibleicon"></span>负责人：</div>
+                                    <div class="item-input">$item.Signatories</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_signicon"></span>签约人：</div>
+                                    <div class="item-input">$item.Contact</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_addressicon"></span>地　址：</div>
+                                    <div class="item-input">$item.GetAddressStr()</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_codeicon"></span>邮　编：</div>
+                                    <div class="item-input">$item.PostId</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label"><span class="withdrawals_icon reco_gradeicon"></span>级　别：</div>
+                                    <div class="item-input">$item.GetLevelString()</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-profit">
+                            $if(item.GetLevelString()=='省级加盟商')
+                            <a class="col_fff" href="$url('/shop/myorder/',item.UserId)">他的订单</a>
+                            <a class="col_fff" href="$url('/distributor/money/',item.UserId)">他的收益</a>
+                            <a class="col_fff" href="$url('/distributor/mymember/',item.UserId)">他的会员</a>
+                            <a class="col_fff" href="$url('/distributor/memberlevel/',item.UserId)">他的下级</a>
+                            $elseif(item.GetLevelString()=='县级加盟商')
+                            <a class="col_fff" href="$url('/shop/myorder/',item.UserId)">他的订单</a>
+                            <a class="col_fff" href="$url('/distributor/money/',item.UserId)">他的收益</a>
+                            <a class="col_fff" href="$url('/distributor/mymember/',item.UserId)">我的会员</a>
+                            <a class="col_fff" href="$url('/distributor/memberlevel/',item.UserId)">他的下级</a>
+                            $else
+                            <a class="col_fff" href="$url('/shop/myorder/',item.UserId)">他的订单</a>
+                            <a class="col_fff" href="$url('/distributor/money/',item.UserId)">他的收益</a>
+                            <a class="col_fff" href="$url('/distributor/mymember/',item.UserId)">我的会员</a>
+                            <a class="col_fff" href="$url('/distributor/memberlevel/',item.UserId)">我的推荐</a>
+                            $end
+                          
+                        </li>
+                    </ul>
+                    $end
+                </div>
+                <!-- end for -->
+
+
+            </div>
+            <!-- content -->
+        </div>
+    </div>
+    <script src="$res('wap/js2.0/sm.min.js')"></script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>城品惠-用户中心</title>
+    $load("inc/comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-userCenter.css')">
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左侧边栏  -->
+        $load("inc/leftaside.html")
+
+        <!--内容 -->
+        <div class="center_topRight clearFix fl">
+            <!--左边-->
+            <div class="centerMiddel_wrap fl">
+                <div class="centerMiddel_top clearFix">
+                    <div class="centerMiddel_print fl">
+                        <img src="$Member.GetImage(res('css/img/user/default_face.png'))" alt="用户头像" />
+                    </div>
+                    <div class="centerMiddel_information fl clearFix">
+                        <b>$Member.GetName()</b> 欢迎回来！
+                        <p>账户安全</p>
+                        ${if(Member.GetSecurityValue()==100)}
+                        <p class="risk fl" style="color:green">安全</p>
+                        ${else}
+                        <p class="risk fl">危险</p>
+                        ${end}
+                        <div class="riskBox fl" style="width:142px;height:11px;background-color:#FFDDA6;border-radius:30px;overflow:hidden;"><div class="riskLimit" style="width:$Member.GetSecurityValue()%;height:100%;background-color:#83451F;"></div></div>
+                        <!--<div class="riskBox fl">
+                            <div class="riskLimit"></div>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="myTransactionWarn clearFix">
+                    <b class="fl">交易提醒</b>
+                    <ul class="status clearFix fl">
+                        $set(orders=clr.Cnaws.Product.Modules.ProductOrder.GetAllProductInfo(this.DataSource,Member.Id))
+                        <li>
+                            <a href="$url('/bought/list/','Payment')">
+                                未付款<span>（$orders.Payment）</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$url('/bought/list/','Delivery')">
+                                待发货<span>（$orders.Delivery）</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$url('/bought/list/','OutWarehouse')">
+                                出库中<span>（$orders.OutWarehouse）</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$url('/bought/list/','Receipt')">
+                                待收货<span>（$orders.Receipt）</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="$url('/bought/list/','Finished')">
+                                已完成<span>（$orders.Finished）</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <a class="check_order fr" href="$url('/bought/list/','_')">查看全部订单 > </a>
+                </div>
+                <div class="center_goodsInformation">
+                    <ul class="clearFix">
+                        $foreach(item in OrderList)
+                            $foreach(pdm in item.GetMapping(this.DataSource))
+                                $if(foreachIndex==1)
+                                    $set(pdInfo=pdm.GetProductInfo())
+                                    <li class="clearFix">
+                                        <div class="goodsIformation_print fl">
+                                            <img src="$pdm.GetImage(pdInfo.Image)" style="width:50px;height:50px;">
+                                        </div>
+                                        <div class="goodsIformation_ms fl">
+                                            $pdInfo.Title
+                                        </div>
+                                        <div class="goodsIformation_nature  fl">
+                                            $foreach(attr in pdInfo.Series)
+                                            <p>$attr.Key：$attr.Value&nbsp;</p>
+                                            $end
+                                        </div>
+                                        <div class="goodsIformation_handle  fl">
+                                            <a href="$url('/buy/status/',item.Id)">查看</a>
+                                        </div>
+                                    </li>
+                                $end
+                            $end
+                        $end
+                    </ul>
+                </div>
+            </div>
+
+            <!--右边-->
+            <div class="center_rightWrap fl">
+                <div class="center_rightTop">
+                    <ul class="clearFix">
+                        <li>
+                            可用余额
+                            <p class="fb">$Member.Money.ToString("f2")</p>
+                        </li>
+                        <li>
+                            冻结金额
+                            <p class="fb">$Member.FreezeMoney.ToString("f2")</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="center_myCart myTransactionWarn">
+                    <b>我的购物车</b>
+                    <div class="stock_cartGoods ">
+                        <ul class="clearFix">
+                            $foreach(cart in cartList)
+                            <li class="clearFix">
+                                <a href='${Site.Url}/product/info/${cart.A.ProductId}.html' target="_blank">
+                                    <div class="stock_cartGoodsPrint fl">
+                                        <img src="$cart.A.Image" alt="$cart.A.Title">
+                                    </div>
+                                    <div class="stock_cartGoodsMs fl">
+                                        $cart.A.Title
+                                        <span class="pric">本店价：<i>￥$cart.A.Price</i></span>
+                                    </div>
+                                </a>
+                            </li>
+                            $end
+                        </ul>
+                    </div>
+                    <div class="myCart_bottom">
+                        <a href="$url('/cart')">查看购物车所有商品</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="center_bottomRight fl">
+            <span class="goodsTj">商城推荐</span>
+            <a class="checkGd fr" href="#">查看更多 > </a>
+            <ul class="clearFix">
+                $foreach(pr in clr.Cnaws.Product.Modules.Product.GetTopRecommendByArea(this.DataSource,5,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId))
+                <li>
+                    <a href='${Site.Url}/product/info/${pr.A.Id}.html' target="_blank">
+                        <div class="centerHome_goodsPrint">
+                            <img src="$GetImg(pr.A.Image)">
+                        </div>
+                        <div class="centerHome_goodsMs">
+                            $pr.A.Title
+                        </div>
+                        <div class="centerHome_goodsprice">
+                            <span>
+                                $if(pr.B.Price>0)
+                                    $pr.B.Price
+                                $else
+                                    $pr.A.Price
+                                $end
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                $end
+            </ul>
+        </div>
+    </div>
+    <!--右边侧栏-->
+    $load("inc/toolbar.html")
+    <!-- 底部  -->
+    $load("inc/bottom.html")
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/citygoods_list.css" />
+<script src="../js/zepto.min.js"></script>
+</head>
+<body bgcolor="#f6f6f6">
+<div class="page-group">
+	<div class="page page-current">
+		<form action="#">
+		<div class="clearfix bar bar-nav col_333 bg_fff">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="#">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				修改昵称
+				<input class="Determine_modification" type="submit" value="确定" onclick="return toVaild()" />
+			</div>
+		</div>
+		
+		<div class="content native-scroll">
+			<div class="list-block" style="margin:0;">
+				<ul>
+					<li class="pad_lr">
+			        	<div class="item-content">
+			        		<div class="item-inner">
+		            			<div class="item-title label" style="width:30%;">昵称</div>
+			            		<div class="item-input">
+			            			<input id="modify_name" type="text" placeholder="请输入新昵称">
+			            		</div>
+			            	</div>
+			        	</div>
+			        </li>
+				</ul>
+			</div>
+			<div class="col_999 pad_lr Prompt_txt">由4-20个字符，可由中英文、数字、组成</div>
+		</div>
+		<!-- / content -->
+		</form>
+	</div>
+</div>
+<script>
+$(function(){
+	$(".returngoods_optionLi li").click(function(){
+		$(".returngoods_optionLi li").removeClass("on");
+		$(this).addClass("on");
+	})
+});
+function toVaild(){
+	var str = $("#modify_name").val();
+	//console.log(str);
+	if(str.length!=0){
+//		var patrn = /^[a-z\d_\u4e00-\u9fa5]{4,20}/i;
+		var patrn = /^[0-9a-zA-Z\u4e00-\u9fa5_]{4,20}$/;
+		if(patrn.test(str)){
+			console.log("YES")
+			return false;
+		}else{
+			console.log("格式不对")
+			return false;
+		}
+	}else{
+		console.log("不能为空")
+		return false;
+	}
+}
+function IsLetter()     
+{     
+        var str = document.getElementById('str').value.trim();    
+        if(str.length!=0){    
+	        reg=/^[a-zA-Z]+$/;     
+	        if(!reg.test(str)){    
+	            alert("对不起，您输入的英文字母类型格式不正确!");//请将“英文字母类型”改成你需要验证的属性名称!    
+	        }
+        }    
+} 
+</script>
+<script src="../js/sm.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,804 @@
+﻿$if(isset("OrderList"))
+$foreach(item in OrderList)
+<li><b></b><span class="date">$item.A.CreationDate.ToString()</span><p><a href="javascript:void(0)"><img src="$item.B.Image" />$item.B.Name</a> ($item.A.IpAddress IP：$item.A.Ip) 参与了<span>1</span>次 号码：$item.A.OrderNum</p></li>
+$end
+$else
+$if(isset("HistoryList"))
+$foreach(item in HistoryList)
+<div class="panel old">
+    <div class="panel-header"><a href="$url('/one/info/',item.A.ProductId,'/',item.A.Id)">期号：${item.A.Id}(揭晓时间：${item.A.EndDate.ToString()})</a></div>
+    <div class="panel-body">
+        <div class="clearfix media">
+            <div class="media-body">
+                <p>获奖者：<a href="javascript:void(0)">$item.B.Name</a></p>
+                <p>用户ID：$item.B.Id（唯一不变标识）</p>
+                <p>幸运号码：$item.A.LuckNum</p>
+                <p>本期参与：$GetCount(item.A.Id,item.B.Id)人次</p>
+            </div>
+        </div>
+    </div>
+</div>
+$end
+$else
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>$Product.Title-$Site.Name</title>
+    <meta name="keywords" content="$Product.Title,$Product.Keywords">
+    <meta name="description" content="$Product.Title,$Product.Description">
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="$res('wap/css/base.css')">
+    <link rel="stylesheet" href="$res('wap/css/common.css')">
+    <style type="text/css">
+        .buy-nav li.item-03, .buy-nav li.item-04 {
+            /*width: 212px;*/
+            width: 176px;
+        }
+        /* BEGIN num-action  */
+        .num-action {
+            position: relative;
+            /*width: 175px;*/
+            /*width: 211px;*/
+            /*height: 52px;*/
+            height: 88px;
+            line-height: 52px;
+            /*border: 1px solid #E5E5E5;*/
+            border-radius: 4px;
+        }
+
+            .num-action span {
+                display: block;
+                position: absolute;
+                width: 200px;
+                left: 200px;
+            }
+
+            .num-action a,
+            .num-action input {
+                float: left;
+                display: block;
+                border: 0;
+                padding: 0;
+            }
+
+            .num-action a {
+                width: 88px !important;
+                height: 88px !important; /*52*/
+                padding-top: 0 !important;
+                line-height: 88px !important;
+                text-indent: -9999px;
+                background-position: 16px 16px !important;
+            }
+
+            .num-action .remove {
+                width: 53px;
+                background: url($res('wap/css/img/remove.png')) no-repeat left top;
+            }
+
+            .num-action input,
+            .num-action .add {
+                border-left: 1px solid #EBEBEB;
+            }
+
+            .num-action input {
+                /*width: 42px;*/
+                width: 88px;
+                height: 32px;
+                padding: 28px 10px;
+                line-height: 32px;
+                text-align: center;
+            }
+
+            .num-action .add {
+                width: 58px;
+                background: url($res('wap/css/img/add.png')) no-repeat left top;
+            }
+        /* END num-action */
+
+        /* BEGIN tab-header */
+        .tab-header {
+            width: 640px;
+            height: 80px;
+            background-color: #FFF;
+            border-bottom: 1px solid #DADADA;
+        }
+
+            .tab-header li {
+                float: left;
+                width: 213.33px;
+                text-align: center;
+            }
+
+                .tab-header li a {
+                    display: inline-block;
+                    height: 74px;
+                    line-height: 74px;
+                    color: #333;
+                    border-bottom: 6px solid #FFF;
+                }
+
+                .tab-header li.active a {
+                    color: #fabc17;
+                    border-bottom-color: #fabc17;
+                }
+
+        .tab-content {
+            background-color: #FFF;
+        }
+        /* END tab-header */
+
+        /* BEGIN product-base */
+        .product-base {
+            padding-left: 22px;
+            padding-right: 22px;
+            padding-top: 22px;
+            padding-bottom: 14px;
+            background-color: #FFF;
+        }
+
+            .product-base ins {
+                font-size: 37px;
+                color: #ff3300;
+                font-weight: bold;
+            }
+
+            .product-base des {
+                text-decoration: line-through;
+            }
+
+            .product-base .price-wrap {
+                position: relative;
+                padding-bottom: 23px;
+                border-bottom: 1px dotted #D8D8D8;
+            }
+
+            .product-base .sold-total {
+                position: absolute;
+                right: 0;
+            }
+
+            .product-base h2 {
+                margin-top: 23px;
+                color: #333;
+                font-weight: normal;
+            }
+
+            .product-base .ensure {
+                margin-top: 22px;
+            }
+            .order-list li {
+                float: left;
+                display: inline;
+                margin: 0 16px;
+                height: 25px;
+                line-height: 25px;
+            }
+
+                .product-base .ensure span {
+                    display: block;
+                    float: left;
+                    height: 22px;
+                    line-height: 22px;
+                    padding-left: 27px;
+                    margin-right: 20px;
+                    font-size: 18px;
+                    background-repeat: no-repeat;
+                }
+
+            .product-base .ensure-01 {
+                background-image: url($res('wap/css/img/ensure_01.png'));
+            }
+
+            .product-base .ensure-02 {
+                background-image: url($res('wap/css/img/ensure_02.png'));
+            }
+
+
+        .list-block.common,
+        .tab {
+            margin-top: 12px;
+        }
+
+        .progress {
+            position: relative !important;
+            width: 100%;
+            height: 12px;
+            margin-top: 10px !important;
+            background-color: #ECECEC !important;
+            border-radius: 6px !important;
+        }
+        .jqx-progressbar-value {
+            width: 0;
+            height: 12px;
+            background-color: #FDB41C !important;
+            border-radius: 6px !important;
+        }
+        /* END product-base */
+
+        /* BEGIN  list-block */
+        .list-block.common li.dropdown-header {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .dropdown-body {
+            color: #999;
+            line-height: 1.5;
+            padding-bottom: 20px;
+        }
+
+            .dropdown-body table {
+                width: 100%;
+            }
+
+            .dropdown-body th {
+                width: 215px;
+            }
+        /* END list-block */
+
+        /* BEGIN old */
+        .old {
+            margin-bottom: 20px;
+            border: 1px solid #DDD;
+        }
+
+            .old .panel-header {
+                height: 40px;
+                line-height: 40px;
+                padding-left: 10px;
+                padding-right: 10px;
+                background-color: #DDD;
+            }
+
+            .old .media {
+                padding-top: 30px;
+                padding-bottom: 30px;
+                line-height: 1.5;
+            }
+
+            .old img,
+            .old media-body {
+                float: left;
+            }
+
+            .old img {
+                display: block;
+                width: 100px;
+                height: 100px;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            .old .media-body {
+                width: 446px;
+                float: right;
+            }
+        /* END old */
+
+
+        /* BEGIN times */
+        .times {
+            display: block;
+            padding: 30px 0;
+        }
+
+            .times a {
+                color: #39f;
+            }
+
+                .times a img {
+                    position: relative;
+                    top: 5px;
+                    right: 5px;
+                    width: 20px;
+                    height: 20px;
+                }
+
+            .times ul {
+                margin-left: 230px;
+                border-left: 2px solid #ddd;
+            }
+
+                .times ul li {
+                    position: relative;
+                    width: 100%;
+                    margin-top: 15px;
+                    margin-left: -12px;
+                    line-height: 20px;
+                    font-weight: normal;
+                }
+
+                    .times ul li b {
+                        width: 8px;
+                        height: 8px;
+                        background: #fff;
+                        border: 2px solid #DDD;
+                        margin: 5px;
+                        border-radius: 6px;
+                        -webkit-border-radius: 6px;
+                        -moz-border-radius: 6px;
+                        overflow: hidden;
+                        display: inline-block;
+                        float: left;
+                    }
+
+                    .times ul li span.date {
+                        display: block;
+                        height: 25px;
+                        line-height: 25px;
+                        position: absolute;
+                        left: -140px;
+                        padding-left: 7px;
+                        font-size: 14px;
+                        color: #555;
+                    }
+
+                    .times ul li p {
+                        padding-left: 35px;
+                        font-size: 14px;
+                        line-height: 25px;
+                    }
+
+                        .times ul li p span {
+                            color: #db3652;
+                        }
+        /* END times */
+        .address {
+            margin-top: 25px;
+        }
+        .address label {
+            margin-bottom: 10px;
+        }
+        .address li {
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        .address li input {
+            margin-right: 4px;
+        }
+        #banner .b-item {
+            width: 640px;
+            height: 640px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 640px 640px;
+        }
+        /*$if(Number.State!=0)*/
+        .old .panel-footer {
+		    height: 60px;
+		    line-height: 60px;
+		    color: #FFF;
+		    text-align: center;
+		    background-color: #FF3208;
+	    }
+        /* BEGIN calc-result */
+	    .calc-result {
+		    width: 100%;
+		    border: 1px solid #DDD;
+		    border-top-width: 2px;
+	    }
+	    .calc-result th,
+	    .calc-result td {
+		    height: 60px;
+		    padding-left: 10px;
+		    padding-right: 10px;
+		    line-height: 60px;
+	    }
+	    .calc-result th {
+		    background-color: #F2F2F2;
+	    }
+	    .calc-result td {
+		    border: 1px solid #DDD;
+		    background-color: #F5F5F5;
+	    }
+	    /* END calc-result */
+        .resultRow td {
+            background-color: #fc5765;
+            color: #fff;
+            height: 120px;
+            line-height: 16px;
+            padding: 15px 30px 20px;
+        }
+        .resultRow h4 {
+            font-weight: bold;
+            margin: 6px 0 12px 0;
+        }
+        .resultRow li {
+            line-height: 24px;
+            padding: 2px 0;
+            font-size: 18px;
+        }
+        .resultRow a {
+            color: #ffe000;
+            font-family: simsun;
+            margin-left: 10px;
+        }
+        .index {
+            color: #fff;
+            font-weight: bold;
+        }
+        .resultCode {
+            background-color: #fff;
+            border-radius: 17px;
+            color: #fc5765;
+            display: inline-block;
+            font-weight: bold;
+            line-height: 30px;
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 30px;
+            text-align: center;
+            width: 500px;
+        }
+        .ball {
+            background-position: -90px -100px;
+            color: #de2042;
+            display: inline-block;
+            font-size: 14px;
+            height: 25px;
+            line-height: 22px;
+            margin-right: 1px;
+            text-align: center;
+            width: 22px;
+        }
+        .square {
+            background-color: #fff;
+            border-radius: 2px;
+            color: #de2042;
+            display: inline-block;
+            font-size: 14px;
+            height: 24px;
+            line-height: 24px;
+            margin-right: 2px;
+            text-align: center;
+            width: 18px;
+        }
+        body {
+            padding-bottom: 0 !important;
+        }
+        /*$end*/
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxprogressbar.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var initOrders = false;
+        var initHistory = false;
+        function loadOrdersPage(url) {
+            Cnaws.getAjax(url, function (data, args) {
+                $('#orders').html(data);
+                $('#orders .pagination li').each(function (index, value) {
+                    value = $(value);
+                    if (!value.hasClass('active')) {
+                        value.find('a').click(function () {
+                            loadOrdersPage($(this).attr('href'));
+                            return false;
+                        });
+                    }
+                });
+            }, null, true, 'html');
+        }
+        function loadOrders(o, n) {
+            if (!initOrders) {
+                initOrders = true;
+                loadOrdersPage(Cnaws.getUrl('$url("/one/orders/")' + o + '/' + n + '/1'));
+            }
+        }
+        function loadHistoryPage(url) {
+            Cnaws.getAjax(url, function (data, args) {
+                $('#history').html(data);
+                $('#history .pagination li').each(function (index, value) {
+                    value = $(value);
+                    if (!value.hasClass('active')) {
+                        value.find('a').click(function () {
+                            loadHistoryPage($(this).attr('href'));
+                            return false;
+                        });
+                    }
+                });
+            }, null, true, 'html');
+        }
+        function loadHistory(o) {
+            if (!initHistory) {
+                initHistory = true;
+                loadHistoryPage(Cnaws.getUrl('$url("/one/history/")' + o + '/1'));
+            }
+        }
+        function addCount(c) {
+            var v = parseInt($('#buycount').val()) + c;
+            if (v >= $Product.Count) {
+                v = $Product.Count;
+                $('#buyright').removeClass('add')
+                $('#buyright').addClass('remove')
+            }
+            else {
+                $('#buyright').removeClass('remove')
+                $('#buyright').addClass('add')
+            }
+            if (v <= 1) {
+                v = 1;
+                $('#buyleft').removeClass('add')
+                $('#buyleft').addClass('remove')
+            }
+            else {
+                $('#buyleft').removeClass('remove')
+                $('#buyleft').addClass('add')
+            }
+            $('#buycount').val(v);
+        }
+        function doSubmit() {
+            //$if(this.IsLogin)
+            try {
+                $('.address li input').each(function (index, value) {
+                    if (value.checked) {
+                        $('#AddressId').val($(value).val());
+                    }
+                });
+                return parseInt($('#buycount').val()) > 0;
+            }
+            catch (e) { }//$else
+            window.location.href = '$passport("/login")';//$end
+            return false;
+        }//$if(Number.State==0)
+        $(document).ready(function () {
+            $('#banner').jqxScrollView({ width: 640, height: 640, buttonsOffset: [0, 0], slideShow: false, moveThreshold: 0.1 });
+            Cnaws.getAjax(Cnaws.getUrl('$url("/one/progress/")' + $Product.Id + '/' + $Number.Id), function (data, args) {
+                $('.count').html($Product.Count - data.data);
+                $('#progress').jqxProgressBar({ width: '100%', height: 12, value: parseFloat(data.data) / parseFloat($Product.Count) * 100 });
+            }, null);
+            $("#content img").each(function () {
+                $(this).attr('data-original', $(this).attr('src'));
+                $(this).attr('src', '');
+            });
+            $("#content img").lazyload({ threshold: 200 });
+        });//$end
+    </script>
+</head>
+<body>
+    $if(Number.State==0)
+    <div class="nav buy-nav">
+        <form id="form" action="$passport('/buy/one')" method="post" onsubmit="return doSubmit()">
+            <ul class="clearfix">
+                <li class="item-03" style="border-left: 0;background-color:#FFF"></li>
+                <li class="item-02" style="width:286px;">
+                    <div class="num-action">
+                        <a href="avascript:void(0)" class="remove">-</a>
+                        <input type="text" id="buycount" name="Count" value="1">
+                        <a href="avascript:void(0)" class="add">+</a>
+                    </div>
+                </li>
+                <li class="item-04">
+                    <input type="hidden" name="ProductId" value="$Product.Id" />
+                    <input type="hidden" name="ProductNum" value="$Number.Id" />
+                    <input type="hidden" id="AddressId" name="AddressId" value="0"/>
+                    <a onclick="$('#form').submit()" href="javascript:void(0)">立即参与</a>
+                </li>
+            </ul>
+        </form>
+    </div>
+    $end
+
+    <div class="page">
+        <div class="header">
+            <a href="javascript:history.go(-1)" class="back">返回</a>
+            商品详情
+        </div>
+        <div class="content">
+            <div id="banner">
+                $foreach(img in Product.GetImages())
+                <div><div class="b-item" style="background-image:url($img)"></div></div>
+                $end
+            </div>
+            <div class="product-base">
+                <h2>$Product.Title</h2>
+                $if(Number.State==0)
+                <div>
+                    <p style="margin-top:30px;">期号：$Number.Id</p>
+                    <div id="progress" class="progress"></div>
+                    <p class="clearfix" style="position:relative;margin-top:10px;">总需$Product.Count人次<span style="position:absolute;right:0;">剩余<span class="count">0</span></span></p>
+                </div>
+                <div class="clearfix address">
+                    <label class="f-left">收货地址</label>
+                    <div class="f-left">
+                        $if(isset("Address"))
+                        $if(Address.Count>0)
+                        <ul>
+                            $foreach(item in Address)
+                            <li><input type="radio" value="$item.Id" id="addr_$foreachIndex" name="addrid" ${if(foreachIndex==1)}checked="checked"${end} /><label for="addr_$foreachIndex">$GetCity(item.Province).Name$GetCity(item.City).Name$GetCity(item.County).Name$item.Address $item.PostId $item.Consignee $item.Mobile</label></li>
+                            $end
+                        </ul>
+                        <div style="margin-top:4px"><a href="$passport('/shippingaddress/setaddress')?target=//wap.xcpnet.com$url('/one/info/',Product.Id,'/',Number.Id)" style="color:#00f">添加收货地址</a></div>
+                        $else
+                        <div>请先<a href="$passport('/shippingaddress/setaddress')?target=//wap.xcpnet.com$url('/one/info/',Product.Id,'/',Number.Id)" style="color:#00f">添加收货地址</a></div>
+                        $end
+                        $else
+                        <div>请先<a href="$passport('/login')" style="color:#00f">登录</a></div>
+                        $end
+                    </div>
+                </div>
+                $else
+                <div>
+                    <p style="margin-top:30px;">期号：$Number.Id</p>
+                    <div class="panel old" style="margin-top:20px;">
+                        <div class="panel-body">
+                            <div class="clearfix media">
+                                <img class="media-object" src="$Member.Image">
+                                <div class="media-body">
+                                    <p>获奖者：<a href="javascript:void(0)">$Member.Name</a></p>
+                                    <p>用户ID:$Member.Id（唯一不变标识）</p>
+                                    <p>本期参与：$Product.Count人次</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">幸运号码：$Number.LuckNum</div>
+                    </div>
+                </div>
+                $end
+                <div class="order-list" style="height:127px;margin-top: 30px;line-height:60px;text-align: center;background-color:#DDD;overflow:auto">
+                    $if(isset("Orders"))
+                    $if(Orders.Count>0)
+                    <ul>
+                        $foreach(item in Orders)
+                        <li>$item.OrderNum</li>
+                        $end
+                    </ul>
+                    $else
+                    <div>你还没参与本期商品哦~</div>
+                    $end
+                    $else
+                    <div><a href="$passport('/login')" style="color:#00f">登录</a>，查看你的夺宝号码！</div>
+                    $end
+                </div>
+            </div>
+
+            <ul class="list-block common" style="display:none;">
+                <li class="item-content" style="padding-left:26px;">请选择颜色属性<a href="">&nbsp;</a></li>
+            </ul>
+
+            <!-- BEGIN tab -->
+            <div class="tab">
+                <ul class="clearfix tab-header">
+                    <li class="active"><a href="javascript:void(0)">$if(Number.State==0)商品详情$else计算结果$end</a></li>
+                    <li id="tab-orders"><a href="javascript:void(0)">参与记录</a></li>
+                    <li id="tab-history"><a href="javascript:void(0)">往期抢购</a></li>
+                </ul>
+                <!-- BEGIN-content -->
+                <div class="tab-content">
+                    <style>
+                        .tab-content-01 {
+                            padding: 15px;
+                            width: 610px;
+                        }
+                        .tab-content-01 * {
+                            max-width: 610px !important;
+                        }
+                        /*$if(Number.State==0)*/
+                        .tab-content-01 table {
+                            display: none !important;
+                        }
+                        /*$end*/
+                        .tab-content-01 img {
+                            width: auto !important;
+                            max-width: 100% !important;
+                            height: auto !important;
+                            display: block !important;
+                        }
+                        .date-num {
+                            margin-left: 20px;
+                            color: #F00;
+                        }
+                    </style>
+                    <!-- BEGIN content-01 -->
+                    <div id="content" class="tab-content-01">
+                        $if(Number.State==0)
+                        $Product.Content
+                        $else
+                        <table class="calc-result">
+                            <thead>
+                                <tr>
+                                    <th>夺宝时间</th>
+                                    <th width="200px">会员帐号</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                $foreach(item in TopList)
+                                <tr>
+                                    <td>$item.A.CreationDate.ToString("yyyy-MM-dd")<span class="date-num">→</span><span class="date-num">$item.A.CreationDate.ToString("HHmmssfff")</span></td>
+                                    <td><a href="javascript:void(0)">$item.B.Name</a></td>
+                                </tr>
+                                $end
+                            </tbody>
+                            <tfoot>
+                                <tr class="resultRow">
+                                    <td colspan="2">
+                                        <h4>计算结果<a name="calcResult"></a></h4>
+                                        <ol>
+                                            <li><span class="index">1、</span>求和：$Max (上面100条参与记录的时间取值相加)</li>
+                                            <li>
+                                                <span class="index">2、</span>
+                                                求余：$Max % $Product.Count (商品所需人次) =
+                                                $foreach(c in (Max%Product.Count).ToString())
+                                                <b class="square">$c</b>
+                                                $end
+                                                (余数) <i class="ico ico-questionMark" data-func="remainder"></i>
+                                            </li>
+                                            <li>
+                                                <span class="index">3、</span>
+                                                $foreach(c in (Max%Product.Count).ToString())
+                                                <b class="square">$c</b>
+                                                $end
+                                                (余数) + 10000001 =
+                                                $foreach(c in Number.LuckNum.ToString())
+                                                <b class="square">$c</b>
+                                                $end
+                                            </li>
+                                        </ol>
+                                        <span class="resultCode">
+                                            幸运号码：
+                                            $Number.LuckNum
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        $end
+                    </div>
+                    <!-- END content-01 -->
+                    <!-- BEGIN tab-content-02 -->
+                    <div class="tab-content-02" style="display:none;">
+                        <!-- BEGIN 夺宝参与记录 -->
+                        <div class="times">
+                            <style type="text/css">
+                                #orders a{word-break:break-all;word-wrap:break-word;display:inline-block;line-height:1.2;}
+                            </style>
+                            <ul id="orders"></ul>
+                        </div>
+                        <!-- END 夺宝参与记录 -->
+                    </div>
+                    <!-- END tab-content-02 -->
+                    <!-- BEGIN content-03 -->
+                    <div id="history" class="tab-content-03" style="padding:16px;display:none;"></div>
+                    <!-- END content-03 -->
+                </div>
+                <!-- BEGIN content -->
+            </div>
+            <!-- END tab -->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('.tab .tab-header li').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            $($(this).parents('.tab').find('.tab-content-0' + ($(this).index() + 1))).show().siblings().hide();
+            if (this.id == 'tab-orders') {
+                loadOrders($Product.Id, $Number.Id);
+            }
+            else if (this.id == 'tab-history') {
+                loadHistory($Product.Id);
+            }
+            return false;
+        });
+		$('.add').click(function(){
+			var num = $(this).parents('.num-action').find('input');
+			num.val(parseInt(num.val())+1);
+			return false;
+		});
+		$('.remove').click(function(){
+			var num = $(this).parents('.num-action').find('input');
+			if(parseInt(num.val())>1) {
+				num.val(parseInt(num.val())-1);
+			}
+			return false;
+		});
+    </script>
+</body>
+</html>
+$end
+$end

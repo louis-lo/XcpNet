@@ -1,0 +1,31 @@
+﻿<link href="//res.xcpnet.com" rel="dns-prefetch" />
+<link href="//static.xcpnet.com" rel="dns-prefetch" />
+<link href="//passport.xcpnet.com" rel="dns-prefetch" />
+<link href="//help.xcpnet.com" rel="dns-prefetch" />
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+<script type="text/javascript" src="$res('js2.0/lib/jquery-1.7.0.min.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcore.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxnotification.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+<script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+<script type="text/javascript" src="$Site.SupplierUrl/index/management.html"></script>
+<script type="text/javascript">
+    $(function () {
+        Cnaws.Init({
+            urlExt: '$ext',
+            resourcesUrl: '$this.Application.Settings.ResourcesUrl',
+            passportUrl: '$this.Application.Settings.PassportUrl'
+        });
+        if (Management.code == -200) {
+            if (Management.data.IsSupplier) {
+                $('#control').prepend('<li class="first-child"><a href="$Site.SupplierUrl" target="_blank">供应商后台</a></li>');
+            }
+            if (Management.data.IsDistributor) {
+                $('#control').prepend('<li class="first-child"><a href="$Site.SupplierUrl" target="_blank">加盟商后台</a></li>');
+            }
+        }
+
+    })
+    
+</script>

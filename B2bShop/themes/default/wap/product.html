@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<title>商品详情</title>    
+</head>
+<body>
+<div class="page-group">
+    $load('inc/comm.html')
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/purchase.css')" />
+    <link rel="stylesheet" href="$res('wap/css2.0/jhb/city_show.css')" />
+    <script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+    <style>
+        .wayshow_detaMain .disabled {
+            border: 1px dashed #e5e5e5;
+        }
+    </style>
+	<div class="page page-current">
+		<!-- nav -->
+		<header class="bar bar-nav wayshow_navPosi">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="javascript:history.back(-1);">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				商品详情
+			</div>
+		</header>
+		<!-- / nav -->
+		<div class="bar bar-footer purchase_nav bg_fff">
+			<ul class="clearfix">
+				<li>
+					<a href="$url('/cart')" class="external">
+						<div class="shopcart_posi"><img src="$res('wap/img2.0/jhb/icon_ShopCart2.png')" /><span class="shopcart_num"></span></div>
+						<div class="col_666">进货车</div>
+					</a>
+				</li>
+				<li>
+                    <a href="javascript:;" id="add_shopcart">加入进货车</a>
+				</li>
+				<li>
+					<a href="$url('/category/list')" class="external">继续选货</a>
+				</li>
+			</ul>
+		</div>
+		<!-- content -->
+		<div class="content native-scroll order_content" style="top:2.2rem">
+			<!-- banner -->
+			<div class="ban_Left">
+		        <div id="slideBox" class="slideBox">
+					<div class="bd">
+						<ul>
+							<!-- for nav -->
+                            $foreach(img in Product.GetImages())
+                            <li>
+                                <div style="width:100%;height:100%;background:url($img) no-repeat;background-size:100% 100%;"></div>
+                            </li>
+                            $end
+							<!-- end for nav -->
+						</ul>
+					</div>
+					<div class="hd">
+						<ul></ul>
+					</div>
+				</div>
+			</div>
+		    <!-- / banner -->
+		    <div class="wayshow_top">
+				<div class="wayshow_title pad_lr">$Product.Title</div>
+				<div class="wayshow_price pad_lr">批发价：<b class="col_ff7">$Product.GetSalePrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")元/$Product.Unit</b></div>
+				<div class="wayshow_price pad_lr">建议零售价：<span class="col_ff7">$Product.GetPrice(this.DataSource,this.Location.ProvinceId,this.Location.CityId,this.Location.CountyId).ToString("c2")元/$Product.RetailUnit</span></div>
+				<div class="wayshow_price pad_lr">起批量：<span class="col_ff7">${Product.Norms}(${Product.WholesaleCount}${Product.Unit}起定)</span>　<span class="col_999">库存：$Product.Inventory $Product.Unit</span></div>
+			</div>
+			<div class="wayshow_detailed pad_lr">
+				<ul>
+					<li class="clearfix" style="padding-left:0;border-bottom:1px dotted #dadada;margin-bottom:.25rem">
+						<span><span class="purchase_icon show_qualityicon"></span>正品</span>
+						<span><span class="purchase_icon show_lowpriceicon"></span>低价</span>
+					</li>
+
+                    $foreach(item in Series)
+                    $set(index=foreachIndex-1)
+                    <li class="clearfix">
+                        <div class="wayshow_detaMain fl" id="s-$item.Id">
+                            $foreach(map in item.GetMappings(this.DataSource))
+                            $set(active=false)
+                            $foreach(tmp in Mapping)
+                            $if(item.Id==tmp.SerieId&&map.Value==tmp.Value)
+                            $set(active=true)
+                            $end
+                            $end
+                            $if(active)
+                            <span class="on" s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">$map.Value</span>
+                            $else
+                            <span s-data="$item.Id" v-data="$map.Value" onclick="selectSeries(this)">$map.Value</span>
+                            $end
+                            $end
+                        </div>
+                        <div class="wayshow_detaLe fl col_999">$item.Name</div>
+                    </li>
+                    $end
+                    					
+					<li class="clearfix">
+						<div class="wayshow_detaMain fl">
+							<div class="shop_goodsCon clearfix">
+								<div class="shop_infoMinus fl">
+									<a href="javascript:;" id="infoMinus"></a>
+								</div>
+								<div class="fl">
+									<input class="shop_infoValue" id="shop_infoValue" value="$Product.WholesaleCount" />
+								</div>
+								<div class="shop_infoPlus fl">
+									<a href="javascript:;" id="infoPlus"></a>
+								</div>
+				    		</div>		
+						</div>
+						<div class="wayshow_detaLe fl col_999">数量</div>
+					</li>
+				</ul>
+			</div>
+            $if(StoreInfo != null && Supplier != null)
+			<div class="city_shop">
+				<div class="shop_title">
+					<div class="shop_titleMain">
+						<p class="txt_hide">$StoreInfo.StoreName</p>
+						<p class="txt_hide col_999">$StoreInfo.StoreSlogan</p>
+					</div>
+					<div class="shop_titleLeft"><img src="$StoreInfo.StoreLogo"></div>
+					<div class="shop_titleRight"><a href="#"><span class="purchase_icon show_moreicon"></span></a></div>
+				</div>
+			</div>
+            $end
+
+			<div class="way_line"></div>
+			
+			<!-- parameter -->
+			<div class="wayshow_parameter">
+				<div class="content-block">
+			        <div class="buttons-row">
+			        	<div>
+				            <a href="#tab1-1" class="tab-link button active">商品详情</a>
+				        </div>
+				        <div>
+				            <a href="#tab1-2" class="tab-link button">商品参数</a>
+			            </div>
+			        </div>
+			        <div class="tabs">
+			            <div class="tab active" id="tab1-1">
+                            $Product.Content
+			            </div>
+			            <div class="tab" id="tab1-2">
+			            	<div class="wayshow_paraList">                               
+			            		<ul>
+                                    <li>
+                                        <div class="wayshow_paraMain fl">
+                                            $set(brand=clr.XcpNet.Supplier.Modules.Modules.DistributorBrand.GetById(this.DataSource,Product.BrandId))
+                                            $if(brand!=null)
+                                            $brand.Name
+                                            $else
+                                            无
+                                            $end
+                                        </div>
+                                        <div class="wayshow_parale fl">品牌</div>
+                                    </li>
+                                    <li>
+                                        <div class="wayshow_paraMain fl">
+                                            $if(Product.BarCode==null || Product.BarCode=="")
+                                            无
+                                            $else
+                                            $Product.BarCode
+                                            $end
+                                        </div>
+                                        <div class="wayshow_parale fl">商品编号</div>
+                                    </li>
+                                    <li>
+                                        <div class="wayshow_paraMain fl">${Product.Weight}Kg</div>
+                                        <div class="wayshow_parale fl">商品重量</div>
+                                    </li>
+                                    <li>
+                                        <div class="wayshow_paraMain fl">${Product.Volume}M³</div>
+                                        <div class="wayshow_parale fl">商品体积</div>
+                                    </li>
+                                    <li>
+                                        <div class="wayshow_paraMain fl">${this.Location.ProvinceTxt}${this.Location.CityTxt}${this.Location.CountyTxt}</div>
+                                        <div class="wayshow_parale fl">商品发货地</div>
+                                    </li>
+                                    $foreach(item in Attributes)
+                                    <li>
+                                        <div class="wayshow_paraMain fl">$item.B.Value</div>
+                                        <div class="wayshow_parale fl">$item.A.Name</div>
+                                    </li>
+                                    $end
+			            		</ul>
+			            	</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<div class="way_line"></div>
+			<div class="shopcart_addnum">+1</div>
+		</div>
+		<!-- end content -->
+	</div>
+
+    <script type="text/javascript" src="$res('wap/js2.0/jhb/TouchSlide.1.1.js')"></script>
+    <script>
+TouchSlide({
+	slideCell:"#slideBox",
+	titCell:".hd ul",
+	mainCell:".bd ul",
+	effect:"leftLoop",
+	autoPage:true,
+	autoPlay:true
+});
+
+
+
+var full = new Array();//$foreach(map in Mappings)
+full.push({ 'p': '$map.ProductId', 's': '$map.SerieId', 'v': '$map.Value' });//$end
+var mappings = new Array();//$foreach(item in Series)
+mappings['$item.Id'] = new Array();//$foreach(map in Mappings)$if(map.SerieId==item.Id)
+if (mappings['$item.Id']['$map.Value'] == undefined) {
+    mappings['$item.Id']['$map.Value'] = new Array();
+}
+mappings['$item.Id']['$map.Value'].push('$map.ProductId');//$end//$end//$end
+var series = new Array();// $foreach(item in Series)
+series['$item.Id'] = null;//$end
+function hasValue(s, v, map) {
+    if (map != undefined) {
+        var arr = mappings[s][v];
+        if (arr != undefined) {
+            for (var i = 0; i < map.length; ++i) {
+                for (var j = 0; j < arr.length; ++j) {
+                    if (map[i] == arr[j]) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+};
+function initElements(s, v) {
+    var map = mappings[s][v];
+    for (var key in series) {
+        if (key != s) {
+            $('#s-' + key).find('span').each(function (index, value) {
+                if (hasValue(key, $(value).attr("v-data"), map)) {
+                    $(value).removeClass('disabled');
+                }
+                else {
+                    $(value).removeClass('on');
+                    $(value).addClass('disabled');
+                }
+            });
+        }
+    }
+};
+function activeElement(e) {
+    var s = $(e).attr("s-data");
+    var v = $(e).attr("v-data");
+    $('#s-' + s).find('span').each(function (index, value) {
+        if (value != e) {
+            $(value).removeClass('on');
+        }
+        else {
+            $(value).addClass('on');
+        }
+    });
+    initElements(s, v);
+};
+function initSeries() {
+    for (var key in series) {
+        series[key] = null;
+    }
+    for (var key in series) {
+        $('#s-' + key).find('span').each(function (index, value) {
+            if (!$(value).hasClass('disabled') && $(value).hasClass('on')) {
+                series[$(value).attr('s-data')] = $(value).attr('v-data');
+            }
+        });
+    }
+};
+function initMaps() {
+    for (var key in series) {
+        $('#s-' + key).find('span').each(function (index, value) {
+            $(value).removeClass('disabled');
+        });
+    }
+    for (var key in series) {
+        if (series[key] != null) {
+            initElements(key, series[key]);
+        }
+    }
+};
+var selectSeries = function (e) {
+    var el = $(e);
+    if (!el.hasClass('disabled')) {
+        if (!el.hasClass('on')) {
+            activeElement(e);
+            initSeries();
+            var p;
+            var tmp;
+            var ok = true;
+            var arr = new Array();
+            for (var key in series) {
+                if (series[key] == null) {
+                    ok = false;
+                    break;
+                }
+                tmp = mappings[key][series[key]];
+                if (tmp == undefined) {
+                    ok = false;
+                    break;
+                }
+                for (var i = 0; i < tmp.length; ++i) {
+                    p = tmp[i];
+                    if (arr[p] == undefined) {
+                        arr[p] = 1;
+                    }
+                    else {
+                        arr[p] = arr[p] + 1;
+                    }
+                }
+            }
+            if (ok) {
+                p = null;
+                for (var k in arr) {
+                    if (arr[k] == $Series.Count) {
+                        p = k;
+                        break;
+                    }
+                }
+                if (p != null) {
+                    window.location.href = Cnaws.getUrl('$url("/product/",this.Application.ActionName,"/")' + p);
+                }
+            }
+        }
+        else {
+            el.removeClass('on')
+            initSeries();
+            initMaps();
+        }
+    }
+};
+
+function initCartNum() {
+    $.ajax({
+        type: "post",
+        url: "$url('/cart/count')",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (data.code == -200)
+                $(".shopcart_num").html(data.data);
+        }
+    })
+}
+$(function () {
+    Cnaws.Init();
+    initSeries();
+    initMaps();
+	// 规格颜色选择
+	$(".wayshow_detaMain span").click(function(){
+		var this_val = $(this);
+		new_way.way_detaMain(this_val)
+	})
+	$("#add_shopcart").click(function(){
+		new_way.add_shopcart()
+	})
+	$("#infoMinus").click(function(){new_way.infoMinus()})
+	$("#infoPlus").click(function () { new_way.infoPlus() })
+	initCartNum();
+})
+// goods number
+var infoValue = document.getElementById("shop_infoValue");
+var way = function(){
+	//数量+1
+    this.infoPlus = function () {
+        if (infoValue.value >= $Product.Inventory) {
+            return false
+        }
+		infoValue.value++
+	},
+	//数量-1
+	this.infoMinus = function(){
+	    if (infoValue.value <= $Product.WholesaleCount) {
+			return false
+		}
+		infoValue.value--
+	},
+	//数量加入购物车
+	this.add_shopcart = function () {
+	    var thisway = this;
+	    $.ajax({
+	        type: "post",
+            dataType:"json",
+	        url: "$url('/cart/add')",
+	        data: "Id=$Product.Id&Count=" + Number($("#shop_infoValue").val()),
+	        async: false,
+	        success: function (data) {
+	            if (data.code == -200)
+	            {
+	                $.toast("操作成功");
+	                initCartNum();
+	                thisway.way_addnum()
+	            }
+	        }
+	    })
+
+
+	},
+	//选择参数
+	this.way_detaMain = function(this_val){
+		if(this_val.attr('data-off')){
+			return false;
+		}
+		this_val.parent(".wayshow_detaMain").children("span").removeClass("on");
+		this_val.addClass("on");
+		var this_value = this_val.text();
+		this_val.parent().attr('data-value',this_value);
+	},
+	//添加购物车动画
+	this.way_addnum = function(){
+		$(".shopcart_addnum").text("+"+$("#shop_infoValue").val());
+		$(".shopcart_addnum").addClass("shopcart_addnum_on");
+		setTimeout(function(){
+			$(".shopcart_addnum").removeClass("shopcart_addnum_on")
+		},1000)
+	}
+}
+var new_way = new way();
+    </script>
+</div>
+
+</body>
+</html>

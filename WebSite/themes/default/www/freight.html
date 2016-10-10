@@ -1,0 +1,11 @@
+﻿<select onchange="loadFreight($Product.FreightTemplate, $Product.Id, this.options[this.selectedIndex].value, 0)">
+    $foreach(p in Provinces)
+    <option value="$p.Id" ${if(p.Id==Province.Id)}selected="selected"${end}>$p.ShortName</option>
+    $end
+</select>
+<select onchange="loadFreight($Product.FreightTemplate, $Product.Id, $Province.Id, this.options[this.selectedIndex].value)">
+    $foreach(c in Cities)
+    <option value="$c.Id" ${if(c.Id==City.Id)}selected="selected"${end}>$c.ShortName</option>
+    $end
+</select>
+$Product.GetNewFreightString(this.DataSource,Province.Id,City.Id)

@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仓库中的宝贝</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.productsaved.css')">
+    $load("inc/comm.html")
+    <style>
+        .center_content {
+            width: 1200px;
+            margin:auto;
+            margin-top: 7px;         
+        }
+
+        .center_wrapRight {
+            float: right;
+        }
+
+        .J_Submit {
+            background: #fff none repeat scroll 0 0;
+            border: 1px solid #ededed;
+            border-radius: 2px;
+            cursor: pointer;
+            display: block;
+            height: 21px;
+            line-height: 21px;
+            text-align: center;
+            width: 43px;
+        }
+    </style>
+
+
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="center_content">
+        $load("inc/side.html")
+        <div class="center_wrapRight">
+            <div class="clearFix">
+                <h2 class="fl">仓库中的宝贝</h2>
+                <div class="seachWrap clearFix fr">
+                    <form id="SearchForm" method="get" action="$url('/product/list/saved')">
+                        <input class="seachText fl" type="text" placeholder="搜索商品" id="keyword" name="keyword" />
+                        <input type="submit" value="" class="seachPrint fl submit" />
+                    </form>
+                </div>
+            </div>
+            <table align="center" border="0" width="100%" class="tableTrHeader">
+                <tr>
+                    <th class="heartTh">宝贝</th>
+                    <th class="pricTh">宝贝（元）</th>
+                    <th class="numberTh">总数量（件）</th>
+                    <th>操作</th>
+                </tr>
+            </table>
+            <!-- 分页 开始 -->
+            <div class="center_pageWrapT">
+                <div class="center_pageBox fr clearFix">
+                    <ul class="clearFix fl">
+                        $if(ProductList.PageIndex==ProductList.BeginPage)
+                        <li class="page_prev">
+                            <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                                <span class="unicon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_prev">
+                            <a href="$url('/product/list/',State,'/',ProductList.PageIndex-1)?keyword=$KeyWord" class="pageprev_print pageprev_img">
+                                <span class="icon"></span>
+                                上一页
+                            </a>
+                        </li>
+                        $end
+                        $if(ProductList.PagesCount<=0||ProductList.PageIndex==ProductList.PagesCount)
+                        <li class="page_next page_prev">
+                            <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                                下一页
+                                <span class="unicon"></span>
+                            </a>
+                        </li>
+                        $else
+                        <li class="page_next page_prev">
+                            <a href="$url('/product/list/',State,'/',ProductList.PageIndex+1)?keyword=$KeyWord" class="pageprev_next pageprev_print pagenext_img">
+                                下一页
+                                <span class="icon"></span>
+                            </a>
+                        </li>
+                        $end
+                    </ul>
+                </div>
+            </div>
+            <!-- 分页 结束 -->
+            <!-- if begin -->
+            $foreach(item in ProductList)
+            <table align="center" border="0" width="100%" class="heartDelivInf">
+                <tr>
+                    <td class="tableTd">
+                        <div class="heartInformation">
+                            <a href="javascript:;" class="clearFix">
+                                <div class="heartDelivImg fl">
+                                    <img src="$item.GetImage()">
+                                </div>
+                                <div class="heartDelivMs fl">
+                                    $item.Title
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="pricTd">$item.GetSalePrice().ToString("C2")</td>
+                    <td class="numberTd" $if(item.InventoryAlert>item.Inventory)style="color:red"$end>$item.Inventory</td>
+                    <td class="stockTd">
+                        <a href="javascript:;" $if(item.State!=2)style ="display:none" $end class="change cancelPutaway" style="color:red" data-id="$item.Id">取消上架申请</a>
+                        <a href="javascript:;" $if(item.State!!2)style="display:none" $end class="change applyPutaway" data-id="$item.Id">申请上架</a>
+                        <p><a class="delete" $if(item.State!!2)style="display:none" $end data-id="$item.Id" href="javascript:;">删除</a></p>
+                        <p><a href="$Site.Url$url('/product/view/',item.Id)" target="_blank" class="left">预览</a></p>
+                        <p><a href="$url('/product/modify/',item.Id)">修改</a></p>
+                        
+                    </td>
+                </tr>
+            </table>
+            $end
+            <!-- if end -->
+            <!-- 弹出层模板-->
+            $load("inc/xalert.html")
+
+            <!-- 弹出层结束-->
+            <!-- 分页 开始 -->
+            <!--<div class="center_pageWrap clearFix">-->
+            <div class="center_pageBox clearFix" style="width:940px;">
+                <ul class="clearFix fl">
+                    $if(ProductList.PageIndex==ProductList.BeginPage)
+                    <li class="page_prev">
+                        <a href="javascript:;" class="pageprev_unprint pageprev_img">
+                            <span class="unicon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_prev">
+                        <a href="$url('/product/list/',State,'/',ProductList.PageIndex-1)?keyword=$KeyWord" class="pageprev_print pageprev_img">
+                            <span class="icon"></span>
+                            上一页
+                        </a>
+                    </li>
+                    $end
+                    $if(ProductList.BeginPage>1)
+                    $end
+                    $for(i=ProductList.BeginPage;i<=ProductList.EndPage;i++)
+                    $if(i==ProductList.PageIndex)
+                    <li class="page_numer itme"><a href="javascript:;">$i</a></li>
+                    $else
+                    <li class="page_numer"><a href="$url('/product/list/',State,'/',i)?keyword=$KeyWord">$i</a></li>
+                    $end
+                    $end
+                    $if(ProductList.PagesCount>ProductList.EndPage)
+                    <li class="page_numer"><a href="$url('/product/list/',State,'/',ProductList.PageIndex+1)?keyword=$KeyWord">...</a></li>
+                    <li class="page_numer"><a href="$url('/product/list/',State,'/',ProductList.PagesCount)?keyword=$KeyWord">$ProductList.PagesCount</a></li>
+                    $end
+                    $if(ProductList.PagesCount<=0||ProductList.PageIndex==ProductList.PagesCount)
+                    <li class="page_next page_prev">
+                        <a href="javascript:;" class="pageprev_unnext pageprev_print pagenext_img">
+                            下一页
+                            <span class="unicon"></span>
+                        </a>
+                    </li>
+                    $else
+                    <li class="page_next page_prev">
+                        <a href="$url('/product/list/',State,'/',ProductList.PageIndex+1)?keyword=$KeyWord" class="pageprev_next pageprev_print pagenext_img">
+                            下一页
+                            <span class="icon"></span>
+                        </a>
+                    </li>
+                    $end
+                </ul>
+                <div class="total fl" style="margin-top:7px;"> 共 $ProductList.PagesCount 页/$ProductList.TotalCount条，</div>
+                <div class="form fl">
+                    <span class="text">到第</span>
+                    <input class="input J_Input" type="number" id="PageInput" aria-label="页码输入框" max="$ProductList.PagesCount" min="1" value="1">
+                    <span class="text">页</span>
+                    <span class="btn J_Submit fr" style="margin-top:7px;" tabindex="0" onclick="window.location.href = '$url('/product/list/',State,'/',"' + document.getElementById('PageInput').value + '")?keyword=$KeyWord'" role=" button">确定</span>
+                </div>
+            </div>
+            <!--</div>-->
+            <!-- 分页 结束 -->
+        </div>
+    </div>
+    $load("inc/bottom.html")
+</body>
+<script>
+    $(function(){
+        $('.applyPutaway').xalert({
+            tmpl: '是否申请上架？',
+            height: '286px',
+            onShow:function(xalert){
+                $(xalert.btnOk).focus();
+            },
+            callback: function (xalert) {
+                var id = $(xalert.target).data('id');
+                xalert.close();
+                Cnaws.postAjax('$url("/product/sale")', { 'Id': id }, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess("操作成功！")
+                        $(xalert.target).hide();
+                        $(xalert.target).parent().find(".delete").hide();
+                        $(xalert.target).parent().find(".cancelPutaway").show();
+                        //setInterval(function(){ window.location.reload();},1000);
+                    }
+                    else {
+                        ShowBox.showErrorByCode(data.code);
+                        //Cnaws.showWarning("取消订单失败！");
+                    }
+                });
+            }
+        });
+        $('.cancelPutaway').xalert({
+            tmpl: '是否取消上架申请？',
+            height: '286px',
+            onShow:function(xalert){
+                $(xalert.btnOk).focus();
+            },
+            callback: function (xalert) {
+                var id = $(xalert.target).data('id');
+                xalert.close();
+                Cnaws.postAjax('$url("/product/cancel")', { 'Id': id }, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess("操作成功！")
+                        $(xalert.target).hide();
+                        $(xalert.target).parent().find(".applyPutaway").show();
+                        $(xalert.target).parent().find(".delete").show();
+                        //setInterval(function(){ window.location.reload();},1000);
+                    }
+                    else {
+                        ShowBox.showErrorByCode(data.code);
+                        //Cnaws.showWarning("取消订单失败！");
+                    }
+                });
+            }
+        });
+        $('.delete').xalert({
+            tmpl: '确认删除吗？',
+            height: '286px',
+            onShow:function(xalert){
+                $(xalert.btnOk).focus();
+            },
+            callback: function (xalert) {
+                var id = $(xalert.target).data('id');
+                xalert.close();
+                Cnaws.postAjax('$url("/product/delete")', { 'Id': id }, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess("操作成功！")
+                        setInterval(function(){ window.location.reload();},1000);
+                    }
+                    else {
+                        ShowBox.showErrorByCode(data.code);
+                        //Cnaws.showWarning("取消订单失败！");
+                    }
+                });
+            }
+        })
+
+    })
+</script>
+</html>

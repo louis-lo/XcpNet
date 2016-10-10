@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>申请提现</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/publicStyle.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/depositBankCard.css')">
+    $load("inc/comm.html")
+    <meta charset="utf-8" />
+    <style type="text/css">
+        .jqx-validator-error-label {
+            margin-top: -26px;
+            margin-left: 500px;
+        }
+    </style>
+</head>
+<body>
+    $load("inc/top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr ">
+            <div class="dredgeId_top">
+                <span class="mySy">申请提现</span>
+            </div>
+            <div class="panel">
+                <div class="center_bankCardTop clearFix">
+                    <div class="center_bankCardWrap fl">
+                        <div class="bankCardPrint"></div>
+                        <div class="bankCardEarnings">
+                            已到账收益
+                            <p>$ArrivalMoney.ToString("c2")</p>
+                        </div>
+                    </div>
+                    <div class="bankJoint center_bankCardWrap fl"></div>
+
+                    <div class="center_jointback center_bankCardWrap fl">
+                        <div class="bankCardimg bankCardPrint"></div>
+                        <div class="bankCardMark bankCardEarnings">
+                            银行卡
+                            $if(DefaultBank!=null)
+                            <p>$DefaultBank.B.BankName（$DefaultBank.A.BankCard）</p>
+                            $else
+                            <p>未绑定银行卡</p>
+                            $end
+                        </div>
+                    </div>
+
+                    <div class="center_jointyue center_bankCardWrap fl">
+                        <div class="yueimg bankCardPrint"></div>
+                        <div class="yueMark bankCardEarnings">
+                            金额
+                            <p>$CurrentUser.Money.ToString("C2")</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="center_BankTab">
+                    <ul class="tab">
+                        <li class="cur">提现到银行卡</li>
+                        <li>提现到余额</li>
+                    </ul>
+                    <!--提现到银行卡-->
+                    <div class="tabDiv on">
+                        <form id="drawForm" method="post">                            
+                            $if(DefaultBank!=null)
+                            <input type="hidden" id="BankId" name="BankId" value="$DefaultBank.A.Id" />
+                            <div class="jointBankWrap" name="$DefaultBank.A.BankId" style="background:url('$DefaultBank.B.Icon')no-repeat; background-size: 42px 42px; ">
+                                <div class="jointBank">
+                                    $DefaultBank.A.AccountName
+                                    <p>$DefaultBank.B.BankName（$DefaultBank.A.BankCard）</p>
+                                </div>
+                            </div>
+                            $else
+                            <span style="color:red">您还没有绑定银行卡！</span> <a href="$url('/bank/bindcard')">去绑定银行卡</a>
+                            $end
+                            <div class="jointMoney">
+                                <span class="moneyZ">提现金额</span> <input id="DrawMoney" name="DrawMoney" onkeyup="value=value.replace(/[^\d\.]/g,'')" type="text" placeholder="输入提现金额" /> 
+                                <div class="jointMoneyT">
+                                    <span>单笔提现最低金额为100元起，最高金额为100000元</span>
+                                </div>
+                                <button class="jointMoneyT" $if(DefaultBank!!null) disabled="disabled" $end type="submit">申请提现</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--提现到余额-->
+                    <div class="tabDiv">
+                        <form id="drawToBalanceForm" method="post">
+                            <input type="hidden" id="BankId" name="BankId" value="$DefaultBank.A.BankId" />
+                            <div class="jointMoney">
+                                <span class="moneyZ">提现金额</span> <input id="dmToBalance" onkeyup="value=value.replace(/[^\d\.]/g,'')" type="text" placeholder="输入提现金额" /> 
+                                <div class="jointMoneyT">
+                                    <span>单笔提现最低金额为100元起，最高金额为100000元</span>
+                                </div>
+                                <button class="jointMoneyT" type="submit">申请提现</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 右边 结束 -->
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script>
+        //tab切换
+        $(".tab li").click(function () {
+            if ($(this).index() == 0) {
+                $(".center_jointback").css("display", "block");
+                $(".center_jointyue").css("display", "none");
+
+            } else {
+                $(".center_jointyue").css("display", "block");
+                $(".center_jointback").css("display", "none");
+            }
+
+            $(".tab li").eq($(this).index()).addClass("cur").siblings().removeClass('cur');
+            $(".tabDiv").hide().eq($(this).index()).show();
+        });
+        (function (doc) {
+            $(function () {
+                var dMany = new drawManey();
+                dMany.ui.jform.jqxValidator({
+                    hintType: 'label',
+                    animationDuration: 0,
+                    rules: [
+                        { input: '#DrawMoney', message: '请输入提现金额', action: 'keyup, blur', rule: 'required' },
+                        { input: '#DrawMoney', message: '金额必需大于100元，小于$ArrivalMoney元或者小于10000元', action: 'keyup, blur', rule: dMany.valueDrawManey }
+                    ]
+                });
+
+                dMany.ui.drawToBalanceForm.jqxValidator({
+                    hintType: 'label',
+                    animationDuration: 0,
+                    rules: [
+                        { input: '#dmToBalance', message: '请输入提现金额', action: 'keyup, blur', rule: 'required' },
+                        { input: '#dmToBalance', message: '金额必需大于100元，小于$ArrivalMoney元或者小于10000元', action: 'keyup, blur', rule: dMany.valueDrawManey }
+                    ]
+                });
+            });
+            var drawManey = function () {
+                var _self = this,
+                     drawRange = [100, $ArrivalMoney, 100000],//$ArrivalMoney
+                      get = function (selector) {
+                          var obj = doc.getElementById(selector);
+                          obj = obj || doc.querySelector('[name="' + selector + '"]');
+                          return obj || doc.querySelector(selector);
+                      },
+                      jform = $('#drawForm');
+                //缓存页面元素
+                this.ui = {
+                    jform: jform,
+                    form: jform[0],
+                    bankId: get('BankId'),
+                    bankOption: get('.bank_option'),
+                    bankIcon: get('.Withdrawals_icon'),
+                    drawManey: get('DrawMoney'),
+                    drawToBalanceForm: $('#drawToBalanceForm'),
+                    dmToBalance: get('dmToBalance'),
+                    btnDrawToBalance: get('btnDrawToBalance')
+                };
+
+                this.ui.drawManey.onkeyup =
+                    this.ui.drawManey.onafterpaste =
+                    this.ui.dmToBalance.onkeyup =
+                    this.ui.dmToBalance.onafterpaste = function (e) {
+                        var obj = e.target;
+                        obj.value = obj.value.replace(/[^\d.]/g, ""); //先把非数字的都替换掉，，除了数字和.
+                        obj.value = obj.value.replace(/^\./g, ""); //必须保证第一个为数字而不是.
+                        obj.value = obj.value.replace(/\.{2,}/g, "."); //保证只有出现一个.而没有多个.
+                        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", "."); //保证.只出现一次，而不能出
+                    }
+                ////验证下拉框
+                //this.validateSelect = function (obj) {
+                //    var img = _self.ui.bankIcon.querySelector('img');
+                //    if (img != null) {
+                //        _self.ui.bankId.value = img.attributes['name'].value;
+                //        return true;
+                //    }
+                //    return false;
+                //};
+                this.valueDrawManey = function (obj) {
+                    //return true;
+                    //提现金额限制
+                    var maney = parseFloat(obj.val());
+                    return (maney >= drawRange[0] && maney < drawRange[1] && maney < drawRange[2]);
+                }
+                //验证表单
+                this.validate = function () {
+                    this.ui.jform.jqxValidator('hide');
+                    return this.ui.jform.jqxValidator('validate');
+                }
+                //提现到银行卡
+                this.ui.form.onsubmit = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    _self.disabledForm();
+                    if (_self.validate()) {
+                        _self.drawManay('$url("/bank/SubmitDrawmoney")', _self.ui.jform.serialize());
+                    }
+                    else {
+                        _self.disabledForm(false);
+                    }
+                };
+                //提现到余额
+                this.ui.drawToBalanceForm[0].onsubmit = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    if (_self.ui.drawToBalanceForm.jqxValidator('validate'))
+                        _self.drawManay('$url("/bank/SubmitDrawmoneyToBalance")', { money: _self.ui.dmToBalance.value });
+                };
+                //提交提现
+                this.drawManay = function (url, data) {
+                    Cnaws.postAjax(url, data, function (data, args) {
+                        if (data.code == -200) {
+                            Cnaws.showSuccess('提现申请成功，我们将会尽快处理。');
+                            setTimeout(function () {
+                                window.location.href = "$url('/bank/drawmoneyhistory')";
+                                //window.location.reload();
+                            }, 1500)
+                        }
+                        else {
+                            Cnaws.showError('提现失败，请联系管理员');
+                        }
+                    });
+                };
+                //启用或者禁用表单
+                this.disabledForm = function (val) {
+                    _self.ui.jform.attr('disabled', val || true);
+                };
+                ////删除银行卡绑定
+                //this.delBankCard = function (obj) {
+                //    id = obj.target.getAttribute('data-id');
+                //    confirm('确定要删除绑定吗？') &&
+                //    Cnaws.postAjax('$url("/bank/delBankCard")', { id: id }, function (data, args) {
+                //        if (data.code == -200) {
+                //            Cnaws.showSuccess('删除成功');
+                //            setTimeout(function () {
+                //                window.location.reload();
+                //            }, 2000)
+                //        }
+                //        else {
+                //            Cnaws.showError('删除失败，请联系管理员');
+                //        }
+                //    });
+                //};
+            }
+        })(document);
+    </script>
+</body>
+
+</html>

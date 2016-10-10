@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商后台</title>
+    <link type="text/css" rel="stylesheet" href="$res('css2.0/supplier/xcp.supplier.welcome.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/side.html")
+        <!-- 中间 开始 -->
+        <div class="center_wrapRight fr clearFix">
+            <!-- 欢迎头部 开始 -->
+            <div class="center_welcome">
+                <div class="welcomeName_time">
+                    <!--$Member.GetName()-->$this.Supplier.Company，欢迎你使用乡城品！
+                    <p>你上次登录的时间：$Member.LastTime.ToString() <span>你上次登录的地址：$Location</span></p>
+                </div>
+            </div>
+            <!-- 欢迎头部 结束 -->
+            <!-- 我的交易提醒 开始 -->
+            <div class="center_goodsLeft fl">
+                <div class="myTransactionWarn clearFix">
+                    <h2>城品惠统计</h2>
+                    <div class="status">
+                        <ul>
+                            <li>仓库中的宝贝：<i><a href="$url('/product/list/saved')">$clr.Cnaws.Product.Modules.Product.GetCountByState(this.DataSource,false,this.Member.Id)</a></i></li>
+                            <li>已上架的宝贝：<i><a href="$url('/product/list/sale')">$clr.Cnaws.Product.Modules.Product.GetCountByState(this.DataSource,true,this.Member.Id)</a></i></li>
+                            <li>已卖出的宝贝：<i><a href="$url('/order/list/finished')">$clr.Cnaws.Product.Modules.ProductOrder.GetCountByState(this.DataSource,6,this.Member.Id)</a></i></li>
+                            <li>待发货：<i><a href="$url('/order/list/delivery')">$clr.Cnaws.Product.Modules.ProductOrder.GetCountByState(this.DataSource,3,this.Member.Id)</a></i></li>
+                            <li>待收货：<i><a href="$url('/order/list/all')">$clr.Cnaws.Product.Modules.ProductOrder.GetCountByState(this.DataSource,4,this.Member.Id)</a></i></li>
+                            <li>已完成：<i><a href="$url('/order/list/finished')">$clr.Cnaws.Product.Modules.ProductOrder.GetCountByState(this.DataSource,6,this.Member.Id)</a></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="myTransactionWarn clearFix">
+                    <h2>进货宝统计</h2>
+                    <div class="status">
+                        <ul>
+                            <li>仓库中的宝贝：<i><a href="$url('/distributorproduct/list/saved')">$clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetCountByState(this.DataSource,false,this.Member.Id)</a></i></li>
+                            <li>已上架的宝贝：<i><a href="$url('/distributorproduct/list/sale')">$clr.XcpNet.Supplier.Modules.Modules.DistributorProduct.GetCountByState(this.DataSource,true,this.Member.Id)</a></i></li>
+                            <li>已卖出的宝贝：<i><a href="$url('/distributororder/list/finished')">$clr.XcpNet.Supplier.Modules.Modules.DistributorOrder.GetCountByState(this.DataSource,6,this.Member.Id)</a></i></li>
+                            <li>待发货：<i><a href="$url('/distributorproduct/list/saved')">$clr.XcpNet.Supplier.Modules.Modules.DistributorOrder.GetCountByState(this.DataSource,3,this.Member.Id)</a></i></li>
+                            <li>待收货：<i><a href="$url('/distributororder/list/delivery')">$clr.XcpNet.Supplier.Modules.Modules.DistributorOrder.GetCountByState(this.DataSource,4,this.Member.Id)</a></i></li>
+                            <li>已完成：<i><a href="$url('/distributororder/list/finished')">$clr.XcpNet.Supplier.Modules.Modules.DistributorOrder.GetCountByState(this.DataSource,6,this.Member.Id)</a></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 加盟商必读 开始 -->
+                <div class="joinSetBooks_wrap">
+                    <div class="joinSetBooks_print">
+                        <h2>供应商必读</h2>
+                    </div>
+                    <div id="aboutAndRule" class="aboutAndRule">
+                        <ul>
+                            <li class="aboutMe">与我相关</li>
+                            <li class="rule">乡城品规则</li>
+                        </ul>
+                        <div class="li_div aboutMe_div">
+                            与我相关
+                        </div>
+                        <div class="li_div rule_div">
+                            乡城品规则
+                        </div>
+                    </div>
+                </div>
+                <!-- 加盟商必读 结束 -->
+            </div>
+            <!-- 我的交易提醒 结束 -->
+            <!-- 财务中心 开始 -->
+            <div class="propertyCentre_wrap fr">
+                <div class="propertyCentre">
+                    <h2>财务中心</h2>
+                </div>
+                <div class="propertyCentre_bottom">
+                    <div class="propertyCentre_center">
+                        <span>未到账收益：</span>
+                        <span class="propertyCentre_price fb fr">$Profit.HoustonFreeze.ToString("C2")</span>
+                    </div>
+                    <div class="propertyCentre_two propertyCentre_center">
+                        <span>已到账收益：</span>
+                        <span class="propertyCentre_price fb fr">$Profit.ArrivalMoney.ToString("C2")</span>
+                    </div>
+                    <div class="propertyCentre_three propertyCentre_center">
+                        <span>提现审核中：</span>
+                        <span class="propertyCentre_price fb fr">$Profit.PendingAudit.ToString("C2")</span>
+                    </div>
+                    <div class="propertyCentre_five propertyCentre_center">
+                        <span>转账中：</span>
+                        <span class="propertyCentre_price fb fr">$Profit.FreezeMoney.ToString("C2")</span>
+                    </div>
+                    <div class="propertyCentre_four propertyCentre_center">
+                        <span>累计收益：</span>
+                        <span class="propertyCentre_price fb fr">$Profit.AllHoustonMoney.ToString("C2")</span>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- 财务中心 结束 -->
+        </div>
+        <!-- 中间 结束 -->
+    </div>
+    $load("inc/bottom.html")
+</body>
+</html>
+<script>
+    $(function () {
+        $("#aboutAndRule ul li").each(function () {
+            var index = $(this).parent().find("li").index(this);
+            $(this).click(function () {
+                $(this).css("border-bottom", "1px solid red").siblings().css("border-bottom", "0");
+                $("#aboutAndRule .li_div").eq(index).css("display", "block").siblings(".li_div").css("display", "none");
+            });
+        });
+    });
+</script>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+<meta runat="server" http-equiv = "X-UA-Compatible" content = "chrome=1" />
+<title></title>
+<link rel="stylesheet" href="../css/sm.min.css" />
+<link rel="stylesheet" href="../css/return_goods.css" />
+<script src="../js/zepto.min.js"></script>
+<style type="text/css">
+.list-block ul li{padding-left:5px}	
+</style>
+</head>
+<body>
+<div class="page-group">
+	<div class="page page-current">
+		<div class="clearfix bar bar-nav col_333 bg_fff">
+			<div class="wayshow_navPosi">
+				<div class="wayshow_navLe fl">
+					<a href="#">
+						<span class="icon_Firststep fl"></span>
+					</a>
+				</div>
+				申请退换货
+			</div>
+		</div>
+
+		<!-- content -->
+		<div class="content native-scroll pad_lr">
+			<h3>申请类型</h3>
+			<form action="#" method="get">
+			<div class="returngoods_option">
+				<ul class="returngoods_optionLi">
+					<li class="clearfix">
+						<span>我要退款</span>
+						<span class="fr purchasemy_icon choice_icon"></span>
+					</li>
+					<li class="clearfix">
+						<span>我要退货</span>
+						<span class="fr purchasemy_icon choice_icon"></span>
+					</li>
+					<li class="exchange clearfix">
+						<span>我要换货</span>
+						<span class="fr purchasemy_icon choice_icon"></span>
+					</li>
+				</ul>
+			</div>
+		
+			<div class="list-block">
+		        <ul>
+		        	<!-- Text inputs -->
+		        	<li>
+			            <div class="item-content" style="position:relative;">
+							<div class="item-inner">
+								<div class="item-title label"><span class="col_ff3">*</span> 申请原因</div>
+								<div class="item-input"><input required="required" type="text" placeholder="申请原因" id="picker" readonly=""></div>
+			            	</div>
+			            	<img class="return_dropdownImg" src="../img/return_dropdownImg.png">
+			            </div>
+			            
+					</li>
+		        </ul>
+			</div>
+			
+			<div class="list-block list-block-money">
+		        <ul>
+		        	<!-- Text inputs -->
+		        	<li>
+			            <div class="item-content">
+							<div class="item-inner exchange_num">
+								<div class="item-title label"><span class="col_ff3">*</span> 退款金额</div>
+								<div class="item-input" id="goods_money"><input type="number" min="1" placeholder="请输入金额"></div>
+							</div>
+			            </div>
+					</li>
+		        </ul>
+		        <div class="returngoods_prompt">具体金额可与客服商量后填写</div>
+			</div>
+			
+			<div class="list-block list-block-money">
+		        <ul>
+		        	<!-- Text inputs -->
+		        	<li>
+			            <div class="item-content">
+							<div class="item-inner exchange_num">
+								<div class="item-title label"><span class="col_ff3">*</span> 是否退邮费</div>
+							</div>
+			            </div>
+					</li>
+					
+					<li class="clearfix postage_opction">
+			            <div class="fl"><span class="purchasemy_icon choice_icon"></span>是</div>
+			            <div class="fl"><span class="purchasemy_icon choice_icon"></span>否</div>
+					</li>
+		        </ul>
+			</div>
+			
+			<div class="list-block">
+		        <ul>
+		        	<!-- Text inputs -->
+		        	<li>
+			            <div class="item-content" style="position:relative;">
+							<div class="item-inner">
+								<div class="item-title label"><span class="col_ff3">*</span> 申请数量</div>
+								<div class="item-input" id="goods_number"><input type="number" min="1" placeholder="请输入数量"></div>
+			            	</div>
+
+			            </div>
+					</li>
+		        </ul>
+			</div>
+			
+			<div class="list-block">
+		        <ul>
+		        	<!-- Text inputs -->
+		        	<li class="align-top">
+						<div class="item-content">
+						<div class="item-media"><i class="icon icon-form-comment"></i></div>
+						<div class="item-inner">
+						<div class="item-title label">退款说明</div>
+						<div class="item-input">
+						<textarea style="margin-left:-0.5rem;" placeholder="最多200字"></textarea>
+		            	</div>
+		        		</div>
+		        		</div>
+		    		</li>
+		        </ul>
+			</div>
+			<div class="returngoods_button"><input onclick="return goods_input()" type="submit" value="提交申请"></div>
+			</form>
+		</div>
+		<!-- / content -->
+	</div>
+</div>
+<script>
+var this_click = 0;
+var this_state = false;
+function goods_input(){
+	var goods_number = $("#goods_number input");
+		var goods_money = $("#goods_money input");
+	if($(".exchange").hasClass('on')){
+		goods_verification.refund(goods_number)
+	}else{
+		goods_verification.exchange_goods(goods_number,goods_money)
+	}
+	if(this_state == false){
+		return false
+	}
+}
+var goods_verification = function(){
+	this.exchange_goods = function(goods_number,goods_money){
+		if(this_click == 0){
+			//$.alert('请选择申请类型');
+			console.log('请选择申请类型');
+		}else if($("#picker").val() == "" || $("#picker").val() == null){
+	//		$.alert('申请原因不能为空');
+			console.log('申请原因不能为空');
+		}else if(goods_money.val() == "" || goods_money.val() == null){
+	//		$.alert('金额不能为空');
+			console.log('金额不能为空');
+		}else if(goods_number.val() == "" || goods_number.val() == null){
+			console.log('数量不能为空');
+		}else{
+			this_state = true
+		}
+	},
+	this.refund = function(goods_number){
+		var goods_number = $("#goods_number input");
+		if(this_click == 0){
+			//$.alert('请选择申请类型');
+			console.log('请选择申请类型');
+		}else if($("#picker").val() == "" || $("#picker").val() == null){
+	//		$.alert('申请原因不能为空');
+			console.log('申请原因不能为空');
+		}else if(goods_number.val() == "" || goods_number.val() == null){
+			console.log('数量不能为空');
+		}else{
+			this_state = true
+		}
+	}
+}
+var goods_verification = new goods_verification();
+
+$(function(){
+	$(".postage_opction div").click(function(){
+		$(".postage_opction div").removeClass("on");
+		$(this).addClass("on")
+	})
+	$(".returngoods_optionLi li").on("click",function(){
+		if($(this).is(".exchange")){
+			this_click++;
+			$(".returngoods_optionLi li").removeClass("on");
+			$(".list-block-money").addClass("none");
+
+			$(this).addClass("on")
+		}else{
+			this_click++;
+			$(".list-block-money").removeClass("none");
+			$(".returngoods_optionLi li").removeClass("on");
+			$(this).addClass("on")
+		}
+	});
+	//
+	$(document).on("pageInit", function() {
+		$("#picker").picker({
+			toolbarTemplate: '<header class="bar bar-nav" style="background:#f7f7f8">\
+				<button class="button button-link pull-right close-picker">确定</button>\
+				<h1 class="title">请填写原因</h1>\
+			</header>',
+			cols: [
+				{
+	        		textAlign: 'center',
+	        		values: ['iPhone 4', 'iPhone 4S', 'iPhone 5', 'iPhone 5S', 'iPhone 6', 'iPhone 6 Plus', 'iPad 2', 'iPad Retina', 'iPad Air', 'iPad mini', 'iPad mini 2', 'iPad mini 3'],
+
+				}
+				
+			],
+
+		});
+
+	});
+	$.init();
+	//load
+	function star_load(){
+		$.showPreloader();
+	    setTimeout(function () {
+	        $.hidePreloader();
+	    }, 5000);
+	}
+	function end_load(){
+		$.hidePreloader();
+	}
+});
+</script>
+<script src="../js/sm.min.js"></script>
+</body>
+</html>

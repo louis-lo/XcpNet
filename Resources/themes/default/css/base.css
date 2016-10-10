@@ -1,0 +1,337 @@
+/* BEGIN reset */
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
+table{border-collapse:collapse;border-spacing:0;}
+caption,th{text-align:left;font-weight:normal;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+i,cite,em,var,address,dfn{font-style:normal;}
+[hidefocus],summary{outline:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,small{font-size:100%;}
+sup,sub{font-size:83%;}
+pre,code,kbd,samp{font-family:inherit;}
+q:before,q:after{content:none;}
+textarea{overflow:auto;resize:none;}
+label,summary{cursor:default;}
+a,button{cursor:pointer;}
+h1,h2,h3,h4,h5,h6,em,strong,b{font-weight:bold;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{font:12px/1 \5b8b\4f53,tahoma,arial,'Hiragino Sans GB',sans-serif;color:#666;outline:0;}
+body{background:#F3F3F3;}
+a{color:#666;}
+a:hover{color: #F40;}
+del{text-decoration: line-through;}
+select {
+  border: solid 1px #CCC;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  background: url("img/arrow.png") no-repeat scroll right center transparent;
+  padding-right: 14px;
+}
+select::-ms-expand { display: none; }
+/* END reset */
+
+/* BEGIN base */
+.p-relative {
+	position: relative;
+}
+.p-absolute {
+	position: absolute;
+}
+.f-left {
+	display: block;
+	float: left;
+}
+.f-right {
+	display: block;
+	float: right;
+}
+.clearfix:before,.clearfix:after{
+    content:"";
+    display:table;
+}
+.clearfix:after{clear:both;}
+.clearfix{
+    *zoom:1;/*IE/7/6*/
+}
+.w-38 {
+	width: 38px;
+}
+.w-80 {
+	width: 80px;
+}
+.w-100 {
+	width: 100px;
+}
+.w-110 {
+	width: 110px;
+}
+.w-131 {
+	width: 131px;
+}
+.w-143 {
+	width: 143px;
+}
+.w-150 {
+	width: 150px;
+}
+.w-245 {
+	width: 245px;
+}
+.w-255 {
+	width: 255px;
+}
+.w-312 {
+	width: 312px;
+}
+
+.t-left {
+	text-align: left !important;
+}
+
+.content-wrap {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+/* END base */
+
+/* BEGIN thumbnail */
+.thumbnail li {
+	float: left;
+	padding: 6px;
+	margin-bottom: 15px;
+	background-color: #FFF;
+	border:1px solid #EBEBEB;
+}
+.thumbnail li:hover {
+	border-color: #FF4400;
+	outline: 1px solid #FF4400;
+}
+.thumbnail a:hover {
+	color: #666;
+}
+.thumbnail .title:hover {
+	color: #F40;
+}
+.thumbnail img {
+	display: block;
+}
+.thumbnail .caption {
+	padding-top: 12px;
+}
+.thumbnail .title {
+	display:block;
+	height: 3em;
+	line-height: 1.5;
+	font-weight: normal;
+	overflow: hidden;
+}
+.thumbnail-footer {
+	margin-top: 20px;
+}
+.thumbnail ins {
+	font-size:24px;
+	color: #F40;
+	font-family:arial;
+	font-weight: 700;
+}
+.thumbnail .tip {
+	position: absolute;
+	left: 12px;
+	width: 100px;
+}
+.thumbnail .tip span,
+.thumbnail .tip p {
+	display: block;
+	float: left;
+}
+.thumbnail .tip span {
+	width:14px;
+	height:24px;
+	line-height:24px;
+	background:url(img/tip_b.png);
+}
+.thumbnail .tip p {
+	height:24px;
+	padding-left: 7px;
+	padding-right: 7px;
+	font-size: 18px;
+	line-height:24px;
+	color:#FFF;
+	background-color:#7F401D;
+}
+.thumbnail del {
+	color: #999;
+}
+.thumbnail .addCart {
+	display: block;
+	float: right;
+	width:33px;
+	height:33px;
+	background:url(img/cart_ico_s.png);
+}	
+/* END thumbnail */
+
+/* BEGIN pagination */
+.pagination {
+	margin-top: 30px;
+	text-align: right;
+}
+.pagination ul {
+	float: right;
+}
+.pagination li {
+	float: left;
+	height: 38px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: 5px;
+	line-height: 38px;
+	background-color: #FAFAFA;
+	border: 1px solid #F2F2F2;
+}
+.pagination li.active {
+	background-color: #FF8C64;
+}
+.pagination li.active a {
+	color: #FFF;
+}
+.pagination li.no {
+	border: 0;
+	background-color: #FAF8F8;
+}
+/* BEGIN pagination */
+
+/* BEGIN media */
+.media-left {
+	float: left;
+}
+.media-body {
+	float: left;
+}
+/* END media */
+
+/* BEGIN top */
+#top {
+	height: 35px;
+	line-height: 35px;
+	background-color: #F5F5F5;
+	border-top: 1px solid #eee;
+}
+#top li {
+	float: left;
+	padding-left: 11px;
+	padding-right: 11px;
+}
+#top .back-home {
+	padding-left: 20px;
+	background: url(img/home.png) no-repeat left 8px;
+}
+#top .phone {
+	padding-left: 15px;
+	background: url(img/phone.png) no-repeat left 9px;
+}
+/* END top */
+
+/* BEGIN logo */
+.logo,
+.logo a {
+	display: block;
+	text-indent: -9999px;
+}
+/* END logo */
+
+/* BEGIN main */
+.main {
+	padding-top: 20px;
+	padding-bottom: 125px;
+}
+/* END main */
+
+/* BEGIN footer */
+#footer {
+	padding-top: 10px;
+	padding-bottom: 35px;
+	border-top: 1px solid #E7E7E7;
+}
+.footer-nav {
+	padding-top: 5px;
+	margin-top: 10px;
+	border-top: 1px solid #EAEAEA;
+}
+.footer-nav dl {
+	float: left;
+	width: 200px;
+	line-height: 2;
+}
+.footer-nav dt {
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+/* END footer */
+
+/* BEGIN feature */
+.feature dl {
+	float: left;
+	width: 250px;
+	height: 51px;
+	text-indent: 60px;
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+.feature .item-00 {
+	background-image: url(img/feature_00.png);
+}
+.feature .item-01 {
+	background-image: url(img/feature_01.png);
+}
+.feature .item-02 {
+	background-image: url(img/feature_02.png);
+}
+.feature .item-03 {
+	background-image: url(img/feature_03.png);
+}
+.feature dt {
+	margin-top: 5px;
+	color: #333;
+	font-weight: bold;
+}
+.feature dd {
+	margin-top: 15px;
+}
+/* END feature */
+
+/* BEGIN bottom */
+#bottom {
+	padding-bottom: 35px;
+	color: #999;
+	line-height: 1.5;
+	background-color: #33302B;
+}
+#bottom p {
+	padding-top: 15px;
+}
+#bottom p.friendly-link {
+	margin-left: -10px;
+}
+#bottom a {
+	display: block;
+	float: left;
+	color: #ccc;
+}
+#bottom p.friendly-link a {
+	height: 12px;
+	line-height: 12px;
+	border-right: 1px solid #CCC;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+}
+#bottom p.auth a {
+	margin-right: 15px;
+	font-size: 0;
+	border: 1px solid #E58102;
+}
+/* END bottom */

@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>乡道首页</title>
+	<link rel="stylesheet" type="text/css" href="$res('css/township_road_main.css')">
+	<script type="text/javascript"src="$res('js/idangerous.swiper.min.js')"></script>
+	<script src="$res('js/jQuery-1.3.2.js')" language="javascript" type="text/javascript"></script>
+	<script type="text/javascript"src="$res('js/township_road_main.js')"></script>
+    <style>
+        .paging {
+	        margin-top: 30px;
+	        text-align: right;
+        }
+        .paging ul {
+	        float: right;
+        }
+        .paging li {
+	        float: left;
+	        height: 38px;
+	        padding-left: 15px;
+	        padding-right: 15px;
+	        margin-right: 5px;
+	        line-height: 38px;
+	        background-color: #FAFAFA;
+	        border: 1px solid #F2F2F2;
+        }
+        .paging li.active {
+	        background-color: #FF8C64;
+        }
+        .paging li.active a {
+	        color: #FFF;
+        }
+        .paging li.no {
+	        border: 0;
+	        background-color: #FAF8F8;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部开始 -->
+    $load("inc/xdgtop.html")
+    <!-- 头部结束 -->
+<!-- 中间开始 -->
+<div class="center_wrap">
+    <!-- 轮播 开始 -->
+    <div align="center">
+    </div>
+    <div class="swiper-container">
+        <a class="arrow-left" href="#">
+            <</a>
+                <a class="arrow-right" href="#">
+                    >
+                </a>
+                <div class="swiper-wrapper">
+                    $foreach(item1 in clr.XcpNet.Ad.Modules.Advertisement.GetByLabel(this.DataSource, 6))
+                    <div class="swiper-slide ">
+                        <a>
+                            <img alt="" src="$item1.ImgUrl" style="border: none;" />
+                        </a>
+                    </div>
+                    $end
+                    <!--<div class="swiper-slide ">
+                        <a>
+                            <img alt="" src="$res('img/banner.png')" style="border: none;" />
+                        </a>
+                    </div>
+                    <div class="swiper-slide ">
+                        <a>
+                            <img alt="" src="$res('img/banner.png')" style="border: none;" />
+                        </a>
+                    </div>-->
+                </div>
+                <div class="pagination">
+                </div>
+    </div>
+    <!-- 轮播 结束 -->
+    <!-- 最新开馆 开始 -->
+    <div class="center_goods_div w1000">
+        <div class="center_goods">
+            $foreach(item in XDGInfoList)
+                <!-- 左边的大图 开始 -->
+                <div class="center_goods_a">
+                    <a href="$url('/xdginfo/xdgdetailpage/', item.UserId)" class="center_goods_cs">
+                        <div class="center_goods_picture">
+                            <img src="$item.StoreLogo">
+                            <div class="center_name">
+                                $item.StoreName
+                            </div>
+                            <div class="center_jieshao">
+                                介绍：$item.StoreSlogan
+                            </div>
+                            <div class="center_goods_picture_background">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- 左边的大图 结束 -->
+                <!--右边 商品 描述 价格 图片 开始-->
+                <div class="center_goods_b center_goods_d" >
+                    $foreach(item2 in item.GetProduct(this.DataSource, 2))
+                    <div class="center_goods_b_01 ${if(foreachIndex==2)}center_goods_b_02${end}">
+                        <div class="goods_informetion">
+                            <a href="$url('/xdginfo/info/', item2.Id)" class="goods_miaoshu">
+                                $item2.Title
+                            </a>
+                            <span>
+                                $item2.Price.ToString("C2")
+                            </span>
+                            <div class="goods_buy ">
+                                <a href="$url('/xdginfo/info/', item2.Id)">
+                                    立即抢购
+                                </a>
+                            </div>
+                        </div>
+                        <div class="center_goods_img">
+                            <img src="$item2.GetImage()">
+                        </div>
+                    </div>
+                    $end
+                </div>
+                 <!--右边 商品 描述 价格 图片 结束-->                                       
+            $end
+        </div>
+    </div>
+    <!-- 最新开馆 结束 -->
+    <div class="paging" style="width:1200px;margin:10px auto;height:30px;">
+        <ul>
+            $if(XDGInfoList.BeginPage>1)
+            <li class="no"><a href="$PageUrl(XDGInfoList.PageIndex-1)">&lt;上一页</a></li>
+            <li><a href="$PageUrl(1)">1</a></li>
+            <li>...</li>
+            $end
+            $for(i=XDGInfoList.BeginPage;i<=XDGInfoList.EndPage;i++)
+            $if(i==XDGInfoList.PageIndex)
+            <li><a href="javascript:void(0)" class="active">$i</a></li>
+            $else
+            <li><a href="$PageUrl(i)">$i</a></li>
+            $end
+            $end
+            $if(XDGInfoList.PagesCount>XDGInfoList.EndPage)
+            <li>...</li>
+            <li><a href="$PageUrl(ProductList.PagesCount)">$XDGInfoList.PagesCount</a></li>
+            <li class="no"><a href="$PageUrl(XDGInfoList.PageIndex+1)">下一页&gt;</a></li>
+            $end
+        </ul>
+    </div>
+</div>
+<!-- 中间结束 -->
+<!-- 底部开始 -->
+    $load("inc/xdgbottom.html")
+<!-- 底部结束 -->
+</body>
+</html>

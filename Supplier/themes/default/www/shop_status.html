@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>订单状态</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.productstatus.css')">
+    <style type="text/css">
+        .applyJdPrint {
+            margin: 20px auto 0;
+            background: url("$res('img2.0/supplier/first.png')") no-repeat;
+            width: 605px;
+            height: 31px;
+        }
+    </style>
+    <style>
+        .package-status .status-list li::before {
+            background-color: #d9d9d9;
+            border: 3px solid #f3f3f3;
+            border-radius: 5px;
+            content: "";
+            display: inline-block;
+            height: 5px;
+            margin-left: -6px;
+            margin-right: 10px;
+            width: 5px;
+        }
+
+        .package-status span {
+            color: #000;
+            font-size: 12px;
+        }
+
+        .package-status .status-list li {
+            margin-bottom: -2px;
+        }
+
+        .package-status .status-list li {
+            height: auto;
+            min-height: 30px;
+        }
+
+        .package-status .status-list li {
+            border-left: 1px solid #d9d9d9;
+            height: 36px;
+            margin-top: -5px;
+        }
+
+        .package-status {
+            padding: 18px 0 0;
+        }
+
+            .package-status .status-box::before {
+                content: " ";
+                display: block;
+                height: 4px;
+                left: 20px;
+                position: absolute;
+                top: -2px;
+                width: 10px;
+            }
+
+            .package-status .status-box {
+                position: relative;
+            }
+
+            .package-status .status-box {
+                overflow: hidden;
+            }
+
+            .package-status .status-list {
+                font-size: 12px;
+                list-style: outside none none;
+                margin-top: 0;
+                padding: 10px 22px 30px;
+            }
+
+                .package-status .status-list .date {
+                    width: 78px;
+                }
+
+                .package-status .status-list .date, .package-status .status-list .week, .package-status .status-list .time {
+                    display: inline-block;
+                }
+
+                .package-status .status-list .date {
+                    font-weight: 600;
+                    margin-right: 8px;
+                }
+
+                .package-status .status-list .week {
+                    font-weight: 700;
+                    width: 32px;
+                }
+
+                .package-status .status-list .time {
+                    width: 48px;
+                }
+
+                .package-status .status-list .time {
+                    margin-left: 5px;
+                    margin-right: 28px;
+                }
+
+                .package-status .status-list .text {
+                    display: inline-block;
+                    line-height: 1.5em;
+                    vertical-align: text-top;
+                    width: 635px;
+                }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .package-status .status-box .status-list .latest::before {
+            background-color: #fe4300;
+            border-color: #f8e9e4;
+        }
+
+        .package-status .status-box .status-list .latest {
+            border: medium none;
+            padding-bottom: 15px;
+        }
+
+        .package-status .status-list li.latest::before {
+            margin-left: -5px;
+        }
+    </style>
+    $load("inc/s_comm.html")
+</head>
+
+<body>
+    <!-- 头部 开始 -->
+    $if(this.Distributor.Level<=1)
+    $load("inc/x_top.html")
+    $else
+    $load("inc/d_top.html")
+    $end
+    <!-- 头部 第二部分 -->
+    <!-- 头部 第二部分 结束-->
+    <!-- 头部 结束 -->
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1200 clearFix">
+        <!-- 左边导航 -->
+        
+        $if(this.Distributor.Level<=1)
+        $load("inc/x_side.html")
+        $else
+        $load("inc/d_side.html")
+        $end
+        <!-- 左边导航 结束-->
+        <!-- 右边导航-->
+        <div class="center_wrapRight fr">
+            <h2>订单状态</h2>
+            <div class="applyJdWrap">
+                <div class="thisStatusWrap">
+                    <span>当前状态：<i>$Order.GetStateInfo()</i></span>
+                </div>
+                $if(Order.State==2)
+                <div class="applyJdPrint applyJdPrintT" style="margin:20px auto 0;background: url('$res('img2.0/supplier/first.png')') no-repeat;width: 605px;height: 31px;"></div>
+                $end
+                $if(Order.State==3)
+                <div class="applyJdPrint applyJdPrintT" style="margin:20px auto 0;background: url('$res('img2.0/supplier/second.png')') no-repeat;width: 605px;height: 31px;"></div>
+                $end
+                $if(Order.State==6)
+                <div class="applyJdPrint applyJdPrintT" style="margin:20px auto 0;background: url('$res('img2.0/supplier/third.png')') no-repeat;width: 605px;height: 31px;"></div>
+                $end
+                <div class="applyJdWz">
+                    <ul class="clearFix">
+                        <li class="firstLi">买家已付款</li>
+                        <li class="conLi">等待卖家发货</li>
+                        <li class="lastLi">等待买家确认</li>
+                    </ul>
+                </div>
+                <div class="applyJdDate">
+                    <ul class="clearFix">
+                        $if(Order.State>2)
+                        <li class="datefirstLi">$Order.PaymentDate.ToString()</li>
+                        $if(Order.State>3)
+                        <li class="dateconLi">$Order.DeliveryDate.ToString()</li>
+                        $if(Order.State==6)
+                        <li class="datelastLi">$Order.ReceiptDate.ToString()</li>
+                        $end
+                        $end
+                        $end
+
+                    </ul>
+                </div>
+            </div>
+            $set(addr=json(Order.Address))
+            <h2>收货信息</h2>
+            <div class="takeGoodsIn orderInformationT">
+                <table align="center" border="0" width="100%" class="">
+                    <tr>
+                        <td class="orderICharT">订单号：</td>
+                        <td>$Order.Id</td>
+                    </tr>
+                    <tr>
+                        <td class="orderICharT">收货人：</td>
+                        <td> $addr.Consignee</td>
+                    </tr>
+                    <tr>
+                        <td class="orderICharT">手机号码：</td>
+                        <td>$addr.Mobile</td>
+                    </tr>
+                    $if(Order.Payment=="cashondelivery")
+                    <tr>
+                        <td class="orderICharT">付款方式：</td>
+                        <td style="color:red">货到付款</td>
+                    </tr>
+                    $end
+                    <tr>
+                        <td class="orderICharT">收货地址：</td>
+                        <td>$addr.Province$addr.City$addr.County$addr.Address $addr.PostId </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!--<h2>提醒发货</h2>
+            <div class="orderInformationT">买家已经向您提出发货申请</div>-->
+            <h2>订单信息</h2>
+            <table align="center" border="0" width="100%" class="information orderInformationT">
+                <tr>
+                    <th>商品</th>
+                    <th>商品信息</th>
+                    <th>单价（元）</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                <tr>
+                    <!-- if begin -->
+                    $set(maps=Order.GetMapping(this.DataSource))
+                    $set(orderCount=0)
+                    $foreach(map in maps)
+                    $set(info=json(map.ProductInfo))
+                    $set(orderCount=orderCount+map.Count)
+                <tr>
+                    <td class="tableTd">
+                        <div class="heartInformation">
+                            <a href="$Site.Url$url('/product/show/',map.ProductId)" target="_blank" class="clearFix">
+                                <div class="heartDelivImg fl">
+                                    <img src="$map.GetImage(info.Image)">
+                                </div>
+                                <div class="heartDelivMs fl">
+                                    $info.Title
+                                </div>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="inforTd">
+                        $foreach(attr in info.Series)
+                        <p>$attr.Key：$attr.Value&nbsp;</p>
+                        $end
+                    </td>
+                    <td class="dpricTd">$map.Price.ToString("c2")</td>
+                    <td class="numberTd">  $map.Count$info.Unit</td>
+                    <td class="pricTd fb">  $map.Count$info.Unit</td>
+                </tr>
+                $end
+                <tr>
+                    <td class="totalTd" colspan="2">
+                        买家留言：
+                    </td>
+                    <td class="totalTdPric fb" colspan="3">
+                        <span class="fb">实付款：</span><i>$Order.TotalMoney.ToString("c2")</i>（含邮费:$Order.FreightMoney.ToString("c2")）
+                    </td>
+                </tr>
+                <!-- if end -->
+            </table>
+            $if(Order.State>3&&Order.State!=5)
+            <h2>物流信息</h2>
+            <table align="center" border="0" width="100%" class="takeGoodsIn orderInformationT" style="background:#f3f3f3 none repeat scroll 0 0">
+                <tr>
+                    <td class="orderICharT orderIChar" style="width:200px; padding-left:50px; padding-top:10px; text-align:left">
+                        物流公司：<span class="orderLeft fb">$Logistics.ProviderName</span>
+                    </td>
+                    <td class="orderICharCon" style=" padding-top:10px; ">
+                        运单编号：<span class="orderLeft fb">$Logistics.BillNo</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="orderICharCon" colspan="2">
+                        <div class="package-status">
+                            <div class="status-box" id="status_list">
+                                <ul id="J_listtext2" class="status-list">
+                                    $if(isset("ExpressInfo") && ExpressInfo.message == "ok")
+                                    $set(expTime="")
+                                    $foreach(item in ExpressInfo.data)
+                                    <li>
+                                        $set(bgtime=GetDay(expTime))
+                                        $set(endtime=GetDay(item.time))
+                                        $if(bgtime!=endtime)
+                                        <span class="date">
+                                            $GetDay(item.time)
+                                        </span>
+                                        <span class="week">
+                                            $GetWeek(item.time)
+                                        </span>
+                                        $else
+                                        <span class="date"></span><span class="week"></span>
+                                        $end
+                                        $set(expTime=item.time)
+                                        <span>
+                                            $GetTime(item.time)
+                                        </span>
+                                        <span>$item.context</span>
+                                    </li>
+                                    $end
+                                    $else
+                                    抱歉！暂时未找到相关信息
+                                    $end
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            $end
+            $if(Order.State==2)
+            <!--<div class="shipments"><a href="#">发货</a></div>-->
+            $elseif(Order.State==6)
+            <!--<div class="shipments"><a href="#">确认收货</a></div>-->
+            $end
+        </div>
+    </div>
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+    <!-- 底部 结束 -->
+</body>
+</html>

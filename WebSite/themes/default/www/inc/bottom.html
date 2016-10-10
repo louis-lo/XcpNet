@@ -1,0 +1,68 @@
+<link rel="stylesheet" type="text/css" href="$res('css2.0/xcp.cph.pc.bottom.min.css')" />
+<div class="main_bottom">
+    <div class="base_footericon w1000">
+        <div class="base_footericon_top">
+            <img src="$res('img2.0/index/bottom_img_01.png')">
+            <b>7天无理由退换货</b>
+            <span>让你购买无后顾之忧</span>
+        </div>
+        <div class="base_footericon_top">
+            <img src="$res('img2.0/index/bottom_img_02.png')">
+            <b>厂家直销 正品保障</b>
+            <span>品质护航 购物无忧</span>
+        </div>
+        <div class="base_footericon_top">
+            <img src="$res('img2.0/index/bottom_img_03.png')">
+            <b>特色服务体验</b>
+            <span>给你呈现不一样的服务</span>
+        </div>
+        <div class="base_footericon_top">
+            <img src="$res('img2.0/index/bottom_img_04.png')">
+            <b>帮助中心</b>
+            <span>你身边的购物指导</span>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <div class="bottom_zhong_div">
+        <div class="bottom_tel_div">
+            <p class="bottom_tel"><img src="$res('img2.0/index/m.png')"></p>
+            <p class="bottom_ziti">24小时服务热线</p>
+            <p class="last-child">关注我们</p>
+            <img class="wx_img" src="$res('img2.0/index/wx_01.jpg')">
+        </div>
+        $foreach(item in clr.Cnaws.Article.Modules.ArticleCategory.GetTop(this.DataSource,0,4))
+        <div class="bottom_zhong_02">
+            <ul>
+                <li class="bottom_02_li">
+                    <span>$item.Name</span>
+                </li>
+                $foreach(it in clr.Cnaws.Article.Modules.Article.GetAllTop(this.DataSource,item.Id))
+                <li class="bottom_li">
+                    <img class="dian_img" src="$res('img2.0/index/li_item.jpg')">
+                    <a href="http://help.xcpnet.com$url('/article/info/',it.Id)">$it.Title</a>
+                </li>
+                $end
+            </ul>
+        </div>
+        $end
+        <div class="cl">
+        </div>
+        <div class="bottom_bottom_div">
+            <div class="bottom_section">
+                <ul>
+                    <li><a href="$Site.Url">首页</a></li>
+                    <li><a href="http://help.xcpnet.com$url('/article/info/',85)">关于乡城品</a></li>
+                    <li><a href="http://help.xcpnet.com$url('/article/info/',79)">创始人介绍</a></li>
+                    <li><a href="$url('/channel/joins')">供应商入驻</a></li>
+                    <li><a href="$url('/channel/joind')">加盟商入驻</a></li>
+                    <li><a href="http://help.xcpnet.com$url('/article/info/',80)">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="bottom_section_last">
+                <p>Copyright &copy; $now.Year 广东天行健网络有限公司广州分公司 All rights reserved. 
+                    <a style="color:#b2b2b2" href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">$Site.Icp</a></p>
+                <p>违法和不良信息举报电话：4006801969</p>
+            </div>
+        </div>
+    </div>
+</div>

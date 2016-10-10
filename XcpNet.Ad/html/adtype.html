@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Site.Name - 广告位管理</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="$res('~/manageres/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/font-awesome.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/switchery/switchery.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/toastr/toastr.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/bootstrap-table/extensions/editable/bootstrap-editable.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/animate.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/style.min.css')" rel="stylesheet">
+    <style>
+        .ibox { margin-bottom: 0; }
+        .btn-default *, .btn-default a:hover { color: #676a6c; }
+        .dropdown-menu { left: 0 !important; right: auto !important; }
+        .list-group { border: 0; margin-bottom: 0; }
+            .list-group li { border-radius: 0 !important; }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content height-begin">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="dataTableToolbar" role="group">
+                                    <button id="insert" class="btn btn-outline btn-default" title="添加" data-toggle="modal" data-target="#insertForm" onclick="initWindow()">
+                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="btn btn-outline btn-default dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            选择类型
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="javascript:viewChild(0)">网站广告</a></li>
+                                            <li><a href="javascript:viewChild(1)">供应商店铺广告</a></li>
+                                            <li><a href="javascript:viewChild(2)">乡道管店铺广告</a></li>
+                                            <li><a href="javascript:viewChild(3)">产品分类广告</a></li>
+                                            <li><a href="javascript:viewChild(4)">会员中心广告</a></li>
+                                            <li><a href="javascript:viewChild(5)">加盟商供应商中心广告</a></li>
+                                            <li><a href="javascript:viewChild(6)">购物机广告</a></li>
+                                            <li><a href="javascript:viewChild(7)">APP广告</a></li>
+                                            <li><a href="javascript:viewChild(8)">进货分类广告</a></li>
+                                        </ul>
+                                    </div>
+                                    <button class="btn btn-outline btn-default" onclick="viewChild(-1)">
+                                        所有类型
+                                    </button>
+                                </div>
+                                <table id="dataTable" data-toolbar="#dataTableToolbar" data-show-export="true"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal fade" id="insertForm" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="wndtitle"></h4>
+                </div>
+                <form class="form-horizontal" id="submitForm" method="post" onsubmit="return doSubmit()">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="Name">名称：</label>
+                            <div class="col-sm-8">
+                                <input id="Name" name="Name" class="form-control" type="text" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="Type">类型：</label>
+                            <div class="col-sm-8">
+                                <p id="Typep" class="form-control-static"></p>
+                                <select id="Type" name="Type" class="form-control">
+                                    <option value="0">网站广告</option>
+                                    <option value="1">供应商店铺广告</option>
+                                    <option value="2">乡道管店铺广告</option>
+                                    <option value="3">产品分类广告</option>
+                                    <option value="4">会员中心广告</option>
+                                    <option value="5">加盟商供应商广告</option>
+                                    <option value="6">购物机广告</option>
+                                    <option value="7">APP广告</option>
+                                    <option value="8">进货分类广告</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="MaxSum">最大广告数：</label>
+                            <div class="col-sm-8">
+                                <input id="MaxSum" name="MaxSum" class="form-control" type="number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="IsEnable">是否启用：</label>
+                            <div class="col-sm-8">
+                                <input id="IsEnable" name="IsEnable" class="form-control" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input id="Id" name="Id" type="hidden" value="0">
+                        <button class="btn btn-primary" type="submit" id="submit">提交</button>
+                        <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="$res('~/manageres/js/jquery.min.js')"></script>
+    <script src="$res('~/manageres/js/bootstrap.min.js')"></script>
+    <script src="$res('~/manageres/js/content.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/toastr/toastr.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/switchery/switchery.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/bootstrap-table/extensions/editable/bootstrap-editable.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="$res('~/manageres/js/cnaws.js')"></script>
+    <script src="$res('~/manageres/js/datatable.js')"></script>
+    <script>
+        var table = null;
+        var validator = null;
+        var IsEnable = null;
+        var allType = {
+            'WebSite': '网站广告',
+            'SupplierStore': '供应商店铺广告',
+            'TownshipStore': '乡道管店铺广告',
+            'Category': '产品分类广告',
+            'Passport': '会员中心广告',
+            'Supplier': '加盟商供应商中心广告',
+            'Machine': '购物机广告',
+            'App': 'APP广告',
+            'DsitributorCategory': '进货分类广告'
+        };
+        function viewChild(id) {
+            location.href = Cnaws.getUrl('$url("adtype/index/")' + id);
+        }
+        function initWindow(i) {
+            $('#submit').prop('disabled', true);
+            var row;
+            if (i !== undefined) {
+                row = table.DaTab('getTable').bootstrapTable('getRowByUniqueId', i);
+            }
+            else {
+                row = { Id: 0, Name: '', Type: 0, MaxSum: 0, IsEnable: false };
+            }
+            $('#wndtitle').html(i === undefined ? '添加广告位' : '编辑广告位');
+            $('#Id').val(row.Id);
+            $('#Name').val(row.Name);
+            if (i !== undefined) {
+                $('#Typep').html(allType[row.Type]);
+                $('#Typep').show();
+                $('#Type').hide();
+            }
+            else {
+                $('#Typep').hide();
+                $('#Type').show();
+            }
+            $('#MaxSum').val(row.MaxSum);
+            $('#IsEnable').prop('checked', row.IsEnable);
+            IsEnable.setPosition();
+            $('#submit').prop('disabled', false);
+            if (i !== undefined)
+                $('#insertForm').modal('show');
+            validator.resetForm();
+        }
+        function doSubmit() {
+            $('#submit').prop('disabled', true);
+            var form = $('#submitForm');
+            if (form.valid()) {
+                var add = $('#Id').val() === '0';
+                Cnaws.ajax({
+                    method: 'POST',
+                    url: add ? '$url("adtype/add")' : '$url("adtype/mod")',
+                    data: '#submitForm',
+                    args: add,
+                }, function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess(args ? '添加广告位成功' : '修改广告位成功');
+                        table.DaTab('getTable').bootstrapTable('refresh');
+                        $('#insertForm').modal('hide');
+                    }
+                    else {
+                        Cnaws.showError(data.data, args ? '添加广告位失败' : '修改广告位失败');
+                    }
+                    $('#submit').prop('disabled', false);
+                });
+            }
+            return false;
+        }
+        function doSubmitRow(params) {
+            var row = table.DaTab('getTable').bootstrapTable('getRowByUniqueId', params.pk);
+            row[params.name] = params.value;
+            var d = new $.Deferred;
+            Cnaws.ajax({
+                method: 'POST',
+                url: '$url("adtype/mod")',
+                data: row,
+                args: d
+            }, function (data, args) {
+                if (data.code == -200)
+                    args.resolve();
+                else
+                    args.reject('修改失败');
+            });
+            return d.promise();
+        }
+        $().ready(function () {
+            Cnaws.init({
+                urlExt: '$ext',
+                resourcesUrl: '$this.Application.Settings.ResourcesUrl',
+                passportUrl: '$this.Application.Settings.PassportUrl'
+            });
+
+            IsEnable = new Switchery($('#IsEnable')[0], { color: "#1AB394" });
+
+            validator = $('#submitForm').validate();
+
+            table = $('#dataTable').DaTab({
+                search: false,
+                idField: 'Id',
+                uniqueId: 'Id',
+                loadUrl: Cnaws.getUrl('$url("adtype/list/", Id, "/")' + '{page}'),
+                columns: [
+                    {
+                        field: 'Id',
+                        title: 'ID',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field: 'Name',
+                        title: '名称',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'text',
+                            validate: function (value) {
+                                value = $.trim(value);
+                                if (!value) {
+                                    return '名称不能为空';
+                                }
+                                return '';
+                            },
+                            url: function (params) {
+                                return doSubmitRow(params);
+                            }
+                        }
+                    },
+                    {
+                        field: 'Type',
+                        title: '类型',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return allType[value];
+                        }
+                    },
+                    {
+                        field: 'MaxSum',
+                        title: '最大数量',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'number',
+                            validate: function (value) {
+                                if (value < 0)
+                                    return '值必须大于或等于0';
+                                return '';
+                            },
+                            url: function (params) {
+                                return doSubmitRow(params);
+                            }
+                        }
+                    },
+                    {
+                        field: 'IsEnable',
+                        title: '是否启用',
+                        align: 'center',
+                        valign: 'middle',
+                        editable: {
+                            type: 'checkbox',
+                            formatter: function (value) {
+                                return value ? '启用' : '不启用';
+                            },
+                            url: function (params) {
+                                return doSubmitRow(params);
+                            }
+                        }
+                    },
+                    {
+                        field: 'action',
+                        title: '操作',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter: function (value, row, index) {
+                            return [
+                                '<a class="edit" href="javascript:void(0)" onclick="initWindow(' + row.Id + ')">修改</a>'
+                            ].join('');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

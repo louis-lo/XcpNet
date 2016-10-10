@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5ADBBB9-E85B-4EDE-96DF-1A80489C6A7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XcpNet.Passport</RootNamespace>
+    <AssemblyName>XcpNet.Passport</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.2774.19990, Culture=neutral, PublicKeyToken=57675748062ded22, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Supplier\Bin\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\BillList.cs" />
+    <Compile Include="Controllers\Bought.cs" />
+    <Compile Include="Controllers\Buy.cs" />
+    <Compile Include="Controllers\Comment.cs" />
+    <Compile Include="Controllers\Index.cs" />
+    <Compile Include="Controllers\OAuth2.cs" />
+    <Compile Include="Controllers\Login.cs" />
+    <Compile Include="Controllers\Logout.cs" />
+    <Compile Include="Controllers\MemberInfo.cs" />
+    <Compile Include="Controllers\One.cs" />
+    <Compile Include="Controllers\Recharge.cs" />
+    <Compile Include="Controllers\Security.cs" />
+    <Compile Include="Controllers\Service.cs" />
+    <Compile Include="Controllers\ShippingAddress.cs" />
+    <Compile Include="Controllers\Tel.cs" />
+    <Compile Include="Controllers\UCenter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QRCode\QRCode.cs" />
+    <Compile Include="XcpUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Area\Cnaws.Area.csproj">
+      <Project>{4fa51704-50b8-48bc-889e-a3ea2c723258}</Project>
+      <Name>Cnaws.Area</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Comment\Cnaws.Comment.csproj">
+      <Project>{4c969c3e-b557-4427-96f6-445c684e51bf}</Project>
+      <Name>Cnaws.Comment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Data\Cnaws.Data.csproj">
+      <Project>{ce902b7f-b059-4762-8b53-eecbcb1b831c}</Project>
+      <Name>Cnaws.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Json\Cnaws.Json.csproj">
+      <Project>{1c0696f0-1736-4b61-b581-a038ed1f67e5}</Project>
+      <Name>Cnaws.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Passport\Cnaws.Passport.csproj">
+      <Project>{dbe3b4bf-c373-4a22-a26e-3eac4d6d7ca7}</Project>
+      <Name>Cnaws.Passport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Pay\Cnaws.Pay.csproj">
+      <Project>{131e704c-50ca-4f69-bb87-99ca369bafe5}</Project>
+      <Name>Cnaws.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Product\Cnaws.Product.csproj">
+      <Project>{aad69600-adff-4798-947b-e30d651901d0}</Project>
+      <Name>Cnaws.Product</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Sms\Cnaws.Sms.csproj">
+      <Project>{b59c85e1-a3fd-4250-ab23-63ca29ab64c5}</Project>
+      <Name>Cnaws.Sms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Verification\Cnaws.Verification.csproj">
+      <Project>{5db3f3e1-7ade-42af-a1de-d1b3a9c5d63e}</Project>
+      <Name>Cnaws.Verification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Web.Templates\Cnaws.Web.Templates.csproj">
+      <Project>{6ddcb7f1-0c80-4d85-82d0-5109ab1ef9e3}</Project>
+      <Name>Cnaws.Web.Templates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Web\Cnaws.Web.csproj">
+      <Project>{ef5fbd6b-c513-458a-9aa0-19ffa1c64aba}</Project>
+      <Name>Cnaws.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws\Cnaws.csproj">
+      <Project>{e629a227-782d-47a6-b49b-31ff16ccbeb2}</Project>
+      <Name>Cnaws</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.AlterSale\XcpNet.AlterSales.csproj">
+      <Project>{f853c5b5-88c9-4a7e-a079-73cacf36723a}</Project>
+      <Name>XcpNet.AlterSales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Buy\XcpNet.Common.csproj">
+      <Project>{1ae9a993-3efe-4f5c-b580-eac90c06564d}</Project>
+      <Name>XcpNet.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Services\XcpNet.Services.csproj">
+      <Project>{d599a149-909b-4589-a157-f8a44c803e98}</Project>
+      <Name>XcpNet.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Supplier.Modules\XcpNet.Supplier.Modules.csproj">
+      <Project>{2f5f74c9-1292-4cde-8e9a-182a14c871e6}</Project>
+      <Name>XcpNet.Supplier.Modules</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="QRCode\ThoughtWorks.QRCode.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

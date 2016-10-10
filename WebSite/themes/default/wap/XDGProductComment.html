@@ -1,0 +1,48 @@
+﻿$if(commentType == 1)
+    $foreach(item in Comment)
+    <div class="wayshow_evaluate pad_lr">
+        <div class="wayshow_evalname clearfix">
+            <span class="col_333 fl">$item.B.NickName</span>
+            <span class="wayshow_evalStar fl">
+                <!-- for star -->
+                $for(i = 1; i <= item.A.Star; i++)
+                <img src="$res('wap/img/wayshow_evalicon.png')" />
+                $end
+                <!-- end for star -->
+            </span>
+            <span class="wayshow_evaltime fr col_999">$item.A.CreationDate</span>
+        </div>
+        <div class="wayshow_evalTxt">
+            <div class="col_666">$item.A.Content</div>
+            <div class="wayshow_evalImg">
+                <ul class="clearfix">
+                    $foreach(item2 in item.A.GetImages(this.DataSource))
+                    <li>
+                        <div style="background:url($item2.Image) no-repeat;background-size:100% 100%;"></div>
+                    </li>
+                    $end
+                </ul>
+            </div>
+        </div>
+    </div>
+    $end
+$else
+    $foreach(item in Comment)
+    <div class="wayshow_evaluate pad_lr">
+        <div class="wayshow_evalname clearfix">
+            <span class="col_333 fl">$item.Member_NickName</span>
+            <span class="wayshow_evalStar fl">
+                <!-- for star -->
+                $for(i = 1; i <= item.Star; i++)
+                <img src="$res('wap/img/wayshow_evalicon.png')" />
+                $end
+                <!-- end for star -->
+            </span>
+            <span class="wayshow_evaltime fr col_999">$item.CreationDate</span>
+        </div>
+        <div class="wayshow_evalTxt">
+            <div class="col_666">$item.Content</div>
+        </div>
+    </div>
+    $end
+$end

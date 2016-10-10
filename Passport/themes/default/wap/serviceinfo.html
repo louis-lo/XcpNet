@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/return_goods.css')">
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="clearfix bar bar-nav col_333 bg_fff">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    <span class="refund_title">$GetStateInfo(Order.ServerState)</span>
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="content native-scroll">
+                $set(add=json(Order.Address))
+                $if(Order.ServerState==0)
+                <div class="refund_Topconter col_fff pad15" style="background:#f56946;">
+                    <h3 class="refund_mtitle">你已经申请$Order.GetTypeInfo()，商家正在审核中！</h3>
+                    <p class="refund_test">
+                        <br />如有疑问请咨询客服400-680-1969
+                    </p>
+                </div>
+                $elseif(Order.ServerState==1)
+                <div class="refund_Topconter col_fff pad15" style="background:#f56946;">
+                    <h3 class="refund_mtitle">您的$Order.GetTypeInfo()售后申请商家审核已通过！</h3>
+                    <p class="refund_test">
+                        如有疑问请咨询客服400-680-1969
+                    </p>
+                </div>
+                <form id="form" method="post">
+                    <div class="refund_Contest">
+                        <div class="list-block pad_lr">
+                            <ul>
+                                <li>
+                                    <div class="item-content" style="position:relative;">
+                                        <div class="item-inner">
+                                            <div class="item-title label col_666"><span class="col_ff3">*</span> 运输方式</div>
+                                            <div class="item-input"><input required="required" type="text" placeholder="请选择运输方式" id="picker" readonly=""></div>
+                                        </div>
+                                        <img class="return_dropdownImg" src="$res('wap/img2.0/cph/return_dropdownImg.png')">
+                                    </div>
+                                </li>
+
+                                <li class="logistics_number">
+                                    <div class="item-content">
+                                        <div class="item-inner exchange_num">
+                                            <div class="item-title label col_666"><span class="col_ff3">*</span> 物流单号</div>
+                                            <div class="item-input"><input type="number" id="billNo" name="BillNo" min="1" placeholder="请输入物流单号"></div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label col_666">回寄地址：</div>
+                                            <div class="item-input col_333 refund_Ordernumber">$add.Province $add.City $add.County $add.Address</div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label col_666">联系人：</div>
+                                            <div class="item-input col_333 refund_money">$add.Consignee</div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label col_666">电　话：</div>
+                                            <div class="item-input col_333 refund_number">$add.Mobile</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="deliver">
+                                    <select id="logisticsCompany" style="display:none;">
+                                        $foreach(LogisticsCompany in clr.Cnaws.Product.Modules.LogisticsCompany.GetAll(this.DataSource))
+                                        <option value="$LogisticsCompany.NameCode">$LogisticsCompany.Name</option>
+                                        $end
+                                    </select>
+                                    <input id="providerKey" name="ProviderKey" type="hidden" />
+                                    <input id="providerName" name="ProviderName" type="hidden" />
+                                    <input type="submit" value="确认发货" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+                $elseif(Order.ServerState==2)
+                <div class="refund_Topconter col_fff pad15" style="background:#f56946;">
+                    <h3 class="refund_mtitle">您的$Order.GetTypeInfo()售后申请等待卖家收货！</h3>
+                    <p class="refund_test">
+                        如有疑问请咨询客服400-680-1969
+                    </p>
+                </div>
+                $if(Logistics != null)
+                <div class="refund_Contest">
+                    <div class="list-block pad_lr">
+                        <ul>
+                            <li>
+                                <div class="item-content" style="position:relative;">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">运输方式</div>
+                                        <div class="item-input">$Logistics.ProviderName</div>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="logistics_number">
+                                <div class="item-content">
+                                    <div class="item-inner exchange_num">
+                                        <div class="item-title label col_666">物流单号</div>
+                                        <div class="item-input">$Logistics.BillNo</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">回寄地址：</div>
+                                        <div class="item-input col_333 refund_Ordernumber">$add.Province $add.City $add.County $add.Address</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">联系人：</div>
+                                        <div class="item-input col_333 refund_money">$add.Consignee</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">电　话：</div>
+                                        <div class="item-input col_333 refund_number">$add.Mobile</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                $end
+                $elseif(Order.ServerState==3)
+                <div class="refund_Topconter col_fff pad15" style="background:#f56946;">
+                    $if(Order.GetTypeInfo()=="换货")
+                    <h3 class="refund_mtitle">
+                        卖家已确认收货，换货商品已生成新的订单！
+                    </h3>
+                    <div class="refund_test">订单号：$Order.NewOrderId<a class="refund_testOrder col_fff" href="#">查看订单</a></div>
+                    $else
+                    <h3 class="refund_mtitle">
+                        您的$Order.GetTypeInfo()售后申请已成功！
+                    </h3>
+                    $end
+                    <p class="refund_test">
+                        如有疑问请咨询客服400-680-1969
+                    </p>
+                </div>
+                $elseif(Order.ServerState==4)
+                <div class="refund_Topconter col_fff pad15" style="background:#f56946;">
+                    <h3 class="refund_mtitle">
+                        您的$Order.GetTypeInfo()售后申请已驳回！
+                    </h3>
+                    <p class="refund_test">
+                        驳回理由：$Order.FailMessage
+                        <br />如有疑问请咨询客服400-680-1969
+                    </p>
+                </div>
+                $elseif(Order.ServerState==5)
+                <div class="refund_Topconter col_fff pad15" style="background:#f56946;">
+                    <h3 class="refund_mtitle">
+                        您的$Order.GetTypeInfo()售后申请已取消！
+                    </h3>
+                    <p class="refund_test">
+                        如有疑问请咨询客服400-680-1969
+                    </p>
+                </div>
+                $end
+
+                <div class="refund_Contest">
+                    <h3 class="refund_ConTitle col_333 pad_lr">售后信息</h3>
+                    <div class="list-block pad_lr">
+                        <ul>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">申请服务：</div>
+                                        <div class="item-input col_333 refund_type">$Order.GetTypeInfo()</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">申请时间：</div>
+                                        <div class="item-input col_333 refund_time">$Order.CreateDate.ToString("yyyy-mm-dd hh:mm:ss")</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">售后订单号：</div>
+                                        <div class="item-input col_333 refund_Ordernumber">$Order.Id</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">退款金额：</div>
+                                        <div class="item-input col_333 refund_money col_e01928">$Order.RefundMoney.ToString("C2")</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">数　量：</div>
+                                        <div class="item-input col_333 refund_number">$Order.RefundCount</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">申请原因：</div>
+                                        <div class="item-input col_333 refund_reason">$Order.Reason</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">申请说明：</div>
+                                        <div class="item-input col_333 refund_explain" style="padding:.3rem;">$Order.Message</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="order_all">
+                    <h3 class="refund_ConTitle col_333 pad_lr">商品信息</h3>
+                    $set(info=Product.GetProductInfo())
+                    <ul>
+                        <li><span class="purchasemy_icon return_shopIcon"></span>$ShopName</li>
+                        <li class="purchaseall_Test">
+                            <div class="purchaseall_Le">
+                                <img src="$info.Image">
+                            </div>
+                            <div class="purchaseall_Con">
+                                <h3 class="txt_hide2L col_333">$SubStr(info.Title)</h3>
+                                <p class="txt_hide2L Coninfo col_999">
+                                    $foreach(item in info)
+                                    $item.Key：$item.Value
+                                    $end
+                                </p>
+                            </div>
+                        </li>
+                        <li class="purchaseall_Txt">
+                            单价:<span class="col_e01928">￥$Product.Price.ToString("f2")</span>
+                            数量:<span class="col_e01928">$Product.Count</span>件　
+                            合计:<span class="col_e01928">￥$Product.TotalMoney.ToString("f2")</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="refund_Contest">
+                    <h3 class="refund_ConTitle col_333 pad_lr">订单信息</h3>
+                    <div class="list-block pad_lr">
+                        <ul>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">订单编号：</div>
+                                        <div class="item-input col_333">$PrOrder.Id</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">成交时间：</div>
+                                        <div class="item-input col_333">$PrOrder.ReceiptDate.ToString('yyyy-MM-dd hh:mm:ss')</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">邮　费：</div>
+                                        <div class="item-input col_333"><span class="col_e01928">￥$PrOrder.FreightMoney.ToString("f2")</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">商品金额：</div>
+                                        <div class="item-input col_333"><span class="col_e01928">￥$PrOrder.TotalMoney.ToString("f2")</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label col_666">总计：</div>
+                                        <div class="item-input col_333"><span class="col_e01928">￥${(PrOrder.TotalMoney-PrOrder.FreightMoney).ToString("f2")}</span></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                $if(Order.ServerState==0)
+                <div class="withdraw_submit"><input type="submit" value="取消申请" /></div>
+                $end
+            </div>
+            <!-- / content -->
+        </div>
+    </div>
+<script>
+    $(function(){
+        var logisticsCompanyName = new Array();
+        var logisticsCompanyNameCode = new Array();
+        $("#logisticsCompany option").each(function () {
+            logisticsCompanyName.push($(this).text());
+            logisticsCompanyNameCode.push($(this).val());
+        })
+        $(document).on("pageInit", function () {
+            $("#picker").picker({
+                toolbarTemplate: '<header class="bar bar-nav">\
+			<button class="button button-link pull-right close-picker">确定</button>\
+			<h1 class="title">请选择物流公司</h1>\
+			</header>',
+                cols: [
+                    {
+                        textAlign: 'center',
+                        displayValues: logisticsCompanyName,
+                        values: logisticsCompanyNameCode
+                    }
+                ], formatValue: function (picker, value, displayValue) {
+                    $("#providerKey").val(value);
+                    $("#providerName").val(displayValue);
+                    if(displayValue=='自行'){
+                        $(".logistics_number").css("display","none")
+                    }else{
+                        $(".logistics_number").css("display","block")
+                    }
+                    return displayValue;
+                }
+            });
+        });
+        $.init();
+
+        $("#form").submit(function () {
+            var form = $('#form');
+            form.attr('disabled', true);
+            if ($("#billNo").val().length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '$url("/service/dodelivery/",Order.Id)',
+                    data: form.serialize(),
+                    dataType: 'Json',
+                    success: function (data) {
+                        if (JSON.parse(data).code == -200) {
+                            alert('物流信息录入成功！');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1200);
+                        }
+                        else {
+                            alert('发货失败，请重试或与管理员联系');
+                            form.attr('disabled', false);
+                        }
+                    }
+                });
+            }
+            else {
+                alert("快递单号不能为空");
+                form.attr('disabled', false);
+                return false;
+            }
+            return false;
+        });
+
+	    //var i = 0;
+	    //$(document).on("pageInit", function() {
+		//    $("#picker").picker({
+		//	    toolbarTemplate: '<header class="bar bar-nav" style="background:#f7f7f8">\
+		//		    <button class="button button-link pull-right close-picker">确定</button>\
+		//		    <h1 class="title">请填写原因</h1>\
+		//	    </header>',
+		//	    cols: [
+		//		    {
+		//			    textAlign: 'center',
+		//			    values:["1", "2", "3"],//ID
+		//			    displayValues:["自行", "顺丰速运", "圆通快递"]//显示值
+		//		    }
+		//	    ],
+		//	    formatValue: function (picker, value, displayValue,cols){
+		//		    if(displayValue=='自行'){
+		//			    $(".logistics_number").css("display","none")
+		//		    }else{
+		//			    $(".logistics_number").css("display","block")
+		//		    }
+		//		    return displayValue;
+		//	    }
+
+		//    });
+	    //});
+	    //$.init();
+    })
+</script>
+<script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+</body>
+</html>

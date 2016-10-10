@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>供应商后台-规格模板编辑</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/supplier/xcp.supplier.freightedit.css')">
+    $load("inc/s_comm.html")
+    <script type="text/javascript" src="$res('/resource/static/scripts/showerror.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <style>
+        .del-lnk {
+            visibility: hidden;
+        }
+
+        .AttrSpan-hover .del-lnk {
+            visibility: visible !important;
+        }
+
+        input[type="text"] {
+            border: 1px solid #e2e2e2;
+            height: 20px;
+            width: 82px;
+        }
+
+        .seriecontent {
+            padding: 10px 10px !important;
+        }
+
+        .al {
+            text-align: left !important;
+            padding-top:5px !important; 
+            padding-bottom:5px !important;
+        }
+        .AttrText {
+            width: 100%;
+        }
+        .AttrSpan {
+            line-height:30px;
+        }
+
+       .AttrSpan a {
+           padding: 4px 10px;
+       }
+       .freightTable td{
+           height:auto !important;
+       }
+        .AttrSpan-hover a {
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            background-color: #ececec;
+        }
+    </style>
+</head>
+<body>
+    $load("inc/x_top.html")
+    <div class="center_wrap w1000 clearFix">
+        $load("inc/x_side.html")
+        <!-- 中间 开始 -->
+        <div class="center_wrapRight fr">
+            <div class="addFreighTitle">
+                <span>规格模板编辑</span>
+            </div>
+            <form action="$url('/storeinfo/attrsubmit/',Serie.Id)" id="AttrValueForm" method="post" onsubmit="return false">
+                <div class="templatecontent">
+                    <div class="contentBox">
+                        <span class="FreighName">规格模板名称：</span>
+                        <input class="templateName inputColor" name="Name" style="width:200px" id="Name" value="$Serie.Name" type="text" />
+                    </div>
+                    <div class="contentBox">
+                        <span class="FreighName">默认规格模板：</span>
+                        <input name="IsDefault" id="IsDefault" $if(Serie.IsDefault)checked="checked" $end type="checkbox" />(设置后添加产品时会被默认选中)
+                    </div>
+                    <div class="contentBox">
+                        <div class="clearFix">
+                            <div class="fl">
+                                <div class="tableBox">
+                                    <table align="center" border="0" width="100%" class="freightTable">
+                                        <tr>
+                                            <th class="freightTop">规格名称</th>
+                                            <th>规格值</th>
+                                            <th class="freightcon">操作</th>
+                                        </tr>
+                                        $foreach(attr in Serie.GetAttributes(this.DataSource))
+                                        <tr class="seriecontent">
+                                            <td>
+                                                <input type="text" name="SerieName_$attr.Id" placeholder="规格名称如：颜色" id="SerieName_$Attr.Id" style="width:110px" value="$attr.SerieName" />
+                                            </td>
+                                            <td class="al">
+                                                <div class="clearFix">
+                                                    $set(AttrValue=attr.GetAttributors())
+                                                    <div class="AttrText fl">
+                                                        ${for(i=0;i<AttrValue.Length;i++)}
+                                                        <span class="AttrSpan">
+                                                            <input type="text" autocomplete="off" name="AttrValue_$attr.Id" placeholder="如：红色" value="${AttrValue[i]}" />
+                                                            <a class="del-lnk" data-id="$attr.Id" href="javascript:;">删除</a>
+                                                        </span>
+                                                        ${end}
+                                                    </div>
+                                                    <div class="compile fr">
+                                                        <a href="javascript:void(0)" class="addAttr" data-id="$attr.Id">增加属性值</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;" data-id="$attr.Id" class="delcompile">删除</a>
+                                            </td>
+                                        </tr>
+                                        $end
+                                    </table>
+                                </div>
+                                <div class="addcontent">
+                                    <a href="javascript:void(0)" class="add_newli">增加规格</a><span style="margin-left:5px; color:red">(如果规格存在颜色,建议将颜色放在第一位,颜色中不要存在"空格"否则会在批量修改图片时失败)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="saveCancel">
+                        <input type="hidden" id="Id" name="Id" value="$Serie.Id">
+                        <a href="javascript:;" class="save" id="SaveForm">保存并返回</a>
+                        <a href="$url('/storeinfo/serie')" class="cancel">取消</a>
+                    </div>
+                </div>
+            </form>
+            <!-- 中间 结束 -->
+        </div>
+        $load("inc/bottom.html")
+        $load("inc/xalert.html")
+        <script type="text/html" id="tmpl-xalert">
+            <div class="center_addAddressTitle">删除规格</div>
+            <div class="new_addressWrap clearFix">
+                <form id="addForm" action="$url('/strore/delete')" method="post">
+                    <div class="new_addressWrap clearFix" style="padding:20px 20px">
+                        删除后不可还原，是否删除该规格?
+                    </div>
+                </form>
+            </div>
+        </script>
+        <!-- 弹出层结束-->
+        <script>
+            $(function () {
+                $('#AttrValueForm').jqxValidator({
+                    rules: [
+                        { input: '#Name', message: '规格模板名称不能为空', action: 'keyup, blur', rule: 'required' },
+                        ////$foreach(attr in Serie.GetAttributes(this.DataSource))
+                        //{ input: '#SerieName_${attr.Id}', message: '规格名称不能为空', action: 'keyup, blur', rule: 'required' },
+                        ////$end
+
+                    ]
+                });
+                //添加
+                $(document).on('click', '.add_newli', function () {
+                    var content = $(this).parent().prev().html();
+                    var contentlength = -$(this).parent().prev().find(".seriecontent").length - 1;
+                    var template = $('<table align="center"  border="0" width="100%" class="freightTable">' +
+                        '<tr><th class="freightTop">规格名称</th><th>规格值</th><th class="freightcon">操作</th></tr>' +
+                        '<tr class="seriecontent"><td><input type="text" placeholder="规格名称如：颜色" id="SerieName_' + contentlength + '" style="width:110px"  name="SerieName_' + contentlength + '" /></td><td class="al">' +
+                        '<div class="clearFix"><div class="AttrText fl">' +
+                        '<span class="AttrSpan"><input type="text" placeholder="如：红色" name="AttrValue_' + contentlength + '" autocomplete="off" value="" />' +
+                        '<a class="del-lnk" href="javascript:;">删除</a></span>' +
+                        '</div><div class="compile fr">  <a href="javascript:void(0)" class="addAttr" data-id="' + contentlength + '">增加属性值</a></div></td>' +
+                        '<td><a href="javascript:;"  data-id="' + contentlength + '" class="delcompile">删除</a></td></tr></table>');
+                    if ($.trim(content).length == 0) {
+                        $(".tableBox").append(template);
+                    } else {
+                        var line = $('<tr class="seriecontent"><td><input type="text" placeholder="规格名称如：颜色" id="SerieName_' + contentlength + '" style="width:110px"  name="SerieName_' + contentlength + '" /></td><td class="al">' +
+                        '<div class="clearFix"><div class="AttrText fl">' +
+                        '<span class="AttrSpan"><input type="text" placeholder="如：红色" name="AttrValue_' + contentlength + '" autocomplete="off" value="" />' +
+                        '<a class="del-lnk" href="javascript:;">删除</a></span>' +
+                        '</div><div class="compile fr">  <a href="javascript:void(0)" class="addAttr" class="addAttr" data-id="' + contentlength + '">增加属性值</a></div></td>' +
+                        '<td><a href="javascript:;"  data-id="' + contentlength + '" class="delcompile">删除</a></td></tr>');
+                        $(".tableBox").children().append(line);
+                    }
+                    //$('#AttrValueForm').jqxValidator({
+                    //    rules: [
+                    //        { input: '#SerieName_' + contentlength, message: '规格名称不能为空', action: 'keyup, blur', rule: 'required' },
+                    //    ]
+                    //});
+                })
+                //delete
+                $(document).on('click', '.delcompile', function () {
+                    var xalert_del = new Xalert(this, {
+                        tmpl: '#tmpl-xalert',
+                        height: '170px',
+                        left: '40%',
+                        top: '20%',
+                        width: '300px',
+                        callback: function (e) {
+                            if (parseInt($(e.target).data("id")) > 0) {
+                                var input = e.target;
+                                $.ajax({
+                                    type: "POST",
+                                    dataType: "Json",
+                                    url: Cnaws.getUrl("$url('/storeinfo/delattribute/')" + $(e.target).data("id")),
+                                    success: function (data) {
+                                        if (data.code == -200) {
+                                            var len = $(input).parent().parent().parent().children().size();
+                                            if (len == 2) {
+                                                $(input).parent().parent().parent().parent().remove();
+                                            } else {
+                                                $(input).parent().parent().remove();
+                                            }
+                                        }
+                                        else {
+                                            Cnaws.showError("抱歉,删除失败,请检查数据");
+                                        }
+                                    }
+                                })
+                            }
+                            else {
+                                var len = $(e.target).parent().parent().parent().children().size();
+                                if (len == 2) {
+                                    $(e.target).parent().parent().parent().parent().remove();
+                                } else {
+                                    $(e.target).parent().parent().remove();
+                                }
+                            }
+
+                            e.close();
+                        }
+                    })
+                    xalert_del.show();
+                })
+                //end 添加
+                $(document).on("click", ".addAttr", function () {
+                    var id = $(this).data("id");
+                    var attrText = $('<span class="AttrSpan">' +
+                                   '<input type="text" name="AttrValue_' + id + '" placeholder="如：红色" autocomplete="off" value="" />' +
+                                   '<a class="del-lnk" href="javascript:;" data-id="'+id+'">删除</a>' +
+                                   '</span>')
+                    $(this).parent().parent().find(".AttrText").append(attrText);
+                });
+
+                $(document).on("mouseover", ".AttrSpan", function () {
+                    $(this).addClass("AttrSpan-hover");
+                })
+
+                $(document).on("mouseout", ".AttrSpan", function () {
+                    $(this).removeClass("AttrSpan-hover");
+                })
+                $(document).on("click", ".del-lnk", function () {
+                    $(this).parent().remove();
+                })
+                $("#SaveForm").click(function () {
+                    var from = $("#AttrValueForm")
+                    if (from.jqxValidator('validate')) {
+                        $.ajax({
+                            type: "POST",
+                            dataType: "Json",
+                            url: from.attr("action"),
+                            data: from.serialize(),
+                            success: function (data) {
+                                if (data.code == -200) {
+                                    Cnaws.showSuccess("保存成功");
+                                    setTimeout(function () { location.href = '$url("/storeinfo/serie")' }, 1000);
+                                }
+                                else if (data.code == -601) {
+                                    Cnaws.showError("抱歉,保存失败,规格名称或规格值不能重复");
+                                }
+                                else {
+                                    Cnaws.showError("抱歉,保存失败,请检查数据");
+                                }
+                            }
+                        })
+                    }
+                    return false;
+                });
+
+            })
+        </script>
+</body>
+</html>

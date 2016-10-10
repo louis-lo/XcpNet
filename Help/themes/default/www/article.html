@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<title>$Article.Title - $Site.Title</title>
+    <meta name="keywords" content="$Article.Title,$Article.Keywords">
+    <meta name="description" content="$Article.Title,$Article.Description">
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css/common.css')">
+    <link rel="stylesheet" href="$res('css/article.css')">
+    $load("inc/comm.html")
+</head>
+<body>
+    $load("inc/top.html")
+
+	<!-- BEGIN header -->
+	<div class="header">
+		<div class="clearfix content-wrap">
+			<h1 class="f-left logo"><a href="$Site.Url"></a></h1>
+			<small>$Category.Name</small>
+		</div>
+	</div>
+	<!-- END header -->
+
+    $set(AllCate=clr.Cnaws.Article.Modules.ArticleCategory.GetAll(this.DataSource,0))
+	<!-- BEGIN nav -->
+	<div class="content-wrap nav">
+		<ul class="clearfix">
+			<li><a href="$Site.Url">首页</a></li>
+            $foreach(item in AllCate)
+            <li ${if(item.Id==Category.Id||item.Id==Category.ParentId)}class="active"${end}><a href="$url('/article/list/',item.Id)">$item.Name</a></li>
+            $end
+		</ul>
+	</div>
+	<!-- END nav -->
+
+	<div class="main">
+		<div class="clearfix content-wrap">	
+			<div class="aside">
+                $foreach(item in AllCate)
+                <dl ${if(item.Id==Category.Id||item.Id==Category.ParentId)}class="active"${end}>
+                    $if(item.Id==1)
+                    <dt><a href="$url('/article/list/',item.Id)">$item.Name</a></dt>
+                    $else
+                    <dt>$item.Name</dt>
+                    <dd>
+                        <ul>
+                            $if(item.Id==4)
+                            $foreach(it in clr.Cnaws.Article.Modules.ArticleCategory.GetAll(this.DataSource,item.Id))
+                            <li ${if(it.Id==Category.Id)}class="active"${end}><a href="$url('/article/list/',it.Id)">$it.Name</a></li>
+                            $end
+                            $else
+                            $foreach(it in clr.Cnaws.Article.Modules.Article.GetAllTop(this.DataSource,item.Id))
+                            <li ${if(it.Id==Article.Id)}class="active"${end}><a href="$url('/article/info/',it.Id)">$it.Title</a></li>
+                            $end
+                            $end
+                        </ul>
+                    </dd>
+                    $end
+                </dl>
+				$end
+			</div>
+			<div class="content">
+				<div class="panel">
+					<div class="panel-header">
+						<ul class="clearfix">
+							<li class="first"><a href="$Site.Url">首页</a></li>
+                            <!--<li><a href="$url('/article/list/',Category.Id)">$Category.Name</a></li>
+                            <li><a href="$url('/article/info/',Article.Id)">$Article.Title</a></li>-->
+							<li>$Category.Name</li>
+							<li>$Article.Title</li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<div class="panel-body-content">$Article.Content<div class="clearfix"></div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END main -->
+
+    $load("inc/bottom.html")
+
+	<script type="text/javascript">
+	$('.aside dl dt').click(function(){
+		var that = $(this),
+			curDl = that.parents('dl');
+			curDl.addClass('active').siblings().removeClass('active');	
+	});
+	</script>
+</body>
+</html>

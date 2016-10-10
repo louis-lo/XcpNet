@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>进货宝 - $Site.Title</title>
+    <meta name="keywords" content="网货节,$Site.Keywords">
+    <meta name="description" content="网货节,$Site.Description">
+    <link rel="stylesheet" type="text/css" href="$res('css/base_02.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css/index_02.css')">
+    <style type="text/css">
+        /* BEGIN slider */
+        .slider { 
+            height: 0;
+        }
+        /* END slider */
+
+        /* BEGIN slider-aside-left dd  */
+        .slider-aside-left dd {
+            display: none;
+        }
+        /* END slider-aside-left dd  */
+
+        .full-slide-ad {
+            background: url($res('img/wh_slide_ad.jpg')) no-repeat center top;
+            background-size: 100% auto;
+            width: 100%;
+            height: auto;
+            margin-top: 17px;
+        }
+
+            .full-slide-ad img {
+                width: 100%;
+                display: block;
+            }
+        /*section*/
+        .content-main-wrap {
+            background: #fed447 url($res('img/wh_bg.jpg')) repeat-x left top;
+            min-width: 1200px;
+            padding-bottom: 130px;
+            padding-top: 40px;
+        }
+
+        #section-1,
+        #section-2,
+        #section-3 {
+            width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-wrap {
+            background-repeat: repeat-x;
+            background-position: left bottom;
+            height: 136px;
+            overflow: hidden;
+            padding-top: 29px;
+            padding-left: 85px;
+        }
+        /*特卖*/
+        .section-1-01,
+        .section-1-02,
+        .section-2-01,
+        .section-2-02,
+        .section-2-03,
+        .section-2-04 {
+            position: relative;
+        }
+
+        .section-1-01 {
+            background: url($res('css/img/wh_section_1_01.png')) repeat-x 0 0;
+            height: 590px;
+            overflow: hidden;
+        }
+
+        .section-1-02 {
+            background: url($res('css/img/wh_section_1_02.png')) repeat-x 0 0;
+            height: 485px;
+            overflow: hidden;
+        }
+
+        .section-2-01 {
+            background: url($res('css/img/wh_section_2_01.jpg')) repeat-x 0 0;
+            height: 685px;
+            overflow: hidden;
+        }
+
+        .section-2-02 {
+            background: url($res('css/img/wh_section_2_02.jpg')) repeat-x 0 0;
+            height: 686px;
+            overflow: hidden;
+        }
+
+        .section-2-03 {
+            background: url($res('css/img/wh_section_2_03.jpg')) repeat-x 0 0;
+            height: 672px;
+            overflow: hidden;
+        }
+
+        .section-2-04 {
+            background: url($res('css/img/wh_section_2_04.jpg')) repeat-x 0 0;
+            height: 580px;
+            overflow: hidden;
+        }
+        /*btn*/
+        .section-btn {
+            background: url($res('css/img/wh_buy_btn.png')) repeat-x 0 0;
+            height: 36px;
+            display: block;
+            overflow: hidden;
+            width: 120px;
+            position: absolute;
+        }
+        /*footer*/
+        #footer {
+            margin-top: 0;
+        }
+        /*footer*/
+
+        /*三栏*/
+        .colum-3 {
+            padding: 10px;
+        }
+
+            .colum-3 ul li {
+                border: 3px solid #dcdcdc;
+                float: left;
+                margin-right: 29px;
+                width: 368px;
+                height: 470px;
+                overflow: hidden;
+                margin-bottom: 10px;
+            }
+
+                .colum-3 ul li:last-child {
+                    margin-right: 0;
+                }
+
+            .colum-3 li img {
+                width: 368px;
+                height: 331px;
+                display: block;
+            }
+
+        .colum-body {
+            border-top: 3px solid #dcdcdc;
+            padding: 11px;
+        }
+
+            .colum-body a.title {
+                background: #a9a9a9;
+                color: #fff;
+                display: block;
+                font-size: 18px;
+                height: 37px;
+                overflow: hidden;
+                line-height: 37px;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+        .price-old {
+            color: #a9a9a9;
+            font-size: 18px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .price-wrap {
+            color: #ffb900;
+            font-size: 28px;
+            position: relative;
+            margin-top: 15px;
+            z-index: 2;
+        }
+
+            .price-wrap span {
+                text-align: right;
+                font-size: 64px;
+                font-weight: bold;
+                display: inline-block;
+                vertical-align: -3px;
+                position: relative;
+                z-index: 2;
+            }
+
+        .colum-body a.btn {
+            background: #ffb900;
+            color: #fff;
+            display: inline-block;
+            font-size: 18px;
+            height: 32px;
+            line-height: 32px;
+            width: 100px;
+            text-align: center;
+            position: absolute;
+            top: 26px;
+            right: 0;
+        }
+        /*colum4*/
+        .colum-4 ul li {
+            float: left;
+            border: 3px solid #dcdcdc;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            width: 274px;
+            height: 360px;
+            overflow: hidden;
+        }
+
+        .colum-4 li img {
+            width: 274px;
+            height: 248px;
+            display: block;
+        }
+
+        .colum-4 .colum-body {
+            padding: 10px 7px;
+        }
+
+            .colum-4 .colum-body a.title {
+                font-size: 14px;
+                padding-left: 7px;
+                padding-right: 7px;
+                height: 27px;
+                line-height: 27px;
+            }
+
+        .colum-4 .price-wrap {
+            font-size: 20px;
+        }
+
+            .colum-4 .price-wrap span {
+                font-size: 46px;
+            }
+
+        .colum-4 .price-old {
+            font-size: 14px;
+            top: -5px;
+        }
+
+        .colum-4 .colum-body a.btn {
+            height: 25px;
+            line-height: 25px;
+            width: 74px;
+            font-size: 14px;
+            top: 16px;
+        }
+        /*aside*/
+        .aside-right {
+            position: absolute;
+            right: 38px;
+            top: 50%;
+            height: 265px;
+            width: 121px;
+            margin-top: -100px;
+            z-index: 10;
+            padding-top: 136px;
+            padding-left: 10px;
+            background: url($res('css/img/wh_aside_right.png')) no-repeat 0 0;
+        }
+
+            .aside-right a {
+                display: block;
+                height: 53px;
+                width: 112px;
+                overflow: hidden;
+                text-indent: -99999px;
+            }
+    </style>
+    $load("../inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxscrollview.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/lazyload/jquery.lazyload.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/image.js')"></script>
+    <script type="text/javascript">
+        var errPic = '$res("img/load_image.png")';
+        $(document).ready(function () {
+            //$('#banner').jqxScrollView({ width: 1200, height: 333, buttonsOffset: [0, 0], slideShow: true, slideDuration: 5000 });
+            $(".load-img").scaling(226, 226, errPic);
+        });
+    </script>
+</head>
+<body>
+    $load("../inc/top2.html")
+
+    <!-- BEGIN slider -->
+    <link rel="stylesheet" type="text/css" href="$res('css/slider.css')" />
+    $set(cates=clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,0))
+    <div class="clearfix container slider">
+        <dl class="slider-aside-left">
+            <dt><a href="javascript:void(0)">所有商品分类</a></dt>
+            $foreach(cate in cates)
+            <dd>
+                <a href="$url('/category/list/',cate.Id)">$cate.Name<span>></span></a>
+                <div class="slider-aside-left-item">
+                    <!-- BEGIN 新增 -->
+                    $foreach(child in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,cate.Id))
+                    <dl class="clearfix">
+                        <dt><a href="$url('/category/list/',child.Id)">$child.Name</a><span>></span></dt>
+                        <dd>
+                            $foreach(three in clr.Cnaws.Product.Modules.ProductCategory.GetAll(this.DataSource,child.Id))
+                            <a href="$url('/category/list/',three.Id)">$three.Name</a>
+                            $end
+                        </dd>
+                    </dl>
+                    $end
+                    <!-- END 新增 -->
+                </div>
+            </dd>
+            $end
+        </dl>
+        <!--<div class="flexslider">
+            <div id="banner" class="slides">
+                <div class="slides"><a href="javascript:void(0)" target="_blank" title=""><div style="width:1200px;height:333px;background:url($res('img/wh_slider.jpg')) no-repeat center top;"></div></a></div>
+            </div>
+        </div>-->
+    </div>
+    <!-- END slider -->
+    <!--slide img-->
+    <div class="full-slide-ad">
+        <a href="http://supplier.xcpnet.com/shop.html">
+            <img src="$res('img/jhb_slider.jpg')" />
+        </a>
+    </div>
+    <!--slide img end-->
+    <!--content-->
+    <!-- BEGIN main -->
+    <div style="text-align:center;background-color:#FAFAFA;padding-top:80px;padding-bottom:100px;">
+        <img src="$res('img/jhb_content.jpg')" alt="" />
+    </div>
+    <!-- END main -->
+    <!--content end-->
+    $load("../inc/footer2.html")
+
+    <script type="text/javascript">
+        $(function () {
+            $('.slider-aside-left').hover(function () {
+                $(this).find('dd').stop().slideDown();
+            }, function () {
+                $(this).find('dd').stop().slideUp();
+            });
+        });
+    </script>
+</body>
+</html>

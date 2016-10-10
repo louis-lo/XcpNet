@@ -1,0 +1,21 @@
+.center_wrapRight{width: 995px;}
+.center_wrapRight h2{padding:8px;font-weight: normal;width:102px;border-bottom:2px solid #e31939;text-align: center;font-size: 16px;}
+/**修改密码1**/
+.update-password{width:990px;border:1px solid #ddd;margin-top:18px;}
+.update-password .update-step{width: 720px;margin: 0 auto;padding: 44px;border-bottom: 1px solid #ddd;position: relative;}
+.update-step .auth,.set-pay,.ok{position: absolute;padding:0 90px;}
+.update-step .auth{left: 50px;color: #7abd54;}
+.update-step .set-pay{left: 277px;color: #ccc;}
+.update-step .ok{left: 542px;color:#ccc;}
+.update-password .update-input{width: 462px;margin: 0 auto;padding:60px 10px;}
+.update-input p{color: #747474;}
+.update-input input{border: 1px solid #b3b3b3;padding-left: 10px;margin-left: 15px;height: 30px;border-radius: 3px;}
+.input-password input{width: 116px;}
+.submit input{width: 138px;height: 36px;background: #CF0002;color: #fff;display: block;margin:25px 78px;text-align: center;line-height: 36px;font-size: 14px;}
+/**修改密码2**/
+.set-password input{width: 238px;}
+.affirm input{width: 128px;background: #edebeb;margin-right: 8px;}
+.affirm{margin: 20px 13px;}
+.update-stepPrint0{width: 720px;height: 37px;background: url("../../img2.0/cph/status1.png") no-repeat;}
+.update-stepPrint{width: 720px;height: 37px;background: url("../../img2.0/cph/stutas2.png") no-repeat;}
+.affirm a{width: 96px;display: inline-block;background: #fff4ed;height: 30px;line-height: 30px;text-align:center;border:1px solid #ff6600;border-radius: 3px;color: #ff6600;}

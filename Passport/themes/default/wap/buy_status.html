@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta runat="server" Name="viewport" Content="width=device-width,height=device-height, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta runat="server" http-equiv="X-UA-Compatible" content="chrome=1" />
+    <title></title>
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/sm.min.css')">
+    <link rel="stylesheet" href="$res('wap/css2.0/cph/swiper.min.css')">
+    <script type="text/javascript" src="$res('/resource/static/scripts/cnaws.js')"></script>
+    <script type="text/javascript" src="$res('wap/js2.0/zepto.min.js')"></script>
+    <style>
+        .content-block ul li:last-child {
+            border-bottom: 1px solid #f3f3f3;
+        }
+
+        .bar-nav ~ .content {
+            bottom: 2.5rem;
+            top: 2.2rem;
+        }
+    </style>
+    <script type="text/javascript">
+        function delOrder(id) {
+            if (window.confirm('取消后不可恢复，确认取消？')) {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '$url("/buy/cancel")',
+                    data: 'Id=' + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.reload();
+                        } else {
+                            $.alert("操作失败！");
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function doReceipt(id) {
+            if (window.confirm('确认收货？')) {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '$url("/buy/receipt")',
+                    data: 'Id=' + id,
+                    success: function (result) {
+                        if (result.code == -200) {
+                            window.location.href = '$url("/bought/list")';
+                        }
+                    }
+                });
+            }
+            return false;
+        }
+
+        function reminderDelivery(orderId) {
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: '$url("/ReminderDelivery/Reminder/", "' + orderId + '")',
+                success: function (result) {
+                    if (result.code == -200) {
+                        $.alert("提醒成功");
+                    }
+                    else {
+                        $.alert("今日已成功提醒过商家，请等待商家发货");
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="wayshow_nav bar bar-nav clearfix">
+                <div class="wayshow_navPosi">
+                    <div class="wayshow_navLe fl">
+                        <a href="javascript:window.history.go(-1);">
+                            <span class="icon_Firststep fl"></span>
+                        </a>
+                    </div>
+                    订单详情
+                </div>
+            </div>
+
+            <div class="content native-scroll">
+                <div class="receipt_detaTop pad_lr"><div class="order_Txt col_333"><span class="fr col_e01928">$GetOrderStateName(Order.State)</span>订单号：$Order.Id</div></div>
+                <div class="receipt_detaContacts">
+                    $set(Address = json(Order.Address))
+                    <h3>收货人：$Address.Consignee　$Address.Mobile</h3>
+                    <div class="receipt_detainfo">
+                        <div class="receipt_detaCon_main fl col_999">$Address.Province$Address.City$Address.County $Address.Address</div>
+                        <div class="receipt_detaCon_Le fl"><span class="purchasemy_icon choicedesc_icon"></span></div>
+                    </div>
+                </div>
+                <div class="way_line"></div>
+
+                <div class="order_shopTitle pad_lr">
+                    <a href="#">
+                        <span class="purchasemy_icon order_shopIcon"></span>
+                        <span class="col_333">$shopName</span>
+                        <span class="purchasemy_icon order_shopNextIcon"></span>
+                    </a>
+                </div>
+
+                <div class="order_all">
+                    <ul>
+                        <li><div class="order_Txt">下单时间：$Order.CreationDate</div></li>
+                        $set(maps=Order.GetMapping(this.DataSource))
+                        $foreach(map in maps)
+                        $set(info=json(map.ProductInfo))
+                        <!-- for goods list  -->
+                        <li class="purchaseall_Test">
+                            <div class="purchaseall_Le">
+                                <img src="$map.GetImage(info.Image)" />
+                            </div>
+                            <div class="purchaseall_Con">
+                                <h3 class="txt_hide2L col_333"><a href='http://xcpnet.com$url("/product/show/", map.ProductId)'>$info.Title</a></h3>
+                                <p class="txt_hide2L Coninfo col_999">
+                                    $foreach(attr in info.Series)
+                                    $attr.Key：$attr.Value&nbsp;
+                                    $end
+                                </p>
+                            </div>
+                            <div class="purchaseall_Re">
+                                <p class="col_999">￥$map.Price.ToString("f2")</p>
+                                <p class="col_999">X$map.Count</p>
+                            </div>
+                        </li>
+                        <!-- end for goods list  -->
+                        $end
+                    </ul>
+                </div>
+                <div class="purchase_ReceiptTest">
+                    <h3 class="col_333">价格信息</h3>
+                    <div>
+                        <ul>
+                            <li class="col_666">订单总金额：<span class="col_e01928">￥ <b>$Order.TotalMoney.ToString("f2")</b></span></li>
+                            <li class="col_666">邮费：<span class="col_e01928">￥ <b>$Order.FreightMoney.ToString("f2")</b></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="way_line"></div>
+            </div>
+            $if(order.State>5)
+            <div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+                <div class="purchaseall_Sub">
+                    <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+                </div>
+            </div>
+            $end
+            $if(order.State==1)
+            <div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+                <div class="purchaseall_Sub">
+                    <a class="payment_submit col_666 external" id="cancelOrder" data-id="$order.Id" href="javascript:void(0)" onclick="return delOrder('$order.Id')">取消订单</a>
+                    <a class="payment_submit col_fff external" href="$passport('/buy/perfect/',item.Id)">立即支付</a>
+                </div>
+            </div>
+            $elseif(order.State==2)
+            <div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+                <div class="purchaseall_Sub">
+                    <a data-id="$order.Id" href="javascript:void(0)" onclick="return delOrder('$order.Id')" class="col_e01928 external" style="border-color:#e01928">取消订单</a>
+                    <a href="$passport('/buy/payment/',order.Id)" class="payment_submit col_fff external">立即支付</a>
+                </div>
+            </div>
+            $elseif(order.State==3)
+            <div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+                <div class="purchaseall_Sub">
+                    <a href="javascript:reminderDelivery('$order.Id')" data-id="$order.Id" class="payment_submit col_fff external">提醒发货</a>
+                </div>
+            </div>
+            $elseif(order.State==4)
+            <div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+                <div class="purchaseall_Sub">
+                    <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+                    <a href="javascript:void(0)" onclick="doReceipt($order.Id)" data-id="$order.Id" class="payment_submit col_fff external">确认收货</a>
+                </div>
+            </div>
+            $elseif(order.State==5)
+            <div class="purchase_ReceiptBottom pad_lr bar bar-footer">
+                <div class="purchaseall_Sub">
+                    <a href="$url('/buy/logistics/',order.Id)" class="payment_submit col_666 external">查看物流</a>
+                    <a href="javascript:reminderDelivery('$order.Id')" data-id="$order.Id" class="payment_submit col_fff external">提醒发货</a>
+                </div>
+            </div>
+            $else
+
+            $end
+        </div>
+    </div>
+    <script type="text/javascript" src="$res('wap/js2.0/sm.min.js')"></script>
+    <script>
+        $(function () {
+            $(".payment_submitSee").click(function () {
+                var this_click = $(this);
+                payment_submit.payment(this_click)
+            })
+            $(".paymentback_icon").click(function () {
+                $(".purchaseall_payment").css("bottom", "100%")
+            })
+            $(".purchaseall_paymentDesc ul li").click(function () {
+                var this_click = $(this);
+                payment_submit.purchaseall_paymentDesc(this_click)
+            })
+
+        })
+        var payment_submit = function () {
+            this.click = function () {
+                var this_click = $(this);
+            }
+            this.payment = function (this_click) {
+                var this_Price = this_click.parent(".purchaseall_Sub").prev(".purchaseall_Txt").children('.col_ff7').children(".this_Price").text();
+                $(".purchaseall_Price").text(this_Price);
+                $(".purchaseall_payment").css("bottom", "0");
+            }
+            this.purchaseall_paymentDesc = function (this_click) {
+                $(".purchaseall_paymentDesc ul li").removeClass();
+                this_click.addClass("on")
+            }
+        }
+        var payment_submit = new payment_submit();
+    </script>
+</body>
+</html>

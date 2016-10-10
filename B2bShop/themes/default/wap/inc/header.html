@@ -1,0 +1,24 @@
+﻿<header class="bar bar-nav">
+    <div class="nav_main" style="padding:0 3rem 0 3rem;position:relative;">
+        <div class="bar_navre">
+            <label class="icon_search"></label>
+            <input type="search" id="search" value="$if(Filter!=null)$Filter.KeyWord$end" onclick="search()" placeholder="搜索进货产品" />
+        </div>
+        <div class="wayshow_navLe fl">
+            <a href="javascript:history.back(-1);">
+                <span class="icon_Firststep fl"></span>
+            </a>
+        </div>
+        <div class="wayshow_categoryLe fl" onclick="CategoryPages()">
+            <a href="javascript:;">
+                <span class="icon_CategoryLogo fl"></span>
+            </a>
+        </div>
+        <div class="way_shopcart">
+            <a href="$url('/cart')" class="external">
+                <div><img src="$res('wap/img2.0/jhb/icon_ShopCart2.png')"><span class="shopcart_num jsCount"></span></div>
+                <div>进货车</div>
+            </a>
+        </div>
+    </div>
+</header>

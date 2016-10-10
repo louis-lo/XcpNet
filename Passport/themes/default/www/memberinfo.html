@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>城品惠-个人信息</title>
+    $load("inc/comm.html")
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/cph/cityRankFavour-personageInf.css')">
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/datepicker/wdatepicker.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/kindeditor-min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/kindeditor/lang/zh_cn.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <style type="text/css">
+        #area select{
+            border: 1px solid #ccc;
+            /*width: 208px;*/
+            height: 24px;
+        }
+    </style>
+    <script type="text/javascript">
+        var editor = null;
+        $(document).ready(function () {
+            Cnaws.Area.Init('area', '$url("/country/")', $Location);
+            $("#form").jqxValidator({
+                rules: [
+                    { input: '#NickName', message: '请输入昵称', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#NickName', message: '长度不超过25个字', action: 'keyup, blur,focus', rule: function (input,commit) {
+                            if (input.val().length>25) {
+                                return false;
+                            }
+                            return true;
+                        }
+                    },
+                    { input: '#RealName', message: '请输入真实姓名', action: 'keyup, blur', rule: 'required' },
+                    {
+                        input: '#RealName', message: '长度不超过25个字', action: 'keyup, blur,focus', rule: function (input, commit) {
+                            if (input.val().length > 25) {
+                                return false;
+                            }
+                            return true;
+                        }
+                    },
+                    {
+                        input: '#Email', message: '邮箱的格式不正确', action: 'keyup, blur', rule: function (input, commit) {
+                            if (input.val()!='') {
+                                return /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(input.val());
+                            }
+                            return true;
+                        }
+                    },
+                    { input: '#Address', message: '请输入街道名称或小区名称', action: 'keyup, blur', rule: 'required' }
+                ]
+            });
+
+            editor = KindEditor.create('#Summary', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true,
+                width: 670,
+                height: 300
+            });
+
+        });
+        function changeImage() {
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    imageUrl: $('#Image').val(),
+                    clickFn: function (url, title) {
+                        $('#Image').val(url);
+                        $('#ImageZone').attr('src', url);
+                        editor.hideDialog();
+                    }
+                });
+            });
+        }
+        function onSubmit() {
+            var form = $('#form');
+            form.attr('disabled', true);
+            if (form.jqxValidator('validate')) {
+                Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('修改成功');
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                    args.form.attr('disabled', false);
+                }, { form: form });
+            }
+            else {
+                form.attr('disabled', false);
+            }
+            return false;
+        }
+
+        function checkMobile(mobile) {
+            /^1(3|4|5|6|7|8|9)\d{9}$/.test(mobile);
+            var exists = true;
+            $.ajax({
+                cache: false,
+                type: "POST",
+                dataType: "json",
+                async: false,
+                url: '$url("/register/checkmobile")',
+                data: 'Mobile=' + encodeURIComponent(mobile),
+                success: function (data) {
+                    exists = data.code == -200;
+                }
+            });
+            return exists;
+        }
+    </script>
+</head>
+<body>
+    <!-- 头部 开始 -->
+    $load("inc/top.html")
+    $load("inc/header.html")
+    <!-- 头部 结束 -->
+    <div class="center_targetWrap w1000">
+        <a class="center_targetOne" href="#">首页</a> <i></i> <a href="#"> 用户中心 </a>
+    </div>
+
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左侧边栏  -->
+        $load("inc/leftaside.html")
+
+        <!--内容 -->
+        <div class="center_topRight clearFix fl">
+            <div class="center_wrapRight fr">
+                <h2 class="center_wrapRightH">个人信息</h2>
+                <form id="form" action="$url('memberinfo/submit')" method="post" onsubmit="return onSubmit()">
+                    <div class="center_informationW">
+                        <div class="center_information clearfix">
+                            <div class="center_informationR fl">
+                                <span class="span_headImage">头像：</span>
+                                <span class="span_name">昵称：</span>
+                                <span class="span_same">真实姓名：</span>
+                                <span class="span_sex">性别：</span>
+                                $if(Member.Mobile>0)<span class="span_same">手机：</span>$end
+                                <span class="span_same">邮箱：</span>
+                                <span class="span_same">出生日期：</span>
+                                <span class="span_same">居住地址：</span>
+                            </div>
+                            <div class="center_informationL fl">
+                                <div class="center_inforP">
+                                    <img id="ImageZone" style="width:88px;height:88px;" src="$Member.GetImage(res('css/img/user/default_face.png'))" alt="用户头像"/>
+                                    <div class="center_inforBj undis"><a  href="javascript:void(0)" onclick="changeImage()">编辑头像</a></div>
+                                </div>
+                                <div class="center_inforInput">
+                                    <input class="inputClass" type="text" id="NickName" name="NickName" value="$Member.NickName" placeholder="长度不超过25个字符">
+                                    <div>
+                                        <div class="center_inforInput">
+                                            <input class="inputClass" id="RealName" name="RealName" type="text" value="$Member.RealName">
+                                        </div>
+                                        <div class="center_inforInput">
+                                            $if(Member.Sex==0)
+                                            <input type="radio" name="sex" /><span>男</span>
+                                            <input type="radio" name="sex" class="centerradioT" /><span>女</span>
+                                            <input type="radio" name="sex" class="centerradioT" checked="checked"/><span>保密</span>
+                                            $elseif(Member.Sex==1)
+                                            <input type="radio" name="sex" checked="checked" /><span>男</span>
+                                            <input type="radio" name="sex" class="centerradioT" /><span>女</span>
+                                            $elseif(Member.Sex==2)
+                                            <input type="radio" name="sex" /><span>男</span>
+                                            <input type="radio" name="sex" class="centerradioT" checked="checked" /><span>女</span>
+                                            $end
+                                        </div>
+                                        $if(Member.Mobile>0)<div class="center_inforInput">
+                                            <input class="inputClass" style="color:gray;" type="text" id="Mobile" name="Mobile" readonly="readonly" value="$if(Member.Mobile>0)$Member.Mobile$end" placeholder="电话号码、手机号码必须填一项">
+                                        </div>
+                                        $end
+                                        <div class="center_inforInput">
+                                            <input class="inputClass" type="text" id="Email" name="Email" value="$Member.Email" placeholder="请输入邮箱地址">
+                                        </div>
+                                        <div class="center_inforInput">
+                                            <input class="inputClass Wdate" type="text" id="Birthday" name="Birthday" value="$Member.Birthday.ToString('yyyy-MM-dd')" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+                                        </div>
+                                        <div class="center_inforInput" id="area">
+                                        </div>
+                                        <div class="center_inforInput "><!--textareaAddress-->
+                                            <textarea cols="60" rows="4" id="Address" name="Address" placeholder="建议您如实填写详细收货地址，例如街道名称，门牌号码，楼层和房间号等信息">$Member.Address</textarea>
+                                        </div>
+                                        <input type="hidden" id="Image" name="Image" value="$Member.Image" />
+                                        <div style="display:none"><textarea id="Summary" name="Summary"></textarea></div>
+                                        <input class="verify" style="padding-left:0" type="submit" value="确定"/>
+                                        <a class="verify_cancel verify">取消</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--右边侧栏-->
+    $load("inc/toolbar.html")
+    <!-- 底部  -->
+    $load("inc/bottom.html")
+</body>
+</html>

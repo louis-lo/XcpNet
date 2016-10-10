@@ -1,0 +1,403 @@
+﻿$if(this.IsAjax)
+$foreach(item in Templates)
+<option value="$item.Id">$item.Name</option>
+$end
+$else
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>运费模板 - $Site.Name</title>
+    <link rel="stylesheet" href="$res('css/base.css')">
+    <link rel="stylesheet" href="$res('css/u_common.css')">
+    <link rel="stylesheet" href="$res('css/s_common.css')">
+    <link rel="stylesheet" href="$res('css/u_goods.css')">
+    <link rel="stylesheet" href="$res('css/s_list.css')">
+    <style type="text/css">
+        .w-131 .btn {
+            margin-top: 6px;
+        }
+
+        .del-img {
+            position: absolute;
+            margin: 3px 0 0 -19px;
+            color: #FFF;
+            width: 16px;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            background: #CCC;
+            font-family: Verdana;
+            font-size: 14px;
+            border-radius: 2px;
+        }
+
+            .del-img:hover {
+                color: #FFF;
+                background: #F00;
+            }
+
+        .area * {
+            float: left;
+            display: inline;
+        }
+
+        .area div, .areabtn {
+            padding: 4px 22px 4px 4px;
+            border: solid 1px #E4E4E4;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+
+            .area div span {
+            }
+
+            .area div a {
+            }
+
+                .area div a.del-img {
+                    margin: 1px 0 0 3px;
+                    padding-bottom: 1px;
+                    height: 15px;
+                }
+
+        .areabtn {
+            padding: 0;
+            margin-right: 0;
+        }
+
+            .areabtn a {
+                height: 20px;
+                line-height: 20px;
+                padding: 0 2px 0 2px;
+                font-family: Verdana;
+                font-size: 28px;
+                color: #999;
+            }
+
+        .winbtn {
+            float: right;
+            display: inline-block;
+            width: 87px;
+            margin-left: 10px;
+            margin-top: 0;
+            height: 29px;
+            line-height: 29px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        #areaz {
+            width: 500px;
+            height: 30px;
+        }
+
+        .content .submit {
+            height: 23px;
+            line-height: 23px;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        .tfoot {
+            border-top: solid 1px #eaeaea;
+            background: #f9f9f9;
+        }
+
+        .jqx-window {
+            position: fixed !important;
+        }
+    </style>
+    $load("inc/comm.html")
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxwindow.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('/country/static/scripts/area.js')"></script>
+    <script type="text/javascript" src="$res('/country/alljson.html')"></script>
+    <script type="text/javascript">
+        var curtmp = null;
+        var curmap = null;
+        function deleteArea(el) {
+            $(el).parent().remove();
+        }
+        function addArea(e, f) {
+            curtmp = e;
+            curmap = f;
+            Cnaws.Area.Init('areaz', '$url("/country/")');
+            $('#areas').jqxWindow('open');
+        }
+        function hasArea(f, p, c) {
+            var d, e;
+            var a = document.getElementById(f).getElementsByClassName('area');
+            for (var j = 0; j < a.length; ++j) {
+                d = a[j].getElementsByTagName('div');
+                for (var i = 0; i < d.length; ++i) {
+                    e = d[i].getElementsByClassName('p');
+                    if (e.length > 0 && e[0].value == p) {
+                        e = d[i].getElementsByClassName('c');
+                        if (e.length > 0 && e[0].value == c) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        function addFreight(el) {
+            var form = $(el);
+            form.jqxValidator({
+                animationDuration: 0,
+                rules: [
+                    { input: '#Name', message: '请输入模板名称', action: 'keyup, blur', rule: 'required' },
+                ]
+            });
+
+            if (form.jqxValidator('validate')) {
+                form.attr('disabled', true);
+                Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                    if (data.code == -200) {
+                        window.location.href = '$url("/product/freighttemplate")';
+                    }
+                    else {
+                        Cnaws.showError(data.data);
+                    }
+                    args.form.attr('disabled', false);
+                }, { form: form });
+            }
+            return false;
+        }
+        function addMapping(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                if (data.code == -200) {
+                    window.location.href = '$url("/product/freighttemplate")';
+                }
+                else {
+                    Cnaws.showError('请先添加区域');
+                }
+                args.form.attr('disabled', false);
+            }, { form: form });
+            return false;
+        }
+        function modMapping(el) {
+            var form = $(el);
+            form.attr('disabled', true);
+            Cnaws.postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                if (data.code == -200) {
+                    Cnaws.showSuccess('修改成功');
+                }
+                else {
+                    Cnaws.showError('区域不能为空');
+                }
+                args.form.attr('disabled', false);
+            }, { form: form });
+            return false;
+        }
+        function delMapping(id) {
+            if (window.confirm('删除后不可恢复，确认删除？')) {
+                Cnaws.postAjax('$url("/product/delmapping")', 'Id=' + id, function (data, args) {
+                    if (data.code == -200) {
+                        window.location.href = '$url("/product/freighttemplate")';
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                }, null);
+            }
+            return false;
+        }
+        function delFreight(id) {
+            if (window.confirm('删除后不可恢复，确认删除？')) {
+                Cnaws.postAjax('$url("/product/delfreight")', 'Id=' + id, function (data, args) {
+                    if (data.code == -200) {
+                        window.location.href = '$url("/product/freighttemplate")';
+                    }
+                    else {
+                        Cnaws.showError('数据操作失败，请联系管理员');
+                    }
+                }, null);
+            }
+            return false;
+        }
+        $(document).ready(function () {
+            $('#areas').jqxWindow({
+                width: 'auto',
+                height: 'auto',
+                autoOpen: false,
+                resizable: false,
+                draggable: false,
+                isModal: true,
+                modalOpacity: 0.3,
+                cancelButton: $('#cancel'),
+                initContent: function () {
+                    $('#ok').focus();
+                }
+            });
+            $('#ok').click(function (e) {
+                var p = $('#areaz_provinces').val();
+                var c = $('#areaz_cities').val();
+                if (c == undefined) {
+                    c = 0;
+                }
+                var n;
+                if (p == 0) {
+                    n = '全国';
+                }
+                else {
+                    if (c == 0) {
+                        n = AreaAll[p].name;
+                    }
+                    else {
+                        n = AreaAll[c].name;
+                    }
+                }
+                if (!hasArea(curtmp, p, c)) {
+                    $('#' + curmap).append($('<div><span>' + n + '</span><input type="hidden" class="p" name="ProvinceId" value="' + p + '" /><input type="hidden" class="c" name="CityId" value="' + c + '" /><a class="del-img" href="javascript:void(0)" onclick="deleteArea(this)">X</a></div>'));
+                }
+                else {
+                    Cnaws.showError('已选择了区域“' + n + '”');
+                }
+                $('#areas').jqxWindow('close');
+                return true;
+            });
+        });
+    </script>
+</head>
+<body>
+    $load("inc/top.html")
+    $load("inc/s_header.html")
+
+    <!-- BEGIN main -->
+    <div class="clearfix content-wrap main">
+        $load("inc/s_aside.html")
+        <!-- BEGIN content -->
+        <div class="content">
+            <!-- BEGIN list-header -->
+            <ul class="clearfix list-header">
+                <li class="w-255">区域</li>
+                <li style="width:120px;">运费(元)</li>
+                <li style="width:120px;">条件</li>
+                <li style="width:120px;">运费(元)</li>
+                <li style="width:217px;">操作</li>
+            </ul>
+            <!-- END list-header -->
+            <!-- BEGIN list -->
+            <div class="list-body">
+                <form action="$url('/product/addfreight')" method="post" onsubmit="return addFreight(this)">
+                    <table class="list-item">
+                        <thead>
+                            <tr>
+                                <th class="clearfix" style="height:36px;padding-left:10px;padding-right:10px;line-height:36px;background-color:#EAEAEA;">
+                                    <div class="f-left">名称：<input type="text" id="Name" name="Name" class="text" style="width:200px" placeholder="请输入模板名称" /></div>
+                                    <div class="f-right"><input type="submit" class="submit" value="添加模板" style="width:80px" /></div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </form>
+                $foreach(item in Templates)
+                $set(index=foreachIndex)
+                <table id="t-$index" class="list-item">
+                    <thead>
+                        <tr>
+                            <th colspan="5" class="clearfix" style="height:36px;padding-left:10px;padding-right:10px;line-height:36px;background-color:#EAEAEA;">
+                                <div class="f-left">名称：$item.Name</div>
+                                <div class="f-right">
+                                    <input type="button" class="submit" value="删除模板" style="width:80px" onclick="delFreight($item.Id)" />
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        $foreach(map in item.GetMapping(this.DataSource))
+                        <tr>
+                            <td>
+                                <form action="$url('/product/modmapping')" method="post" onsubmit="return modMapping(this)">
+                                    <table>
+                                        <tr>
+                                            <td class="w-255" style="padding:10px;">
+                                                <div class="f-left area" id="a-$index-$foreachIndex">
+                                                    $foreach(area in map.GetMapping(this.DataSource))
+                                                    <div><span>$GetArea(area.ProvinceId,area.CityId)</span><input type="hidden" class="p" name="ProvinceId" value="$area.ProvinceId" /><input type="hidden" class="c" name="CityId" value="$area.CityId" /><a class="del-img" href="javascript:void(0)" onclick="deleteArea(this)">X</a></div>
+                                                    $end
+                                                </div>
+                                                <div class="f-left areabtn">
+                                                    <a href="javascript:void(0)" onclick="addArea('t-$index', 'a-$index-$foreachIndex')">+</a>
+                                                </div>
+                                            </td>
+                                            <td style="width:120px;">
+                                                <input type="text" id="Money_$index" name="Money" value="$map.Money.ToString('F2')" class="text" style="width:80px" />
+                                            </td>
+                                            <td style="width:120px;">
+                                                <input type="text" id="StepNumber_$index" name="StepNumber" value="$map.StepNumber" class="text" style="width:80px" />
+                                            </td>
+                                            <td style="width:120px;">
+                                                <input type="text" id="StepMoney_$index" name="StepMoney" value="$map.StepMoney.ToString('F2')" class="text" style="width:80px" />
+                                            </td>
+                                            <td style="width:217px;">
+                                                <input type="hidden" name="Id" value="$map.Id" />
+                                                <input type="submit" class="submit" value="修改" style="width:80px" />
+                                                <input type="button" class="submit" value="删除" style="width:80px" onclick="delMapping($map.Id)" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </td>
+                        </tr>
+                        $end
+                    </tbody>
+                    <tfoot class="tfoot">
+                        <tr>
+                            <th>
+                                <form action="$url('/product/addmapping')" method="post" onsubmit="return addMapping(this)">
+                                    <table>
+                                        <tr>
+                                            <td class="w-255" style="padding:10px;">
+                                                <div class="f-left area" id="a-$index"></div>
+                                                <div class="f-left areabtn">
+                                                    <a href="javascript:void(0)" onclick="addArea('t-$index', 'a-$index')">+</a>
+                                                </div>
+                                            </td>
+                                            <td style="width:120px;">
+                                                <input type="text" name="Money" class="text" style="width:80px" value="0.00" />
+                                            </td>
+                                            <td style="width:120px;">
+                                                <input type="text" name="StepNumber" class="text" style="width:80px" value="0" />
+                                            </td>
+                                            <td style="width:120px;">
+                                                <input type="text" iname="StepMoney" class="text" style="width:80px" value="0.00" />
+                                            </td>
+                                            <td style="width:217px;">
+                                                <input type="hidden" name="TemplateId" value="$item.Id" />
+                                                <input type="submit" class="submit" value="添加区域" style="width:80px" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+                $end
+            </div>
+            <!-- END list -->
+        </div>
+        <!-- END content -->
+    </div>
+    <!-- END main -->
+    $load("inc/bottom.html")
+
+    <div id="areas" style="display:none">
+        <div><span>添加区域</span></div>
+        <div>
+            <div id="areaz" style="padding:10px"></div>
+            <div class="clearfix" style="padding:10px">
+                <input type="button" id="cancel" value="取消" class="submit winbtn" />
+                <input type="button" id="ok" value="确定" class="submit winbtn" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+$end

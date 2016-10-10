@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>提现进度</title>
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/publicStyle.css')">
+    <link rel="stylesheet" type="text/css" href="$res('css2.0/myJoinSucceed.css')">
+    $load("inc/s_comm.html")
+    <meta charset="utf-8" />
+</head>
+<body>
+    $load("inc/d_top.html")
+    <!-- 中间 开始 -->
+    <div class="center_wrap w1000 clearFix">
+        <!-- 左边导航 -->
+        $load("inc/d_side.html")
+        <!-- 左边导航 结束-->
+        <!-- 右边 开始 -->
+        <div class="center_wrapRight fr ">
+            <div class="dredgeId_top">
+                <span class="mySy">提现记录</span>
+            </div>
+            <div class="panel">
+                <!-- 提现提示-->
+                <div class="embody-div clearFix">
+                    <div class="embody-div-img"></div>
+                    <div class="embody-div-tishi">
+                        <span>$DrawOrder.GetOrderStateText()</span>
+                    </div>
+                    <div class="embody-div-jine">
+                        <span>(金额：$DrawOrder.DrawMoney.ToString("c2"))</span>
+                    </div>
+                </div>
+                <!-- 详情-->
+                <div class="detail-div">
+                    <div class="detail-div-bank clearFix">
+                        <div class="bank-img">
+                            <img src="$DefaultBank.B.Icon">
+                        </div>
+                        <div class="bank-zhanghao">
+                            <div class="bank-title">
+                                <h1>$DrawOrder.BankName</h1>
+                            </div>
+                            <div class="bank-name">
+                                <span>$SubBankCard</span>
+                            </div>
+                            <div class="bank-zh">
+                                <span> 流水账号 :$DrawOrder.OrderId</span>
+                            </div>
+                        </div>
+                        <div class="bank-date">
+                            <span>创建时间：$DrawOrder.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                        </div>
+                    </div>
+                    <!-- 提现进度 -->
+                    <div class="schedule-div">
+                        $if(DrawOrder.OrderState=='PendingAudit')
+                        <div class="schedule-img"></div>
+                        $elseif(DrawOrder.OrderState=='InTreatment')
+                        <div class="schedule-img2"></div>
+                        $else
+                        <div class="schedule-img3"></div>
+                        $end
+                        <div class="schedule-date">
+                            <ul class="clearFix">
+                                <li class="schedule-one"><p>提交申请</p><span>$DrawOrder.CreateTime.ToString("yyyy-MM-dd HH:mm:ss")</span></li>
+                                <li class="schedule-two">
+                                    <p>审核中</p>
+                                    $if(DrawOrder.OrderState=='PendingAudit')
+                                    <span> $DrawOrder.ProcessingDateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    $end
+                                </li>
+                                <li class="schedule-three">
+                                    <p>等待转账</p>
+                                    $if(DrawOrder.OrderState=='InTreatment')
+                                    <span> $DrawOrder.ProcessingDateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    $end
+                                </li>
+                                <li class="schedule-four">
+                                    <p>提现成功</p>
+                                     $if(DrawOrder.OrderState=='TradeSuccess')
+                                    <span> $DrawOrder.TradeSuccessDateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                    $end
+                                </li>
+                                <li id="schedule-four"><span>到账银行：$DrawOrder.BankName</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="embody-bottom-div">
+                        转账单号：$DrawOrder.OrderId
+                        <div class="embody-bottom-img clearFix">
+                            <div class="embodyPrint fl">
+                                $foreach(img in CredentialImgs)
+                                <img src="$img">
+                                $end
+                                <p>凭证单</p>
+                            </div>
+                            $if(DrawOrder.OrderState=='AuditFailure')
+                            <div class="embodyPrint fl">
+                                <span>失败理由:$DrawOrder.RefusalReasons</span>
+                            </div>
+                            $end
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 右边 结束 -->
+    <!-- 中间 结束 -->
+    $load("inc/bottom.html")
+</body>
+</html>

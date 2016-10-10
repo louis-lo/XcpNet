@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5130D29D-2E27-42B5-B8D1-EE6D5B98CBAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XcpNet.B2bShop</RootNamespace>
+    <AssemblyName>XcpNet.B2bShop</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\Buy.cs" />
+    <Compile Include="Controllers\Cart.cs" />
+    <Compile Include="Controllers\Category.cs" />
+    <Compile Include="Controllers\Index.cs" />
+    <Compile Include="Controllers\Product.cs" />
+    <Compile Include="Controllers\Programme.cs" />
+    <Compile Include="Controllers\ShippingAddress.cs" />
+    <Compile Include="DistributorAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupplierOrDistributorAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Ad\Cnaws.Ad.csproj">
+      <Project>{0b7a74d4-93d4-4eb0-914b-4d05e52db800}</Project>
+      <Name>Cnaws.Ad</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Area\Cnaws.Area.csproj">
+      <Project>{4FA51704-50B8-48BC-889E-A3EA2C723258}</Project>
+      <Name>Cnaws.Area</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Data\Cnaws.Data.csproj">
+      <Project>{CE902B7F-B059-4762-8B53-EECBCB1B831C}</Project>
+      <Name>Cnaws.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Json\Cnaws.Json.csproj">
+      <Project>{1C0696F0-1736-4B61-B581-A038ED1F67E5}</Project>
+      <Name>Cnaws.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Passport\Cnaws.Passport.csproj">
+      <Project>{dbe3b4bf-c373-4a22-a26e-3eac4d6d7ca7}</Project>
+      <Name>Cnaws.Passport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Pay\Cnaws.Pay.csproj">
+      <Project>{131e704c-50ca-4f69-bb87-99ca369bafe5}</Project>
+      <Name>Cnaws.Pay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Product\Cnaws.Product.csproj">
+      <Project>{aad69600-adff-4798-947b-e30d651901d0}</Project>
+      <Name>Cnaws.Product</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Resources\Cnaws.Resources.csproj">
+      <Project>{39955889-1404-4a20-a3e9-956537528b7e}</Project>
+      <Name>Cnaws.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Sms\Cnaws.Sms.csproj">
+      <Project>{B59C85E1-A3FD-4250-AB23-63CA29AB64C5}</Project>
+      <Name>Cnaws.Sms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Statistic\Cnaws.Statistic.csproj">
+      <Project>{c3b14328-1449-4a20-b022-466394085247}</Project>
+      <Name>Cnaws.Statistic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Web.Templates\Cnaws.Web.Templates.csproj">
+      <Project>{6DDCB7F1-0C80-4D85-82D0-5109AB1EF9E3}</Project>
+      <Name>Cnaws.Web.Templates</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws.Web\Cnaws.Web.csproj">
+      <Project>{ef5fbd6b-c513-458a-9aa0-19ffa1c64aba}</Project>
+      <Name>Cnaws.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cnaws\Cnaws\Cnaws\Cnaws.csproj">
+      <Project>{e629a227-782d-47a6-b49b-31ff16ccbeb2}</Project>
+      <Name>Cnaws</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.AlterSale\XcpNet.AlterSales.csproj">
+      <Project>{f853c5b5-88c9-4a7e-a079-73cacf36723a}</Project>
+      <Name>XcpNet.AlterSales</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Buy\XcpNet.Common.csproj">
+      <Project>{1ae9a993-3efe-4f5c-b580-eac90c06564d}</Project>
+      <Name>XcpNet.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Passport\XcpNet.Passport.csproj">
+      <Project>{f5adbbb9-e85b-4ede-96df-1a80489c6a7b}</Project>
+      <Name>XcpNet.Passport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Resources\XcpNet.Resources.csproj">
+      <Project>{6d5d5fb1-5329-42a6-bdb5-190cb62dd853}</Project>
+      <Name>XcpNet.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Services\XcpNet.Services.csproj">
+      <Project>{D599A149-909B-4589-A157-F8A44C803E98}</Project>
+      <Name>XcpNet.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XcpNet.Supplier.Modules\XcpNet.Supplier.Modules.csproj">
+      <Project>{2f5f74c9-1292-4cde-8e9a-182a14c871e6}</Project>
+      <Name>XcpNet.Supplier.Modules</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

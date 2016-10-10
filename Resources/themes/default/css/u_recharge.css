@@ -1,0 +1,27 @@
+.list-body {
+	padding: 20px;
+	padding-top: 0;
+	background-color: #FFF;
+	border: 1px solid #E2E2E2;
+}
+.list-body table {
+	width: 100%;
+}
+.list-body tr:nth-child(even) {
+	background-color: #F5F5F5;
+}
+.list-body th,
+.list-body td {
+	text-align: center;
+}
+.list-body th {
+	height: 46px;
+	line-height: 46px;
+	font-weight: 700;
+}
+.list-body td {
+	height: 38px;
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: 38px;
+}

@@ -1,0 +1,117 @@
+/* BEGIN main */
+.main {
+	padding-top: 58px;
+	padding-bottom: 80px;
+	
+}
+.reg-form {
+	width: 357px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.form-body,
+.form-aside {
+	float: left;
+}
+
+.form-body .input-box label {
+	width: 70px;
+}
+.form-body .input-box input {
+    text-indent: 70px;
+	width: 348px;
+}
+
+.form-aside {
+	padding-left: 50px;
+}
+.form-aside {
+	margin-top: 20px;
+}
+.form-aside a {
+	display: block;
+	width: 170px;
+	height: 38px;
+	margin-top: 15px;
+	font-size: 16px;
+	font-family: '\5FAE\8F6F\96C5\9ED1';
+	text-align: center;
+	color: #7f411c;
+	line-height: 38px;
+	border: 1px solid #7F401D;
+}
+/* END main */
+
+.jqx-validator-error-label {
+    text-indent: 70px !important;
+}
+.jqx-tabs {
+    border: none !important;
+}
+.jqx-widget-header {
+    background: none !important;
+    border: 0 !important;
+    width: auto !important;
+    padding-left: 80px !important;
+    padding-right: 80px !important;
+}
+.jqx-tabs-title,.jqx-tabs-title-selected-top {
+    border: 0 !important;
+    border-radius: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 119px !important;
+    padding: 5px 0 !important;
+}
+.jqx-tabs-titleContentWrapper {
+    text-align: center !important;
+    width: 100%;
+    font-size: 14px !important;
+}
+.jqx-tabs-title-selected-top {
+    background: #ff6a00 !important;
+    color: #fff !important;
+}
+.form-body .input-box label{text-indent:10px;}
+.content-wrap{position:relative;}
+.main .bg{position: absolute;top:18px;left: -120px;}
+#Captcha1,#SmsCaptcha1{width:122px;}
+.jqx-validator-error-label{width: 348px !important;}
+#captchaLink1,#smsCaptchaLink1{position: absolute;top: 0px;left:150px;}
+#smsCaptchaLink1{background:#eee;padding:0px 20px;}
+.reg-Loginimmediately a{
+    float: right;
+    font-size: 12px;
+    color: #cc3333;
+    padding: 6px 8px;
+    border: 1px solid #e4393c;
+}
+
+/* register */
+.main {
+    height:605px;
+}
+#agreement, #agreement * {
+    color: #666;
+    font-family: "Microsoft YaHei","Hiragino Sans GB";
+}
+#agreement h4, #agreement h5 {
+    color: #333;
+    font-size: 14px;
+}
+#agreement h5 {
+    margin: 10px 0;
+}
+#agreement .jqx-window-header {
+    background: #f3f3f3 none repeat scroll 0 0 !important;
+}
+#agreement .jqx-window-header span {
+    color: #000;
+    font-weight: bold;
+    margin-left: -70px;
+}
+#agreement .jqx-window-close-button-background {
+    margin-right: 10px !important;
+}

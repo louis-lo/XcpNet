@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <title>$Article.Title-$Site.Name</title>
+    <link href="//res.xcpnet.com" rel="dns-prefetch" />
+    <link href="//static.xcpnet.com" rel="dns-prefetch" />
+    <link href="//wap.xcpnet.com" rel="dns-prefetch" />
+    <link href="//wappass.xcpnet.com" rel="dns-prefetch" />
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.windowsphone.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.blackberry.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.android.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.mobile.css')" />
+    <link rel="stylesheet" type="text/css" href="$res('wap/css/comm.css')">
+    <script type="text/javascript" src="$res('js/base_css.js')"></script>
+    <script type="text/javascript" src="$res('js/base.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/iscroll/iscroll-probe.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/scripts/scroll.js')"></script>
+    <style type="text/css">
+	.wrapper{top:1.346667rem;bottom:1.26667rem;}
+	.article-header,.article-content {margin-top:0.373333rem;padding-left: 0.24rem;padding-right: 0.24rem;}
+	.article-header h2{line-height:1.5;}
+	.article-header p{margin-top:0.133333rem;background:url($res('wap/css/img/time.png')) no-repeat left top;padding-left:16px;background-size: 12px 12px;}
+	[data-dpr="2"] .article-header p{padding-left:28px;background-size: 24px 24px;}
+	[data-dpr="3"] .article-header p{padding-left:40px;background-size: 36px 36px;}
+	.article-content p{margin-bottom:0.24rem;line-height:1.8;}
+	</style>
+    <script type="text/javascript">
+        var scroll = null;
+        function goBack() {
+            if (window.history.length > 0) {
+                window.history.back();
+            }
+            else {
+                window.location.href = '$Site.Url';
+            }
+            return false;
+        }
+        $(document).ready(function () {
+            scroll = $('#wrapper').scrolling();
+        });
+    </script>
+</head>
+<body>
+    <!-- BEGIN app -->
+    <div class="app">
+        <nav class="nav-01">
+            <ul class="clearfix">
+                <li>
+                    <a href="$url('/')">首页</a>
+                </li>
+                <li>
+                    <a href="$url('/channel/discount')">七货来了</a>
+                </li>
+                <li>
+                    <a href="$url('/channel/promotions')">网货节</a>
+                </li>
+                <li>
+                    <a href="$url('/channel/one')"> 1元抢</a>
+                </li>
+                <li>
+                    <a href="$passport('/ucenter')">会员中心</a>
+                </li>
+            </ul>
+        </nav>
+        <header class="header-02"><a class="back" href="javascript:void(0)" onclick="return goBack()"></a><h1>$Article.Title</h1></header>
+        <!-- BEGIN wrapper -->
+        <div id="wrapper" class="wrapper">
+            <!-- BEGIN content -->
+            <div id="scroller" class="content scroller">
+                <article>
+                    <header class="article-header">
+                        <h2>$Article.Title</h2>
+                        <p style="color:#999;">$Article.CreationDate.ToString()</p>
+                    </header>
+                    <div class="article-content">$Article.Content</div>
+                </article>
+            </div>
+            <!-- BEGIN content -->
+        </div>
+        <!-- EDN wrapper -->
+    </div>
+    <!-- END app -->
+</body>
+</html>
